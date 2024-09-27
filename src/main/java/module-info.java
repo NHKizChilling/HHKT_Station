@@ -10,6 +10,7 @@ module com.example.hhkt_station {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens com.example.hhkt_station to javafx.fxml;
     exports com.example.hhkt_station;
