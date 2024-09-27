@@ -15,6 +15,10 @@ public class HanhKhach {
     public HanhKhach() {
     }
 
+    public HanhKhach(String maHanhKhach) {
+        setMaHanhKhach(maHanhKhach);
+    }
+
     public HanhKhach(String maHanhKhach, String tenHanhKhach, String soCCCD, String sdt,
                      LocalDate ngaySinh, boolean gioiTinh, String email) {
         setMaHanhKhach(maHanhKhach);

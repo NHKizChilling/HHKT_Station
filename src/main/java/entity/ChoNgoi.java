@@ -8,8 +8,22 @@ public class ChoNgoi {
     private int tang;
     private int khoang;
     private String trangThai;
+    private double giaCho;
 
     public ChoNgoi() {
+    }
+
+    public ChoNgoi(String maChoNgoi) {
+        setMaChoNgoi(maChoNgoi);
+    }
+
+    public ChoNgoi(String maChoNgoi, Toa toa, int tang, int khoang, String trangThai, double giaCho) {
+        setMaChoNgoi(maChoNgoi);
+        setToa(toa);
+        setTang(tang);
+        setKhoang(khoang);
+        setTrangThai(trangThai);
+        setGiaCho(giaCho);
     }
 
     public ChoNgoi(String maChoNgoi, Toa toa, int tang, int khoang, String trangThai) {
@@ -63,7 +77,19 @@ public class ChoNgoi {
                 giaCho = 110000;
             }
         }
+        this.giaCho = giaCho;
         return giaCho;
+    }
+
+    public double getGiaCho() {
+        return giaCho;
+    }
+
+    public void setGiaCho(double giaCho) {
+        if (giaCho < 0) {
+            throw new IllegalArgumentException("Giá chỗ không hợp lệ");
+        }
+        this.giaCho = giaCho;
     }
 
     public String getMaChoNgoi() {

@@ -9,6 +9,10 @@ public class LoaiTau {
     public LoaiTau() {
     }
 
+    public LoaiTau(String maLoaiTau) {
+        setMaLoaiTau(maLoaiTau);
+    }
+
     public LoaiTau(String maLoaiTau, String tenLoaiTau) {
         setMaLoaiTau(maLoaiTau);
         setTenLoaiTau(tenLoaiTau);

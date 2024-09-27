@@ -2,7 +2,13 @@ package dao;
 
 import connectdb.ConnectDB;
 import entity.ChiTietHoaDon;
+import entity.HoaDon;
+import entity.Ve;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class CT_HoaDon_DAO {
@@ -16,32 +22,26 @@ public class CT_HoaDon_DAO {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
 
-            String sql = "Select * from CT_HoaDon";
+            String sql = "Select * from ChiTietHoaDon";
             Statement st = con.createStatement();
 
             ResultSet rs = st.executeQuery(sql);
 
             while(rs.next()) {
-
-                String maHD = rs.getString("MaHD");
-                HoaDon mhd = new HoaDon_DAO().getHoaDonTheoMaHD(maHD);
-
-                String maSP = rs.getString(2);
-                //SanPham msp = new SanPham(maSP);
-                SanPham sp = sanPham_dao.getDSSanPhamTheoMa(maSP).get(0);
-
+                HoaDon hoaDon = new HoaDon(rs.getString(1));
+                Ve ve = new Ve(rs.getString(2));
                 int soLuong = rs.getInt(3);
+                double giamGia = rs.getDouble(4);
 
-                double chietKhau = rs.getDouble(4);
+                ChiTietHoaDon ctHoaDon = new ChiTietHoaDon(hoaDon, ve, soLuong, giamGia);
+                list.add(ctHoaDon);
 
-                CT_HoaDon ct = new CT_HoaDon(mhd, sp, soLuong, chietKhau);
-                dsCTHD.add(ct);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return dsCTHD;
+        return list;
     }
 
 }
-}
+

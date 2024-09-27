@@ -9,17 +9,32 @@ public class Ve {
     private HanhKhach hanhKhach;
     private LichTrinh lichTrinh;
     private String tinhTrangVe;
+    private boolean khuHoi;
 
     public Ve() {
     }
 
-    public Ve(String maVe, LoaiVe loaiVe, ChoNgoi choNgoi, HanhKhach hanhKhach, LichTrinh lichTrinh, String tinhTrangVe) {
+    public Ve(String maVe) {
+        setMaVe(maVe);
+    }
+
+    public Ve(String maVe, LoaiVe loaiVe, ChoNgoi choNgoi, HanhKhach hanhKhach,
+              LichTrinh lichTrinh, String tinhTrangVe, boolean khuHoi) {
         setMaVe(maVe);
         setLoaiVe(loaiVe);
         setChoNgoi(choNgoi);
         setHanhKhach(hanhKhach);
         setLichTrinh(lichTrinh);
         setTinhTrangVe(tinhTrangVe);
+        setKhuHoi(khuHoi);
+    }
+
+    public boolean isKhuHoi() {
+        return khuHoi;
+    }
+
+    public void setKhuHoi(boolean khuHoi) {
+        this.khuHoi = khuHoi;
     }
 
     public String getMaVe() {

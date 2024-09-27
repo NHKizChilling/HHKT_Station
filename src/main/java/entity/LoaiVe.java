@@ -10,6 +10,10 @@ public class LoaiVe {
     public LoaiVe() {
     }
 
+    public LoaiVe(String maLoaiVe) {
+        setMaLoaiVe(maLoaiVe);
+    }
+
     public String getMaLoaiVe() {
         return maLoaiVe;
     }

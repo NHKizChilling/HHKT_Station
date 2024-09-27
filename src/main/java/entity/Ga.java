@@ -11,6 +11,10 @@ public class Ga {
     public Ga() {
     }
 
+    public Ga(String maGa) {
+        setMaGa(maGa);
+    }
+
     public Ga(String maGa, String tenGa, String viTri) {
         setMaGa(maGa);
         setTenGa(tenGa);

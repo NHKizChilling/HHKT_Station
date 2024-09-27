@@ -11,6 +11,10 @@ public class Toa {
     public Toa() {
     }
 
+    public Toa(String maToa) {
+        setMaToa(maToa);
+    }
+
     public Toa(String maToa, int soSTToa, LoaiToa loaiToa, ChuyenTau chuyenTau) {
         setMaToa(maToa);
         setSoSTToa(soSTToa);

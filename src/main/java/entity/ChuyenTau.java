@@ -9,6 +9,10 @@ public class ChuyenTau {
     public ChuyenTau() {
     }
 
+    public ChuyenTau(String soHieutau) {
+        setSoHieutau(soHieutau);
+    }
+
     public ChuyenTau(String soHieutau, LoaiTau loaiTau) {
         setSoHieutau(soHieutau);
         setLoaiTau(loaiTau);

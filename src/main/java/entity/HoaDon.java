@@ -9,8 +9,24 @@ public class HoaDon {
     private NhanVien nhanVien;
     private LocalDateTime ngayLapHoaDon;
     private HanhKhach hanhKhach;
+    private double tongTien;
+    private double tongGiamGia;
 
     public HoaDon() {
+    }
+
+    public HoaDon(String maHoaDon) {
+        setMaHoaDon(maHoaDon);
+    }
+
+    public HoaDon(String maHoaDon, NhanVien nhanVien, LocalDateTime ngayLapHoaDon,
+                  HanhKhach hanhKhach, ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
+        setMaHoaDon(maHoaDon);
+        setNhanVien(nhanVien);
+        setNgayLapHoaDon(ngayLapHoaDon);
+        setHanhKhach(hanhKhach);
+        tinhTongTien(dsChiTietHoaDon);
+        tinhTongGiamGia(dsChiTietHoaDon);
     }
 
     public HoaDon(String maHoaDon, NhanVien nhanVien, LocalDateTime ngayLapHoaDon,
@@ -19,22 +35,43 @@ public class HoaDon {
         setNhanVien(nhanVien);
         setNgayLapHoaDon(ngayLapHoaDon);
         setHanhKhach(hanhKhach);
+        setTongTien(tongTien);
+        setTongGiamGia(giamGia);
     }
 
     public double tinhTongTien(ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
-        double tongTien = 0;
+        tongTien = 0;
+        double phiDichVu = dsChiTietHoaDon.size() * 2000;
+
         for (ChiTietHoaDon chiTietHoaDon : dsChiTietHoaDon) {
             tongTien += chiTietHoaDon.tinhGiaVe();
         }
+        tongTien += phiDichVu;
         return tongTien;
     }
 
     public double tinhTongGiamGia(ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
-        double tongGiamGia = 0;
+        tongGiamGia = 0;
         for (ChiTietHoaDon chiTietHoaDon : dsChiTietHoaDon) {
-            tongGiamGia += chiTietHoaDon.tinhGiamGia();
+            tongGiamGia += chiTietHoaDon.tinhGiaGiam();
         }
         return tongGiamGia;
+    }
+
+    public double getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
+    }
+
+    public double getTongGiamGia() {
+        return tongGiamGia;
+    }
+
+    public void setTongGiamGia(double tongGiamGia) {
+        this.tongGiamGia = tongGiamGia;
     }
 
     public String getMaHoaDon() {

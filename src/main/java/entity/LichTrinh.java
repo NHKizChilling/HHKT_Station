@@ -17,6 +17,10 @@ public class LichTrinh {
     public LichTrinh() {
     }
 
+    public LichTrinh(String maLichTrinh) {
+        setMaLichTrinh(maLichTrinh);
+    }
+
     public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDi, Ga gaDen, int khoangCach,
                      LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
         setMaLichTrinh(maLichTrinh);

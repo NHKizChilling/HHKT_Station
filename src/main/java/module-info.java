@@ -11,6 +11,7 @@ module com.example.hhkt_station {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires java.desktop;
 
     opens com.example.hhkt_station to javafx.fxml;
     exports com.example.hhkt_station;
