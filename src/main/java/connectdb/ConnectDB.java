@@ -12,7 +12,7 @@ public class ConnectDB {
         return connection;
     }
     public static void connect() throws SQLException {
-        String url = "jdbc:sqlserver://localhost:1433;databaseName=QLBH";
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=QLBanVe";
         String username = "sa";
         String password = "123456";
 
@@ -34,5 +34,4 @@ public class ConnectDB {
             }
         }
     }
-
 }

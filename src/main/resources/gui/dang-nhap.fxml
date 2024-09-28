@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" prefHeight="385.0" prefWidth="500.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DangNhapController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <BorderPane prefHeight="363.0" prefWidth="444.0">
+        <left>
+            <AnchorPane prefHeight="346.0" prefWidth="196.0" style="-fx-background-color: cyan;" BorderPane.alignment="CENTER">
+                <children>
+                    <ImageView fitHeight="346.0" fitWidth="200.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" />
+                </children>
+            </AnchorPane>
+        </left>
+        <right>
+            <AnchorPane prefHeight="346.0" prefWidth="330.0" style="-fx-background-color: #5098ff;" BorderPane.alignment="CENTER">
+                <children>
+                    <Label layoutX="23.0" layoutY="100.0" text="Tên đăng nhập">
+                        <font>
+                            <Font name="Times New Roman Bold" size="15.0" />
+                        </font>
+                    </Label>
+                    <Label layoutX="37.0" layoutY="162.0" text="Mật khẩu">
+                        <font>
+                            <Font name="Times New Roman Bold" size="15.0" />
+                        </font>
+                    </Label>
+                    <Button layoutX="196.0" layoutY="206.0" mnemonicParsing="false" onAction="#onLoginButtonClick" text="Đăng nhập" />
+                    <Button layoutX="120.0" layoutY="206.0" mnemonicParsing="false" onAction="#onResetButtonClick" text="Làm mới" />
+                    <Button layoutX="53.0" layoutY="206.0" mnemonicParsing="false" onAction="#onQuitButtonClick" text="Thoát" />
+                    <PasswordField fx:id="pwd" layoutX="143.0" layoutY="159.0" />
+                    <TextField fx:id="txtTK" layoutX="144.0" layoutY="97.0" />
+                </children>
+            </AnchorPane>
+        </right>
+    </BorderPane>
+</VBox>
