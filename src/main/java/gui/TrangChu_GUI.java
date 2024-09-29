@@ -17,7 +17,7 @@ public class TrangChu_GUI extends Application {
         Scene scene = new Scene(root);
         primaryStage.setTitle("Trang chủ");
         primaryStage.setScene(scene);
-        primaryStage.getIcons().add(new Image("file:src/img/logo.png"));
+        primaryStage.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
         primaryStage.show();
     }
 
