@@ -14,9 +14,9 @@
          <left>
             <AnchorPane prefHeight="383.0" prefWidth="130.0" style="-fx-background-color: #5098ff;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="imgLogo" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="148.0" fitWidth="154.0" layoutX="1.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/logo.png" />
+                        <Image url="@../img/logo.png" />
                      </image>
                   </ImageView>
                </children>

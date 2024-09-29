@@ -7,6 +7,7 @@ package controller;
 
 import gui.TrangChu_GUI;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 
@@ -21,5 +22,12 @@ public class TrangChuController {
     protected void onDangNhapClick() throws Exception {
         TrangChu_GUI trangChu = new TrangChu_GUI();
         trangChu.changeScene("loader.fxml");
+    }
+
+    @FXML
+    protected void onClick() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Home Page");
+        alert.show();
     }
 }
