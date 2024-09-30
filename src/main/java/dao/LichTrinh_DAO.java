@@ -52,7 +52,7 @@ public class LichTrinh_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from LichTrinh where maLichTrinh = ?";
+            String sql = "Select * from LichTrinh where MaLichTrinh = ?";
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
@@ -78,7 +78,7 @@ public class LichTrinh_DAO {
         int n = 0;
         PreparedStatement stm = null;
         try {
-            String sql = "update LichTrinh set trangThai = ? where maLichTrinh = ?";
+            String sql = "update LichTrinh set TrangThai = ? where MaLichTrinh = ?";
             stm = con.prepareStatement(sql);
             stm.setBoolean(1, trangThai);
             stm.setString(2, maLichTrinh);
@@ -96,7 +96,7 @@ public class LichTrinh_DAO {
         int n = 0;
         PreparedStatement stm = null;
         try {
-            String sql = "update LichTrinh set chuyenTau = ?, gaDi = ?, gaDen = ?, khoangCach = ?, thoiGianKhoiHanh = ?, thoiGianDuKienDen = ?, trangThai = ? where maLichTrinh = ?";
+            String sql = "update LichTrinh set SoHieuTau = ?, MaGaDi = ?, MaGaDen = ?, KhoangCach = ?, ThoiGianKhoiHanh = ?, ThoiGianDuKienDen = ?, TrangThai = ? where MaLichTrinh = ?";
             stm = con.prepareStatement(sql);
             stm.setString(1, lichTrinh.getChuyenTau().getSoHieutau());
             stm.setString(2, lichTrinh.getGaDi().getMaGa());
@@ -143,7 +143,7 @@ public class LichTrinh_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from LichTrinh where maLichTrinh = ?";
+            String sql = "Select * from LichTrinh where MaLichTrinh = ?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1, maLichTrinh);
             ResultSet rs = stm.executeQuery();

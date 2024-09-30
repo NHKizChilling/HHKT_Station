@@ -37,6 +37,12 @@ public class LichTrinh {
         return maLichTrinh;
     }
 
+    // mã bao gồm "LT" + số hiệu tàu + ngày khởi hành
+    public void sinhMaLichTrinh() {
+        String rawMaLichTrinh = "LT" + chuyenTau.getSoHieutau() + thoiGianKhoiHanh.toString();
+        this.maLichTrinh = rawMaLichTrinh.replaceAll("[^a-zA-Z0-9]", "");
+    }
+
     public void setMaLichTrinh(String maLichTrinh) {
         if (maLichTrinh == null || maLichTrinh.isBlank()) {
             throw new IllegalArgumentException("Mã lịch trình không hợp lệ");

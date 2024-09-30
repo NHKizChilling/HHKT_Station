@@ -49,10 +49,12 @@ public class Ve_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from Ve where maVe = '" + maVe + "'";
-            Statement st = con.createStatement();
+            PreparedStatement stm = null;
+            String sql = "Select * from Ve where MaVe = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, maVe);
 
-            ResultSet rs = st.executeQuery(sql);
+            ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
                 LoaiVe loaiVe = new LoaiVe(rs.getString(2));
@@ -109,7 +111,7 @@ public class Ve_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update Ve set MaLoaiVe = ?, MaChoNgoi = ?, MaHanhKhach = ?, MaLichTrinh = ?, TinhTrangVe = ? where MaVe = ?");
+            stm = con.prepareStatement("update Ve set MaLoaiVe = ?, MaSoCho = ?, MaHK = ?, MaLT = ?, TinhTrangVe = ?, KhuHoi = ? where MaVe = ?");
 
             stm.setString(1, ve.getLoaiVe().getMaLoaiVe());
             stm.setString(2, ve.getChoNgoi().getMaChoNgoi());
@@ -117,6 +119,7 @@ public class Ve_DAO {
             stm.setString(4, ve.getLichTrinh().getMaLichTrinh());
             stm.setString(5, ve.getTinhTrangVe());
             stm.setString(6, ve.getMaVe());
+            stm.setBoolean(7, ve.isKhuHoi());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -165,10 +168,12 @@ public class Ve_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from Ve where TinhTrangVe = '" + tinhTrangVe + "'";
-            Statement st = con.createStatement();
+            PreparedStatement stm = null;
+            String sql = "Select * from Ve where TinhTrangVe = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, tinhTrangVe);
 
-            ResultSet rs = st.executeQuery(sql);
+            ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
                 String maVe = rs.getString(1);
