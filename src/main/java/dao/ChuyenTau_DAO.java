@@ -43,7 +43,7 @@ public class ChuyenTau_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from ChuyenTau where soHieutau = ?";
+            String sql = "Select * from ChuyenTau where SoHieutau = ?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1, soHieuTau);
 
@@ -60,31 +60,6 @@ public class ChuyenTau_DAO {
         return chuyenTau;
     }
 
-    public boolean updateTrangThaiChoNgoi(String maSoCho, String trangThai) {
-        ConnectDB.getInstance();
-        Connection con = ConnectDB.getConnection();
-        PreparedStatement stm = null;
-        int n = 0;
-        try {
-            stm = con.prepareStatement("update ChoNgoi set TrangThai = ? where MaSoCho = ?");
-
-            stm.setString(1, trangThai);
-            stm.setString(2, maSoCho);
-
-            n = stm.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (stm != null) {
-                try {
-                    stm.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return n > 0;
-    }
 
     public boolean create(ChuyenTau chuyenTau) {
         ConnectDB.getInstance();

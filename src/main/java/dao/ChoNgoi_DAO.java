@@ -48,7 +48,7 @@ public class ChoNgoi_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from ChoNgoi where maToa = '" + maToa + "'";
+            String sql = "Select * from ChoNgoi where MaToa = '" + maToa + "'";
             Statement st = con.createStatement();
 
             ResultSet rs = st.executeQuery(sql);
@@ -107,7 +107,7 @@ public class ChoNgoi_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update ChoNgoi set maToa = ?, tang = ?, khoang = ?, trangThai = ?, giaCho = ? where maChoNgoi = ?");
+            stm = con.prepareStatement("update ChoNgoi set MaToa = ?, Tang = ?, Khoang = ?, TrangThai = ?, GiaCho = ? where MaChoNgoi = ?");
 
             stm.setString(1, choNgoi.getToa().getMaToa());
             stm.setInt(2, choNgoi.getTang());

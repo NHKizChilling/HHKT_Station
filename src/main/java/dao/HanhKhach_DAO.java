@@ -79,7 +79,7 @@ public class HanhKhach_DAO {
         PreparedStatement stm;
         int n = 0;
         try {
-            stm = con.prepareStatement("update HanhKhach set TenHanhKhach = ?, SoCCCD = ?, SDT = ?, NgaySinh = ?, GioiTinh = ?, Email = ? where MaHanhKhach = ?");
+            stm = con.prepareStatement("update HanhKhach set TenHK = ?, SoCCCD = ?, SDT = ?, NgaySinh = ?, GioiTinh = ?, Email = ? where MaHanhKhach = ?");
 
             stm.setString(1, hk.getTenHanhKhach());
             stm.setString(2, hk.getSoCCCD());
@@ -110,7 +110,7 @@ public class HanhKhach_DAO {
         PreparedStatement stm;
         int n = 0;
         try {
-            stm = con.prepareStatement("delete from HanhKhach where MaHanhKhach = ?");
+            stm = con.prepareStatement("delete from HanhKhach where MaHK = ?");
             stm.setString(1, maHanhKhach);
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -132,7 +132,7 @@ public class HanhKhach_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from HanhKhach where MaHanhKhach = ?";
+            String sql = "Select * from HanhKhach where MaHK = ?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1, maHanhKhach);
             ResultSet rs = stm.executeQuery();

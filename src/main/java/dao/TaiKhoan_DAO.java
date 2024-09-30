@@ -73,7 +73,7 @@ public class TaiKhoan_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update TaiKhoan set TrangThaiTK = ? where MaNhanVien = ?");
+            stm = con.prepareStatement("update TaiKhoan set TrangThaiTK = ? where MaNV = ?");
 
             stm.setString(1, traThaiTK);
             stm.setString(2, maNhanVien);
@@ -99,7 +99,7 @@ public class TaiKhoan_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update TaiKhoan set MatKhau = ?, TrangThaiTK = ? where MaNhanVien = ?");
+            stm = con.prepareStatement("update TaiKhoan set MatKhau = ?, TrangThaiTK = ? where MaNV = ?");
 
             stm.setString(1, tk.getMatKhau());
             stm.setString(2, tk.getTrangThaiTK());
@@ -126,7 +126,7 @@ public class TaiKhoan_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update TaiKhoan set MatKhau = ? where MaNhanVien = ?");
+            stm = con.prepareStatement("update TaiKhoan set MatKhau = ? where MaNV = ?");
 
             stm.setString(1, matKhauMoi);
             stm.setString(2, maNhanVien);

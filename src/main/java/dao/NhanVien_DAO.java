@@ -85,7 +85,7 @@ public class NhanVien_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update NhanVien set TinhTrangCV = ? where MaNhanVien = ?");
+            stm = con.prepareStatement("update NhanVien set TinhTrangCV = ? where MaNV = ?");
 
             stm.setString(1, tinhTrangCV);
             stm.setString(2, maNV);
@@ -173,7 +173,7 @@ public class NhanVien_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update NhanVien set TenNhanVien = ?, SoCCCD = ?, NgaySinh = ?, GioiTinh = ?, Sdt = ?, Email = ?, ChucVu = ?, TinhTrangCV = ? where MaNhanVien = ?");
+            stm = con.prepareStatement("update NhanVien set HoTenNV = ?, SoCCCD = ?, NgaySinh = ?, GioiTinh = ?, SDT = ?, Email = ?, ChucVu = ?, TinhTrangCV = ? where MaNhanVien = ?");
 
             stm.setString(1, nv.getTenNhanVien());
             stm.setString(2, nv.getSoCCCD());
