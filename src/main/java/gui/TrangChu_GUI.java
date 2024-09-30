@@ -24,6 +24,10 @@ public class TrangChu_GUI extends Application {
     public void changeScene(String fxml) throws Exception {
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
         stage.getScene().setRoot(pane);
+        stage.setHeight(pane.maxHeight(1));
+        stage.setWidth(pane.maxWidth(1));
+        stage.sizeToScene();
+        stage.centerOnScreen();
     }
 
 

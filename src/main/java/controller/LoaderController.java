@@ -8,7 +8,6 @@ package controller;
 import gui.TrangChu_GUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.effect.Blend;
 
 /*
  * @description:
@@ -22,11 +21,11 @@ public class LoaderController {
 
     @FXML
     protected void onLoading() {
+        loader.setProgress(0.0);
         double progress = 0.0;
         while(loader.getProgress() < 1.0) {
             progress += 0.1;
             loader.setProgress(Math.round(progress * 100.0) / 100.0);
-            loader.setClip(loader.getStyleableNode());
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {

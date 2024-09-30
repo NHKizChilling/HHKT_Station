@@ -69,7 +69,7 @@ public class NhanVien {
             throw new IllegalArgumentException("Mã nhân viên không hợp lệ");
         }
         // mã nhân viên bao gồm: NV+ngày sinh nhân viên+4 chũ số tăng dần
-        if (!maNhanVien.matches("NV[0-9]{8}$")) {
+        if (!maNhanVien.matches("^NV[0-9]{9}$")) {
             throw new IllegalArgumentException("Mã nhân viên không hợp lệ");
         }
 
