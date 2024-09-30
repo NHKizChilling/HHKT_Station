@@ -4,9 +4,9 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoaderController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: cyan;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoaderController">
    <children>
-      <ProgressBar fx:id="loader" layoutX="50.0" layoutY="30.0" prefWidth="200.0" progress="0.0" />
       <Button fx:id="btnLoad" layoutX="114.0" layoutY="55.0" mnemonicParsing="false" onAction="#onLoading" text="Loading..." />
+      <ProgressBar fx:id="loader" layoutX="50.0" layoutY="25.0" prefWidth="200.0" progress="0.0" />
    </children>
 </AnchorPane>
