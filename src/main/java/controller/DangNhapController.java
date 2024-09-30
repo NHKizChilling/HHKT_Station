@@ -15,8 +15,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.sql.SQLException;
 
@@ -76,16 +74,25 @@ public class DangNhapController {
                 return;
             } else {
                 if(taiKhoan.getMatKhau().equals(pass1)) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Thông báo");
-                    alert.setContentText("Đăng nhập thành công");
-                    alert.show();
-                    try {
-                        new TrangChu_GUI().changeScene("trang-chu.fxml");
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+                    if(taiKhoan.getTrangThaiTK().equals("Đang hoạt động")) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Thông báo");
+                        alert.setContentText("Đăng nhập thành công");
+                        alert.show();
+                        try {
+                            new TrangChu_GUI().changeScene("trang-chu.fxml");
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                        return;
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Lỗi");
+                        alert.setContentText("Tài khoản đã bị khóa!");
+                        alert.showAndWait();
+                        txtTK.requestFocus();
+                        return;
                     }
-                    return;
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Lỗi");
