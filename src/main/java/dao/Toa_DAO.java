@@ -44,7 +44,7 @@ public class Toa_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from Toa where maToa = ?";
+            String sql = "Select * from Toa where MaToa = ?";
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
@@ -86,7 +86,7 @@ public class Toa_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            String sql = "update Toa set soSTTToa = ?, chuyenTau = ?, loaiToa = ? where maToa = ?";
+            String sql = "update Toa set STTToa = ?, SoHieuTau = ?, MaLoaiToa = ? where MaToa = ?";
             stm = con.prepareStatement(sql);
             stm.setInt(1, toa.getSoSTToa());
             stm.setString(2, toa.getChuyenTau().getSoHieutau());
@@ -106,7 +106,7 @@ public class Toa_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            String sql = "delete from Toa where maToa = ?";
+            String sql = "delete from Toa where MaToa = ?";
             stm = con.prepareStatement(sql);
             stm.setString(1, maToa);
 
