@@ -2,11 +2,10 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.paint.Color?>
@@ -14,77 +13,22 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" style="-fx-border-color: lightblue; -fx-border-width: 5; -fx-background-radius: 5;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DangNhapController">
+<BorderPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="350.0" prefWidth="550.0" style="-fx-border-color: lightblue; -fx-border-width: 2; -fx-background-radius: 5;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DangNhapController">
    <left>
-      <AnchorPane prefHeight="290.0" prefWidth="150.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+      <AnchorPane maxWidth="1.7976931348623157E308" prefHeight="340.0" prefWidth="180.0" style="-fx-background-color: #5098ff;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="156.0" fitWidth="150.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/logo.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="12.0" layoutY="206.0" text="HHKT Station" textFill="#676b8c">
+            <Label layoutX="26.0" layoutY="205.0" text="HHKT Station" textFill="#d5d6d9">
                <font>
                   <Font name="Times New Roman Bold" size="20.0" />
                </font>
             </Label>
-         </children>
-      </AnchorPane>
-   </left>
-   <right>
-      <AnchorPane prefHeight="290.0" prefWidth="340.0" style="-fx-background-color: #5090ff; -fx-border-color: blue; -fx-border-width: 0 0 0 1;" BorderPane.alignment="CENTER">
-         <children>
-            <TextField fx:id="txtTK" layoutX="90.0" layoutY="108.0" prefHeight="30.0" prefWidth="231.0" promptText="Mã nhân viên" style="-fx-border-width: 0 0 2 0; -fx-background-color: transparent; -fx-border-color: blue;">
-               <font>
-                  <Font name="Times New Roman" size="15.0" />
-               </font></TextField>
-            <PasswordField fx:id="pwd" layoutX="90.0" layoutY="168.0" onKeyReleased="#changeInputPass" prefHeight="30.0" prefWidth="231.0" promptText="Mật khẩu" style="-fx-border-width: 0 0 2 0; -fx-background-color: transparent; -fx-border-color: blue;">
-               <font>
-                  <Font name="Times New Roman" size="15.0" />
-               </font></PasswordField>
-            <Button fx:id="btnDangNhap" layoutX="220.0" layoutY="232.0" mnemonicParsing="false" onAction="#onLoginButtonClick" style="-fx-background-color: skyblue; -fx-background-radius: 10;" text="Đăng nhập" textFill="WHITE">
-               <font>
-                  <Font name="Times New Roman Bold" size="15.0" />
-               </font></Button>
-            <Button fx:id="btnLamMoi" layoutX="115.0" layoutY="232.0" mnemonicParsing="false" onAction="#onResetButtonClick" style="-fx-background-color: skyblue; -fx-background-radius: 10;" text="Làm mới" textFill="WHITE">
-               <font>
-                  <Font name="Times New Roman Bold" size="15.0" />
-               </font></Button>
-            <Button fx:id="btnThoat" layoutX="31.0" layoutY="232.0" mnemonicParsing="false" onAction="#onQuitButtonClick" style="-fx-background-color: skyblue; -fx-background-radius: 10;" text="Thoát" textFill="WHITE">
-               <font>
-                  <Font name="Times New Roman Bold" size="15.0" />
-               </font></Button>
-            <Label contentDisplay="CENTER" layoutX="99.0" layoutY="7.0" text="Đăng nhập" textAlignment="CENTER">
-               <font>
-                  <Font name="Times New Roman Bold" size="30.0" />
-               </font>
-               <textFill>
-                  <LinearGradient endX="1.0" endY="1.0">
-                     <stops>
-                        <Stop>
-                           <color>
-                              <Color red="0.11535561084747314" green="0.032499998807907104" blue="0.6499999761581421" />
-                           </color>
-                        </Stop>
-                        <Stop offset="1.0">
-                           <color>
-                              <Color red="0.2588694095611572" green="0.3074723780155182" blue="0.8421052694320679" />
-                           </color>
-                        </Stop>
-                     </stops>
-                  </LinearGradient>
-               </textFill>
-            </Label>
-            <FontAwesomeIcon glyphName="USER" layoutX="30.0" layoutY="136.0" selectionEnd="1" selectionStart="1" size="3em" wrappingWidth="30.228683471679688">
-               <font>
-                  <Font size="15.0" />
-               </font>
+            <FontAwesomeIcon glyphName="TRAIN" layoutX="38.0" layoutY="158.0" size="10em">
                <fill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
                         <Stop>
                            <color>
-                              <Color red="0.821052610874176" green="0.7754386067390442" blue="0.7754386067390442" />
+                              <Color red="0.800000011920929" green="0.800000011920929" blue="0.800000011920929" />
                            </color>
                         </Stop>
                         <Stop offset="1.0">
@@ -96,21 +40,121 @@
                   </LinearGradient>
                </fill>
             </FontAwesomeIcon>
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="346.0" prefWidth="368.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="txtTK" layoutX="90.0" layoutY="108.0" prefHeight="30.0" prefWidth="231.0" promptText="Mã nhân viên" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: blue;">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font></TextField>
+            <PasswordField fx:id="pwd" layoutX="90.0" layoutY="168.0" onKeyReleased="#changeInputPass" prefHeight="30.0" prefWidth="231.0" promptText="Mật khẩu" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: blue;">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font></PasswordField>
+            <Button fx:id="btnDangNhap" alignment="BASELINE_RIGHT" layoutX="206.0" layoutY="246.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="28.0" prefWidth="101.0" style="-fx-background-color: skyblue; -fx-background-radius: 10;" text="Đăng nhập">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.4748849868774414" green="0.47345030307769775" blue="0.4842105209827423" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.4736842215061188" green="0.4614035189151764" blue="0.4614035189151764" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill></Button>
+            <Button fx:id="btnLamMoi" alignment="BASELINE_RIGHT" layoutX="90.0" layoutY="246.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="28.0" prefWidth="89.0" style="-fx-background-color: skyblue; -fx-background-radius: 10;" text="Làm mới">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.4748849868774414" green="0.47345030307769775" blue="0.4842105209827423" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.4736842215061188" green="0.4614035189151764" blue="0.4614035189151764" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill></Button>
+            <Button fx:id="btnThoat" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="160.0" layoutY="294.0" mnemonicParsing="false" onAction="#onQuitButtonClick" prefHeight="28.0" prefWidth="73.0" style="-fx-background-color: #e36856; -fx-background-radius: 10;" text="Thoát">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.4748849868774414" green="0.47345030307769775" blue="0.4842105209827423" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.4736842215061188" green="0.4614035189151764" blue="0.4614035189151764" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill></Button>
+            <Label contentDisplay="CENTER" layoutX="115.0" layoutY="7.0" text="Đăng nhập" textAlignment="CENTER" textFill="#5098ff">
+               <font>
+                  <Font name="Times New Roman Bold" size="30.0" />
+               </font>
+            </Label>
+            <FontAwesomeIcon glyphName="USER" layoutX="30.0" layoutY="136.0" selectionEnd="1" selectionStart="1" size="3em" wrappingWidth="30.228683471679688">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <fill>
+                  <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.42105263471603394" green="0.41325536370277405" blue="0.41325536370277405" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </FontAwesomeIcon>
             <FontAwesomeIcon glyphName="LOCK" layoutX="34.0" layoutY="196.0" size="3em">
                <font>
                   <Font size="15.0" />
                </font>
                <fill>
-                  <LinearGradient endX="1.0" endY="1.0">
+                  <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0">
                      <stops>
                         <Stop>
                            <color>
-                              <Color red="0.821052610874176" green="0.7754386067390442" blue="0.7754386067390442" />
+                              <Color />
                            </color>
                         </Stop>
                         <Stop offset="1.0">
                            <color>
-                              <Color red="1.0" green="1.0" blue="1.0" />
+                              <Color red="0.42105263471603394" green="0.41325536370277405" blue="0.41325536370277405" />
                            </color>
                         </Stop>
                      </stops>
@@ -127,28 +171,86 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </TextField>
-            <FontAwesomeIcon glyphName="USERS" layoutX="144.0" layoutY="83.0" size="4em">
+            <FontAwesomeIcon glyphName="USERS" layoutX="160.0" layoutY="83.0" size="4em">
                <font>
                   <Font name="Times New Roman Bold" size="15.0" />
                </font>
                <fill>
-                  <LinearGradient endX="1.0" endY="1.0">
+                  <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0">
                      <stops>
                         <Stop>
                            <color>
-                              <Color red="0.9263157844543457" green="0.8611305952072144" blue="0.8611305952072144" />
+                              <Color />
                            </color>
                         </Stop>
                         <Stop offset="1.0">
                            <color>
-                              <Color red="1.0" green="1.0" blue="1.0" />
+                              <Color red="0.42105263471603394" green="0.41325536370277405" blue="0.41325536370277405" />
                            </color>
                         </Stop>
                      </stops>
                   </LinearGradient>
                </fill>
             </FontAwesomeIcon>
+            <FontAwesomeIcon glyphName="REFRESH" layoutX="97.0" layoutY="265.0" text="">
+               <fill>
+                  <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.4526315927505493" green="0.43922027945518494" blue="0.43922027945518494" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.5157894492149353" green="0.5043274760246277" blue="0.5043274760246277" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </FontAwesomeIcon>
+            <FontAwesomeIcon glyphName="SIGN_IN" layoutX="211.0" layoutY="265.0" text="">
+               <fill>
+                  <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.4526315927505493" green="0.43922027945518494" blue="0.43922027945518494" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.5157894492149353" green="0.5043274760246277" blue="0.5043274760246277" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </FontAwesomeIcon>
+            <Hyperlink alignment="CENTER" layoutX="211.0" layoutY="212.0" text="Quên mật khẩu?">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.3415204584598541" green="0.4482456147670746" blue="0.7684210538864136" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.33138400316238403" green="0.4910006523132324" blue="0.8947368264198303" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Hyperlink>
+            <FontAwesomeIcon glyphName="WARNING" layoutX="168.0" layoutY="312.0" />
          </children>
       </AnchorPane>
-   </right>
+   </center>
 </BorderPane>

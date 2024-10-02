@@ -1,5 +1,7 @@
 package gui;
 
+import controller.TrangChuController;
+import entity.NhanVien;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,31 +9,23 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 public class TrangChu_GUI extends Application {
 
-    private static Stage stage;
+    public static NhanVien nv;
+    public static Stage stage;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        stage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("trang-chu.fxml"));
+        nv = null;
+        stage = new Stage();
+        Parent root = FXMLLoader.load(TrangChu_GUI.class.getResource("dang-nhap.fxml"));
         Scene scene = new Scene(root);
-        primaryStage.setTitle("Trang chủ");
-        primaryStage.setScene(scene);
-        primaryStage.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
-        primaryStage.show();
-    }
-
-    public void changeScene(String fxml) throws Exception {
-        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
-        stage.getScene().setRoot(pane);
-        stage.setHeight(pane.maxHeight(1));
-        stage.setWidth(pane.maxWidth(1));
-        stage.sizeToScene();
-        stage.centerOnScreen();
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
+        stage.setTitle("Trang chủ");
+        stage.setScene(scene);
+        stage.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
+        stage.setResizable(false);
+        stage.show();
     }
 }

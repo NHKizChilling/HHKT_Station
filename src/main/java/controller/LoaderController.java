@@ -5,9 +5,15 @@
  */
 package controller;
 
+import entity.NhanVien;
 import gui.TrangChu_GUI;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.effect.Effect;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /*
  * @description:
@@ -15,13 +21,14 @@ import javafx.scene.control.ProgressBar;
  * @date:   28/09/2024
  * version: 1.0
  */
-public class LoaderController {
+public class LoaderController implements Initializable {
+    private TrangChu_GUI trangChu = new TrangChu_GUI();
     @FXML
     private ProgressBar loader;
 
-    @FXML
-    protected void onLoading() {
-        loader.setProgress(0.0);
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loader.setStyle("-fx-arrows-visible: true");
         double progress = 0.0;
         while(loader.getProgress() < 1.0) {
             progress += 0.1;
@@ -31,12 +38,6 @@ public class LoaderController {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-        TrangChu_GUI trangChu = new TrangChu_GUI();
-        try {
-            trangChu.changeScene("dang-nhap.fxml");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
