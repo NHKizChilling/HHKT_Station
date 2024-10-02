@@ -45,25 +45,8 @@ public class NhanVien {
         setChucVu(chucVu);
         setEmail(email);
         setTinhTrangCV(tinhTrangCV);
-        sinhMa(dsNhanVien);
     }
 
-    public void sinhMa(ArrayList<NhanVien> list) {
-        // mã nhân viên bao gồm: NV+ngày sinh nhân viên+4 chũ số tăng dần
-        String ma = "NV" + this.ngaySinh.toString().replace("-", "");
-
-        int num = list.size() + 1;
-        if (num < 10) {
-            ma += "000" + num;
-        } else if (num < 100) {
-            ma += "00" + num;
-        } else if (num < 1000) {
-            ma += "0" + num;
-        } else {
-            ma += num;
-        }
-        setMaNhanVien(ma);
-    }
 
     public LocalDate getNgaySinh() {
         return ngaySinh;

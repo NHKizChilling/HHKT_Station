@@ -20,13 +20,11 @@ public class HoaDon {
     }
 
     public HoaDon(String maHoaDon, NhanVien nhanVien, LocalDateTime ngayLapHoaDon,
-                  HanhKhach hanhKhach, ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
+                  HanhKhach hanhKhach) {
         setMaHoaDon(maHoaDon);
         setNhanVien(nhanVien);
         setNgayLapHoaDon(ngayLapHoaDon);
         setHanhKhach(hanhKhach);
-        tinhTongTien(dsChiTietHoaDon);
-        tinhTongGiamGia(dsChiTietHoaDon);
     }
 
     public HoaDon(String maHoaDon, NhanVien nhanVien, LocalDateTime ngayLapHoaDon,

@@ -28,8 +28,9 @@ public class Ga_DAO {
                 String maGa = rs.getString(1);
                 String tenGa = rs.getString(2);
                 String vitri = rs.getString(3);
+                int khoangCach = rs.getInt(4);
 
-                Ga ga = new Ga(maGa, tenGa, vitri);
+                Ga ga = new Ga(maGa, tenGa, vitri, khoangCach);
                 list.add(ga);
             }
         } catch (Exception e) {
@@ -44,11 +45,12 @@ public class Ga_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("insert into Ga values(?,?,?)");
+            stm = con.prepareStatement("insert into Ga values(?,?,?,?)");
 
             stm.setString(1, ga.getMaGa());
             stm.setString(2, ga.getTenGa());
             stm.setString(3, ga.getViTri());
+            stm.setInt(4, ga.getKhoangCach());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -71,11 +73,12 @@ public class Ga_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update Ga set TenGa = ?, ViTri = ? where MaGa = ?");
+            stm = con.prepareStatement("update Ga set TenGa = ?, ViTri = ?, KhoangCach = ? where MaGa = ?");
 
             stm.setString(1, ga.getTenGa());
             stm.setString(2, ga.getViTri());
             stm.setString(3, ga.getMaGa());
+            stm.setInt(4, ga.getKhoangCach());
 
             n = stm.executeUpdate();
         } catch (Exception e) {

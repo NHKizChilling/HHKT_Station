@@ -60,7 +60,7 @@ public class ChiTietHoaDon {
 
     public double tinhGiaVe() {
         double giaCho = ve.getChoNgoi().getGiaCho();
-        double khoangCach = ve.getLichTrinh().getKhoangCach();
+        double khoangCach = ve.getLichTrinh().getGaDen().getKhoangCach();
         double giaCoBan = giaCho * khoangCach;
         double heSoKhoangCach = 1;
         double heSoToa;
