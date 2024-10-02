@@ -8,7 +8,6 @@ public class LichTrinh {
     private ChuyenTau chuyenTau;
     private Ga gaDi;
     private Ga gaDen;
-    private int khoangCach;
     private LocalDateTime thoiGianKhoiHanh;
     private LocalDateTime thoiGianDuKienDen;
     private boolean tinhTrang;
@@ -21,13 +20,12 @@ public class LichTrinh {
         setMaLichTrinh(maLichTrinh);
     }
 
-    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDi, Ga gaDen, int khoangCach,
+    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDi, Ga gaDen,
                      LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
         setMaLichTrinh(maLichTrinh);
         setChuyenTau(chuyenTau);
         setGaDi(gaDi);
         setGaDen(gaDen);
-        setKhoangCach(khoangCach);
         setThoiGianKhoiHanh(thoiGianKhoiHanh);
         setThoiGianDuKienDen(thoiGianDuKienDen);
         setTinhTrang(tinhTrang);
@@ -37,11 +35,11 @@ public class LichTrinh {
         return maLichTrinh;
     }
 
-    // mã bao gồm "LT" + số hiệu tàu + ngày khởi hành
-    public void sinhMaLichTrinh() {
-        String rawMaLichTrinh = "LT" + chuyenTau.getSoHieutau() + thoiGianKhoiHanh.toString();
-        this.maLichTrinh = rawMaLichTrinh.replaceAll("[^a-zA-Z0-9]", "");
-    }
+//    // mã bao gồm "LT" + số hiệu tàu + ngày khởi hành
+//    public void sinhMaLichTrinh() {
+//        String rawMaLichTrinh = "LT" + chuyenTau.getSoHieutau() + thoiGianKhoiHanh.toString();
+//        this.maLichTrinh = rawMaLichTrinh.replaceAll("[^a-zA-Z0-9]", "");
+//    }
 
     public void setMaLichTrinh(String maLichTrinh) {
         if (maLichTrinh == null || maLichTrinh.isBlank()) {
@@ -82,17 +80,7 @@ public class LichTrinh {
         }
         this.gaDen = gaDen;
     }
-
-    public int getKhoangCach() {
-        return khoangCach;
-    }
-
-    public void setKhoangCach(int khoangCach) {
-        if (khoangCach <= 0) {
-            throw new IllegalArgumentException("Khoảng cách không hợp lệ");
-        }
-        this.khoangCach = khoangCach;
-    }
+    
 
     public LocalDateTime getThoiGianKhoiHanh() {
         return thoiGianKhoiHanh;
