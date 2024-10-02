@@ -86,7 +86,7 @@ public class NhanVien {
             throw new IllegalArgumentException("Mã nhân viên không hợp lệ");
         }
         // mã nhân viên bao gồm: NV+ngày sinh nhân viên+4 chũ số tăng dần
-        if (!maNhanVien.matches("^NV[0-9]{9}$")) {
+        if (!maNhanVien.toLowerCase().matches("nv[0-9]{9}$")) {
             throw new IllegalArgumentException("Mã nhân viên không hợp lệ");
         }
 
@@ -102,9 +102,9 @@ public class NhanVien {
         if (tenNhanVien == null || tenNhanVien.isBlank()) {
             throw new IllegalArgumentException("Tên nhân viên không được để trống");
         }
-        if (!tenNhanVien.matches("^[A-Z][a-z]+(\\s[A-Z][a-z]+)*$")) {
-            throw new IllegalArgumentException("Tên nhân viên không hợp lệ");
-        }
+//        if (!tenNhanVien.matches("^[A-Z][a-z]+(\s[A-Z][a-z]+)*$")) {
+//            throw new IllegalArgumentException("Tên nhân viên không hợp lệ");
+//        }
         this.tenNhanVien = tenNhanVien;
     }
 
@@ -177,9 +177,9 @@ public class NhanVien {
             throw new IllegalArgumentException("Tình trạng công việc không được để trống");
         }
         // gồm 3 trạng thái: "Đang làm việc", "Đã nghỉ việc", "Tạm nghỉ"
-        if (!tinhTrangCV.equals("Đang làm việc") && !tinhTrangCV.equals("Đã nghỉ việc") && !tinhTrangCV.equals("Tạm nghỉ")) {
-            throw new IllegalArgumentException("Tình trạng công việc không hợp lệ");
-        }
+//        if (!tinhTrangCV.equals("Đang làm việc") && !tinhTrangCV.equals("Đã nghỉ việc") && !tinhTrangCV.equals("Tạm nghỉ")) {
+//            throw new IllegalArgumentException("Tình trạng công việc không hợp lệ");
+//        }
         this.tinhTrangCV = tinhTrangCV;
     }
 
