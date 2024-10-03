@@ -32,12 +32,11 @@ public class LichTrinh_DAO {
                 ChuyenTau chuyenTau = new ChuyenTau(rs.getString(2));
                 Ga gaDi = new Ga(rs.getString(3));
                 Ga gaDen = new Ga(rs.getString(4));
-                int khoangCach = rs.getInt(5);
-                LocalDateTime thoiGianKhoiHanh = rs.getTimestamp(6).toLocalDateTime();
-                LocalDateTime thoiGianDuKienDen = rs.getTimestamp(7).toLocalDateTime();
-                boolean trangThai = rs.getBoolean(8);
+                LocalDateTime thoiGianKhoiHanh = rs.getTimestamp(5).toLocalDateTime();
+                LocalDateTime thoiGianDuKienDen = rs.getTimestamp(6).toLocalDateTime();
+                boolean trangThai = rs.getBoolean(7);
 
-                LichTrinh lichTrinh = new LichTrinh(maLichTrinh, chuyenTau, gaDi, gaDen, khoangCach, thoiGianKhoiHanh, thoiGianDuKienDen, trangThai);
+                LichTrinh lichTrinh = new LichTrinh(maLichTrinh, chuyenTau, gaDi, gaDen, thoiGianKhoiHanh, thoiGianDuKienDen, trangThai);
 
                 list.add(lichTrinh);
             }
@@ -59,12 +58,11 @@ public class LichTrinh_DAO {
                 ChuyenTau chuyenTau = new ChuyenTau(rs.getString(2));
                 Ga gaDi = new Ga(rs.getString(3));
                 Ga gaDen = new Ga(rs.getString(4));
-                int khoangCach = rs.getInt(5);
-                LocalDateTime thoiGianKhoiHanh = rs.getTimestamp(6).toLocalDateTime();
-                LocalDateTime thoiGianDuKienDen = rs.getTimestamp(7).toLocalDateTime();
-                boolean trangThai = rs.getBoolean(8);
+                LocalDateTime thoiGianKhoiHanh = rs.getTimestamp(5).toLocalDateTime();
+                LocalDateTime thoiGianDuKienDen = rs.getTimestamp(6).toLocalDateTime();
+                boolean trangThai = rs.getBoolean(7);
 
-                lichTrinh = new LichTrinh(maLichTrinh, chuyenTau, gaDi, gaDen, khoangCach, thoiGianKhoiHanh, thoiGianDuKienDen, trangThai);
+                lichTrinh = new LichTrinh(maLichTrinh, chuyenTau, gaDi, gaDen, thoiGianKhoiHanh, thoiGianDuKienDen, trangThai);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,16 +94,15 @@ public class LichTrinh_DAO {
         int n = 0;
         PreparedStatement stm = null;
         try {
-            String sql = "update LichTrinh set SoHieuTau = ?, MaGaDi = ?, MaGaDen = ?, KhoangCach = ?, ThoiGianKhoiHanh = ?, ThoiGianDuKienDen = ?, TrangThai = ? where MaLichTrinh = ?";
+            String sql = "update LichTrinh set SoHieuTau = ?, MaGaDi = ?, MaGaDen = ?, ThoiGianKhoiHanh = ?, ThoiGianDuKienDen = ?, TrangThai = ? where MaLichTrinh = ?";
             stm = con.prepareStatement(sql);
             stm.setString(1, lichTrinh.getChuyenTau().getSoHieutau());
             stm.setString(2, lichTrinh.getGaDi().getMaGa());
             stm.setString(3, lichTrinh.getGaDen().getMaGa());
-            stm.setInt(4, lichTrinh.getKhoangCach());
-            stm.setTimestamp(5, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianKhoiHanh()));
-            stm.setTimestamp(6, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianDuKienDen()));
-            stm.setBoolean(7, lichTrinh.isTinhTrang());
-            stm.setString(8, lichTrinh.getMaLichTrinh());
+            stm.setTimestamp(4, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianKhoiHanh()));
+            stm.setTimestamp(5, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianDuKienDen()));
+            stm.setBoolean(6, lichTrinh.isTinhTrang());
+            stm.setString(7, lichTrinh.getMaLichTrinh());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -120,16 +117,15 @@ public class LichTrinh_DAO {
         int n = 0;
         PreparedStatement stm = null;
         try {
-            String sql = "insert into LichTrinh values(?,?,?,?,?,?,?,?)";
+            String sql = "insert into LichTrinh values(?,?,?,?,?,?,?)";
             stm = con.prepareStatement(sql);
             stm.setString(1, lichTrinh.getMaLichTrinh());
             stm.setString(2, lichTrinh.getChuyenTau().getSoHieutau());
             stm.setString(3, lichTrinh.getGaDi().getMaGa());
             stm.setString(4, lichTrinh.getGaDen().getMaGa());
-            stm.setInt(5, lichTrinh.getKhoangCach());
-            stm.setTimestamp(6, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianKhoiHanh()));
-            stm.setTimestamp(7, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianDuKienDen()));
-            stm.setBoolean(8, lichTrinh.isTinhTrang());
+            stm.setTimestamp(5, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianKhoiHanh()));
+            stm.setTimestamp(6, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianDuKienDen()));
+            stm.setBoolean(7, lichTrinh.isTinhTrang());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -151,12 +147,11 @@ public class LichTrinh_DAO {
                 ChuyenTau chuyenTau = new ChuyenTau(rs.getString(2));
                 Ga gaDi = new Ga(rs.getString(3));
                 Ga gaDen = new Ga(rs.getString(4));
-                int khoangCach = rs.getInt(5);
-                LocalDateTime thoiGianKhoiHanh = rs.getTimestamp(6).toLocalDateTime();
-                LocalDateTime thoiGianDuKienDen = rs.getTimestamp(7).toLocalDateTime();
-                boolean trangThai = rs.getBoolean(8);
+                LocalDateTime thoiGianKhoiHanh = rs.getTimestamp(5).toLocalDateTime();
+                LocalDateTime thoiGianDuKienDen = rs.getTimestamp(6).toLocalDateTime();
+                boolean trangThai = rs.getBoolean(7);
 
-                lichTrinh = new LichTrinh(maLichTrinh, chuyenTau, gaDi, gaDen, khoangCach, thoiGianKhoiHanh, thoiGianDuKienDen, trangThai);
+                lichTrinh = new LichTrinh(maLichTrinh, chuyenTau, gaDi, gaDen, thoiGianKhoiHanh, thoiGianDuKienDen, trangThai);
             }
         } catch (Exception e) {
             e.printStackTrace();
