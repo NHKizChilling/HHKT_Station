@@ -132,7 +132,8 @@ public class Ga_DAO {
             if (rs.next()) {
                 String tenGa = rs.getString(2);
                 String viTri = rs.getString(3);
-                ga = new Ga(maGa, tenGa, viTri);
+                int khoangCach = rs.getInt(4);
+                ga = new Ga(maGa, tenGa, viTri, khoangCach);
             }
         } catch (Exception e) {
             e.printStackTrace();

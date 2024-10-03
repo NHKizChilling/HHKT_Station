@@ -5,9 +5,7 @@ import java.util.Objects;
 public class Ve {
     private String maVe;
     private LoaiVe loaiVe;
-    private ChoNgoi choNgoi;
     private HanhKhach hanhKhach;
-    private LichTrinh lichTrinh;
     private String tinhTrangVe;
     private boolean khuHoi;
 
@@ -18,15 +16,12 @@ public class Ve {
         setMaVe(maVe);
     }
 
-    public Ve(String maVe, LoaiVe loaiVe, ChoNgoi choNgoi, HanhKhach hanhKhach,
-              LichTrinh lichTrinh, String tinhTrangVe, boolean khuHoi) {
-        setMaVe(maVe);
-        setLoaiVe(loaiVe);
-        setChoNgoi(choNgoi);
-        setHanhKhach(hanhKhach);
-        setLichTrinh(lichTrinh);
-        setTinhTrangVe(tinhTrangVe);
-        setKhuHoi(khuHoi);
+    public Ve(String maVe, LoaiVe loaiVe, HanhKhach hanhKhach, String tinhTrangVe, boolean khuHoi) {
+        this.maVe = maVe;
+        this.loaiVe = loaiVe;
+        this.hanhKhach = hanhKhach;
+        this.tinhTrangVe = tinhTrangVe;
+        this.khuHoi = khuHoi;
     }
 
     public boolean isKhuHoi() {
@@ -53,28 +48,12 @@ public class Ve {
         this.loaiVe = loaiVe;
     }
 
-    public ChoNgoi getChoNgoi() {
-        return choNgoi;
-    }
-
-    public void setChoNgoi(ChoNgoi choNgoi) {
-        this.choNgoi = choNgoi;
-    }
-
     public HanhKhach getHanhKhach() {
         return hanhKhach;
     }
 
     public void setHanhKhach(HanhKhach hanhKhach) {
         this.hanhKhach = hanhKhach;
-    }
-
-    public LichTrinh getLichTrinh() {
-        return lichTrinh;
-    }
-
-    public void setLichTrinh(LichTrinh lichTrinh) {
-        this.lichTrinh = lichTrinh;
     }
 
     public String getTinhTrangVe() {

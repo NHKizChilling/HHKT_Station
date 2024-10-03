@@ -34,52 +34,6 @@ public class ChoNgoi {
         setTrangThai(trangThai);
     }
 
-    public double tinhGiaCho(String loaiToa, int khoangCach) {
-        double giaCho = 0;
-        if (loaiToa.equals("NC")) {
-            if (khoangCach <= 50) {
-                giaCho = 50000;
-            } else if (khoangCach <= 100) {
-                giaCho = 60000;
-            } else {
-                giaCho = 70000;
-            }
-        } else if (loaiToa.equals("NM")) {
-            if (khoangCach <= 50) {
-                giaCho = 60000;
-            } else if (khoangCach <= 100) {
-                giaCho = 70000;
-            } else {
-                giaCho = 80000;
-            }
-        } else if (loaiToa.equals("GNK6")) {
-            if (khoangCach <= 50) {
-                giaCho = 70000;
-            } else if (khoangCach <= 100) {
-                giaCho = 80000;
-            } else {
-                giaCho = 90000;
-            }
-        } else if (loaiToa.equals("GNK4")) {
-            if (khoangCach <= 50) {
-                giaCho = 80000;
-            } else if (khoangCach <= 100) {
-                giaCho = 90000;
-            } else {
-                giaCho = 100000;
-            }
-        } else if (loaiToa.equals("TVIP")) {
-            if (khoangCach <= 50) {
-                giaCho = 90000;
-            } else if (khoangCach <= 100) {
-                giaCho = 100000;
-            } else {
-                giaCho = 110000;
-            }
-        }
-        this.giaCho = giaCho;
-        return giaCho;
-    }
 
     public double getGiaCho() {
         return giaCho;

@@ -6,7 +6,6 @@ import java.util.Objects;
 public class LichTrinh {
     private String maLichTrinh;
     private ChuyenTau chuyenTau;
-    private Ga gaDi;
     private Ga gaDen;
     private LocalDateTime thoiGianKhoiHanh;
     private LocalDateTime thoiGianDuKienDen;
@@ -20,11 +19,10 @@ public class LichTrinh {
         setMaLichTrinh(maLichTrinh);
     }
 
-    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDi, Ga gaDen,
+    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDen,
                      LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
         setMaLichTrinh(maLichTrinh);
         setChuyenTau(chuyenTau);
-        setGaDi(gaDi);
         setGaDen(gaDen);
         setThoiGianKhoiHanh(thoiGianKhoiHanh);
         setThoiGianDuKienDen(thoiGianDuKienDen);
@@ -59,16 +57,6 @@ public class LichTrinh {
         this.chuyenTau = chuyenTau;
     }
 
-    public Ga getGaDi() {
-        return gaDi;
-    }
-
-    public void setGaDi(Ga gaDi) {
-        if (gaDi == null) {
-            throw new IllegalArgumentException("Ga đi không hợp lệ");
-        }
-        this.gaDi = gaDi;
-    }
 
     public Ga getGaDen() {
         return gaDen;
