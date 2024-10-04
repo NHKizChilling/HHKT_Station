@@ -35,27 +35,6 @@ public class CT_LichTrinh_DAO {
         return list;
     }
 
-    public ChiTietLichTrinh getChiTietLichTrinhTheoID(String maVe) {
-        ChiTietLichTrinh ctlt = null;
-        try {
-            ConnectDB.getInstance();
-            Connection con = ConnectDB.getConnection();
-            PreparedStatement stm;
-            String sql = "Select * from ChiTietLichTrinh where MaVe = ?";
-            stm = con.prepareStatement(sql);
-            stm.setString(1, maVe);
-
-            ResultSet rs = stm.executeQuery();
-
-            if (rs.next()) {
-                ctlt = getInfo(rs);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ctlt;
-    }
-
     public boolean create(ChiTietLichTrinh ctlt) {
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
@@ -63,13 +42,12 @@ public class CT_LichTrinh_DAO {
 
         int n = 0;
         try {
-            String sql = "Insert into ChiTietLichTrinh values(?, ?, ?, ?, ?)";
+            String sql = "Insert into ChiTietLichTrinh values(?, ?, ?, ?)";
             stm = con.prepareStatement(sql);
-            stm.setString(1, ctlt.getVe().getMaVe());
-            stm.setString(2, ctlt.getChoNgoi().getMaChoNgoi());
-            stm.setString(3, ctlt.getLichTrinh().getMaLichTrinh());
-            stm.setBoolean(4, ctlt.isTrangThai());
-            stm.setDouble(5, ctlt.getGiaCho());
+            stm.setString(1, ctlt.getChoNgoi().getMaChoNgoi());
+            stm.setString(2, ctlt.getLichTrinh().getMaLichTrinh());
+            stm.setBoolean(3, ctlt.isTrangThai());
+            stm.setDouble(4, ctlt.getGiaCho());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -99,7 +77,6 @@ public class CT_LichTrinh_DAO {
             stm.setString(2, ctlt.getLichTrinh().getMaLichTrinh());
             stm.setBoolean(3, ctlt.isTrangThai());
             stm.setDouble(4, ctlt.getGiaCho());
-            stm.setString(5, ctlt.getVe().getMaVe());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -197,7 +174,7 @@ public class CT_LichTrinh_DAO {
             boolean trangThai = rs.getBoolean(4);
             double giaCho = rs.getDouble(5);
 
-            ctlt = new ChiTietLichTrinh(ve, choNgoi, lichTrinh, trangThai, giaCho);
+            ctlt = new ChiTietLichTrinh(choNgoi, lichTrinh, trangThai, giaCho);
         } catch (Exception e) {
             e.printStackTrace();
         }
