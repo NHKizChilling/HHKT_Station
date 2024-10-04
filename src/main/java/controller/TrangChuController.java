@@ -56,8 +56,8 @@ public class TrangChuController implements Initializable {
         btnFHK.setOnMouseClicked(e -> chooseFeatureButton(btnFHK));
         btnFBCTK.setOnMouseClicked(e -> chooseFeatureButton(btnFBCTK));
         btnFCT.setOnMouseClicked(e -> chooseFeatureButton(btnFCT));
-        TrangChu_GUI.nv = getData.nv;
-        lblTenNhanVien.setText("Chào, " + TrangChu_GUI.nv.getChucVu() + " " + TrangChu_GUI.nv.getTenNhanVien());
+//        TrangChu_GUI.nv = getData.nv;
+//        lblTenNhanVien.setText("Chào, " + TrangChu_GUI.nv.getChucVu() + " " + TrangChu_GUI.nv.getTenNhanVien());
     }
 
     @FXML
