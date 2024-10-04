@@ -25,7 +25,7 @@
                         <Image url="@../img/logo.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnFVe" alignment="CENTER" layoutX="2.0" layoutY="186.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Vé" textFill="WHITE">
+                  <Button fx:id="btnFVe" alignment="CENTER" layoutX="2.0" layoutY="186.0" mnemonicParsing="false" onAction="#showBanVeGUI" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Vé" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
@@ -89,7 +89,10 @@
             </Pane>
          </top>
          <right>
-            <AnchorPane fx:id="paneMain" prefHeight="755.0" prefWidth="1385.0" BorderPane.alignment="CENTER" />
+            <AnchorPane fx:id="paneMain" prefHeight="755.0" prefWidth="1385.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="755.0" fitWidth="1384.0" pickOnBounds="true" preserveRatio="true" />
+               </children></AnchorPane>
          </right>
       </BorderPane>
    </children>

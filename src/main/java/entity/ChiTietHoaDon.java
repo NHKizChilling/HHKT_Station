@@ -5,6 +5,7 @@ public class ChiTietHoaDon {
     private Ve ve;
     private double giaVe;
     private double giaGiam;
+    private static final double PHI_DICH_VU = 2000;
 
     public HoaDon getHoaDon() {
         return hoaDon;
@@ -59,46 +60,32 @@ public class ChiTietHoaDon {
     }
 
     public void tinhGiaVe() {
-        double giaCho = ve.getChiTietLichTrinh().getGiaCho();
-        double khoangCach = ve.getChiTietLichTrinh().getLichTrinh().getGaDen().getKhoangCach();
-        double giaCoBan = giaCho * khoangCach;
-        double heSoKhoangCach = 1;
-        double heSoToa;
-        String maLoaiToa = ve.getChiTietLichTrinh().getChoNgoi().getToa().getLoaiToa().getMaLoaiToa();
-
-        if (khoangCach <= 100) {
-            heSoKhoangCach += 0.1;
-        } else if (khoangCach >= 101 && khoangCach <= 250) {
-            heSoKhoangCach += 0.25;
-        } else if(khoangCach >= 251 && khoangCach <= 1000) {
-            heSoKhoangCach += 0.5;
+        double giaVe = 0;
+        double giaCho = ve.getCtlt().getGiaCho();
+        LoaiVe loaiVe = ve.getLoaiVe();
+        if(!loaiVe.getMaLoaiVe().equals("VNL")) {
+            giaVe = giaCho * (1 - loaiVe.getMucGiamGia()) + PHI_DICH_VU;
         } else {
-            heSoKhoangCach += 1;
+            if (ve.isKhuHoi()) {
+                giaVe = giaCho * 0.9 + PHI_DICH_VU;
+            } else {
+                giaVe = giaCho + PHI_DICH_VU;
+            }
         }
-
-        if(maLoaiToa.equals("GNK4")) {
-            heSoToa = 1.25;
-        } else if(maLoaiToa.equals("GNK6")) {
-            heSoToa = 1.5;
-        } else if(maLoaiToa.equals("TVIP")) {
-            heSoToa = 2;
-        } else {
-            heSoToa = 1;
-        }
-        this.giaVe = giaCoBan * heSoKhoangCach * heSoToa;
+        this.giaVe = giaVe;
     }
 
     public void tinhGiaGiam() {
-        double mucGiamGia = ve.getLoaiVe().getMucGiamGia();
-        boolean khuHoi = ve.isKhuHoi();
         double giaGiam = 0;
+        double giaCho = ve.getCtlt().getGiaCho();
+        LoaiVe loaiVe = ve.getLoaiVe();
 
-        if(mucGiamGia > 0.1) {
-            giaGiam = giaVe * mucGiamGia;
-        } if (khuHoi) {
-            giaGiam = giaVe * 0.1;
+        if(!loaiVe.getMaLoaiVe().equals("VNL")) {
+            giaGiam = giaCho * loaiVe.getMucGiamGia();
         } else {
-            giaGiam = giaVe * mucGiamGia;
+            if (ve.isKhuHoi()) {
+                giaGiam = giaCho * 0.1;
+            }
         }
         this.giaGiam = giaGiam;
     }

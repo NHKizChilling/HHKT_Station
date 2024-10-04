@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="755.0" prefWidth="1385.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BanVeController">
+   <children>
+      <TabPane prefHeight="755.0" prefWidth="1385.0" style="-fx-background-color: #fff;" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="100.0" tabMinHeight="30.0" tabMinWidth="70.0">
+        <tabs>
+          <Tab style="-fx-background-color: #5098ff; -fx-background-radius: 10 10 0 0;" text="Bán vé">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="715.0" prefWidth="1386.0">
+                     <children>
+                        <BorderPane layoutY="1.0" prefHeight="717.0" prefWidth="1386.0">
+                           <center>
+                              <ScrollPane prefHeight="466.0" prefWidth="989.0" BorderPane.alignment="CENTER">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <content>
+                                    <TabPane fx:id="tabToaTau" prefHeight="465.0" prefWidth="1386.0" tabClosingPolicy="UNAVAILABLE">
+                                      <tabs>
+                                        <Tab text="Toa 1: Ngồi mềm điều hòa">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                          </content>
+                                        </Tab>
+                                        <Tab text="Toa 2: Ngồi mềm điều hòa">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                          </content>
+                                        </Tab>
+                                          <Tab text="Toa 3: Giường nằm khoang 6 điều hòa">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                            </content>
+                                          </Tab>
+                                          <Tab text="Toa 4 Giường nằm khoang 4 điều hòa">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                            </content>
+                                          </Tab>
+                                          <Tab text="Toa 12: VIP">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                            </content>
+                                          </Tab>
+                                      </tabs>
+                                    </TabPane>
+                                 </content>
+                              </ScrollPane>
+                           </center>
+                           <top>
+                              <AnchorPane prefHeight="250.0" prefWidth="1393.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <TitledPane expanded="false" layoutX="446.0" layoutY="18.0" prefHeight="230.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Loại Vé">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="110.0" prefWidth="178.0" style="-fx-background-color: #fff;">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="6.0" text="Người lớn">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="14.0" layoutY="29.0" text="Trẻ em">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="12.0" layoutY="55.0" text="Người cao tuổi">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="14.0" layoutY="80.0" text="Học sinh sinh viên">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <FontAwesomeIcon fx:id="btnTangSLnl" fill="#767579" fontSmoothingType="LCD" glyphName="PLUS" layoutX="172.0" layoutY="19.0" stroke="#4e4c4c" strokeLineCap="ROUND" strokeLineJoin="ROUND">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="12.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </FontAwesomeIcon>
+                                                <FontAwesomeIcon fx:id="btnTangSLte" disable="true" fill="#767579" fontSmoothingType="LCD" glyphName="PLUS" layoutX="172.0" layoutY="46.0" stroke="#4e4c4c" strokeLineCap="ROUND" strokeLineJoin="ROUND">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="12.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </FontAwesomeIcon>
+                                                <FontAwesomeIcon fx:id="btnTangSLnct" fill="#767579" fontSmoothingType="LCD" glyphName="PLUS" layoutX="172.0" layoutY="69.0" stroke="#4e4c4c" strokeLineCap="ROUND" strokeLineJoin="ROUND" text="">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="12.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </FontAwesomeIcon>
+                                                <FontAwesomeIcon fx:id="btnTangSLhssv" fill="#767579" fontSmoothingType="LCD" glyphName="PLUS" layoutX="172.0" layoutY="94.0" stroke="#4e4c4c" strokeLineCap="ROUND" strokeLineJoin="ROUND">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="12.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </FontAwesomeIcon>
+                                                <FontAwesomeIcon fx:id="btnGiamSLnl" disable="true" fill="#767579" fontSmoothingType="LCD" glyphName="MINUS" layoutX="128.0" layoutY="18.0" stroke="#4e4c4c" strokeLineCap="ROUND" strokeLineJoin="ROUND">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="12.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </FontAwesomeIcon>
+                                                <FontAwesomeIcon fx:id="btnGiamSLte" disable="true" fill="#767579" fontSmoothingType="LCD" glyphName="MINUS" layoutX="128.0" layoutY="45.0" stroke="#4e4c4c" strokeLineCap="ROUND" strokeLineJoin="ROUND">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="12.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </FontAwesomeIcon>
+                                                <FontAwesomeIcon fx:id="btnGiamSLnct" disable="true" fill="#767579" fontSmoothingType="LCD" glyphName="MINUS" layoutX="128.0" layoutY="68.0" stroke="#4e4c4c" strokeLineCap="ROUND" strokeLineJoin="ROUND">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="12.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </FontAwesomeIcon>
+                                                <FontAwesomeIcon fx:id="btnGiamSLhssv" disable="true" fill="#767579" fontSmoothingType="LCD" glyphName="MINUS" layoutX="128.0" layoutY="93.0" stroke="#4e4c4c" strokeLineCap="ROUND" strokeLineJoin="ROUND">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="12.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </FontAwesomeIcon>
+                                                <Label fx:id="lblSLnl" layoutX="154.0" layoutY="4.0" text="0" />
+                                                <Label fx:id="lblSLte" layoutX="154.0" layoutY="31.0" text="0" />
+                                                <Label fx:id="lblSLnct" layoutX="154.0" layoutY="54.0" text="0" />
+                                                <Label fx:id="lblSLhssv" layoutX="154.0" layoutY="79.0" text="0" />
+                                                <Text fill="#345eb9" fontSmoothingType="LCD" layoutX="13.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vé học sinh, sinh viên và người cao tuổi chỉ áp dụng với công dân Việt Nam" wrappingWidth="171.9316864013672">
+                                                   <font>
+                                                      <Font name="Times New Roman Italic" size="13.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fill="#345eb9" fontSmoothingType="LCD" layoutX="13.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trẻ em dưới 6 tuổi được dùng chung chỗ với người lớn (tối đa 2 trẻ em/chỗ)" wrappingWidth="171.9316864013672">
+                                                   <font>
+                                                      <Font name="Times New Roman Italic" size="13.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="15.0" />
+                                       </font>
+                                    </TitledPane>
+                                    <DatePicker fx:id="dpNgayKH" layoutX="243.0" layoutY="20.0" style="-fx-background-color: #5098ff;" />
+                                    <DatePicker fx:id="dpNgayVe" disable="true" layoutX="243.0" layoutY="82.0" style="-fx-background-color: #5098ff;" />
+                                    <CheckBox fx:id="chkKhuHoi" layoutX="243.0" layoutY="115.0" mnemonicParsing="false" text="Khứ hồi">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="11.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <ComboBox fx:id="cbGaDi" editable="true" layoutX="15.0" layoutY="20.0" prefWidth="150.0" promptText="Ga Đi" style="-fx-background-color: #5098ff;" />
+                                    <ComboBox editable="true" layoutX="14.0" layoutY="82.0" prefWidth="150.0" promptText="Ga Đến" style="-fx-background-color: #5098ff;" />
+                                    <Label layoutX="15.0" text="Chọn ga đi:">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="14.0" layoutY="64.0" text="Chọn ga đến:">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="243.0" layoutY="64.0" text="Chọn ngày về:">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="243.0" text="Chọn ngày khởi hành:">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="btnTraCuuCT" layoutX="16.0" layoutY="133.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, lightblue, skyblue);" text="Tra cứu" textFill="WHITE">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <BorderPane layoutX="670.0" prefHeight="252.0" prefWidth="718.0">
+                                       <center>
+                                          <ScrollPane prefHeight="252.0" prefWidth="699.0" BorderPane.alignment="CENTER">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="251.0" prefWidth="715.0">
+                                                   <children>
+                                                      <TableView fx:id="tbTCTLT" onMouseClicked="#hienThiThongTin" prefHeight="252.0" prefWidth="706.0">
+                                                        <columns>
+                                                          <TableColumn fx:id="colSTT" prefWidth="50.0" style="-fx-background-color: linear-gradient(to right, #5050ff, #5060ff); -fx-background-radius: 5 0 0 0; -fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="STT" />
+                                                          <TableColumn fx:id="colSoHieuTau" prefWidth="75.0" style="-fx-background-color: linear-gradient(to right, #5060ff, #5065ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Số Hiệu Tàu" />
+                                                            <TableColumn fx:id="colGaDi" prefWidth="100.0" style="-fx-background-color: linear-gradient(to right, #5065ff, #5070ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Ga Đi" />
+                                                            <TableColumn fx:id="colGaDen" prefWidth="100.0" style="-fx-background-color: linear-gradient(to right, #5070ff, #5075ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Ga Đến" />
+                                                            <TableColumn fx:id="colGioKH" prefWidth="100.0" style="-fx-background-color: linear-gradient(to right, #5075ff, #5080ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Giờ khởi hành" />
+                                                            <TableColumn fx:id="colTGDen" prefWidth="195.0" style="-fx-background-color: linear-gradient(to right, #5080ff, #5090ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Ngày giờ dự kiến đến" />
+                                                            <TableColumn prefWidth="90.0" style="-fx-background-color: linear-gradient(to right, #5090ff, lightblue); -fx-background-radius: 0 5 0 0;" />
+                                                        </columns>
+                                                      </TableView>
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </ScrollPane>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </AnchorPane>
+                           </top>
+                           <right>
+                              <AnchorPane fx:id="pnlThongTinCho" prefHeight="466.0" prefWidth="718.0" BorderPane.alignment="CENTER" />
+                           </right>
+                        </BorderPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab style="-fx-background-color: #5098ff; -fx-background-radius: 10 10 0 0;" text="Đổi vé">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+            <Tab style="-fx-background-color: #5098ff; -fx-background-radius: 10 10 0 0;" text="Hủy vé">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
