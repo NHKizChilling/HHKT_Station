@@ -6,6 +6,7 @@ public class Ve {
     private String maVe;
     private LoaiVe loaiVe;
     private HanhKhach hanhKhach;
+    private ChiTietLichTrinh ctlt;
     private String tinhTrangVe;
     private boolean khuHoi;
 
@@ -16,10 +17,11 @@ public class Ve {
         setMaVe(maVe);
     }
 
-    public Ve(String maVe, LoaiVe loaiVe, HanhKhach hanhKhach, String tinhTrangVe, boolean khuHoi) {
+    public Ve(String maVe, LoaiVe loaiVe, HanhKhach hanhKhach, ChiTietLichTrinh ctlt, String tinhTrangVe, boolean khuHoi) {
         this.maVe = maVe;
         this.loaiVe = loaiVe;
         this.hanhKhach = hanhKhach;
+        this.ctlt = ctlt;
         this.tinhTrangVe = tinhTrangVe;
         this.khuHoi = khuHoi;
     }
@@ -54,6 +56,14 @@ public class Ve {
 
     public void setHanhKhach(HanhKhach hanhKhach) {
         this.hanhKhach = hanhKhach;
+    }
+
+    public ChiTietLichTrinh getCtlt() {
+        return ctlt;
+    }
+
+    public void setCtlt(ChiTietLichTrinh ctlt) {
+        this.ctlt = ctlt;
     }
 
     public String getTinhTrangVe() {

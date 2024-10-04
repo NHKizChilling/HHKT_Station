@@ -175,7 +175,7 @@ public class NhanVien_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from NhanVien where MaNhanVien = ?";
+            String sql = "Select * from NhanVien where MaNV = ?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, maNV);
 

@@ -48,7 +48,7 @@ public class TaiKhoan {
         if (trangThaiTK == null || trangThaiTK.isBlank()) {
             throw new IllegalArgumentException("Trạng thái tài khoản không hợp lệ");
         }
-        if (!trangThaiTK.equals("đang hoạt động") && !trangThaiTK.equals("tạm ngưng hoạt động") && !trangThaiTK.equals("đã ngưng hoạt động")) {
+        if (!trangThaiTK.equals("Đang hoạt động") && !trangThaiTK.equals("Tạm ngưng hoạt động") && !trangThaiTK.equals("Đã ngưng hoạt động")) {
             throw new IllegalArgumentException("Trạng thái tài khoản không hợp lệ");
         }
         this.trangThaiTK = trangThaiTK;

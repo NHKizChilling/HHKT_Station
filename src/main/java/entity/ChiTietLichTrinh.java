@@ -3,21 +3,21 @@ package entity;
 import java.util.Objects;
 
 public class ChiTietLichTrinh {
-    private Ve ve;
     private ChoNgoi choNgoi;
     private LichTrinh lichTrinh;
     private boolean trangThai;
     private double giaCho;
+    public static final double GIA_CO_BAN = 500;
 
     public ChiTietLichTrinh() {
     }
 
-    public ChiTietLichTrinh(Ve ve) {
-        setVe(ve);
+    public ChiTietLichTrinh(ChoNgoi choNgoi, LichTrinh lichTrinh) {
+        setChoNgoi(choNgoi);
+        setLichTrinh(lichTrinh);
     }
 
-    public ChiTietLichTrinh(Ve ve, ChoNgoi choNgoi, LichTrinh lichTrinh, boolean trangThai, double giaCho) {
-        this.ve = ve;
+    public ChiTietLichTrinh(ChoNgoi choNgoi, LichTrinh lichTrinh, boolean trangThai, double giaCho) {
         this.choNgoi = choNgoi;
         this.lichTrinh = lichTrinh;
         this.trangThai = trangThai;
@@ -30,58 +30,57 @@ public class ChiTietLichTrinh {
         double khoangCach = lichTrinh.getGaDen().getKhoangCach();
 
         if (loaiToa.equals("NC")) {
-            if (khoangCach <= 50) {
-                giaCho = 50000;
-            } else if (khoangCach <= 100) {
-                giaCho = 60000;
+            if (khoangCach <= 100) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.1;
+            } else if (khoangCach <= 250) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.25;
+            } else if (khoangCach <= 1000) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.5;
             } else {
-                giaCho = 70000;
+                giaCho = GIA_CO_BAN * khoangCach * 2;
             }
         } else if (loaiToa.equals("NM")) {
-            if (khoangCach <= 50) {
-                giaCho = 60000;
-            } else if (khoangCach <= 100) {
-                giaCho = 70000;
+            if (khoangCach <= 100) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.1 * 1.1;
+            } else if (khoangCach <= 250) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.25 * 1.1;
+            } else if (khoangCach <= 1000) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.5 * 1.1;
             } else {
-                giaCho = 80000;
+                giaCho = GIA_CO_BAN * khoangCach * 2 * 1.1;
             }
         } else if (loaiToa.equals("GNK6")) {
-            if (khoangCach <= 50) {
-                giaCho = 70000;
-            } else if (khoangCach <= 100) {
-                giaCho = 80000;
+            if (khoangCach <= 100) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.1 * 1.25;
+            } else if (khoangCach <= 250) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.25 * 1.25;
+            } else if (khoangCach <= 1000) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.5 * 1.25;
             } else {
-                giaCho = 90000;
+                giaCho = GIA_CO_BAN * khoangCach * 2 * 1.25;
             }
         } else if (loaiToa.equals("GNK4")) {
-            if (khoangCach <= 50) {
-                giaCho = 80000;
-            } else if (khoangCach <= 100) {
-                giaCho = 90000;
+            if (khoangCach <= 100) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.1 * 1.5;
+            } else if (khoangCach <= 250) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.25 * 1.5;
+            } else if (khoangCach <= 1000) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.5 * 1.5;
             } else {
-                giaCho = 100000;
+                giaCho = GIA_CO_BAN * khoangCach * 2 * 1.5;
             }
         } else if (loaiToa.equals("TVIP")) {
-            if (khoangCach <= 50) {
-                giaCho = 90000;
-            } else if (khoangCach <= 100) {
-                giaCho = 100000;
+            if (khoangCach <= 100) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.1 * 2;
+            } else if (khoangCach <= 250) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.25 * 2;
+            } else if (khoangCach <= 1000) {
+                giaCho = GIA_CO_BAN * khoangCach * 1.5 * 2;
             } else {
-                giaCho = 110000;
+                giaCho = GIA_CO_BAN * khoangCach * 2 * 2;
             }
         }
         this.giaCho = giaCho;
-    }
-
-    public Ve getVe() {
-        return ve;
-    }
-
-    public void setVe(Ve ve) {
-        if (ve == null) {
-            throw new IllegalArgumentException("Vé null");
-        }
-        this.ve = ve;
     }
 
     public ChoNgoi getChoNgoi() {
