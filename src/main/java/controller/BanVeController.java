@@ -10,12 +10,16 @@ import entity.LichTrinh;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 /*
@@ -50,18 +54,6 @@ public class BanVeController implements Initializable {
 
     @FXML
     private FontAwesomeIcon btnTangSLte;
-
-    @FXML
-    private ComboBox<String> cbGaDen;
-
-    @FXML
-    private ComboBox<String> cbGaDi;
-
-    @FXML
-    private DatePicker dpNgayKH;
-
-    @FXML
-    private DatePicker dpNgayVe;
 
     @FXML
     private Button btnTraCuuCT;
@@ -114,131 +106,11 @@ public class BanVeController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        chkKhuHoi.setOnAction(e -> {
+        chkKhuHoi.setOnMouseClicked(e -> {
             if (chkKhuHoi.isSelected()) {
-                dpNgayVe.setDisable(false);
+                pnlThongTinCho.setVisible(true);
             } else {
-                dpNgayVe.setDisable(true);
-            }
-        });
-
-        cbGaDi.getItems().add("Hồ Chí Minh");
-        cbGaDi.getItems().add("Hà Nội");
-        cbGaDi.getItems().add("Đà Nẵng");
-        cbGaDi.getItems().add("Nha Trang");
-        cbGaDi.getItems().add("Đà Lạt");
-        cbGaDen.getItems().add("Hồ Chí Minh");
-        cbGaDen.getItems().add("Hà Nội");
-        cbGaDen.getItems().add("Đà Nẵng");
-        cbGaDen.getItems().add("Nha Trang");
-        cbGaDen.getItems().add("Đà Lạt");
-
-        if (dpNgayKH.getValue() != null && dpNgayKH.getValue().isBefore(LocalDate.now())) {
-            dpNgayKH.setValue(LocalDate.now());
-        }
-        if (dpNgayKH.getValue() != null && dpNgayKH.getValue().isAfter(dpNgayVe.getValue())) {
-            dpNgayVe.setValue(dpNgayKH.getValue());
-        }
-
-        btnTangSLnl.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLnl.getText());
-            stt++;
-            lblSLnl.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLnl.setDisable(false);
-                if (lblSLnct.getText().equals("0") && lblSLhssv.getText().equals("0") && lblSLte.getText().equals("0")) {
-                    btnTangSLte.setDisable(false);
-                }
-            }
-        });
-
-        btnGiamSLnl.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLnl.getText());
-            stt--;
-            lblSLnl.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLnl.setDisable(false);
-            } else {
-                btnGiamSLnl.setDisable(true);
-                if (lblSLnct.getText().equals("0") && lblSLhssv.getText().equals("0")) {
-                    btnTangSLte.setDisable(true);
-                    lblSLte.setText("0");
-                }
-            }
-        });
-
-        btnTangSLnct.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLnct.getText());
-            stt++;
-            lblSLnct.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLnct.setDisable(false);
-                if (lblSLnl.getText().equals("0") && lblSLhssv.getText().equals("0") && lblSLte.getText().equals("0")) {
-                    btnTangSLte.setDisable(false);
-                }
-            }
-        });
-
-        btnGiamSLnct.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLnct.getText());
-            stt--;
-            lblSLnct.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLnct.setDisable(false);
-            } else {
-                btnGiamSLnct.setDisable(true);
-                if (lblSLnl.getText().equals("0") && lblSLhssv.getText().equals("0")) {
-                    btnTangSLte.setDisable(true);
-                    lblSLte.setText("0");
-                }
-            }
-        });
-
-        btnTangSLhssv.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLhssv.getText());
-            stt++;
-            lblSLhssv.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLhssv.setDisable(false);
-                if (lblSLnl.getText().equals("0") && lblSLnct.getText().equals("0") && lblSLte.getText().equals("0")) {
-                    btnTangSLte.setDisable(false);
-                }
-            }
-        });
-
-        btnGiamSLhssv.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLhssv.getText());
-            stt--;
-            lblSLhssv.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLhssv.setDisable(false);
-            } else {
-                btnGiamSLhssv.setDisable(true);
-                if (lblSLnl.getText().equals("0") && lblSLnct.getText().equals("0")) {
-                    btnTangSLte.setDisable(true);
-                    lblSLte.setText("0");
-                }
-            }
-        });
-
-        btnTangSLte.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLte.getText());
-            stt++;
-            lblSLte.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLte.setDisable(false);
-            }
-        });
-
-        btnGiamSLte.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLte.getText());
-            stt--;
-            lblSLte.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLte.setDisable(false);
-            } else {
-                btnGiamSLte.setDisable(true);
+                pnlThongTinCho.setVisible(false);
             }
         });
     }

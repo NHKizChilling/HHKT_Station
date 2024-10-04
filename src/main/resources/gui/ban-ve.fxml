@@ -185,7 +185,7 @@
                                        </font>
                                     </CheckBox>
                                     <ComboBox fx:id="cbGaDi" editable="true" layoutX="15.0" layoutY="20.0" prefWidth="150.0" promptText="Ga Đi" style="-fx-background-color: #5098ff;" />
-                                    <ComboBox fx:id="cbGaDen" editable="true" layoutX="14.0" layoutY="82.0" prefWidth="150.0" promptText="Ga Đến" style="-fx-background-color: #5098ff;" />
+                                    <ComboBox editable="true" layoutX="14.0" layoutY="82.0" prefWidth="150.0" promptText="Ga Đến" style="-fx-background-color: #5098ff;" />
                                     <Label layoutX="15.0" text="Chọn ga đi:">
                                        <font>
                                           <Font name="Times New Roman Bold" size="15.0" />
