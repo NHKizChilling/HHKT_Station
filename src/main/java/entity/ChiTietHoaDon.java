@@ -58,14 +58,13 @@ public class ChiTietHoaDon {
         this.ve = ve;
     }
 
-    public double tinhGiaVe() {
-        double giaCho = ve.getChoNgoi().getGiaCho();
-        double khoangCach = ve.getLichTrinh().getGaDen().getKhoangCach();
+    public void tinhGiaVe() {
+        double giaCho = ve.getChiTietLichTrinh().getGiaCho();
+        double khoangCach = ve.getChiTietLichTrinh().getLichTrinh().getGaDen().getKhoangCach();
         double giaCoBan = giaCho * khoangCach;
         double heSoKhoangCach = 1;
         double heSoToa;
-
-        String maLoaiToa = ve.getChoNgoi().getToa().getLoaiToa().getMaLoaiToa();
+        String maLoaiToa = ve.getChiTietLichTrinh().getChoNgoi().getToa().getLoaiToa().getMaLoaiToa();
 
         if (khoangCach <= 100) {
             heSoKhoangCach += 0.1;
@@ -87,12 +86,12 @@ public class ChiTietHoaDon {
             heSoToa = 1;
         }
         this.giaVe = giaCoBan * heSoKhoangCach * heSoToa;
-        return giaVe;
     }
 
-    public double tinhGiaGiam() {
+    public void tinhGiaGiam() {
         double mucGiamGia = ve.getLoaiVe().getMucGiamGia();
         boolean khuHoi = ve.isKhuHoi();
+        double giaGiam = 0;
 
         if(mucGiamGia > 0.1) {
             giaGiam = giaVe * mucGiamGia;
@@ -101,6 +100,6 @@ public class ChiTietHoaDon {
         } else {
             giaGiam = giaVe * mucGiamGia;
         }
-        return giaGiam;
+        this.giaGiam = giaGiam;
     }
 }

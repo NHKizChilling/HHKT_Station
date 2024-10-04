@@ -58,13 +58,7 @@ public class HoaDon_DAO {
 
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                NhanVien maNhanVien = new NhanVien(rs.getString(2));
-                HanhKhach maKhachHang = new HanhKhach(rs.getString(3));
-                LocalDateTime ngayLap = rs.getTimestamp(4).toLocalDateTime();
-                double tongTien = rs.getDouble(5);
-                double tongGiamGia = rs.getDouble(6);
-
-                hoaDon = new HoaDon(maHoaDon, maNhanVien, ngayLap, maKhachHang, tongTien, tongGiamGia);
+                hoaDon = getInfo(rs);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -162,21 +156,14 @@ public class HoaDon_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            PreparedStatement stm = null;
+            PreparedStatement stm;
             String sql = "Select * from HoaDon where NgayLapHoaDon = ?";
             stm = con.prepareStatement(sql);
             stm.setTimestamp(1, java.sql.Timestamp.valueOf(ngayLap));
 
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                String maHoaDon = rs.getString(1);
-                NhanVien maNhanVien = new NhanVien(rs.getString(2));
-                HanhKhach maKhachHang = new HanhKhach(rs.getString(3));
-                LocalDateTime ngayLapHD = rs.getTimestamp(4).toLocalDateTime();
-                double tongTien = rs.getDouble(5);
-                double tongGiamGia = rs.getDouble(6);
-
-                HoaDon hoaDon = new HoaDon(maHoaDon, maNhanVien, ngayLapHD, maKhachHang, tongTien, tongGiamGia);
+                HoaDon hoaDon = getInfo(rs);
 
                 list.add(hoaDon);
             }
@@ -186,4 +173,20 @@ public class HoaDon_DAO {
         return list;
     }
 
+    public HoaDon getInfo(ResultSet rs) {
+        HoaDon hoaDon = null;
+        try {
+            String maHoaDon = rs.getString(1);
+            NhanVien maNhanVien = new NhanVien(rs.getString(2));
+            HanhKhach maKhachHang = new HanhKhach(rs.getString(3));
+            LocalDateTime ngayLap = rs.getTimestamp(4).toLocalDateTime();
+            double tongTien = rs.getDouble(5);
+            double tongGiamGia = rs.getDouble(6);
+
+            hoaDon = new HoaDon(maHoaDon, maNhanVien, ngayLap, maKhachHang, tongTien, tongGiamGia);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return hoaDon;
+    }
 }

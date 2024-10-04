@@ -28,13 +28,11 @@ public class Ve_DAO {
             while (rs.next()) {
                 String maVe = rs.getString(1);
                 LoaiVe loaiVe = new LoaiVe(rs.getString(2));
-                ChoNgoi choNgoi = new ChoNgoi(rs.getString(3));
-                HanhKhach hanhKhach = new HanhKhach(rs.getString(4));
-                LichTrinh lichTrinh = new LichTrinh(rs.getString(5));
-                String tinhTrangVe = rs.getString(6);
-                boolean khuHoi = rs.getBoolean(7);
+                HanhKhach hanhKhach = new HanhKhach(rs.getString(3));
+                String tinhTrangVe = rs.getString(4);
+                boolean khuHoi = rs.getBoolean(5);
 
-                Ve ve = new Ve(maVe, loaiVe, choNgoi, hanhKhach, lichTrinh, tinhTrangVe, khuHoi);
+                Ve ve = new Ve(maVe, loaiVe, hanhKhach, tinhTrangVe, khuHoi);
 
                 list.add(ve);
             }
@@ -58,13 +56,11 @@ public class Ve_DAO {
 
             if (rs.next()) {
                 LoaiVe loaiVe = new LoaiVe(rs.getString(2));
-                ChoNgoi choNgoi = new ChoNgoi(rs.getString(3));
-                HanhKhach hanhKhach = new HanhKhach(rs.getString(4));
-                LichTrinh lichTrinh = new LichTrinh(rs.getString(5));
-                String tinhTrangVe = rs.getString(6);
-                boolean khuHoi = rs.getBoolean(7);
+                HanhKhach hanhKhach = new HanhKhach(rs.getString(3));
+                String tinhTrangVe = rs.getString(4);
+                boolean khuHoi = rs.getBoolean(5);
 
-                ve = new Ve(maVe, loaiVe, choNgoi, hanhKhach, lichTrinh, tinhTrangVe, khuHoi);
+                ve = new Ve(maVe, loaiVe, hanhKhach, tinhTrangVe, khuHoi);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,15 +74,13 @@ public class Ve_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            String sql = "Insert into Ve values(?,?,?,?,?,?,?)";
+            String sql = "Insert into Ve values(?,?,?,?,?)";
             stm = con.prepareStatement(sql);
             stm.setString(1, ve.getMaVe());
             stm.setString(2, ve.getLoaiVe().getMaLoaiVe());
-            stm.setString(3, ve.getChoNgoi().getMaChoNgoi());
-            stm.setString(4, ve.getHanhKhach().getMaHanhKhach());
-            stm.setString(5, ve.getLichTrinh().getMaLichTrinh());
-            stm.setString(6, ve.getTinhTrangVe());
-            stm.setBoolean(7, ve.isKhuHoi());
+            stm.setString(3, ve.getHanhKhach().getMaHanhKhach());
+            stm.setString(4, ve.getTinhTrangVe());
+            stm.setBoolean(5, ve.isKhuHoi());
 
             n = stm.executeUpdate();
 
@@ -111,15 +105,13 @@ public class Ve_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update Ve set MaLoaiVe = ?, MaSoCho = ?, MaHK = ?, MaLT = ?, TinhTrangVe = ?, KhuHoi = ? where MaVe = ?");
+            stm = con.prepareStatement("update Ve set MaLoaiVe = ?, MaHK = ?, TinhTrangVe = ?, KhuHoi = ? where MaVe = ?");
 
             stm.setString(1, ve.getLoaiVe().getMaLoaiVe());
-            stm.setString(2, ve.getChoNgoi().getMaChoNgoi());
-            stm.setString(3, ve.getHanhKhach().getMaHanhKhach());
-            stm.setString(4, ve.getLichTrinh().getMaLichTrinh());
-            stm.setString(5, ve.getTinhTrangVe());
-            stm.setString(6, ve.getMaVe());
-            stm.setBoolean(7, ve.isKhuHoi());
+            stm.setString(2, ve.getHanhKhach().getMaHanhKhach());
+            stm.setString(3, ve.getTinhTrangVe());
+            stm.setString(4, ve.getMaVe());
+            stm.setBoolean(5, ve.isKhuHoi());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -178,13 +170,11 @@ public class Ve_DAO {
             while (rs.next()) {
                 String maVe = rs.getString(1);
                 LoaiVe loaiVe = new LoaiVe(rs.getString(2));
-                ChoNgoi choNgoi = new ChoNgoi(rs.getString(3));
-                HanhKhach hanhKhach = new HanhKhach(rs.getString(4));
-                LichTrinh lichTrinh = new LichTrinh(rs.getString(5));
-                String tinhTrang = rs.getString(6);
-                boolean khuHoi = rs.getBoolean(7);
+                HanhKhach hanhKhach = new HanhKhach(rs.getString(3));
+                String tinhTrang = rs.getString(4);
+                boolean khuHoi = rs.getBoolean(5);
 
-                Ve ve = new Ve(maVe, loaiVe, choNgoi, hanhKhach, lichTrinh, tinhTrang, khuHoi);
+                Ve ve = new Ve(maVe, loaiVe, hanhKhach, tinhTrang, khuHoi);
 
                 list.add(ve);
             }
