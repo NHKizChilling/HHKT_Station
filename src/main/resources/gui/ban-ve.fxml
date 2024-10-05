@@ -206,10 +206,13 @@
                                           <Font name="Times New Roman Bold" size="15.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="btnTraCuuCT" layoutX="16.0" layoutY="133.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, lightblue, skyblue);" text="Tra cứu" textFill="WHITE">
+                                    <Button fx:id="btnTraCuuCT" layoutX="16.0" layoutY="133.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, blue, skyblue);" text="Tra cứu" textFill="WHITE">
                                        <font>
                                           <Font name="Times New Roman Bold" size="15.0" />
                                        </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
                                     <BorderPane layoutX="670.0" prefHeight="252.0" prefWidth="718.0">
                                        <center>
