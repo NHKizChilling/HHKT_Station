@@ -106,6 +106,9 @@ public class BanVeController implements Initializable {
     private TabPane tabToaTau;
 
     @FXML
+    private TabPane tabTTVe;
+
+    @FXML
     private TableView<?> tbTCTLT;
 
     @FXML

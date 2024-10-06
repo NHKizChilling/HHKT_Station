@@ -241,7 +241,10 @@
                               </AnchorPane>
                            </top>
                            <right>
-                              <AnchorPane fx:id="pnlThongTinCho" prefHeight="466.0" prefWidth="718.0" BorderPane.alignment="CENTER" />
+                              <AnchorPane fx:id="pnlThongTinCho" prefHeight="466.0" prefWidth="718.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <TabPane fx:id="tabTTVe" prefHeight="466.0" prefWidth="718.0" tabClosingPolicy="UNAVAILABLE" />
+                                 </children></AnchorPane>
                            </right>
                         </BorderPane>
                      </children>
