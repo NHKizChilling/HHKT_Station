@@ -18,6 +18,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+
 /*
  * @description:
  * @author: Hiep Nguyen
@@ -117,7 +119,6 @@ public class BanVeController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         chkKhuHoi.setOnAction(e -> {
             if (chkKhuHoi.isSelected()) {
                 dpNgayVe.setDisable(false);
