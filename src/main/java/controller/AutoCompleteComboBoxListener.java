@@ -3,15 +3,6 @@
  *
  *Copyright (c) 2024 IUH. All right reserved.
  */
-package controller;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.scene.control.ComboBox;
-import javafx.scene.input.KeyCode;
-
-import java.awt.event.KeyEvent;
 
 /*
  * @description:
@@ -19,7 +10,17 @@ import java.awt.event.KeyEvent;
  * @date:   05/10/2024
  * version: 1.0
  */
-public class AutoCompleteComboBoxListener<T> implements EventHandler<javafx.scene.input.KeyEvent> {
+
+package controller;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.control.ComboBox;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
+public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 
     private ComboBox comboBox;
     private StringBuilder sb;
@@ -33,10 +34,10 @@ public class AutoCompleteComboBoxListener<T> implements EventHandler<javafx.scen
         data = comboBox.getItems();
 
         this.comboBox.setEditable(true);
-        this.comboBox.setOnKeyPressed(new EventHandler<javafx.scene.input.KeyEvent>() {
+        this.comboBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
             @Override
-            public void handle(javafx.scene.input.KeyEvent keyEvent) {
+            public void handle(KeyEvent keyEvent) {
                 comboBox.hide();
             }
         });
@@ -44,7 +45,7 @@ public class AutoCompleteComboBoxListener<T> implements EventHandler<javafx.scen
     }
 
     @Override
-    public void handle(javafx.scene.input.KeyEvent event) {
+    public void handle(KeyEvent event) {
 
         if(event.getSource() == KeyCode.UP) {
             caretPos = -1;
