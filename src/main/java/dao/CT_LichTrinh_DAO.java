@@ -71,12 +71,12 @@ public class CT_LichTrinh_DAO {
 
         int n = 0;
         try {
-            String sql = "Update ChiTietLichTrinh set MaChoNgoi = ?, MaLichTrinh = ?, TrangThai = ?, GiaCho = ? where MaVe = ?";
+            String sql = "Update ChiTietLichTrinh set TrangThai = ?, GiaCho = ? where MaChoNgoi = ? and MaLichTrinh = ?";
             stm = con.prepareStatement(sql);
-            stm.setString(1, ctlt.getChoNgoi().getMaChoNgoi());
-            stm.setString(2, ctlt.getLichTrinh().getMaLichTrinh());
-            stm.setBoolean(3, ctlt.isTrangThai());
-            stm.setDouble(4, ctlt.getGiaCho());
+            stm.setString(3, ctlt.getChoNgoi().getMaChoNgoi());
+            stm.setString(4, ctlt.getLichTrinh().getMaLichTrinh());
+            stm.setBoolean(1, ctlt.isTrangThai());
+            stm.setDouble(2, ctlt.getGiaCho());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -93,16 +93,16 @@ public class CT_LichTrinh_DAO {
         return n > 0;
     }
 
-    public boolean delete(String maVe) {
+    public boolean delete(String maLT) {
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
         PreparedStatement stm = null;
 
         int n = 0;
         try {
-            String sql = "Delete from ChiTietLichTrinh where MaVe = ?";
+            String sql = "Delete from ChiTietLichTrinh where MaLichTrinh = ?";
             stm = con.prepareStatement(sql);
-            stm.setString(1, maVe);
+            stm.setString(1, maLT);
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -168,11 +168,10 @@ public class CT_LichTrinh_DAO {
     public ChiTietLichTrinh getInfo(ResultSet rs) {
         ChiTietLichTrinh ctlt = null;
         try {
-            Ve ve = new Ve(rs.getString(1));
-            ChoNgoi choNgoi = new ChoNgoi(rs.getString(2));
-            LichTrinh lichTrinh = new LichTrinh(rs.getString(3));
-            boolean trangThai = rs.getBoolean(4);
-            double giaCho = rs.getDouble(5);
+            ChoNgoi choNgoi = new ChoNgoi(rs.getString(1));
+            LichTrinh lichTrinh = new LichTrinh(rs.getString(2));
+            boolean trangThai = rs.getBoolean(3);
+            double giaCho = rs.getDouble(4);
 
             ctlt = new ChiTietLichTrinh(choNgoi, lichTrinh, trangThai, giaCho);
         } catch (Exception e) {

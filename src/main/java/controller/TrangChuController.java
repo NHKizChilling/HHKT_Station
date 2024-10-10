@@ -9,6 +9,7 @@ import connectdb.ConnectDB;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import gui.TrangChu_GUI;
 import javafx.application.Application;
+import javafx.css.Style;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,6 +34,7 @@ import java.util.ResourceBundle;
  * version: 1.0
  */
 public class TrangChuController implements Initializable {
+
     @FXML
     private AnchorPane paneMain;
     @FXML
@@ -49,8 +51,11 @@ public class TrangChuController implements Initializable {
     private Label lblTenNhanVien;
     @FXML
 
+    private String style = null;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        style = btnFVe.getStyle();
         btnFVe.setOnMouseClicked(e -> chooseFeatureButton(btnFVe));
         btnFNV.setOnMouseClicked(e -> chooseFeatureButton(btnFNV));
         btnFHK.setOnMouseClicked(e -> chooseFeatureButton(btnFHK));
@@ -123,9 +128,9 @@ public class TrangChuController implements Initializable {
         List<Button> dsF = List.of(btnFVe, btnFNV, btnFHK, btnFBCTK, btnFCT);
         dsF.forEach(btn -> {
             if (btn.equals(btnChosed)) {
-                btn.setStyle("-fx-background-color: gray;-fx-border-color: black;-fx-border-width: 0 0 2 0");
+                btn.setStyle(btn.getStyle() + "-fx-background-color: skyblue;-fx-border-color: blue");
             } else {
-                btn.setStyle("-fx-background-color: transparent;-fx-border-color: blue;-fx-border-width: 0 0 2 0");
+                btn.setStyle(style);
             }
         });
     }

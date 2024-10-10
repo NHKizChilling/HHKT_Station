@@ -68,7 +68,7 @@
                            <top>
                               <AnchorPane prefHeight="250.0" prefWidth="1393.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
                                  <children>
-                                    <TitledPane expanded="false" layoutX="446.0" layoutY="18.0" prefHeight="230.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Loại Vé">
+                                    <TitledPane fx:id="ttpLoaiVe" expanded="false" layoutX="446.0" layoutY="18.0" prefHeight="230.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Loại Vé">
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="110.0" prefWidth="178.0" style="-fx-background-color: #fff;">
                                              <children>
@@ -220,7 +220,7 @@
                                             <content>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="251.0" prefWidth="715.0">
                                                    <children>
-                                                      <TableView fx:id="tbTCTLT" onMouseClicked="#hienThiThongTin" prefHeight="252.0" prefWidth="706.0">
+                                                      <TableView fx:id="tbTCTLT" prefHeight="252.0" prefWidth="706.0">
                                                         <columns>
                                                           <TableColumn fx:id="colSTT" prefWidth="50.0" style="-fx-background-color: linear-gradient(to right, #5050ff, #5060ff); -fx-background-radius: 5 0 0 0; -fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="STT" />
                                                           <TableColumn fx:id="colSoHieuTau" prefWidth="75.0" style="-fx-background-color: linear-gradient(to right, #5060ff, #5065ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Số Hiệu Tàu" />
@@ -228,7 +228,7 @@
                                                             <TableColumn fx:id="colGaDen" prefWidth="100.0" style="-fx-background-color: linear-gradient(to right, #5070ff, #5075ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Ga Đến" />
                                                             <TableColumn fx:id="colGioKH" prefWidth="100.0" style="-fx-background-color: linear-gradient(to right, #5075ff, #5080ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Giờ khởi hành" />
                                                             <TableColumn fx:id="colTGDen" prefWidth="195.0" style="-fx-background-color: linear-gradient(to right, #5080ff, #5090ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Ngày giờ dự kiến đến" />
-                                                            <TableColumn prefWidth="90.0" style="-fx-background-color: linear-gradient(to right, #5090ff, lightblue); -fx-background-radius: 0 5 0 0;" />
+                                                            <TableColumn fx:id="colChon" prefWidth="90.0" style="-fx-background-color: linear-gradient(to right, #5090ff, lightblue); -fx-background-radius: 0 5 0 0;" />
                                                         </columns>
                                                       </TableView>
                                                    </children>
