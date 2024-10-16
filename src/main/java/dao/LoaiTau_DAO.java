@@ -137,30 +137,4 @@ public class LoaiTau_DAO {
         }
         return loaiTau;
     }
-
-    public boolean xoaLoaiTauTheoMa(String maLoaiTau) {
-        ConnectDB.getInstance();
-        Connection con = ConnectDB.getConnection();
-        PreparedStatement stm = null;
-        int n = 0;
-        try {
-            stm = con.prepareStatement("delete from LoaiTau where MaLoaiTau = ?");
-
-            stm.setString(1, maLoaiTau);
-
-            n = stm.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (stm != null) {
-                try {
-                    stm.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return n > 0;
-    }
-
 }

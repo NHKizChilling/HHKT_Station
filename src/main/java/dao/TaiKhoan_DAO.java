@@ -73,7 +73,7 @@ public class TaiKhoan_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update TaiKhoan set TrangThaiTK = ? where MaNhanVien = ?");
+            stm = con.prepareStatement("update TaiKhoan set TrangThaiTK = ? where MaNV = ?");
 
             stm.setString(1, traThaiTK);
             stm.setString(2, maNhanVien);
@@ -99,7 +99,7 @@ public class TaiKhoan_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update TaiKhoan set MatKhau = ?, TrangThaiTK = ? where MaNhanVien = ?");
+            stm = con.prepareStatement("update TaiKhoan set MatKhau = ?, TrangThaiTK = ? where MaNV = ?");
 
             stm.setString(1, tk.getMatKhau());
             stm.setString(2, tk.getTrangThaiTK());
@@ -126,7 +126,7 @@ public class TaiKhoan_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update TaiKhoan set MatKhau = ? where MaNhanVien = ?");
+            stm = con.prepareStatement("update TaiKhoan set MatKhau = ? where MaNV = ?");
 
             stm.setString(1, matKhauMoi);
             stm.setString(2, maNhanVien);
@@ -146,12 +146,12 @@ public class TaiKhoan_DAO {
         return n > 0;
     }
 
-    public TaiKhoan getOneTaiKhoan(String maNhanVien) {
+    public TaiKhoan getTaiKhoanTheoMaNV(String maNhanVien) {
         TaiKhoan tk = null;
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "SELECT * FROM TaiKhoan WHERE MaNhanVien = ?";
+            String sql = "SELECT * FROM TaiKhoan WHERE MaNV = ?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1, maNhanVien);
 
@@ -160,9 +160,9 @@ public class TaiKhoan_DAO {
             if (rs.next()) {
                 tk = new TaiKhoan();
 
-                tk.setNhanVien(new NhanVien(rs.getString(1)));
-                tk.setMatKhau(rs.getString(2));
-                tk.setTrangThaiTK(rs.getString(3));
+                tk.setNhanVien(new NhanVien(rs.getString("MaNV")));
+                tk.setMatKhau(rs.getString("MatKhau"));
+                tk.setTrangThaiTK(rs.getString("TrangThaiTK"));
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -6,6 +6,7 @@ public class Ga {
     private String maGa;
     private String tenGa;
     private String viTri;
+    private int khoangCach;
 
 
     public Ga() {
@@ -15,10 +16,22 @@ public class Ga {
         setMaGa(maGa);
     }
 
-    public Ga(String maGa, String tenGa, String viTri) {
+    public Ga(String maGa, String tenGa, String viTri, int khoangCach) {
         setMaGa(maGa);
         setTenGa(tenGa);
         setViTri(viTri);
+        setKhoangCach(khoangCach);
+    }
+
+    public int getKhoangCach() {
+        return khoangCach;
+    }
+
+    public void setKhoangCach(int khoangCach) {
+        if (khoangCach < 0) {
+            throw new IllegalArgumentException("Khoảng cách không hợp lệ");
+        }
+        this.khoangCach = khoangCach;
     }
 
     public String getMaGa() {

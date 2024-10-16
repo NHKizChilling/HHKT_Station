@@ -25,15 +25,7 @@ public class HanhKhach_DAO {
 
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                String maHanhKhach = rs.getString(1);
-                String tenHanhKhach = rs.getString(2);
-                String cmnd = rs.getString(3);
-                String sdt = rs.getString(4);
-                LocalDate ngaySinh = rs.getDate(5).toLocalDate();
-                boolean gioiTinh = rs.getBoolean(6);
-                String email = rs.getString(7);
-
-                HanhKhach hanhKhach = new HanhKhach(maHanhKhach, tenHanhKhach, cmnd, sdt, ngaySinh, gioiTinh, email);
+                HanhKhach hanhKhach = getInfo(rs);
                 listHanhKhach.add(hanhKhach);
             }
         } catch (Exception e) {
@@ -79,7 +71,7 @@ public class HanhKhach_DAO {
         PreparedStatement stm;
         int n = 0;
         try {
-            stm = con.prepareStatement("update HanhKhach set TenHanhKhach = ?, SoCCCD = ?, SDT = ?, NgaySinh = ?, GioiTinh = ?, Email = ? where MaHanhKhach = ?");
+            stm = con.prepareStatement("update HanhKhach set TenHK = ?, SoCCCD = ?, SDT = ?, NgaySinh = ?, GioiTinh = ?, Email = ? where MaHanhKhach = ?");
 
             stm.setString(1, hk.getTenHanhKhach());
             stm.setString(2, hk.getSoCCCD());
@@ -110,7 +102,7 @@ public class HanhKhach_DAO {
         PreparedStatement stm;
         int n = 0;
         try {
-            stm = con.prepareStatement("delete from HanhKhach where MaHanhKhach = ?");
+            stm = con.prepareStatement("delete from HanhKhach where MaHK = ?");
             stm.setString(1, maHanhKhach);
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -132,18 +124,12 @@ public class HanhKhach_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from HanhKhach where MaHanhKhach = ?";
+            String sql = "Select * from HanhKhach where MaHK = ?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1, maHanhKhach);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                String tenHanhKhach = rs.getString(2);
-                String cmnd = rs.getString(3);
-                String sdt = rs.getString(4);
-                LocalDate ngaySinh = rs.getDate(5).toLocalDate();
-                boolean gioiTinh = rs.getBoolean(6);
-                String email = rs.getString(7);
-                hk = new HanhKhach(maHanhKhach, tenHanhKhach, cmnd, sdt, ngaySinh, gioiTinh, email);
+                hk = getInfo(rs);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,13 +147,7 @@ public class HanhKhach_DAO {
             stm.setString(1, soCCCD);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                String maHanhKhach = rs.getString(1);
-                String tenHanhKhach = rs.getString(2);
-                String sdt = rs.getString(4);
-                LocalDate ngaySinh = rs.getDate(5).toLocalDate();
-                boolean gioiTinh = rs.getBoolean(6);
-                String email = rs.getString(7);
-                hk = new HanhKhach(maHanhKhach, tenHanhKhach, soCCCD, sdt, ngaySinh, gioiTinh, email);
+                hk = getInfo(rs);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -199,6 +179,23 @@ public class HanhKhach_DAO {
         return hk;
     }
 
+    public HanhKhach getInfo(ResultSet rs) {
+        HanhKhach hk = null;
+        try {
+            String maHanhKhach = rs.getString(1);
+            String tenHanhKhach = rs.getString(2);
+            String cmnd = rs.getString(3);
+            String sdt = rs.getString(4);
+            LocalDate ngaySinh = rs.getDate(5).toLocalDate();
+            boolean gioiTinh = rs.getBoolean(6);
+            String email = rs.getString(7);
+
+            hk = new HanhKhach(maHanhKhach, tenHanhKhach, cmnd, sdt, ngaySinh, gioiTinh, email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return hk;
+    }
 }
 
 

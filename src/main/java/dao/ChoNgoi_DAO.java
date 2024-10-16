@@ -1,5 +1,6 @@
 package dao;
 
+import com.sun.jdi.ArrayReference;
 import connectdb.ConnectDB;
 import entity.ChoNgoi;
 import entity.Toa;
@@ -26,14 +27,7 @@ public class ChoNgoi_DAO {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                String maChoNgoi = rs.getString(1);
-                Toa toa = new Toa(rs.getString(2));
-                int tang = rs.getInt(3);
-                int khoang = rs.getInt(4);
-                String trangThai = rs.getString(5);
-                double giaCho = rs.getDouble(6);
-
-                ChoNgoi choNgoi = new ChoNgoi(maChoNgoi, toa, tang, khoang, trangThai, giaCho);
+                ChoNgoi choNgoi = getInfo(rs);
 
                 list.add(choNgoi);
             }
@@ -48,20 +42,14 @@ public class ChoNgoi_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from ChoNgoi where maToa = '" + maToa + "'";
-            Statement st = con.createStatement();
+            String sql = "Select * from ChoNgoi where MaToa = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, maToa);
 
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                String maChoNgoi = rs.getString(1);
-                Toa toa = new Toa(rs.getString(2));
-                int tang = rs.getInt(3);
-                int khoang = rs.getInt(4);
-                String trangThai = rs.getString(5);
-                double giaCho = rs.getDouble(6);
-
-                ChoNgoi choNgoi = new ChoNgoi(maChoNgoi, toa, tang, khoang, trangThai, giaCho);
+                ChoNgoi choNgoi = getInfo(rs);
 
                 list.add(choNgoi);
             }
@@ -107,7 +95,7 @@ public class ChoNgoi_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update ChoNgoi set maToa = ?, tang = ?, khoang = ?, trangThai = ?, giaCho = ? where maChoNgoi = ?");
+            stm = con.prepareStatement("update ChoNgoi set MaToa = ?, Tang = ?, Khoang = ?, TrangThai = ?, GiaCho = ? where MaChoNgoi = ?");
 
             stm.setString(1, choNgoi.getToa().getMaToa());
             stm.setInt(2, choNgoi.getTang());
@@ -129,5 +117,69 @@ public class ChoNgoi_DAO {
             }
         }
         return n > 0;
+    }
+
+    public boolean delete(String maChoNgoi) {
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        PreparedStatement stm = null;
+        int n = 0;
+        try {
+            String sql = "delete from ChoNgoi where MaChoNgoi = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, maChoNgoi);
+
+            n = stm.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return n > 0;
+    }
+
+    public ArrayList<ChoNgoi> getDsChoNgoiTheoToa(String maToa) {
+        ArrayList<ChoNgoi> list = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from ChoNgoi where MaToa = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, maToa);
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                ChoNgoi choNgoi = getInfo(rs);
+
+                list.add(choNgoi);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public ChoNgoi getInfo(ResultSet rs) {
+        ChoNgoi choNgoi = null;
+        try {
+            String maChoNgoi = rs.getString(1);
+            Toa toa = new Toa(rs.getString(2));
+            int tang = rs.getInt(3);
+            int khoang = rs.getInt(4);
+            String trangThai = rs.getString(5);
+            double giaCho = rs.getDouble(6);
+
+            choNgoi = new ChoNgoi(maChoNgoi, toa, tang, khoang, trangThai, giaCho);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return choNgoi;
     }
 }

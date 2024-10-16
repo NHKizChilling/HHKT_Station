@@ -26,17 +26,7 @@ public class NhanVien_DAO {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                String maNV = rs.getString(1);
-                String tenNV = rs.getString(2);
-                String soCCCD = rs.getString(3);
-                LocalDate ngaySinh = rs.getDate(4).toLocalDate();
-                boolean gioiTinh = rs.getBoolean(5);
-                String sdt = rs.getString(6);
-                String email = rs.getString(7);
-                String chucVu = rs.getString(8);
-                String tinhTrangCV = rs.getString(9);
-
-                NhanVien nv = new NhanVien(maNV, tenNV, soCCCD, ngaySinh, gioiTinh, sdt, chucVu, email, tinhTrangCV);
+                NhanVien nv = getInfo(rs);
 
                 list.add(nv);
             }
@@ -85,7 +75,7 @@ public class NhanVien_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update NhanVien set TinhTrangCV = ? where MaNhanVien = ?");
+            stm = con.prepareStatement("update NhanVien set TinhTrangCV = ? where MaNV = ?");
 
             stm.setString(1, tinhTrangCV);
             stm.setString(2, maNV);
@@ -116,17 +106,7 @@ public class NhanVien_DAO {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                String maNV = rs.getString(1);
-                String tenNV = rs.getString(2);
-                String soCCCD = rs.getString(3);
-                LocalDate ngaySinh = rs.getDate(4).toLocalDate();
-                boolean gioiTinh = rs.getBoolean(5);
-                String sdt = rs.getString(6);
-                String email = rs.getString(7);
-                String chucVu = rs.getString(8);
-                String tinhTrangCV = rs.getString(9);
-
-                NhanVien nv = new NhanVien(maNV, tenNV, soCCCD, ngaySinh, gioiTinh, sdt, chucVu, email, tinhTrangCV);
+                NhanVien nv = getInfo(rs);
 
                 list.add(nv);
             }
@@ -147,17 +127,7 @@ public class NhanVien_DAO {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                String maNV = rs.getString(1);
-                String tenNV = rs.getString(2);
-                String soCCCD = rs.getString(3);
-                LocalDate ngaySinh = rs.getDate(4).toLocalDate();
-                boolean gioiTinh = rs.getBoolean(5);
-                String sdt = rs.getString(6);
-                String email = rs.getString(7);
-                String chucVu = rs.getString(8);
-                String tinhTrangCV = rs.getString(9);
-
-                NhanVien nv = new NhanVien(maNV, tenNV, soCCCD, ngaySinh, gioiTinh, sdt, chucVu, email, tinhTrangCV);
+                NhanVien nv = getInfo(rs);
 
                 list.add(nv);
             }
@@ -173,7 +143,7 @@ public class NhanVien_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update NhanVien set TenNhanVien = ?, SoCCCD = ?, NgaySinh = ?, GioiTinh = ?, Sdt = ?, Email = ?, ChucVu = ?, TinhTrangCV = ? where MaNhanVien = ?");
+            stm = con.prepareStatement("update NhanVien set HoTenNV = ?, SoCCCD = ?, NgaySinh = ?, GioiTinh = ?, SDT = ?, Email = ?, ChucVu = ?, TinhTrangCV = ? where MaNhanVien = ?");
 
             stm.setString(1, nv.getTenNhanVien());
             stm.setString(2, nv.getSoCCCD());
@@ -205,24 +175,35 @@ public class NhanVien_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from NhanVien where MaNhanVien = ?";
+            String sql = "Select * from NhanVien where MaNV = ?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, maNV);
 
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                String tenNV = rs.getString(2);
-                String soCCCD = rs.getString(3);
-                LocalDate ngaySinh = rs.getDate(4).toLocalDate();
-                boolean gioiTinh = rs.getBoolean(5);
-                String sdt = rs.getString(6);
-                String email = rs.getString(7);
-                String chucVu = rs.getString(8);
-                String tinhTrangCV = rs.getString(9);
-
-                nv = new NhanVien(maNV, tenNV, soCCCD, ngaySinh, gioiTinh, sdt, chucVu, email, tinhTrangCV);
+                nv = getInfo(rs);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return nv;
+    }
+
+    public NhanVien getInfo(ResultSet rs) {
+        NhanVien nv = null;
+        try {
+            String maNV = rs.getString(1);
+            String tenNV = rs.getString(2);
+            String soCCCD = rs.getString(3);
+            LocalDate ngaySinh = rs.getDate(4).toLocalDate();
+            boolean gioiTinh = rs.getBoolean(5);
+            String sdt = rs.getString(6);
+            String email = rs.getString(7);
+            String chucVu = rs.getString(8);
+            String tinhTrangCV = rs.getString(9);
+
+            nv = new NhanVien(maNV, tenNV, soCCCD, ngaySinh, gioiTinh, sdt, chucVu, email, tinhTrangCV);
         } catch (Exception e) {
             e.printStackTrace();
         }

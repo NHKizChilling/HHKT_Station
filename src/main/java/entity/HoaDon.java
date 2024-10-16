@@ -20,13 +20,11 @@ public class HoaDon {
     }
 
     public HoaDon(String maHoaDon, NhanVien nhanVien, LocalDateTime ngayLapHoaDon,
-                  HanhKhach hanhKhach, ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
+                  HanhKhach hanhKhach) {
         setMaHoaDon(maHoaDon);
         setNhanVien(nhanVien);
         setNgayLapHoaDon(ngayLapHoaDon);
         setHanhKhach(hanhKhach);
-        tinhTongTien(dsChiTietHoaDon);
-        tinhTongGiamGia(dsChiTietHoaDon);
     }
 
     public HoaDon(String maHoaDon, NhanVien nhanVien, LocalDateTime ngayLapHoaDon,
@@ -39,23 +37,23 @@ public class HoaDon {
         setTongGiamGia(giamGia);
     }
 
-    public double tinhTongTien(ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
-        tongTien = 0;
+    public void tinhTongTien(ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
+        double tongTien = 0;
         double phiDichVu = dsChiTietHoaDon.size() * 2000;
 
         for (ChiTietHoaDon chiTietHoaDon : dsChiTietHoaDon) {
-            tongTien += chiTietHoaDon.tinhGiaVe();
+            tongTien += chiTietHoaDon.getGiaVe();
         }
         tongTien += phiDichVu;
-        return tongTien;
+        this.tongTien = tongTien;
     }
 
-    public double tinhTongGiamGia(ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
-        tongGiamGia = 0;
+    public void tinhTongGiamGia(ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
+        double tongGiamGia = 0;
         for (ChiTietHoaDon chiTietHoaDon : dsChiTietHoaDon) {
-            tongGiamGia += chiTietHoaDon.tinhGiaGiam();
+            tongGiamGia += chiTietHoaDon.getGiaGiam();
         }
-        return tongGiamGia;
+        this.tongGiamGia = tongGiamGia;
     }
 
     public double getTongTien() {
