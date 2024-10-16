@@ -12,6 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< Updated upstream
 
 <AnchorPane prefHeight="755.0" prefWidth="1384.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HoaDon">
    <children>
@@ -20,10 +21,27 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="620.0" layoutY="14.0" text="HÓA ĐƠN">
+=======
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1384.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <right>
+      <AnchorPane prefHeight="200.0" prefWidth="310.0" BorderPane.alignment="CENTER">
+         <children>
+            <Line endX="-107.8000717163086" endY="556.7000122070312" layoutX="115.0" layoutY="194.0" startX="-107.8000717163086" startY="-194.0" />
+            <TextArea layoutX="55.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" text="QUY ĐỊNH&#10;" />
+         </children></AnchorPane>
+   </right>
+   <center>
+      <BorderPane prefHeight="756.0" prefWidth="1044.0" BorderPane.alignment="CENTER">
+         <top>
+            <AnchorPane prefHeight="200.0" prefWidth="1036.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="525.0" layoutY="14.0" text="HÓA ĐƠN">
+>>>>>>> Stashed changes
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
+<<<<<<< Updated upstream
                   <Line endX="1257.0" layoutX="115.0" layoutY="51.0" startX="-115.0" />
                   <Label layoutX="14.0" layoutY="61.0" text="THÔNG TIN HÓA ĐƠN">
                      <font>
@@ -45,10 +63,26 @@
                   </Label>
                   <Label layoutX="1112.0" layoutY="115.0" text="Mã nhân viên:" />
                   <TextField layoutX="1203.0" layoutY="111.0" />
+=======
+                  <Label layoutX="53.0" layoutY="60.0" text="Mã hóa đơn:" />
+                  <Label layoutX="401.0" layoutY="60.0" text="Ngày lập:" />
+                  <Label layoutX="53.0" layoutY="113.0" text="Người mua:" />
+                  <Label layoutX="401.0" layoutY="113.0" text="Số điện thoại:" />
+                  <Label layoutX="709.0" layoutY="60.0" text="Mã nhân viên:" />
+                  <Label layoutX="709.0" layoutY="113.0" text="Tên nhân viên:" />
+                  <TextField fx:id="txt_maHoaDon" disable="true" layoutX="127.0" layoutY="56.0" />
+                  <TextField fx:id="txt_nguoiMua" disable="true" layoutX="128.0" layoutY="109.0" />
+                  <TextField fx:id="txt_ngayLap" disable="true" layoutX="484.0" layoutY="56.0" />
+                  <TextField fx:id="txt_sdt" disable="true" layoutX="485.0" layoutY="109.0" />
+                  <TextField fx:id="txt_maNhanVien" disable="true" layoutX="799.0" layoutY="56.0" />
+                  <TextField fx:id="txt_tenNhanVien" disable="true" layoutX="800.0" layoutY="109.0" />
+                  <Line endX="929.199951171875" endY="3.0517578125E-5" layoutX="146.0" layoutY="186.0" startX="-146.00001525878906" startY="3.0517578125E-5" />
+>>>>>>> Stashed changes
                </children>
             </AnchorPane>
          </top>
          <center>
+<<<<<<< Updated upstream
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <ScrollPane prefHeight="331.0" prefWidth="1369.0">
@@ -65,16 +99,40 @@
                               <TableColumn fx:id="colChon111111" prefWidth="161.0" style="-fx-background-color: linear-gradient(to right, #5090ff, lightblue); -fx-background-radius: 0 5 0 0;" text="Giá vé" />
                               <TableColumn fx:id="colChon1111111" prefWidth="158.0" style="-fx-background-color: linear-gradient(to right, #5090ff, lightblue); -fx-background-radius: 0 5 0 0;" text="Giảm giá" />
                               <TableColumn fx:id="colChon11111111" prefWidth="173.0" style="-fx-background-color: linear-gradient(to right, #5090ff, lightblue); -fx-background-radius: 0 5 0 0;" text="Thành tiền" />
+=======
+            <AnchorPane prefHeight="356.0" prefWidth="1058.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ScrollPane layoutX="11.0" layoutY="49.0" prefHeight="306.0" prefWidth="1035.0">
+                     <content>
+                        <TableView fx:id="tbl_hoaDon" prefHeight="314.0" prefWidth="1019.0">
+                           <columns>
+                              <TableColumn fx:id="col_stt" prefWidth="44.0000017285347" style="-fx-background-color: linear-gradient(to right, #5050ff, #5060ff); -fx-background-radius: 5 0 0 0; -fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="STT" />
+                              <TableColumn fx:id="col_thongTinVe" prefWidth="240.80004119873047" style="-fx-background-color: linear-gradient(to right, #5070ff, #5075ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Thông tin vé" />
+                              <TableColumn fx:id="col_loaiCho" prefWidth="147.199951171875" style="-fx-background-color: linear-gradient(to right, #5090ff, lightblue); -fx-background-radius: 0 5 0 0;" text="Loại chỗ" />
+                              <TableColumn fx:id="col_loaiVe" prefWidth="128.00003051757812" style="-fx-background-color: linear-gradient(to right, #5090ff, lightblue); -fx-background-radius: 0 5 0 0;" text="Loại vé" />
+                              <TableColumn fx:id="col_donGia" prefWidth="162.4000244140625" style="-fx-background-color: linear-gradient(to right, #5090ff, lightblue); -fx-background-radius: 0 5 0 0;" text="Đơn giá" />
+                              <TableColumn fx:id="col_giamGia" prefWidth="149.5999755859375" style="-fx-background-color: linear-gradient(to right, #5090ff, lightblue); -fx-background-radius: 0 5 0 0;" text="Giảm giá" />
+                              <TableColumn fx:id="col_thanhTien" prefWidth="147.20013427734375" style="-fx-background-color: linear-gradient(to right, #5090ff, lightblue); -fx-background-radius: 0 5 0 0;" text="Thành tiền" />
+>>>>>>> Stashed changes
                            </columns>
                         </TableView>
                      </content>
                   </ScrollPane>
+<<<<<<< Updated upstream
+=======
+                  <Label layoutX="14.0" layoutY="14.0" text="Mặt hàng đã chọn">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+>>>>>>> Stashed changes
                </children>
             </AnchorPane>
          </center>
          <bottom>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
+<<<<<<< Updated upstream
                   <Label layoutX="32.0" layoutY="16.0" text="Tổng giảm giá:">
                      <font>
                         <Font size="14.0" />
@@ -95,9 +153,33 @@
                   <TextField layoutX="170.0" layoutY="111.0" prefHeight="41.0" prefWidth="216.0" />
                   <Button layoutX="1257.0" layoutY="114.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="102.0" text="Thanh toán" />
                   <TextArea layoutX="470.0" layoutY="14.0" prefHeight="78.0" prefWidth="900.0" text="Quy định&#10;" />
+=======
+                  <Line endX="963.39990234375" layoutX="115.0" layoutY="15.0" startX="-115.0" />
+                  <Label layoutX="14.0" layoutY="48.0" text="Tổng giảm giá:">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label layoutX="14.0" layoutY="100.0" text="Thuế VAT:">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label layoutX="17.0" layoutY="148.0" text="Tổng tiền:">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font></Label>
+                  <TextField fx:id="txt_tongGiamGia" disable="true" layoutX="119.0" layoutY="45.0" prefHeight="26.0" prefWidth="168.0" />
+                  <TextField fx:id="txt_vat" disable="true" layoutX="119.0" layoutY="97.0" prefHeight="26.0" prefWidth="168.0" />
+                  <TextField fx:id="txt_tongTien" disable="true" layoutX="120.0" layoutY="144.0" prefHeight="34.0" prefWidth="167.0" />
+                  <Button fx:id="btn_inHoaDon" layoutX="959.0" layoutY="144.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="84.0" text="In hóa đơn" />
+>>>>>>> Stashed changes
                </children>
             </AnchorPane>
          </bottom>
       </BorderPane>
+<<<<<<< Updated upstream
    </children>
 </AnchorPane>
+=======
+   </center>
+</BorderPane>
+>>>>>>> Stashed changes
