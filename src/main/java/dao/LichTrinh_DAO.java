@@ -55,7 +55,7 @@ public class LichTrinh_DAO {
         return lichTrinh;
     }
 
-    public ArrayList<LichTrinh> getLichTrinh(String MaGaDi, String MaGaDen, LocalDate ngayDi) {
+    public ArrayList<LichTrinh> traCuuDSLichTrinh(String MaGaDi, String MaGaDen, LocalDate ngayDi) {
         ArrayList<LichTrinh> dslt = new ArrayList<>();
         PreparedStatement stm = null;
         try {
@@ -65,10 +65,10 @@ public class LichTrinh_DAO {
             stm = con.prepareStatement(sql);
             stm.setString(1, MaGaDen);
             stm.setInt(2, ngayDi.getYear());
-            stm.setInt(3, ngayDi.getMonthValue());
+            stm.setInt(3, ngayDi.getMonth().getValue());
             stm.setInt(4, ngayDi.getDayOfMonth());
             ResultSet rs = stm.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 LichTrinh lt = getInfo(rs);
                 dslt.add(lt);
             }
@@ -88,6 +88,24 @@ public class LichTrinh_DAO {
             stm = con.prepareStatement(sql);
             stm.setBoolean(1, trangThai);
             stm.setString(2, maLichTrinh);
+
+            n = stm.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
+    }
+
+    public boolean updateTrangThaiCT(boolean trangThai) {
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        int n = 0;
+        PreparedStatement stm = null;
+        try {
+            String sql = "update LichTrinh set TrangThai = ? where ThoiGianKhoiHanh < ?";
+            stm = con.prepareStatement(sql);
+            stm.setBoolean(1, trangThai);
+            stm.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
 
             n = stm.executeUpdate();
         } catch (Exception e) {

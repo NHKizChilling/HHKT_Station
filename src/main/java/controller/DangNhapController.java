@@ -13,12 +13,16 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import entity.NhanVien;
 import entity.TaiKhoan;
 import gui.TrangChu_GUI;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -52,11 +56,20 @@ public class DangNhapController {
     protected void onLoginButtonClick() throws SQLException, IOException {
         ConnectDB.connect();
         getData.nv = new NhanVien_DAO().getNhanVien("NV291204004");
+//        Stage stg = new Stage();
+//        FXMLLoader fxmlLoader1 = new FXMLLoader(TrangChu_GUI.class.getResource("loader.fxml"));
+//        Scene scene1 = new Scene(fxmlLoader1.load());
+//        stg.setScene(scene1);
+//        stg.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
+//        ProgressBar loader = (ProgressBar) stg.getScene().lookup("#progressBar");
+//        loader.setProgress(0.0);
+//        loader.setStyle("-fx-accent: #00bfff;");
         FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("trang-chu.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         TrangChu_GUI.stage.setScene(scene);
         TrangChu_GUI.stage.show();
         TrangChu_GUI.stage.centerOnScreen();
+
 
         return;
 //        String manv = txtTK.getText();
@@ -168,6 +181,68 @@ public class DangNhapController {
             iShowPwd.setIcon(FontAwesomeIcons.EYE_SLASH);
             if (txtPwd.isFocused()) {
                 pwd.requestFocus();
+            }
+        }
+    }
+
+    @FXML
+    protected void quenMatKhau() {
+        try {
+            ConnectDB.connect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        //Tạo alert nhập mã nhân viên và số cccd
+        alert.setTitle("Quên mật khẩu");
+        alert.setHeaderText(null);
+        alert.setContentText("Nhập mã nhân viên và số CCCD để lấy lại mật khẩu");
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        TextField txtMaNV = new TextField();
+        txtMaNV.setPromptText("Mã nhân viên");
+        TextField txtCCCD = new TextField();
+        txtCCCD.setPromptText("Số CCCD");
+        Label label = new Label("Nhập thông tin để lấy lại mật khẩu:");
+        label.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+        grid.add(label, 0, 0, 2, 1);
+        grid.add(new Label("Mã nhân viên:"), 0, 1);
+        grid.add(new Label("Số CCCD:"), 0, 2);
+        grid.add(txtMaNV, 1, 1);
+        grid.add(txtCCCD, 1, 2);
+        alert.getDialogPane().setContent(grid);
+        //set icon
+        ImageView imageView = new ImageView(new Image("file:src/main/resources/img/logo.png"));
+        imageView.setFitHeight(20);
+        imageView.setFitWidth(20);
+        alert.setGraphic(imageView);
+        alert.showAndWait();
+        if (alert.getResult().getText().equals("OK")) {
+            String manv = txtMaNV.getText();
+            String cccd = txtCCCD.getText();
+            if (manv == null || manv.isEmpty()) {
+                                txtMaNV.requestFocus();
+                return;
+            } else if (cccd == null || cccd.isEmpty()) {
+
+                txtCCCD.requestFocus();
+                return;
+            } else if (new NhanVien_DAO().getNhanVien(manv) == null) {
+                Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                alert1.setHeaderText(null);
+                alert1.setTitle("Quên mật khẩu");
+                alert1.setContentText("Mã nhân viên không tồn tại!");
+                alert1.showAndWait();
+                return;
+            } else {
+                if (new NhanVien_DAO().getNhanVien(manv).getSoCCCD().equals(cccd)) {
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setHeaderText(null);
+                    alert1.setTitle("Quên mật khẩu");
+                    alert1.setContentText("Mật khẩu của bạn là: " + new TaiKhoan_DAO().getTaiKhoanTheoMaNV(manv).getMatKhau());
+                    alert1.showAndWait();
+                }
             }
         }
     }

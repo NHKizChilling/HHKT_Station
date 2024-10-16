@@ -2,6 +2,7 @@ package dao;
 
 import com.sun.jdi.ArrayReference;
 import connectdb.ConnectDB;
+import entity.ChiTietLichTrinh;
 import entity.ChoNgoi;
 import entity.Toa;
 
@@ -46,6 +47,26 @@ public class ChoNgoi_DAO {
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, maToa);
 
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                ChoNgoi choNgoi = getInfo(rs);
+
+                list.add(choNgoi);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public ArrayList<ChoNgoi> getChoNgoiDaDat(ChiTietLichTrinh chiTietLichTrinh) {
+        ArrayList<ChoNgoi> list = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from ChoNgoi a join ChiTietLichTrinh b on a.MaChoNgoi = b.MaChoNgoi where TrangThai = 0";
+            PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
@@ -171,12 +192,13 @@ public class ChoNgoi_DAO {
         try {
             String maChoNgoi = rs.getString(1);
             Toa toa = new Toa(rs.getString(2));
-            int tang = rs.getInt(3);
-            int khoang = rs.getInt(4);
-            String trangThai = rs.getString(5);
-            double giaCho = rs.getDouble(6);
+            int sttCho = rs.getInt(3);
+            int tang = rs.getInt(4);
+            int khoang = rs.getInt(5);
+            String trangThai = rs.getString(6);
+            double giaCho = rs.getDouble(7);
 
-            choNgoi = new ChoNgoi(maChoNgoi, toa, tang, khoang, trangThai, giaCho);
+            choNgoi = new ChoNgoi(maChoNgoi, toa, sttCho, tang, khoang, trangThai, giaCho);
         } catch (Exception e) {
             e.printStackTrace();
         }
