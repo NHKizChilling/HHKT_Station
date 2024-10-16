@@ -140,5 +140,26 @@ public class Ga_DAO {
         }
         return ga;
     }
+
+    public Ga getGaTheoTenGa(String tenGa) {
+        Ga ga = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from Ga where TenGa = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, tenGa);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                String maGa = rs.getString(1);
+                String viTri = rs.getString(3);
+                int khoangCach = rs.getInt(4);
+                ga = new Ga(maGa, tenGa, viTri, khoangCach);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ga;
+    }
 }
 

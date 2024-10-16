@@ -5,7 +5,11 @@
  */
 package controller;
 
+import entity.HoaDon;
 import entity.NhanVien;
+import entity.Ve;
+
+import java.util.ArrayList;
 
 /*
  * @description:
@@ -15,5 +19,6 @@ import entity.NhanVien;
  */
 public class getData {
     public static NhanVien nv;
-    public static String path;
+    public static HoaDon hd;
+    public static ArrayList<Ve> dsve = new ArrayList<>();
 }

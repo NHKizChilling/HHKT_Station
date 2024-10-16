@@ -5,6 +5,7 @@ import java.util.Objects;
 public class ChoNgoi {
     private String maChoNgoi;
     private Toa toa;
+    private int sttCho;
     private int tang;
     private int khoang;
     private String trangThai;
@@ -17,18 +18,20 @@ public class ChoNgoi {
         setMaChoNgoi(maChoNgoi);
     }
 
-    public ChoNgoi(String maChoNgoi, Toa toa, int tang, int khoang, String trangThai, double giaCho) {
+    public ChoNgoi(String maChoNgoi, Toa toa, int sttCho, int tang, int khoang, String trangThai, double giaCho) {
         setMaChoNgoi(maChoNgoi);
         setToa(toa);
+        setSttCho(sttCho);
         setTang(tang);
         setKhoang(khoang);
         setTrangThai(trangThai);
         setGiaCho(giaCho);
     }
 
-    public ChoNgoi(String maChoNgoi, Toa toa, int tang, int khoang, String trangThai) {
+    public ChoNgoi(String maChoNgoi, Toa toa, int sttCho, int tang, int khoang, String trangThai) {
         setMaChoNgoi(maChoNgoi);
         setToa(toa);
+        setSttCho(sttCho);
         setTang(tang);
         setKhoang(khoang);
         setTrangThai(trangThai);
@@ -71,6 +74,14 @@ public class ChoNgoi {
             throw new IllegalArgumentException("Toa không hợp lệ");
         }
         this.toa = toa;
+    }
+
+    public int getSttCho() {
+        return sttCho;
+    }
+
+    public void setSttCho(int sttCho) {
+        this.sttCho = sttCho;
     }
 
     public int getTang() {

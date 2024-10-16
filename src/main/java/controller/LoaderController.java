@@ -7,10 +7,14 @@ package controller;
 
 import entity.NhanVien;
 import gui.TrangChu_GUI;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.Effect;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,20 +28,22 @@ import java.util.ResourceBundle;
 public class LoaderController implements Initializable {
     private TrangChu_GUI trangChu = new TrangChu_GUI();
     @FXML
-    private ProgressBar loader;
-
+    private ProgressBar progressBar;
+    @FXML
+    private Label lblLoading;
+    Timeline timeline = new Timeline(
+            new KeyFrame(Duration.seconds(0.5),
+                    e -> {
+                        progressBar.setProgress(progressBar.getProgress() + 0.1);
+                        lblLoading.setText("Loading " + Math.round(progressBar.getProgress() * 100.0) + "%");
+                    }));
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loader.setStyle("-fx-arrows-visible: true");
         double progress = 0.0;
-        while(loader.getProgress() < 1.0) {
-            progress += 0.1;
-            loader.setProgress(Math.round(progress * 100.0) / 100.0);
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        progressBar.setProgress(progress);
+        timeline.setCycleCount(10);
+        timeline.play();
+
+
     }
 }

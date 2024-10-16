@@ -63,12 +63,12 @@
                      <stops>
                         <Stop>
                            <color>
-                              <Color red="0.4748849868774414" green="0.47345030307769775" blue="0.4842105209827423" />
+                              <Color />
                            </color>
                         </Stop>
                         <Stop offset="1.0">
                            <color>
-                              <Color red="0.4736842215061188" green="0.4614035189151764" blue="0.4614035189151764" />
+                              <Color red="0.021052632480859756" green="0.01723196916282177" blue="0.01723196916282177" />
                            </color>
                         </Stop>
                      </stops>
@@ -83,12 +83,12 @@
                      <stops>
                         <Stop>
                            <color>
-                              <Color red="0.4748849868774414" green="0.47345030307769775" blue="0.4842105209827423" />
+                              <Color />
                            </color>
                         </Stop>
                         <Stop offset="1.0">
                            <color>
-                              <Color red="0.4736842215061188" green="0.4614035189151764" blue="0.4614035189151764" />
+                              <Color red="0.021052632480859756" green="0.01723196916282177" blue="0.01723196916282177" />
                            </color>
                         </Stop>
                      </stops>
@@ -103,12 +103,12 @@
                      <stops>
                         <Stop>
                            <color>
-                              <Color red="0.4748849868774414" green="0.47345030307769775" blue="0.4842105209827423" />
+                              <Color />
                            </color>
                         </Stop>
                         <Stop offset="1.0">
                            <color>
-                              <Color red="0.4736842215061188" green="0.4614035189151764" blue="0.4614035189151764" />
+                              <Color red="0.021052632480859756" green="0.01723196916282177" blue="0.01723196916282177" />
                            </color>
                         </Stop>
                      </stops>
@@ -166,7 +166,7 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </FontAwesomeIcon>
-            <TextField fx:id="txtPwd" layoutX="90.0" layoutY="168.0" onKeyReleased="#changeInputTextPass" prefHeight="30.0" prefWidth="231.0" promptText="Mật khẩu" style="-fx-border-width: 0 0 2 0; -fx-background-color: transparent; -fx-border-color: blue; -fx-view-order: 1;" visible="false">
+            <TextField fx:id="txtPwd" layoutX="90.0" layoutY="168.0" onKeyReleased="#changeInputTextPass" prefHeight="30.0" prefWidth="231.0" promptText="Mật khẩu" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: blue; -fx-view-order: 1;" visible="false">
                <font>
                   <Font name="Times New Roman" size="15.0" />
                </font>
@@ -228,7 +228,7 @@
                   </LinearGradient>
                </fill>
             </FontAwesomeIcon>
-            <Hyperlink alignment="CENTER" layoutX="211.0" layoutY="212.0" text="Quên mật khẩu?">
+            <Hyperlink alignment="CENTER" layoutX="211.0" layoutY="212.0" onAction="#quenMatKhau" text="Quên mật khẩu?">
                <font>
                   <Font name="Times New Roman Bold" size="15.0" />
                </font>

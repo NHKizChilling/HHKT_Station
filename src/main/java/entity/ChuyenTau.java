@@ -27,9 +27,9 @@ public class ChuyenTau {
         if (soHieutau == null || soHieutau.isBlank()) {
             throw new IllegalArgumentException("Số hiệu tàu không được rỗng");
         }
-        if (!soHieutau.matches("^[A-Z]{4}[0-9]{4}$")) {
-            throw new IllegalArgumentException("Số hiệu tàu không hợp lệ");
-        }
+//        if (!soHieutau.matches("^[A-Z]{4}[0-9]{4}$")) {
+//            throw new IllegalArgumentException("Số hiệu tàu không hợp lệ");
+//        }
         this.soHieutau = soHieutau;
     }
 
