@@ -6,6 +6,7 @@ import java.util.Objects;
 public class LichTrinh {
     private String maLichTrinh;
     private ChuyenTau chuyenTau;
+    private Ga gaDi;
     private Ga gaDen;
     private LocalDateTime thoiGianKhoiHanh;
     private LocalDateTime thoiGianDuKienDen;
@@ -19,9 +20,10 @@ public class LichTrinh {
         setMaLichTrinh(maLichTrinh);
     }
 
-    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDen, LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
+    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDi, Ga gaDen, LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
         setMaLichTrinh(maLichTrinh);
         setChuyenTau(chuyenTau);
+        setGaDi(gaDi);
         setGaDen(gaDen);
         if (thoiGianKhoiHanh.isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("Thời gian khởi hành không thể ở trước thời gian hiện tại");
@@ -43,12 +45,6 @@ public class LichTrinh {
     public String getMaLichTrinh() {
         return maLichTrinh;
     }
-
-//    // mã bao gồm "LT" + số hiệu tàu + ngày khởi hành
-//    public void sinhMaLichTrinh() {
-//        String rawMaLichTrinh = "LT" + chuyenTau.getSoHieutau() + thoiGianKhoiHanh.toString();
-//        this.maLichTrinh = rawMaLichTrinh.replaceAll("[^a-zA-Z0-9]", "");
-//    }
 
     public void setMaLichTrinh(String maLichTrinh) {
         if (maLichTrinh == null || maLichTrinh.isBlank()) {
@@ -79,7 +75,17 @@ public class LichTrinh {
         }
         this.gaDen = gaDen;
     }
-    
+
+    public Ga getGaDi() {
+        return gaDi;
+    }
+
+    public void setGaDi(Ga gaDi) {
+        if (gaDi == null) {
+            throw new IllegalArgumentException("Ga đến không hợp lệ");
+        }
+        this.gaDi = gaDi;
+    }
 
     public LocalDateTime getThoiGianKhoiHanh() {
         return thoiGianKhoiHanh;

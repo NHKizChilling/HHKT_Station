@@ -282,7 +282,7 @@
                                     <FontAwesomeIcon disable="true" fill="WHITE" fontSmoothingType="LCD" glyphName="SEARCH" layoutX="17.0" layoutY="143.0" />
                                     <AnchorPane fx:id="acpToaTau" layoutX="1.0" layoutY="346.0" prefHeight="372.0" prefWidth="742.0" style="-fx-background-color: #5098ff;" visible="false">
                                        <children>
-                                          <ScrollPane fx:id="scr1" hbarPolicy="NEVER" layoutX="-3.0" pannable="true" prefHeight="319.0" prefWidth="751.0">
+                                          <ScrollPane fx:id="scr1" hbarPolicy="NEVER" layoutX="-3.0" pannable="true" prefHeight="320.0" prefWidth="750.0" style="-fx-view-order: 2;">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
@@ -300,7 +300,7 @@
                                                 <Font name="Times New Roman Bold" size="15.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btnChonChoNgoi" layoutX="683.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: skyblue;" text="Chọn">
+                                          <Button fx:id="btnChonChoNgoi" disable="true" layoutX="683.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: skyblue;" text="Chọn">
                                              <font>
                                                 <Font name="Times New Roman Bold" size="14.0" />
                                              </font>
@@ -308,7 +308,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="btnHuyChon" layoutX="624.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: skyblue;" text="Hủy">
+                                          <Button fx:id="btnHuyChon" disable="true" layoutX="624.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: skyblue;" text="Hủy">
                                              <font>
                                                 <Font name="Times New Roman Bold" size="14.0" />
                                              </font>
@@ -316,7 +316,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="btnChonCD" disable="true" layoutX="97.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: skyblue;" text="Khứ hồi">
+                                          <Button fx:id="btnChonKH" disable="true" layoutX="97.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: skyblue;" text="Khứ hồi">
                                              <font>
                                                 <Font name="Times New Roman Bold" size="14.0" />
                                              </font>
@@ -324,7 +324,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="btnChonKH" disable="true" layoutX="14.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: skyblue;" text="Quay lại">
+                                          <Button fx:id="btnChonCD" disable="true" layoutX="14.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: skyblue;" text="Quay lại">
                                              <font>
                                                 <Font name="Times New Roman Bold" size="14.0" />
                                              </font>
@@ -332,6 +332,14 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
+                                          <ScrollPane fx:id="scr11" hbarPolicy="NEVER" layoutX="-1.0" layoutY="-1.0" pannable="true" prefHeight="320.0" prefWidth="750.0" style="-fx-view-order: 1;" visible="false">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <content>
+                                                <TabPane fx:id="tabToaTauKH" prefHeight="316.0" prefWidth="752.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" />
+                                             </content>
+                                          </ScrollPane>
                                        </children>
                                     </AnchorPane>
                                  </children>
