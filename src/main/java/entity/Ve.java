@@ -81,7 +81,7 @@ public class Ve {
         if (tinhTrangVe == null || tinhTrangVe.isBlank()) {
             throw new IllegalArgumentException("Tình trạng vé không được rỗng");
         }
-        if (!tinhTrangVe.matches("^(Đã bán|Đã đổi|Đã hủy)$")) {
+        if (!tinhTrangVe.matches("^(DaBan|DaDoi|DaHuy)$")) {
             throw new IllegalArgumentException("Tình trạng vé không hợp lệ");
         }
         this.tinhTrangVe = tinhTrangVe;

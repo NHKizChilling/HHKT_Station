@@ -119,6 +119,31 @@ public class LoaiVe_DAO {
         return n > 0;
     }
 
+    public LoaiVe getLoaiVeTheoTen(String tenLoai) {
+        LoaiVe loaiVe = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+
+            String sql = "Select * from LoaiVe where TenLoaiVe = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, tenLoai);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                String maLoaiVe1 = rs.getString(1);
+                String tenLoaiVe = rs.getString(2);
+                float mucGiamGia = rs.getFloat(3);
+
+                loaiVe = new LoaiVe(maLoaiVe1, tenLoaiVe, mucGiamGia);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return loaiVe;
+    }
+
     public LoaiVe getLoaiVeTheoMa(String maLoaiVe) {
         LoaiVe loaiVe = null;
         try {

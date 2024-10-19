@@ -6,7 +6,10 @@
 package controller;
 
 import connectdb.ConnectDB;
-import dao.LichTrinh_DAO;
+import dao.*;
+import entity.ChiTietHoaDon;
+import entity.HoaDon;
+import entity.Ve;
 import gui.TrangChu_GUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -28,6 +31,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -59,6 +63,10 @@ public class TrangChuController implements Initializable {
     @FXML
     private Label lblNgay;
 
+    private Ve_DAO ve_dao = new Ve_DAO();
+    private HoaDon_DAO hd_dao = new HoaDon_DAO();
+    private CT_LichTrinh_DAO ctlt_dao = new CT_LichTrinh_DAO();
+
     Time time = new Time(DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
     private String style = null;
     Timeline timeline = new Timeline(
@@ -70,6 +78,11 @@ public class TrangChuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            ConnectDB.connect();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         lblNgay.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDate.now()));
         timer.setText(time.getCurrentTime());
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -103,6 +116,21 @@ public class TrangChuController implements Initializable {
             paneMain.setPrefSize(width, height);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        ArrayList<HoaDon> dsHD = hd_dao.getDSHDLuuTam();
+        for (HoaDon hd : dsHD) {
+            //Xóa hóa đơn lưu hơn 15 phút
+            if (hd.getNgayLapHoaDon().plusMinutes(15).isBefore(LocalDateTime.now())) {
+                ArrayList<ChiTietHoaDon> dsCTHD = new CT_HoaDon_DAO().getCT_HoaDon(hd.getMaHoaDon());
+                for (ChiTietHoaDon cthd : dsCTHD) {
+                    if (cthd != null) {
+                        Ve ve = ve_dao.getVeTheoID(cthd.getVe().getMaVe());
+                        ve_dao.updateTinhTrangVe(ve.getMaVe(), "DaHuy");
+                        ctlt_dao.updateCTLT(ve.getCtlt(), true);
+                    }
+                }
+            }
         }
     }
 

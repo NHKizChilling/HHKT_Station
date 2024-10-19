@@ -30,9 +30,9 @@ public class LoaiVe {
         if (maLoaiVe == null || maLoaiVe.isBlank()) {
             throw new IllegalArgumentException("Mã loại vé không hợp lệ");
         }
-        if (!maLoaiVe.matches("^(BT|NCT|TE|TE6|HSSV)$")) {
-            throw new IllegalArgumentException("Mã loại vé không hợp lệ");
-        }
+//        if (!maLoaiVe.matches("^(BT|NCT|TE|TE6|HSSV)$")) {
+//            throw new IllegalArgumentException("Mã loại vé không hợp lệ");
+//        }
         this.maLoaiVe = maLoaiVe;
     }
 
@@ -45,7 +45,7 @@ public class LoaiVe {
         if (tenLoaiVe == null || tenLoaiVe.isBlank()) {
             throw new IllegalArgumentException("Tên loại vé không hợp lệ");
         }
-        if (!tenLoaiVe.matches("^(Vé thường|Người cao tuổi|Trẻ em|Trẻ em dưới 6 tuổi|Học sinh sinh viên)$")) {
+        if (!tenLoaiVe.matches("^(Người cao tuổi|Trẻ em|Người lớn|Học sinh, sinh viên)$")) {
             throw new IllegalArgumentException("Tên loại vé không hợp lệ");
         }
         this.tenLoaiVe = tenLoaiVe;
@@ -57,10 +57,7 @@ public class LoaiVe {
 
     // mức giảm bao gồm: 0%, 10%, 15%, 25%
     public void setMucGiamGia(float mucGiamGia) {
-        if (mucGiamGia < 0 || mucGiamGia > 100) {
-            throw new IllegalArgumentException("Mức giảm giá không hợp lệ");
-        }
-        if (mucGiamGia != 0 && mucGiamGia != 10 && mucGiamGia != 15 && mucGiamGia != 25) {
+        if (mucGiamGia < 0 || mucGiamGia > 1) {
             throw new IllegalArgumentException("Mức giảm giá không hợp lệ");
         }
         this.mucGiamGia = mucGiamGia;

@@ -38,7 +38,50 @@ public class ChoNgoi_DAO {
         return list;
     }
 
-    public ArrayList<ChoNgoi> getChoNgoiTheoToa(String maToa) {
+    public ChoNgoi getChoNgoiTheoToa(String maToa, int sttCho) {
+        ChoNgoi cn = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from ChoNgoi where MaToa = ? and STTCho = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, maToa);
+            st.setInt(2, sttCho);
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                cn = getInfo(rs);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cn;
+    }
+
+    public ChoNgoi getChoNgoiTheoMa(String maCho) {
+        ChoNgoi cn = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from ChoNgoi where MaSoCho = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, maCho);
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                cn = getInfo(rs);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cn;
+    }
+
+    public ArrayList<ChoNgoi> getDSChoNgoiTheoToa(String maToa) {
         ArrayList<ChoNgoi> list = new ArrayList<>();
         try {
             ConnectDB.getInstance();
@@ -47,7 +90,7 @@ public class ChoNgoi_DAO {
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, maToa);
 
-            ResultSet rs = st.executeQuery(sql);
+            ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 ChoNgoi choNgoi = getInfo(rs);
@@ -86,14 +129,13 @@ public class ChoNgoi_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("insert into ChoNgoi values(?,?,?,?,?,?)");
+            stm = con.prepareStatement("insert into ChoNgoi values(?,?,?,?,?)");
 
             stm.setString(1, choNgoi.getMaChoNgoi());
             stm.setString(2, choNgoi.getToa().getMaToa());
-            stm.setInt(3, choNgoi.getTang());
-            stm.setInt(4, choNgoi.getKhoang());
-            stm.setString(5, choNgoi.getTrangThai());
-            stm.setDouble(6, choNgoi.getGiaCho());
+            stm.setInt(3, choNgoi.getSttCho());
+            stm.setInt(4, choNgoi.getTang());
+            stm.setInt(5, choNgoi.getKhoang());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -116,14 +158,13 @@ public class ChoNgoi_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update ChoNgoi set MaToa = ?, Tang = ?, Khoang = ?, TrangThai = ?, GiaCho = ? where MaChoNgoi = ?");
+            stm = con.prepareStatement("update ChoNgoi set MaToa = ?, STTCho = ?, Tang = ?, Khoang = ?, TrangThai = ?, GiaCho = ? where MaChoNgoi = ?");
 
             stm.setString(1, choNgoi.getToa().getMaToa());
-            stm.setInt(2, choNgoi.getTang());
-            stm.setInt(3, choNgoi.getKhoang());
-            stm.setString(4, choNgoi.getTrangThai());
-            stm.setDouble(5, choNgoi.getGiaCho());
-            stm.setString(6, choNgoi.getMaChoNgoi());
+            stm.setInt(2, choNgoi.getSttCho());
+            stm.setInt(3, choNgoi.getTang());
+            stm.setInt(4, choNgoi.getKhoang());
+            stm.setString(5, choNgoi.getMaChoNgoi());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -195,10 +236,8 @@ public class ChoNgoi_DAO {
             int sttCho = rs.getInt(3);
             int tang = rs.getInt(4);
             int khoang = rs.getInt(5);
-            String trangThai = rs.getString(6);
-            double giaCho = rs.getDouble(7);
 
-            choNgoi = new ChoNgoi(maChoNgoi, toa, sttCho, tang, khoang, trangThai, giaCho);
+            choNgoi = new ChoNgoi(maChoNgoi, toa, sttCho, tang, khoang);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -62,7 +62,11 @@ public class Ve_DAO {
                 LoaiVe loaiVe = new LoaiVe(rs.getString(5));
                 String tenHK = rs.getString(6);
                 String soCCCD = rs.getString(7);
-                LocalDate ngaySinh = rs.getDate(8).toLocalDate();
+
+                LocalDate ngaySinh = null;
+                if (rs.getDate(8) != null) {
+                    ngaySinh = rs.getDate(8).toLocalDate();
+                }
                 String tinhTrangVe = rs.getString(9);
                 boolean khuHoi = rs.getBoolean(10);
 
@@ -75,24 +79,69 @@ public class Ve_DAO {
         return ve;
     }
 
+    public Ve getLaiVe(Ve ve) {
+        Ve v = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            PreparedStatement stm = null;
+            String sql = "Select * from Ve where MaHK = ? and MaSoCho = ? and MaLichTrinh = ? and TinhTrangVe = 'DaBan'";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, ve.getHanhKhach().getMaHanhKhach());
+            stm.setString(2, ve.getCtlt().getChoNgoi().getMaChoNgoi());
+            stm.setString(3, ve.getCtlt().getLichTrinh().getMaLichTrinh());
+
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                String maVe = rs.getString(1);
+                HanhKhach hanhKhach = new HanhKhach(rs.getString(2));
+                ChiTietLichTrinh chiTietLichTrinh = new ChiTietLichTrinh(new ChoNgoi(rs.getString(3)), new LichTrinh(rs.getString(4)));
+                LoaiVe loaiVe = new LoaiVe(rs.getString(5));
+                String tenHK = rs.getString(6);
+                String soCCCD = rs.getString(7);
+
+                LocalDate ngaySinh = null;
+                if (rs.getDate(8) != null) {
+                    ngaySinh = rs.getDate(8).toLocalDate();
+                }
+                String tinhTrangVe = rs.getString(9);
+                boolean khuHoi = rs.getBoolean(10);
+
+                v = new Ve(maVe, hanhKhach, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return v;
+    }
+
     public boolean create(Ve ve) {
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
         PreparedStatement stm = null;
         int n = 0;
         try {
-            String sql = "Insert into Ve values(?,?,?,?,?,?,?,?,?,?)";
+            String sql = "Insert into Ve(MaHK, MaSoCho, MaLichTrinh, MaLoaiVe, TenHK, SoCCCD, NgaySinh, TinhTrangVe, KhuHoi) values(?,?,?,?,?,?,?,?,?)";
             stm = con.prepareStatement(sql);
-            stm.setString(1, ve.getMaVe());
-            stm.setString(2, ve.getHanhKhach().getMaHanhKhach());
-            stm.setString(3, ve.getCtlt().getChoNgoi().getMaChoNgoi());
-            stm.setString(4, ve.getCtlt().getLichTrinh().getMaLichTrinh());
-            stm.setString(5, ve.getLoaiVe().getMaLoaiVe());
-            stm.setString(6, ve.getTenHanhKhach());
-            stm.setString(7, ve.getSoCCCD());
-            stm.setDate(8, Date.valueOf(ve.getNgaySinh()));
-            stm.setString(9, ve.getTinhTrangVe());
-            stm.setBoolean(10, ve.isKhuHoi());
+            stm.setString(1, ve.getHanhKhach().getMaHanhKhach());
+            stm.setString(2, ve.getCtlt().getChoNgoi().getMaChoNgoi());
+            stm.setString(3, ve.getCtlt().getLichTrinh().getMaLichTrinh());
+            stm.setString(4, ve.getLoaiVe().getMaLoaiVe());
+            stm.setString(5, ve.getTenHanhKhach());
+            if (ve.getSoCCCD() != null) {
+                stm.setString(6, ve.getSoCCCD());
+            } else {
+                stm.setString(6, null);
+            }
+            if (ve.getNgaySinh() != null) {
+                stm.setDate(7, Date.valueOf(ve.getNgaySinh()));
+            } else {
+                stm.setDate(7, null);
+            }
+            stm.setString(8, ve.getTinhTrangVe());
+            stm.setBoolean(9, ve.isKhuHoi());
 
             n = stm.executeUpdate();
 

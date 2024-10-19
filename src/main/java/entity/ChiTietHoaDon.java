@@ -64,12 +64,12 @@ public class ChiTietHoaDon {
         double giaCho = ve.getCtlt().getGiaCho();
         LoaiVe loaiVe = ve.getLoaiVe();
         if(!loaiVe.getMaLoaiVe().equals("VNL")) {
-            giaVe = giaCho * (1 - loaiVe.getMucGiamGia()) + PHI_DICH_VU;
+            giaVe = giaCho * (1 - loaiVe.getMucGiamGia()) * 1.1 + PHI_DICH_VU;
         } else {
             if (ve.isKhuHoi()) {
-                giaVe = giaCho * 0.9 + PHI_DICH_VU;
+                giaVe = giaCho * 0.9 * 1.1 + PHI_DICH_VU;
             } else {
-                giaVe = giaCho + PHI_DICH_VU;
+                giaVe = giaCho * 1.1 + PHI_DICH_VU;
             }
         }
         this.giaVe = giaVe;

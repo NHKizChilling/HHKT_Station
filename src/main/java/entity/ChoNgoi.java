@@ -8,8 +8,6 @@ public class ChoNgoi {
     private int sttCho;
     private int tang;
     private int khoang;
-    private String trangThai;
-    private double giaCho;
 
     public ChoNgoi() {
     }
@@ -18,36 +16,15 @@ public class ChoNgoi {
         setMaChoNgoi(maChoNgoi);
     }
 
-    public ChoNgoi(String maChoNgoi, Toa toa, int sttCho, int tang, int khoang, String trangThai, double giaCho) {
+
+    public ChoNgoi(String maChoNgoi, Toa toa, int sttCho, int tang, int khoang) {
         setMaChoNgoi(maChoNgoi);
         setToa(toa);
         setSttCho(sttCho);
         setTang(tang);
         setKhoang(khoang);
-        setTrangThai(trangThai);
-        setGiaCho(giaCho);
     }
 
-    public ChoNgoi(String maChoNgoi, Toa toa, int sttCho, int tang, int khoang, String trangThai) {
-        setMaChoNgoi(maChoNgoi);
-        setToa(toa);
-        setSttCho(sttCho);
-        setTang(tang);
-        setKhoang(khoang);
-        setTrangThai(trangThai);
-    }
-
-
-    public double getGiaCho() {
-        return giaCho;
-    }
-
-    public void setGiaCho(double giaCho) {
-        if (giaCho < 0) {
-            throw new IllegalArgumentException("Giá chỗ không hợp lệ");
-        }
-        this.giaCho = giaCho;
-    }
 
     public String getMaChoNgoi() {
         return maChoNgoi;
@@ -100,13 +77,6 @@ public class ChoNgoi {
         this.khoang = khoang;
     }
 
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
-    }
 
     @Override
     public boolean equals(Object o) {

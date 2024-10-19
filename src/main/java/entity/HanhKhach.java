@@ -8,8 +8,6 @@ public class HanhKhach {
     private String tenHanhKhach;
     private String soCCCD;
     private String sdt;
-    private LocalDate ngaySinh;
-    private boolean gioiTinh;
     private String email;
 
     public HanhKhach() {
@@ -20,13 +18,11 @@ public class HanhKhach {
     }
 
     public HanhKhach(String maHanhKhach, String tenHanhKhach, String soCCCD, String sdt,
-                     LocalDate ngaySinh, boolean gioiTinh, String email) {
-        setMaHanhKhach(maHanhKhach);
+                     String email) {
+        this.maHanhKhach = maHanhKhach;
         setTenHanhKhach(tenHanhKhach);
         setSoCCCD(soCCCD);
         setSdt(sdt);
-        setNgaySinh(ngaySinh);
-        setGioiTinh(gioiTinh);
         setEmail(email);
     }
 
@@ -54,9 +50,9 @@ public class HanhKhach {
         if (tenHanhKhach == null || tenHanhKhach.isBlank()) {
             throw new IllegalArgumentException("Tên hành khách không hợp lệ");
         }
-        if (!tenHanhKhach.matches("^[A-Z][a-z]+(\\s[A-Z][a-z]+)*$")) {
-            throw new IllegalArgumentException("Tên hành khách không hợp lệ");
-        }
+//        if (!tenHanhKhach.matches("^[A-Z][a-z]+(\\s[A-Z][a-z]+)*$")) {
+//            throw new IllegalArgumentException("Tên hành khách không hợp lệ");
+//        }
         this.tenHanhKhach = tenHanhKhach;
     }
 
@@ -83,25 +79,6 @@ public class HanhKhach {
             throw new IllegalArgumentException("Số điện thoại không hợp lệ");
         }
         this.sdt = sdt;
-    }
-
-    public LocalDate getNgaySinh() {
-        return ngaySinh;
-    }
-
-    public void setNgaySinh(LocalDate ngaySinh) {
-        if (ngaySinh.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("Ngày sinh không hợp lệ");
-        }
-        this.ngaySinh = ngaySinh;
-    }
-
-    public boolean isGioiTinh() {
-        return gioiTinh;
-    }
-
-    public void setGioiTinh(boolean gioiTinh) {
-        this.gioiTinh = gioiTinh;
     }
 
     public String getEmail() {

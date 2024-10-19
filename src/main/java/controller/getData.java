@@ -5,9 +5,7 @@
  */
 package controller;
 
-import entity.HoaDon;
-import entity.NhanVien;
-import entity.Ve;
+import entity.*;
 
 import java.util.ArrayList;
 
@@ -20,5 +18,9 @@ import java.util.ArrayList;
 public class getData {
     public static NhanVien nv;
     public static HoaDon hd;
-    public static ArrayList<Ve> dsve = new ArrayList<>();
+    public static HanhKhach hk;
+    public static LichTrinh lt;
+    public static LichTrinh ltkh;
+    public static ArrayList<Ve> dsve;
+    public static ArrayList<ChiTietHoaDon> dscthd;
 }

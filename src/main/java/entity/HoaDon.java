@@ -11,6 +11,7 @@ public class HoaDon {
     private HanhKhach hanhKhach;
     private double tongTien;
     private double tongGiamGia;
+    private boolean TrangThai;
 
     public HoaDon() {
     }
@@ -19,22 +20,23 @@ public class HoaDon {
         setMaHoaDon(maHoaDon);
     }
 
-    public HoaDon(String maHoaDon, NhanVien nhanVien, LocalDateTime ngayLapHoaDon,
-                  HanhKhach hanhKhach) {
-        setMaHoaDon(maHoaDon);
+    public HoaDon(String maHoaDon, NhanVien nhanVien, HanhKhach hanhKhach, LocalDateTime ngayLapHoaDon, boolean trangThai) {
+        this.maHoaDon = maHoaDon;
         setNhanVien(nhanVien);
         setNgayLapHoaDon(ngayLapHoaDon);
         setHanhKhach(hanhKhach);
+        setTrangThai(trangThai);
     }
 
     public HoaDon(String maHoaDon, NhanVien nhanVien, LocalDateTime ngayLapHoaDon,
-                  HanhKhach hanhKhach, double tongTien, double giamGia) {
+                  HanhKhach hanhKhach, double tongTien, double giamGia, boolean trangThai) {
         setMaHoaDon(maHoaDon);
         setNhanVien(nhanVien);
         setNgayLapHoaDon(ngayLapHoaDon);
         setHanhKhach(hanhKhach);
         setTongTien(tongTien);
         setTongGiamGia(giamGia);
+        setTrangThai(trangThai);
     }
 
     public void tinhTongTien(ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
@@ -54,6 +56,14 @@ public class HoaDon {
             tongGiamGia += chiTietHoaDon.getGiaGiam();
         }
         this.tongGiamGia = tongGiamGia;
+    }
+
+    public boolean isTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(boolean trangThai) {
+        TrangThai = trangThai;
     }
 
     public double getTongTien() {
@@ -106,9 +116,9 @@ public class HoaDon {
         if (ngayLapHoaDon == null) {
             throw new IllegalArgumentException("Ngày lập hóa đơn không hợp lệ");
         }
-        if (ngayLapHoaDon.isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("Ngày lập hóa đơn không hợp lệ");
-        }
+//        if (ngayLapHoaDon.isBefore(LocalDateTime.now())) {
+//            throw new IllegalArgumentException("Ngày lập hóa đơn không hợp lệ");
+//        }
         this.ngayLapHoaDon = ngayLapHoaDon;
     }
 

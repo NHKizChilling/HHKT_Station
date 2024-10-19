@@ -19,7 +19,7 @@
    <children>
       <BorderPane prefHeight="795.0" prefWidth="1540.0">
          <left>
-            <AnchorPane prefHeight="755.0" prefWidth="155.0" style="-fx-background-color: #5098ff;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="755.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to bottom, lightblue, #5098ff);" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="155.0" fitWidth="155.0" layoutX="2.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -137,7 +137,7 @@
             </AnchorPane>
          </left>
          <top>
-            <Pane prefHeight="40.0" prefWidth="1540.0" style="-fx-background-color: #5098ff;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="40.0" prefWidth="1540.0" style="-fx-background-color: linear-gradient(to bottom, #5098ff, lightblue);" BorderPane.alignment="CENTER">
                <children>
                   <Label fx:id="lblTenNhanVien" layoutX="1285.0" layoutY="11.0" prefHeight="16.0" prefWidth="215.0" style="-fx-view-order: 1;" text="Chào, Nhân viên Nguyễn Võ Hiệp" textFill="WHITE">
                      <font>

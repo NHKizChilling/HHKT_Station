@@ -45,7 +45,7 @@ public class LichTrinh_DAO {
             String sql = "Select * from LichTrinh where MaLichTrinh = ?";
             stm = con.prepareStatement(sql);
             stm.setString(1, maLichTrinh);
-            ResultSet rs = stm.executeQuery(sql);
+            ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 lichTrinh = getInfo(rs);
             }
@@ -77,6 +77,25 @@ public class LichTrinh_DAO {
             e.printStackTrace();
         }
         return dslt;
+    }
+
+    public int getSoLuongChoConTrong(String maLichTrinh) {
+        int soLuongChoConTrong = 0;
+        PreparedStatement stm = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "select count(*) from LichTrinh a join ChiTietLichTrinh b on a.MaLichTrinh = b.MaLichTrinh join ChoNgoi c on b.MaSoCho = c.MaSoCho where a.MaLichTrinh= ? and b.TrangThai = 1";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, maLichTrinh);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                soLuongChoConTrong = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return soLuongChoConTrong;
     }
 
     public boolean updateTrangThaiChuyenTau(String maLichTrinh, boolean trangThai) {

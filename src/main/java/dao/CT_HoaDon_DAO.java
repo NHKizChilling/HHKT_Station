@@ -148,5 +148,58 @@ public class CT_HoaDon_DAO {
         }
         return cthd;
     }
+
+    public ChiTietHoaDon getCT_HoaDonTheoMaVe(String maVe) {
+        ChiTietHoaDon cthd = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+
+            String sql = "Select * from ChiTietHoaDon where MaVe = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, maVe);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                HoaDon hoaDon = new HoaDon(rs.getString(1));
+                Ve ve = new Ve(rs.getString(2));
+                double giaVe = rs.getDouble(3);
+                double giaGiam = rs.getDouble(4);
+
+                cthd = new ChiTietHoaDon(hoaDon, ve, giaVe, giaGiam);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cthd;
+    }
+
+    public ArrayList<ChiTietHoaDon> getCT_HoaDon(String maHD) {
+        ArrayList<ChiTietHoaDon> list = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+
+            String sql = "Select * from ChiTietHoaDon where MaHD = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, maHD);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                HoaDon hoaDon = new HoaDon(rs.getString(1));
+                Ve ve = new Ve(rs.getString(2));
+                double giaVe = rs.getDouble(3);
+                double giaGiam = rs.getDouble(4);
+
+                ChiTietHoaDon cthd = new ChiTietHoaDon(hoaDon, ve, giaVe, giaGiam);
+                list.add(cthd);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
 
