@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="718.0" prefWidth="1384.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HuyVeController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <top>
+            <AnchorPane prefHeight="219.0" prefWidth="1385.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="TÌM KIẾM VÉ">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cb_search" layoutX="14.0" layoutY="56.0" prefHeight="28.0" prefWidth="85.0" />
+                  <TextField fx:id="txt_search" layoutX="99.0" layoutY="56.0" prefHeight="27.0" prefWidth="222.0" />
+                  <Line endX="-73.0" endY="138.0" layoutX="413.0" layoutY="61.0" startX="-73.0" startY="-53.0" />
+                  <Button fx:id="btn_search" layoutX="245.0" layoutY="155.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="76.0" style="-fx-background-color: #87CEEB;" text="Tìm kiếm">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font>
+                  </Button>
+                  <Line endX="1262.0" layoutX="115.0" layoutY="209.0" startX="-108.0" />
+                  <AnchorPane layoutX="348.0" layoutY="4.0" prefHeight="200.0" prefWidth="1030.0">
+                     <children>
+                        <TableView fx:id="tbl_thongTinVe" layoutX="-1.0" layoutY="2.0" prefHeight="196.0" prefWidth="1030.0">
+                           <columns>
+                              <TableColumn fx:id="col_maVe" prefWidth="84.79998779296875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã vé" />
+                              <TableColumn fx:id="col_maHK" prefWidth="120.79995727539062" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã hành khách" />
+                              <TableColumn fx:id="col_maSoCho" prefWidth="91.20001220703125" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã số chỗ" />
+                              <TableColumn fx:id="col_maLichTrinh" prefWidth="125.60003662109375" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã lịch trình" />
+                              <TableColumn fx:id="col_maLoaiVe" prefWidth="94.39996337890625" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã loại vé" />
+                              <TableColumn fx:id="col_tenHK" prefWidth="126.4000244140625" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Tên hành khách" />
+                              <TableColumn fx:id="col_cccd" prefWidth="87.199951171875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="CCCD" />
+                              <TableColumn fx:id="col_dob" prefWidth="87.199951171875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Ngày sinh" />
+                              <TableColumn fx:id="col_khuHoi" prefWidth="87.199951171875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Khứ hồi" />
+                              <TableColumn fx:id="col_tinhTrangVe" prefWidth="122.40000000000009" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Tình trạng vé" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="btn_lamMoi" layoutX="162.0" layoutY="155.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="76.0" style="-fx-background-color: #87CEEB;" text="Làm mới">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </top>
+         <right>
+            <AnchorPane prefHeight="499.0" prefWidth="271.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextArea layoutX="-1.0" layoutY="-3.0" prefHeight="500.0" prefWidth="269.0" promptText="Quy định">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </AnchorPane>
+         </right>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="14.0" layoutY="1.0" text="Thông tin chi tiết">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="48.0" text="Mã hành khách:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="132.0" text="Số điện thoại:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="387.0" layoutY="47.0" text="Tên hành khách:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="387.0" layoutY="129.0" text="Số CCCD:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="762.0" layoutY="46.0" text="Email:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="16.0" layoutY="220.0" text="Ga đi:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="389.0" layoutY="217.0" text="Ga đến:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Line endX="990.0" layoutX="114.0" layoutY="279.0" startX="-105.0" />
+                  <TextField fx:id="txt_maHK" disable="true" layoutX="148.0" layoutY="37.0" prefHeight="47.0" prefWidth="216.0" />
+                  <TextField fx:id="txt_sdt" disable="true" layoutX="148.0" layoutY="122.0" prefHeight="47.0" prefWidth="216.0" />
+                  <TextField fx:id="txt_gaDi" disable="true" layoutX="148.0" layoutY="210.0" prefHeight="47.0" prefWidth="216.0" />
+                  <TextField fx:id="txt_tenHK" disable="true" layoutX="523.0" layoutY="36.0" prefHeight="47.0" prefWidth="216.0" />
+                  <TextField fx:id="txt_cccd" disable="true" layoutX="523.0" layoutY="121.0" prefHeight="47.0" prefWidth="216.0" />
+                  <TextField fx:id="txt_gaDen" disable="true" layoutX="523.0" layoutY="209.0" prefHeight="47.0" prefWidth="216.0" />
+                  <TextField fx:id="txt_email" disable="true" layoutX="847.0" layoutY="38.0" prefHeight="47.0" prefWidth="216.0" />
+                  <Label layoutX="16.0" layoutY="330.0" text="Chiết khấu:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txt_chietKhau" disable="true" layoutX="148.0" layoutY="320.0" prefHeight="47.0" prefWidth="216.0" />
+                  <Label layoutX="16.0" layoutY="418.0" text="Tiền hoàn:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txt_hoanTien" disable="true" layoutX="148.0" layoutY="408.0" prefHeight="47.0" prefWidth="216.0" />
+                  <Button fx:id="btn_huyVe" layoutX="984.0" layoutY="413.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="79.0" style="-fx-background-color: FF7F7F;" text="Hủy vé">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="762.0" layoutY="129.0" text="Ngày lập:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txt_ngayLap" disable="true" layoutX="847.0" layoutY="121.0" prefHeight="47.0" prefWidth="216.0" />
+                  <Label layoutX="762.0" layoutY="218.0" text="Giá vé:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txt_giaVe" disable="true" layoutX="847.0" layoutY="210.0" prefHeight="47.0" prefWidth="216.0" />
+                  <Label fx:id="label_thongBao" layoutX="387.0" layoutY="322.0" textFill="#f70000">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

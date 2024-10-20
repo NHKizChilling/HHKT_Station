@@ -35,7 +35,11 @@
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
                   </Button>
+<<<<<<< Updated upstream
                   <Button fx:id="btnFNV" alignment="CENTER" layoutX="2.0" layoutY="239.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Nhân viên" textFill="WHITE">
+=======
+                  <Button fx:id="btnFNV" alignment="CENTER" layoutX="2.0" layoutY="239.0" mnemonicParsing="false" onAction="#showNhanVienGUI" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Nhân viên" textFill="WHITE">
+>>>>>>> Stashed changes
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>

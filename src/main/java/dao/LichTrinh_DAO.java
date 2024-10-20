@@ -140,12 +140,16 @@ public class LichTrinh_DAO {
         try {
             String maLichTrinh = rs.getString(1);
             ChuyenTau chuyenTau = new ChuyenTau(rs.getString(2));
+<<<<<<< Updated upstream
+=======
+            Ga gaDi = new Ga(rs.getString(3));
+>>>>>>> Stashed changes
             Ga gaDen = new Ga(rs.getString(4));
             LocalDateTime thoiGianKhoiHanh = rs.getTimestamp(5).toLocalDateTime();
             LocalDateTime thoiGianDuKienDen = rs.getTimestamp(6).toLocalDateTime();
             boolean trangThai = rs.getBoolean(7);
 
-            lichTrinh = new LichTrinh(maLichTrinh, chuyenTau, gaDen, thoiGianKhoiHanh, thoiGianDuKienDen, trangThai);
+            lichTrinh = new LichTrinh(maLichTrinh, chuyenTau, gaDi, gaDen, thoiGianKhoiHanh, thoiGianDuKienDen, trangThai);
         } catch (Exception e) {
             e.printStackTrace();
         }

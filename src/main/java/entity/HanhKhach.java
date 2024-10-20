@@ -8,8 +8,6 @@ public class HanhKhach {
     private String tenHanhKhach;
     private String soCCCD;
     private String sdt;
-    private LocalDate ngaySinh;
-    private boolean gioiTinh;
     private String email;
 
     public HanhKhach() {
@@ -19,14 +17,18 @@ public class HanhKhach {
         setMaHanhKhach(maHanhKhach);
     }
 
-    public HanhKhach(String maHanhKhach, String tenHanhKhach, String soCCCD, String sdt,
-                     LocalDate ngaySinh, boolean gioiTinh, String email) {
+    public HanhKhach(String tenHanhKhach, String soCCCD, String sdt, String email) {
+        setTenHanhKhach(tenHanhKhach);
+        setSoCCCD(soCCCD);
+        setSdt(sdt);
+        setEmail(email);
+    }
+
+    public HanhKhach(String maHanhKhach, String tenHanhKhach, String soCCCD, String sdt, String email) {
         setMaHanhKhach(maHanhKhach);
         setTenHanhKhach(tenHanhKhach);
         setSoCCCD(soCCCD);
         setSdt(sdt);
-        setNgaySinh(ngaySinh);
-        setGioiTinh(gioiTinh);
         setEmail(email);
     }
 
@@ -85,24 +87,6 @@ public class HanhKhach {
         this.sdt = sdt;
     }
 
-    public LocalDate getNgaySinh() {
-        return ngaySinh;
-    }
-
-    public void setNgaySinh(LocalDate ngaySinh) {
-        if (ngaySinh.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("Ngày sinh không hợp lệ");
-        }
-        this.ngaySinh = ngaySinh;
-    }
-
-    public boolean isGioiTinh() {
-        return gioiTinh;
-    }
-
-    public void setGioiTinh(boolean gioiTinh) {
-        this.gioiTinh = gioiTinh;
-    }
 
     public String getEmail() {
         return email;

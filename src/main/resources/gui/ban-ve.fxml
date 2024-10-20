@@ -741,7 +741,7 @@
                               <Line endX="1262.0" layoutX="115.0" layoutY="209.0" startX="-108.0" />
                               <AnchorPane layoutX="481.0" layoutY="4.0" prefHeight="200.0" prefWidth="867.0">
                                  <children>
-                                    <TableView fx:id="tbTCTLT2" layoutX="2.0" layoutY="2.0" onMouseClicked="#hienThiThongTin" prefHeight="196.0" prefWidth="867.0">
+                                    <TableView fx:id="tbTCTLT2" layoutX="2.0" layoutY="2.0" prefHeight="196.0" prefWidth="867.0">
                                        <columns>
                                           <TableColumn fx:id="colSTT1" prefWidth="31.0" style="-fx-background-color: #87eba4; -fx-background-radius: 5 0 0 0; -fx-border-color: black; -fx-border-width: 0 1 0 1;" text="STT" />
                                           <TableColumn fx:id="colSoHieuTau2" prefWidth="101.0" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã vé" />

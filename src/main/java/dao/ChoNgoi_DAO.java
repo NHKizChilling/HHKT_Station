@@ -1,6 +1,5 @@
 package dao;
 
-import com.sun.jdi.ArrayReference;
 import connectdb.ConnectDB;
 import entity.ChoNgoi;
 import entity.Toa;
@@ -65,14 +64,12 @@ public class ChoNgoi_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("insert into ChoNgoi values(?,?,?,?,?,?)");
+            stm = con.prepareStatement("insert into ChoNgoi values(?,?,?,?)");
 
             stm.setString(1, choNgoi.getMaChoNgoi());
             stm.setString(2, choNgoi.getToa().getMaToa());
             stm.setInt(3, choNgoi.getTang());
             stm.setInt(4, choNgoi.getKhoang());
-            stm.setString(5, choNgoi.getTrangThai());
-            stm.setDouble(6, choNgoi.getGiaCho());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -95,14 +92,12 @@ public class ChoNgoi_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update ChoNgoi set MaToa = ?, Tang = ?, Khoang = ?, TrangThai = ?, GiaCho = ? where MaChoNgoi = ?");
+            stm = con.prepareStatement("update ChoNgoi set MaToa = ?, Tang = ?, Khoang = ? where MaChoNgoi = ?");
 
             stm.setString(1, choNgoi.getToa().getMaToa());
             stm.setInt(2, choNgoi.getTang());
             stm.setInt(3, choNgoi.getKhoang());
-            stm.setString(4, choNgoi.getTrangThai());
-            stm.setDouble(5, choNgoi.getGiaCho());
-            stm.setString(6, choNgoi.getMaChoNgoi());
+            stm.setString(4, choNgoi.getMaChoNgoi());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -171,12 +166,20 @@ public class ChoNgoi_DAO {
         try {
             String maChoNgoi = rs.getString(1);
             Toa toa = new Toa(rs.getString(2));
+<<<<<<< Updated upstream
             int tang = rs.getInt(3);
             int khoang = rs.getInt(4);
             String trangThai = rs.getString(5);
             double giaCho = rs.getDouble(6);
 
             choNgoi = new ChoNgoi(maChoNgoi, toa, tang, khoang, trangThai, giaCho);
+=======
+            int sttCho = rs.getInt(3);
+            int tang = rs.getInt(4);
+            int khoang = rs.getInt(5);
+
+            choNgoi = new ChoNgoi(maChoNgoi, toa, sttCho, tang, khoang);
+>>>>>>> Stashed changes
         } catch (Exception e) {
             e.printStackTrace();
         }

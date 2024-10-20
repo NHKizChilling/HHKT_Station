@@ -35,8 +35,8 @@ public class NhanVien {
         setTinhTrangCV(tinhTrangCV);
     }
 
-    public NhanVien(ArrayList<NhanVien> dsNhanVien, String tenNhanVien, String soCCCD, LocalDate ngaySinh,
-                    boolean gioiTinh, String sdt, String chucVu, String email, String tinhTrangCV) {
+    public NhanVien(String tenNhanVien, String soCCCD, LocalDate ngaySinh, boolean gioiTinh,
+                    String sdt, String chucVu, String email, String tinhTrangCV) {
         setTenNhanVien(tenNhanVien);
         setSoCCCD(soCCCD);
         setNgaySinh(ngaySinh);
@@ -46,7 +46,6 @@ public class NhanVien {
         setEmail(email);
         setTinhTrangCV(tinhTrangCV);
     }
-
 
     public LocalDate getNgaySinh() {
         return ngaySinh;
@@ -135,9 +134,6 @@ public class NhanVien {
         if (chucVu == null || chucVu.isBlank()) {
             throw new IllegalArgumentException("Chức vụ không được để trống");
         }
-        if (!chucVu.equals("Nhân viên") && !chucVu.equals("Quản lý")) {
-            throw new IllegalArgumentException("Chức vụ không hợp lệ");
-        }
         this.chucVu = chucVu;
     }
 
@@ -146,9 +142,16 @@ public class NhanVien {
     }
 
     public void setEmail(String email) {
-        if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
-            throw new IllegalArgumentException("Email không hợp lệ");
+        if (email == null || email.isBlank()) {
+            this.email = "";
+            return;
         }
+//        else {
+//            if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+//                throw new IllegalArgumentException("Email không hợp lệ");
+//            }
+//            this.email = email;
+//        }
         this.email = email;
     }
     public String getTinhTrangCV() {

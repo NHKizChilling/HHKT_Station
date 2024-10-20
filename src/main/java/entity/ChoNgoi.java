@@ -7,8 +7,7 @@ public class ChoNgoi {
     private Toa toa;
     private int tang;
     private int khoang;
-    private String trangThai;
-    private double giaCho;
+
 
     public ChoNgoi() {
     }
@@ -17,11 +16,16 @@ public class ChoNgoi {
         setMaChoNgoi(maChoNgoi);
     }
 
+<<<<<<< Updated upstream
     public ChoNgoi(String maChoNgoi, Toa toa, int tang, int khoang, String trangThai, double giaCho) {
+=======
+    public ChoNgoi(String maChoNgoi, Toa toa, int sttCho, int tang, int khoang) {
+>>>>>>> Stashed changes
         setMaChoNgoi(maChoNgoi);
         setToa(toa);
         setTang(tang);
         setKhoang(khoang);
+<<<<<<< Updated upstream
         setTrangThai(trangThai);
         setGiaCho(giaCho);
     }
@@ -32,19 +36,12 @@ public class ChoNgoi {
         setTang(tang);
         setKhoang(khoang);
         setTrangThai(trangThai);
+=======
+>>>>>>> Stashed changes
     }
 
 
-    public double getGiaCho() {
-        return giaCho;
-    }
 
-    public void setGiaCho(double giaCho) {
-        if (giaCho < 0) {
-            throw new IllegalArgumentException("Giá chỗ không hợp lệ");
-        }
-        this.giaCho = giaCho;
-    }
 
     public String getMaChoNgoi() {
         return maChoNgoi;
@@ -89,13 +86,6 @@ public class ChoNgoi {
         this.khoang = khoang;
     }
 
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
-    }
 
     @Override
     public boolean equals(Object o) {
