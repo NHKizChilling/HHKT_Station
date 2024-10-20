@@ -20,12 +20,8 @@ public class LichTrinh {
         setMaLichTrinh(maLichTrinh);
     }
 
-<<<<<<< Updated upstream
-    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDen,
+    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDi,Ga gaDen,
                      LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
-=======
-    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDi,Ga gaDen, LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
->>>>>>> Stashed changes
         setMaLichTrinh(maLichTrinh);
         setChuyenTau(chuyenTau);
         setGaDi(gaDi);

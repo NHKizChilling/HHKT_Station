@@ -81,12 +81,15 @@ public class LichTrinh_DAO {
         try {
             String sql = "update LichTrinh set SoHieuTau = ?, MaGaDi = ?, MaGaDen = ?, ThoiGianKhoiHanh = ?, ThoiGianDuKienDen = ?, TrangThai = ? where MaLichTrinh = ?";
             stm = con.prepareStatement(sql);
+
             stm.setString(1, lichTrinh.getChuyenTau().getSoHieutau());
-            stm.setString(2, lichTrinh.getGaDen().getMaGa());
-            stm.setTimestamp(3, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianKhoiHanh()));
-            stm.setTimestamp(4, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianDuKienDen()));
-            stm.setBoolean(5, lichTrinh.isTinhTrang());
-            stm.setString(6, lichTrinh.getMaLichTrinh());
+            stm.setString(2, lichTrinh.getGaDi().getMaGa());
+            stm.setString(3, lichTrinh.getGaDen().getMaGa());
+            stm.setTimestamp(4, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianKhoiHanh()));
+            stm.setTimestamp(5, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianDuKienDen()));
+            stm.setBoolean(6, lichTrinh.isTinhTrang());
+            stm.setString(7, lichTrinh.getMaLichTrinh());
+
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -140,10 +143,7 @@ public class LichTrinh_DAO {
         try {
             String maLichTrinh = rs.getString(1);
             ChuyenTau chuyenTau = new ChuyenTau(rs.getString(2));
-<<<<<<< Updated upstream
-=======
             Ga gaDi = new Ga(rs.getString(3));
->>>>>>> Stashed changes
             Ga gaDen = new Ga(rs.getString(4));
             LocalDateTime thoiGianKhoiHanh = rs.getTimestamp(5).toLocalDateTime();
             LocalDateTime thoiGianDuKienDen = rs.getTimestamp(6).toLocalDateTime();
