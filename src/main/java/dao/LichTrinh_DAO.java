@@ -79,6 +79,28 @@ public class LichTrinh_DAO {
         return dslt;
     }
 
+    public ArrayList<LichTrinh> traCuuDSLichTrinhTheoNgay(LocalDate ngayDi) {
+        ArrayList<LichTrinh> dslt = new ArrayList<>();
+        PreparedStatement stm = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from LichTrinh where MaGaDi = 'SG' and YEAR(ThoiGianKhoiHanh) = ? and MONTH(ThoiGianKhoiHanh) = ? and DAY(ThoiGianKhoiHanh) = ? and TrangThai = 1";
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, ngayDi.getYear());
+            stm.setInt(2, ngayDi.getMonth().getValue());
+            stm.setInt(3, ngayDi.getDayOfMonth());
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                LichTrinh lt = getInfo(rs);
+                dslt.add(lt);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dslt;
+    }
+
     public int getSoLuongChoConTrong(String maLichTrinh) {
         int soLuongChoConTrong = 0;
         PreparedStatement stm = null;

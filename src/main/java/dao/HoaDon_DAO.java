@@ -26,16 +26,8 @@ public class HoaDon_DAO {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                String maHoaDon = rs.getString(1);
-                LocalDateTime ngayLap = rs.getTimestamp(2).toLocalDateTime();
-                NhanVien maNhanVien = new NhanVien(rs.getString(3));
-                HanhKhach maKhachHang = new HanhKhach(rs.getString(4));
-                double tongTien = rs.getDouble(5);
-                double tongGiamGia = rs.getDouble(6);
-                boolean trangThai = rs.getBoolean(7);
 
-                HoaDon hoaDon = new HoaDon(maHoaDon, maNhanVien, ngayLap, maKhachHang, tongTien, tongGiamGia, trangThai);
-
+                HoaDon hoaDon = getInfo(rs);
                 list.add(hoaDon);
             }
         } catch (Exception e) {
@@ -64,15 +56,59 @@ public class HoaDon_DAO {
         return hoaDon;
     }
 
-    public HoaDon getHoaDonTheoNLHD(LocalDateTime nlhd) {
+    public ArrayList<HoaDon> getHoaDonTheoNV(String maNV, LocalDateTime ngayLap) {
+        ArrayList<HoaDon> list = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            PreparedStatement stm = null;
+            String sql = "Select * from HoaDon where MaNV = ? and YEAR(NgayLapHoaDon) = ? and MONTH(NgayLapHoaDon) = ? and DAY(NgayLapHoaDon) = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, maNV);
+            stm.setInt(2, ngayLap.getYear());
+            stm.setInt(3, ngayLap.getMonthValue());
+            stm.setInt(4, ngayLap.getDayOfMonth());
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                HoaDon hoaDon = getInfo(rs);
+                list.add(hoaDon);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public ArrayList<HoaDon> getHoaDonTheoKH(String maKH) {
+        ArrayList<HoaDon> list = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            PreparedStatement stm = null;
+            String sql = "Select * from HoaDon where MaHK = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, maKH);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                HoaDon hoaDon = getInfo(rs);
+                list.add(hoaDon);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public HoaDon getHoaDonVuaTao() {
         HoaDon hoaDon = null;
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
             PreparedStatement stm = null;
-            String sql = "Select * from HoaDon where NgayLapHoaDon = ?";
+            String sql = "Select TOP 1 * from HoaDon order by MaHD desc";
             stm = con.prepareStatement(sql);
-            stm.setTimestamp(1, Timestamp.valueOf(nlhd));
 
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
@@ -148,7 +184,7 @@ public class HoaDon_DAO {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
             PreparedStatement stm;
-            String sql = "Select * from HoaDon where TrangThai = 0";
+            String sql = "Select * from HoaDon where TrangThai = 0 and TongTien != 0";
             stm = con.prepareStatement(sql);
 
             ResultSet rs = stm.executeQuery();
@@ -207,14 +243,6 @@ public class HoaDon_DAO {
             n = stm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (stm != null) {
-                try {
-                    stm.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return n > 0;
     }
@@ -225,9 +253,11 @@ public class HoaDon_DAO {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
             PreparedStatement stm;
-            String sql = "Select * from HoaDon where NgayLapHoaDon = ?";
+            String sql = "Select * from HoaDon where YEAR(NgayLapHoaDon) = ? and MONTH(NgayLapHoaDon) = ? and DAY(NgayLapHoaDon) = ?";
             stm = con.prepareStatement(sql);
-            stm.setTimestamp(1, java.sql.Timestamp.valueOf(ngayLap));
+            stm.setInt(1, ngayLap.getYear());
+            stm.setInt(2, ngayLap.getMonthValue());
+            stm.setInt(3, ngayLap.getDayOfMonth());
 
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {

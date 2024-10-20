@@ -145,11 +145,8 @@ public class PrintPDF {
         Paragraph p13 = new Paragraph("Giá/Price: ", fontContent);
         p13.setAlignment(Element.ALIGN_LEFT);
         p13.setSpacingAfter(5);
-        for(ChiTietHoaDon cthd1 : getData.dscthd){
-            if(cthd1.getVe().getMaVe().equals(ve.getMaVe())){
-                p13.add(new Chunk(new DecimalFormat("#,### VNĐ").format(cthd1.getGiaVe()), fontContentB));
-            }
-        }
+        p13.add(new Chunk(new DecimalFormat("#,### VNĐ").format(new CT_HoaDon_DAO().getCT_HoaDonTheoMaVe(ve.getMaVe()).getGiaVe()), fontContentB));
+
         document.add(p13);
         String text = "";
         for (int i = 0; i < document.getPageSize().getWidth()/10; i++) {
@@ -165,10 +162,9 @@ public class PrintPDF {
 
         try {
             document.close();
-            System.out.println("Tạo file PDF thành công!");
             Desktop.getDesktop().open(new File("src/main/resources/pdf/" + filename));
         }catch (Exception e){
-            System.out.println("Tạo file PDF thất bại!");
+            System.out.println("Tạo vé thất bại!");
         }
     }
 
@@ -226,19 +222,20 @@ public class PrintPDF {
 
         // Add headers
         addTableHeader(table, boldFont, "STT", "Mã vé", "Tên dịch vụ", "ĐVT", "Số lượng", "Đơn giá", "Thành tiền chưa có thuế", "Thuế GTGT", "TT có thuế");
-        ArrayList<ChiTietHoaDon> dscthd = getData.dscthd;
-        DecimalFormat df = new DecimalFormat("#,### VNĐ");
+        ArrayList<ChiTietHoaDon> dscthd = new CT_HoaDon_DAO().getCT_HoaDon(hoaDon.getMaHoaDon());
+        DecimalFormat df = new DecimalFormat("#,### đ");
         // Add ticket row 1
         int dem = 0;
         double tong = 0;
         for(ChiTietHoaDon cthd : dscthd){
             Ve ve = new Ve_DAO().getVeTheoID(cthd.getVe().getMaVe());
+            LoaiVe loaiVe = new LoaiVe_DAO().getLoaiVeTheoMa(ve.getLoaiVe().getMaLoaiVe());
             LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
             ChiTietLichTrinh ctlt = new CT_LichTrinh_DAO().getCTLTTheoCN(ve.getCtlt().getLichTrinh().getMaLichTrinh(), ve.getCtlt().getChoNgoi().getMaChoNgoi());
             ChoNgoi choNgoi = new ChoNgoi_DAO().getChoNgoiTheoMa(ve.getCtlt().getChoNgoi().getMaChoNgoi());
             Toa toa = new Toa_DAO().getToaTheoID(choNgoi.getToa().getMaToa());
-            addTableRow(table, regularFont, ++dem + "", cthd.getVe().getMaVe(), "Vé HK: " + lt.getGaDi().getMaGa() + "-" + lt.getGaDen().getMaGa() + "-" + lt.getChuyenTau().getSoHieutau() + "-" + dtf.format(lt.getThoiGianKhoiHanh()) + "-" + choNgoi.getSttCho() + "-" + toa.getSoSTToa() + "-" + toa.getLoaiToa().getMaLoaiToa(), "Vé", "1", df.format(ctlt.getGiaCho()), df.format(cthd.getGiaVe()), "10%", df.format(cthd.getGiaVe()  * 1.1));
-            tong += cthd.getGiaVe();
+            addTableRow(table, regularFont, ++dem + "", cthd.getVe().getMaVe(), "Vé HK: " + lt.getGaDi().getMaGa() + "-" + lt.getGaDen().getMaGa() + "-" + lt.getChuyenTau().getSoHieutau() + "-" + dtf.format(lt.getThoiGianKhoiHanh()) + "-" + choNgoi.getSttCho() + "-" + toa.getSoSTToa() + "-" + toa.getLoaiToa().getMaLoaiToa(), "Vé", "1", df.format(ctlt.getGiaCho()), df.format(cthd.getGiaVe() - 2000), "10%", df.format((cthd.getGiaVe() - 2000) * 1.1));
+            tong += cthd.getGiaVe() - 2000;
         }
         // Add ticket row 2
         addTableRow(table, regularFont, dem + 1 + "", "", "Phí bảo hiểm hành khách", "Người", dem + "", "2.000", df.format(dem * 2000), "KCT", df.format(dem * 2000));
@@ -263,7 +260,7 @@ public class PrintPDF {
         table.addCell(new PdfPCell(new Phrase(df.format(tong + dem * 2000), regularFont)));
         table.addCell(new PdfPCell(new Phrase(df.format(tong * 0.1), regularFont)));
 
-        table.addCell(new PdfPCell(new Phrase(df.format(tong * 1.1 + dem *2000), regularFont)));
+        table.addCell(new PdfPCell(new Phrase(df.format(tong * 1.1 + dem * 2000), regularFont)));
 
         // Add table to document
         document.add(table);
@@ -272,10 +269,9 @@ public class PrintPDF {
         // Close the document
         try {
             document.close();
-            System.out.println("Tạo file PDF thành công!");
             Desktop.getDesktop().open(new File("src/main/resources/pdf/" + filename));
         }catch (Exception e){
-            System.out.println("Tạo file PDF thất bại!");
+            System.out.println("Tạo hóa đơn thất bại!");
         }
 
     }

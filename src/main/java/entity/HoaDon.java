@@ -17,7 +17,7 @@ public class HoaDon {
     }
 
     public HoaDon(String maHoaDon) {
-        setMaHoaDon(maHoaDon);
+        this.maHoaDon = maHoaDon;
     }
 
     public HoaDon(String maHoaDon, NhanVien nhanVien, HanhKhach hanhKhach, LocalDateTime ngayLapHoaDon, boolean trangThai) {
@@ -44,7 +44,7 @@ public class HoaDon {
         double phiDichVu = dsChiTietHoaDon.size() * 2000;
 
         for (ChiTietHoaDon chiTietHoaDon : dsChiTietHoaDon) {
-            tongTien += chiTietHoaDon.getGiaVe();
+            tongTien += (chiTietHoaDon.getGiaVe() - 2000 ) * 1.1;
         }
         tongTien += phiDichVu;
         this.tongTien = tongTien;
@@ -91,7 +91,7 @@ public class HoaDon {
         if (maHoaDon == null || maHoaDon.isBlank()) {
             throw new IllegalArgumentException("Mã hóa đơn không hợp lệ");
         }
-        if (!maHoaDon.matches("HD[0-9]{12}$")) {
+        if (!maHoaDon.matches("^HD[0-9]{12}$")) {
             throw new IllegalArgumentException("Mã hóa đơn không hợp lệ");
         }
         this.maHoaDon = maHoaDon;

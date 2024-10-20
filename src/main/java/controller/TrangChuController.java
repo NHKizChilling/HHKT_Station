@@ -78,9 +78,21 @@ public class TrangChuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        paneMain.getChildren().clear();
         try {
             ConnectDB.connect();
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("gioi-thieu.fxml"));
+            double width = paneMain.getWidth();
+            double height = paneMain.getHeight();
+            paneMain.getChildren().clear();
+            paneMain.getChildren().add(loader.load());
+            paneMain.setPrefSize(width, height);
+
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         lblNgay.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDate.now()));
@@ -135,10 +147,31 @@ public class TrangChuController implements Initializable {
     }
 
     @FXML
+    protected void showHoaDonGUI() {
+        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("qly-hoa-don.fxml"));
+        double width = paneMain.getWidth();
+        double height = paneMain.getHeight();
+        paneMain.getChildren().clear();
+        try {
+            paneMain.getChildren().add(loader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        paneMain.setPrefSize(width, height);
+    }
+
+    @FXML
     protected void onClick() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Home Page");
-        alert.show();
+        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("gioi-thieu.fxml"));
+        double width = paneMain.getWidth();
+        double height = paneMain.getHeight();
+        paneMain.getChildren().clear();
+        try {
+            paneMain.getChildren().add(loader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        paneMain.setPrefSize(width, height);
     }
 
     @FXML
@@ -166,6 +199,12 @@ public class TrangChuController implements Initializable {
         if (alert.getResult() == ButtonType.OK) {
             ConnectDB.disconnect();
             getData.nv = null;
+            getData.hd = null;
+            getData.hk = null;
+            getData.lt = null;
+            getData.ltkh = null;
+            getData.dsve = null;
+            getData.dscthd = null;
             System.exit(0);
         }
     }

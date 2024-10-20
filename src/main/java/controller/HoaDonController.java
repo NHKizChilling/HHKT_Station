@@ -21,6 +21,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -137,7 +138,7 @@ public class HoaDonController implements Initializable {
 //        timeline1.play();
 
 
-        DecimalFormat df = new DecimalFormat("#,### VND");
+        NumberFormat df = DecimalFormat.getCurrencyInstance();
         NhanVien nhanVien = getData.nv;
         HoaDon hd = getData.hd;
         txtMaNV.setText(nhanVien.getMaNhanVien());
@@ -151,10 +152,11 @@ public class HoaDonController implements Initializable {
         for (Ve ve : dsve) {
             ChiTietHoaDon cthd = new ChiTietHoaDon(hd, ve);
             dscthd.add(cthd);
-            tongTien += cthd.getGiaVe();
+            tongTien += (cthd.getGiaVe() - 2000) * 1.1 + 2000;
             tongGiamGia += cthd.getGiaGiam();
         }
-
+        tongTien = Math.round(tongTien / 1000) * 1000;
+        tongGiamGia = Math.round(tongGiamGia / 1000) * 1000;
         tbCTHD.getItems().addAll(dscthd);
         colTTVe.setCellValueFactory(new PropertyValueFactory<ChiTietHoaDon,String>("ve"));
         colLoaiCho.setCellValueFactory(new PropertyValueFactory<ChiTietHoaDon,String>("ve"));
@@ -231,14 +233,15 @@ public class HoaDonController implements Initializable {
             double t = tongTien/1000;
             t = Math.round(t);
             btnGia1.setText(t * 1000 + "");
-            btnGia2.setText(t/10 * 10000 + "");
-            btnGia3.setText(t/20 * 10000 + "");
-            btnGia4.setText(t/50 * 10000 + "");
+            btnGia2.setText(t * 2 * 1000 + "");
+            btnGia3.setText(t * 5 * 1000 + "");
+            btnGia4.setText(t * 10 * 1000 + "");
         }
 
 
         btnLuuTamHD.setOnAction(event -> {
-            ArrayList<HoaDon> temp_invoices = new HoaDon_DAO().getDSHDLuuTam();
+            ArrayList<HoaDon> temp_invoices = new HoaDon_DAO().getDSHDLuuTam().stream().filter(h -> !h.getNgayLapHoaDon().plusMinutes(15).isAfter(LocalDateTime.now())).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+            temp_invoices = temp_invoices.stream().filter(h -> !(new CT_HoaDon_DAO().getCT_HoaDon(h.getMaHoaDon()).size() == 0)).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
             if (temp_invoices.size() >= 5) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
@@ -250,6 +253,7 @@ public class HoaDonController implements Initializable {
             hd.setTongTien(tongTien);
             hd.setTongGiamGia(tongGiamGia);
             hd.setTrangThai(false);
+            getData.hd = hd;
             if(new HoaDon_DAO().update(hd)) {
                 ArrayList<Ve> list = new ArrayList<>();
                 ArrayList<ChiTietHoaDon> listcthd_new = new ArrayList<>();
@@ -298,7 +302,9 @@ public class HoaDonController implements Initializable {
                         listcthd_new.add(new ChiTietHoaDon(hd, ve));
                     }
                     for (ChiTietHoaDon cthd : listcthd_new) {
-                        new CT_HoaDon_DAO().create(cthd);
+                        if (new CT_HoaDon_DAO().getCT_HoaDon(cthd.getHoaDon().getMaHoaDon()).size() == 0) {
+                            new CT_HoaDon_DAO().create(cthd);
+                        }
                     }
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Thông báo");
@@ -323,7 +329,7 @@ public class HoaDonController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Thông báo");
                 alert.setHeaderText("In hóa đơn thành công");
-                alert.showAndWait();
+                alert.show();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } catch (DocumentException e) {

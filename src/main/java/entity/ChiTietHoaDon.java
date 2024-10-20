@@ -64,15 +64,15 @@ public class ChiTietHoaDon {
         double giaCho = ve.getCtlt().getGiaCho();
         LoaiVe loaiVe = ve.getLoaiVe();
         if(!loaiVe.getMaLoaiVe().equals("VNL")) {
-            giaVe = giaCho * (1 - loaiVe.getMucGiamGia()) * 1.1 + PHI_DICH_VU;
+            giaVe = giaCho * (1 - loaiVe.getMucGiamGia()) + PHI_DICH_VU;
         } else {
             if (ve.isKhuHoi()) {
-                giaVe = giaCho * 0.9 * 1.1 + PHI_DICH_VU;
+                giaVe = giaCho * 0.9 + PHI_DICH_VU;
             } else {
-                giaVe = giaCho * 1.1 + PHI_DICH_VU;
+                giaVe = giaCho + PHI_DICH_VU;
             }
         }
-        this.giaVe = giaVe;
+        this.giaVe = Math.round(giaVe/1000) * 1000;
     }
 
     public void tinhGiaGiam() {
@@ -87,6 +87,6 @@ public class ChiTietHoaDon {
                 giaGiam = giaCho * 0.1;
             }
         }
-        this.giaGiam = giaGiam;
+        this.giaGiam = Math.round(giaGiam/1000) * 1000;
     }
 }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1385.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GioiThieuController">
+   <children>
+      <AnchorPane layoutX="-1.0" layoutY="306.0" style="-fx-background-color: #5098ff;">
+         <children>
+            <BorderPane layoutY="26.0" prefHeight="424.0" prefWidth="1386.0">
+               <center>
+                  <BarChart fx:id="chartChuyenTau" alternativeColumnFillVisible="true" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1386.0" scaleShape="false" style="-fx-background-color: #5098ff; -fx-border-color: black; -fx-background-radius: 5; -fx-border-radius: 5;" BorderPane.alignment="CENTER">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </BarChart>
+               </center>
+            </BorderPane>
+            <Label layoutX="45.0" layoutY="12.0" style="-fx-background-color: #5098ff;" text="Các chuyến tàu khởi hành trong ngày hôm nay" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="525.0" layoutY="27.0" prefHeight="228.0" prefWidth="820.0" style="-fx-background-color: #fff; -fx-border-color: green; -fx-border-width: 5; -fx-border-radius: 5; -fx-background-radius: 5;">
+         <children>
+            <Label layoutX="25.0" layoutY="-16.0" style="-fx-background-color: #fff; -fx-label-padding: 2 7 2 7;" text="Tổng quan hôm nay">
+               <font>
+                  <Font name="Times New Roman Bold" size="22.0" />
+               </font>
+            </Label>
+            <BorderPane layoutX="27.0" layoutY="18.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: black; -fx-background-color: lightblue;">
+               <top>
+                  <Label text="Số lượng vé bán ra" textFill="#5098ff" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Times New Roman Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </top>
+               <center>
+                  <Label fx:id="lblSLVe" text="0" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Times New Roman Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+            <BorderPane layoutX="303.0" layoutY="20.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: black; -fx-background-color: skyblue;">
+               <top>
+                  <Label text="Doanh thu bán vé" textFill="#c76012" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Times New Roman Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </top>
+               <center>
+                  <Label fx:id="lblDoanhThu" text="0" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Times New Roman Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+            <BorderPane layoutX="565.0" layoutY="20.0" prefHeight="200.0" prefWidth="229.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: black; -fx-background-color: lightgreen;">
+               <top>
+                  <Label text="Chuyến tàu chờ chạy" textFill="#11a900" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Times New Roman Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </top>
+               <center>
+                  <Label fx:id="lblSLChuyenTau" text="0" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Times New Roman Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="36.0" layoutY="27.0" prefHeight="228.0" prefWidth="339.0" style="-fx-background-color: #fff; -fx-border-color: green; -fx-border-width: 5; -fx-border-radius: 5; -fx-background-radius: 5;">
+         <children>
+            <Label layoutX="25.0" layoutY="-16.0" style="-fx-background-color: #fff; -fx-label-padding: 2 7 2 7;" text="Giới thiệu hệ thống">
+               <font>
+                  <Font name="Times New Roman Bold" size="22.0" />
+               </font>
+            </Label>
+            <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tên nhà ga: HHKT">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </Text>
+            <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ: 12B Nguyễn Văn Bảo, phường 4, Gò Vấp, TP.HCM">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="12.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CÔNG TY CỔ PHẦN VẬN TẢI ĐƯỜNG SẮT HHKT">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+            </Text>
+            <Text fontSmoothingType="LCD" layoutX="11.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotline: 1900 1111">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </Text>
+            <Text fontSmoothingType="LCD" layoutX="11.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email: hhktstation.12b@gmail.com">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

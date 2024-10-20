@@ -25,28 +25,31 @@
                      <image>
                         <Image url="@../img/logo.png" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Button fx:id="btnFVe" alignment="CENTER" layoutX="2.0" layoutY="186.0" mnemonicParsing="false" onAction="#showBanVeGUI" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Vé" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnFHK" alignment="CENTER" layoutX="1.0" layoutY="291.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Hành khách" textFill="WHITE">
+                  <Button fx:id="btnFHK" alignment="CENTER" layoutX="2.0" layoutY="335.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Hành khách" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnFNV" alignment="CENTER" layoutX="2.0" layoutY="239.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Nhân viên" textFill="WHITE">
+                  <Button fx:id="btnFNV" alignment="CENTER" layoutX="1.0" layoutY="283.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Nhân viên" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnFBCTK" alignment="CENTER" layoutX="1.0" layoutY="409.0" mnemonicParsing="false" onAction="#onBtnTKClick" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Thống kê" textFill="WHITE">
+                  <Button fx:id="btnFBCTK" alignment="CENTER" layoutX="1.0" layoutY="443.0" mnemonicParsing="false" onAction="#onBtnTKClick" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Thống kê" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnFCT" alignment="CENTER" layoutX="1.0" layoutY="352.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Chuyến tàu" textFill="WHITE">
+                  <Button fx:id="btnFCT" alignment="CENTER" layoutX="1.0" layoutY="386.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Chuyến tàu" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
@@ -72,7 +75,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
-                  <FontAwesomeIcon fill="#e1e127" fontSmoothingType="LCD" glyphName="TICKET" layoutX="51.0" layoutY="208.0" viewOrder="-1.0">
+                  <FontAwesomeIcon fill="#e1e127" fontSmoothingType="LCD" glyphName="TICKET" layoutX="19.0" layoutY="208.0" viewOrder="-1.0">
                      <font>
                         <Font name="Times New Roman" size="12.0" />
                      </font>
@@ -80,7 +83,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
-                  <FontAwesomeIcon fill="BLUE" fontSmoothingType="LCD" glyphName="USER" layoutX="29.0" layoutY="259.0" viewOrder="-1.0">
+                  <FontAwesomeIcon fill="BLUE" fontSmoothingType="LCD" glyphName="USER" layoutX="20.0" layoutY="306.0" text="" viewOrder="-1.0">
                      <font>
                         <Font name="Times New Roman" size="12.0" />
                      </font>
@@ -88,7 +91,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
-                  <FontAwesomeIcon fill="#2e25ae" fontSmoothingType="LCD" glyphName="USERS" layoutX="20.0" layoutY="313.0" viewOrder="-1.0">
+                  <FontAwesomeIcon fill="#2e25ae" fontSmoothingType="LCD" glyphName="USERS" layoutX="18.0" layoutY="357.0" viewOrder="-1.0">
                      <font>
                         <Font name="Times New Roman" size="12.0" />
                      </font>
@@ -96,7 +99,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
-                  <FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" glyphName="TRAIN" layoutX="23.0" layoutY="375.0" text="" viewOrder="-1.0">
+                  <FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" glyphName="TRAIN" layoutX="20.0" layoutY="408.0" text="" viewOrder="-1.0">
                      <font>
                         <Font name="Times New Roman" size="12.0" />
                      </font>
@@ -104,7 +107,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
-                  <FontAwesomeIcon fill="#bc6a38" fontSmoothingType="LCD" glyphName="AREA_CHART" layoutX="26.0" layoutY="432.0" text="" viewOrder="-1.0">
+                  <FontAwesomeIcon fill="#bc6a38" fontSmoothingType="LCD" glyphName="AREA_CHART" layoutX="17.0" layoutY="465.0" text="" viewOrder="-1.0">
                      <font>
                         <Font name="Times New Roman" size="12.0" />
                      </font>
@@ -120,12 +123,25 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnUM" alignment="CENTER" layoutX="1.0" layoutY="463.0" mnemonicParsing="false" onAction="#openUserManual" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Hỗ trợ" textFill="WHITE">
+                  <Button fx:id="btnUM" alignment="CENTER" layoutX="1.0" layoutY="497.0" mnemonicParsing="false" onAction="#openUserManual" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Hỗ trợ" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
                   </Button>
-                  <FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" glyphName="QUESTION_CIRCLE" layoutX="38.0" layoutY="485.0" viewOrder="-1.0">
+                  <FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" glyphName="QUESTION_CIRCLE" layoutX="20.0" layoutY="519.0" viewOrder="-1.0">
+                     <font>
+                        <Font name="Times New Roman" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontAwesomeIcon>
+                  <Button fx:id="btnQLHD" alignment="CENTER" layoutX="1.0" layoutY="230.0" mnemonicParsing="false" onAction="#showHoaDonGUI" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Hóa đơn" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman Bold" size="16.0" />
+                     </font>
+                  </Button>
+                  <FontAwesomeIcon fill="BLUE" fontSmoothingType="LCD" glyphName="LAPTOP" layoutX="19.0" layoutY="252.0" viewOrder="-1.0">
                      <font>
                         <Font name="Times New Roman" size="12.0" />
                      </font>

@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
@@ -307,44 +308,15 @@ public class BanVeController implements Initializable {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-                LocalDate today = dpNgayKH.getValue();
-                setDisable(empty || date.compareTo(today) < 0);
+                if (dpNgayKH.getValue() != null) {
+                    LocalDate today = dpNgayKH.getValue();
+                    setDisable(empty || date.compareTo(today) < 0);
+                }
             }
         });
 
         btnLamMoi.setOnMouseClicked(e -> {
-            cbGaDi.setValue(null);
-            cbGaDi.requestFocus();
-            cbGaDen.setValue(null);
-            dpNgayKH.setValue(null);
-            dpNgayVe.setDisable(true);
-            dpNgayVe.setValue(null);
-            chkKhuHoi.setSelected(false);
-            khuHoi = false;
-            lblSLnl.setText("0");
-            lblSLnct.setText("0");
-            lblSLhssv.setText("0");
-            lblSLte.setText("0");
-            btnChonCD.setDisable(true);
-            btnChonKH.setDisable(true);
-            btnTangSLte.setDisable(true);
-            btnGiamSLte.setDisable(true);
-            btnGiamSLnct.setDisable(true);
-            btnGiamSLnl.setDisable(true);
-            btnGiamSLhssv.setDisable(true);
-            btnTangSLte.setFill(Color.GRAY);
-            btnGiamSLte.setFill(Color.GRAY);
-            btnGiamSLnct.setFill(Color.GRAY);
-            btnGiamSLnl.setFill(Color.GRAY);
-            btnGiamSLhssv.setFill(Color.GRAY);
-            tbTCTLT.setItems(null);
-            tbTCTLTKH.setItems(null);
-            tbTCTLTKH.setVisible(false);
-            acpToaTau.setVisible(false);
-            tabToaTau.getTabs().clear();
-            acpKH.setVisible(false);
-            scr11.setVisible(false);
-            tabTTVe.getTabs().clear();
+            lamMoi();
         });
 
         colSoHieuTau.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("chuyenTau"));
@@ -369,6 +341,10 @@ public class BanVeController implements Initializable {
             idBtnChosen = "";
             idBtnChonKH = "";
             acpKH.setVisible(false);
+            txtTenKH.setText(null);
+            txtSoCCCD.setText(null);
+            txtSDT.setText(null);
+            txtEmail.setText(null);
             if (cbGaDi.getValue() == null || cbGaDi.getEditor().getText() == "") {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
@@ -471,6 +447,19 @@ public class BanVeController implements Initializable {
 
                                             LichTrinh lt = tbTCTLT.getItems().get(getIndex());
                                             getData.lt = lt;
+                                            if (tabTTVe.getTabs().size() > 0) {
+                                                for (Tab t : tabTTVe.getTabs()) {
+                                                    TextField txtMaCho =(TextField) t.getContent().lookup("#txtMaCho");
+                                                    TextField txtLoaiCho =(TextField) t.getContent().lookup("#txtLoaiCho");
+                                                    TextField txtSTTToa =(TextField) t.getContent().lookup("#txtSTTToa");
+                                                    TextField txtGia =(TextField) t.getContent().lookup("#txtGia");
+                                                    txtMaCho.setText(null);
+                                                    txtLoaiCho.setText(null);
+                                                    txtSTTToa.setText(null);
+                                                    txtGia.setText(null);
+                                                }
+                                                tabTTVe.getSelectionModel().selectFirst();
+                                            }
                                             ArrayList<Toa> dstoa = toa_dao.getAllToaTheoChuyenTau(lt.getChuyenTau().getSoHieutau());
                                             ArrayList<ChiTietLichTrinh> dsctlt = ctlt_dao.getCtltTheoMaLichTrinh(lt.getMaLichTrinh());
                                             if (dsctlt.isEmpty()) {
@@ -482,6 +471,8 @@ public class BanVeController implements Initializable {
                                                 return;
                                             }
                                             acpToaTau.setVisible(true);
+                                            scr1.setVisible(true);
+                                            scr11.setVisible(false);
                                             tabToaTau.getTabs().clear();
                                             for (Toa toa : dstoa) {
                                                 Tab tab = new Tab("Toa " + toa.getSoSTToa() + " - " + ltoa_dao.getLoaiToaTheoMa(toa.getLoaiToa().getMaLoaiToa()).getTenLoaiToa());
@@ -1454,7 +1445,7 @@ public class BanVeController implements Initializable {
 
         btnTaoHD.setOnMouseClicked(e -> {
             //Kiểm tra các field trống
-            if (txtTenKH.getText().isEmpty() || txtTenKH.getText() == null) {
+            if (txtTenKH.getText() == null || txtTenKH.getText().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Lỗi");
                 alert.setHeaderText(null);
@@ -1463,7 +1454,7 @@ public class BanVeController implements Initializable {
                 txtTenKH.requestFocus();
                 return;
             }
-            if (txtSoCCCD.getText().isEmpty() || txtSoCCCD.getText() == null) {
+            if (txtSoCCCD.getText() == null || txtSoCCCD.getText().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Lỗi");
                 alert.setHeaderText(null);
@@ -1482,7 +1473,7 @@ public class BanVeController implements Initializable {
                     return;
                 }
             }
-            if (txtSDT.getText().isEmpty() || txtSDT.getText() == null) {
+            if (txtSDT.getText() == null || txtSDT.getText().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Lỗi");
                 alert.setHeaderText(null);
@@ -1501,7 +1492,7 @@ public class BanVeController implements Initializable {
                     return;
                 }
             }
-            if (txtEmail.getText().isEmpty() || txtEmail.getText() == null) {
+            if (txtEmail.getText() == null || txtEmail.getText().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Lỗi");
                 alert.setHeaderText(null);
@@ -1548,7 +1539,7 @@ public class BanVeController implements Initializable {
             HoaDon hd = new HoaDon("temp", getData.nv, getData.hk, now, false);
             if (hd_dao.createTempInvoice(hd)) {
                 //get hóa đơn vừa tạo
-                getData.hd = hd_dao.getHoaDonTheoNLHD(hd.getNgayLapHoaDon());
+                getData.hd = hd_dao.getHoaDonVuaTao();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
@@ -1565,6 +1556,38 @@ public class BanVeController implements Initializable {
                 stgHoaDon.setScene(new Scene(acpHoaDon));
                 stgHoaDon.sizeToScene();
                 stgHoaDon.show();
+                stgHoaDon.setOnCloseRequest(e1 -> {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Xác nhận");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Bạn có chắc chắn muốn thoát?");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        HoaDon hoaDon = hd_dao.getHoaDonVuaTao();
+                        if (!hoaDon.isTrangThai() && hoaDon.getTongTien() == 0) {
+                            hd_dao.delete(hoaDon);
+                        }
+                        stgHoaDon.close();
+                        lamMoi();
+                    }
+                });
+
+                Button btnBack = (Button) acpHoaDon.lookup("#btnBackBanVe");
+                btnBack.setOnMouseClicked(e1 -> {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Xác nhận");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Bạn có chắc chắn muốn thoát?");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        HoaDon hoaDon = hd_dao.getHoaDonVuaTao();
+                        if (!hoaDon.isTrangThai() && hoaDon.getTongTien() == 0) {
+                            hd_dao.delete(hoaDon);
+                        }
+                        stgHoaDon.close();
+                        lamMoi();
+                    }
+                });
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -1665,7 +1688,7 @@ public class BanVeController implements Initializable {
 
                 if (scr11.isVisible()) {
                     Button btnKH = (Button) tabToaTauKH.getTabs().get(tabToaTauKH.getSelectionModel().getSelectedIndex()).getContent().lookup("#" + idBtnChonKH);
-                    if (txtMaCNKH.getText().isEmpty() || txtMaCNKH.getText() == null) {
+                    if (txtMaCNKH.getText() == null || txtMaCNKH.getText().isEmpty()) {
                         txtMaCNKH.setText(idBtnChonKH);
                         txtLoaiChoKH.setText(tabToaTauKH.getSelectionModel().getSelectedItem().getText().split(" - ")[1]);
                         txtSTTToaKH.setText(tabToaTauKH.getSelectionModel().getSelectedIndex() + 1 + "");
@@ -1688,7 +1711,7 @@ public class BanVeController implements Initializable {
                     btnChonChoNgoi.setDisable(true);
                     btnHuyChon.setDisable(true);
                 } else if (scr1.isVisible()){
-                    if (!txtMaCho.getText().isEmpty() && txtMaCho.getText() != null) {
+                    if (txtMaCho.getText() != null && !txtMaCho.getText().isEmpty()) {
                         Button btn = (Button) tabToaTau.getTabs().get(tabToaTau.getSelectionModel().getSelectedIndex()).getContent().lookup("#" + idBtnChosen);
                         Button btnOld = (Button) tabToaTau.getTabs().get(Integer.parseInt(txtSTTToa.getText()) - 1).getContent().lookup("#" + txtMaCho.getText());
                         btnOld.setStyle("-fx-background-color: white; -fx-text-fill: black;");
@@ -1724,12 +1747,12 @@ public class BanVeController implements Initializable {
 
                 Button btnXacNhanTT = (Button) tabTTVe.getSelectionModel().getSelectedItem().getContent().lookup("#btnXacNhanTT");
                 TextField txtMaCN = (TextField) tabTTVe.getSelectionModel().getSelectedItem().getContent().lookup("#txtMaCho");
-                if (!txtMaCN.getText().isEmpty() && txtMaCN.getText() != null) {
+                if (txtMaCN.getText() != null && !txtMaCN.getText().isEmpty()) {
                     if (khuHoi) {
                         TextField txtMaCNKH = (TextField) tabTTVe.getSelectionModel().getSelectedItem().getContent().lookup("#txtMaChoKH");
                         Button btnChuyenChonKH = (Button) tabTTVe.getSelectionModel().getSelectedItem().getContent().lookup("#btnChuyenChonKH");
 
-                        if (!txtMaCNKH.getText().isEmpty() && txtMaCNKH.getText() != null) {
+                        if (txtMaCNKH.getText() != null && !txtMaCNKH.getText().isEmpty()) {
                             btnChuyenChonKH.setVisible(false);
                             btnXacNhanTT.setVisible(true);
                             btnXacNhanTT.setDisable(false);
@@ -1865,6 +1888,7 @@ public class BanVeController implements Initializable {
                             tabTTVe.getSelectionModel().selectFirst();
                             acpKH.setVisible(true);
                         });
+                        tabTTVe.getSelectionModel().selectFirst();
                     }
 
                 }
@@ -1939,6 +1963,19 @@ public class BanVeController implements Initializable {
 
                                     LichTrinh lt = tbTCTLTKH.getItems().get(getIndex());
                                     getData.ltkh = lt;
+                                    if (tabTTVe.getTabs().size() > 0) {
+                                        for (Tab t : tabTTVe.getTabs()) {
+                                            TextField txtMaChoKH =(TextField) t.getContent().lookup("#txtMaChoKH");
+                                            TextField txtLoaiChoKH =(TextField) t.getContent().lookup("#txtLoaiChoKH");
+                                            TextField txtSTTToaKH =(TextField) t.getContent().lookup("#txtSTTToaKH");
+                                            TextField txtGiaKH =(TextField) t.getContent().lookup("#txtGiaKH");
+                                            txtMaChoKH.setText(null);
+                                            txtLoaiChoKH.setText(null);
+                                            txtSTTToaKH.setText(null);
+                                            txtGiaKH.setText(null);
+                                        }
+                                        tabTTVe.getSelectionModel().selectFirst();
+                                    }
                                     ArrayList<ChiTietLichTrinh> dsctlt = ctlt_dao.getCtltTheoMaLichTrinh(lt.getMaLichTrinh());
                                     if (dsctlt.isEmpty()) {
                                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1952,7 +1989,11 @@ public class BanVeController implements Initializable {
                                     if (!acpToaTau.isVisible()) {
                                         acpToaTau.setVisible(true);
                                     }
+
+                                    scr1.setVisible(false);
+                                    scr11.setVisible(true);
                                     tabToaTauKH.getTabs().clear();
+
                                     for (Toa toa : dstoa) {
                                         Tab tab = new Tab("Toa " + toa.getSoSTToa() + " - " + ltoa_dao.getLoaiToaTheoMa(toa.getLoaiToa().getMaLoaiToa()).getTenLoaiToa());
                                         tab.setClosable(false);
@@ -2791,6 +2832,42 @@ public class BanVeController implements Initializable {
             }
         });
 
+    }
+
+    private void lamMoi() {
+        cbGaDi.setValue(null);
+        cbGaDi.requestFocus();
+        cbGaDen.setValue(null);
+        dpNgayKH.setValue(null);
+        dpNgayVe.setDisable(true);
+        dpNgayVe.setValue(null);
+        chkKhuHoi.setSelected(false);
+        khuHoi = false;
+        lblSLnl.setText("0");
+        lblSLnct.setText("0");
+        lblSLhssv.setText("0");
+        lblSLte.setText("0");
+        btnChonCD.setDisable(true);
+        btnChonKH.setDisable(true);
+        btnTangSLte.setDisable(true);
+        btnGiamSLte.setDisable(true);
+        btnGiamSLnct.setDisable(true);
+        btnGiamSLnl.setDisable(true);
+        btnGiamSLhssv.setDisable(true);
+        btnTangSLte.setFill(Color.GRAY);
+        btnGiamSLte.setFill(Color.GRAY);
+        btnGiamSLnct.setFill(Color.GRAY);
+        btnGiamSLnl.setFill(Color.GRAY);
+        btnGiamSLhssv.setFill(Color.GRAY);
+        tbTCTLT.setItems(null);
+        tbTCTLTKH.setItems(null);
+        tbTCTLTKH.setVisible(false);
+        acpToaTau.setVisible(false);
+        tabToaTau.getTabs().clear();
+        acpKH.setVisible(false);
+        scr1.setVisible(true);
+        scr11.setVisible(false);
+        tabTTVe.getTabs().clear();
     }
 
     private boolean contains(int[] array, int value) {

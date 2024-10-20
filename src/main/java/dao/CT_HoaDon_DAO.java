@@ -167,7 +167,7 @@ public class CT_HoaDon_DAO {
                 double giaVe = rs.getDouble(3);
                 double giaGiam = rs.getDouble(4);
 
-                cthd = new ChiTietHoaDon(hoaDon, ve, giaVe, giaGiam);
+                cthd = new ChiTietHoaDon(hoaDon, ve, giaGiam, giaVe);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -187,13 +187,13 @@ public class CT_HoaDon_DAO {
 
             ResultSet rs = st.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 HoaDon hoaDon = new HoaDon(rs.getString(1));
                 Ve ve = new Ve(rs.getString(2));
                 double giaVe = rs.getDouble(3);
                 double giaGiam = rs.getDouble(4);
 
-                ChiTietHoaDon cthd = new ChiTietHoaDon(hoaDon, ve, giaVe, giaGiam);
+                ChiTietHoaDon cthd = new ChiTietHoaDon(hoaDon, ve, giaGiam, giaVe);
                 list.add(cthd);
             }
         } catch (SQLException e) {
