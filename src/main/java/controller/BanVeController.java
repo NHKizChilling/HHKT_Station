@@ -677,6 +677,31 @@ public class BanVeController implements Initializable {
                                                             });
                                                         }
                                                     }
+                                                    //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
+                                                    Label lblChuaChon = new Label("Chưa chọn");
+                                                    lblChuaChon.setAlignment(Pos.CENTER);
+                                                    lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+                                                    lblChuaChon.setPadding(new Insets(5));
+                                                    lblChuaChon.setPrefSize(70, 30);
+                                                    Label lblDangXem = new Label("Đang xem");
+                                                    lblDangXem.setAlignment(Pos.CENTER);
+                                                    lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+                                                    lblDangXem.setPadding(new Insets(5));
+                                                    lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                                    Label lblDaChon = new Label("Đã chọn");
+                                                    lblDaChon.setAlignment(Pos.CENTER);
+                                                    lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                                                    lblDaChon.setPadding(new Insets(5));
+                                                    lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                                    Label lblDaDat = new Label("Đã đặt");
+                                                    lblDaDat.setAlignment(Pos.CENTER);
+                                                    lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                                                    lblDaDat.setPadding(new Insets(5));
+                                                    lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                                    gridPane1.add(lblChuaChon, 0, 7, 3, 1);
+                                                    gridPane1.add(lblDangXem, 3, 7, 3, 1);
+                                                    gridPane1.add(lblDaChon, 0, 8, 3, 1);
+                                                    gridPane1.add(lblDaDat, 3, 8, 3, 1);
                                                 } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("GNK4")) {
                                                     int[][] seatNumbers2 = {
                                                             {3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23, 24, 27, 28},
@@ -754,6 +779,31 @@ public class BanVeController implements Initializable {
                                                             });
                                                         }
                                                     }
+                                                    //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
+                                                    Label lblChuaChon = new Label("Chưa chọn");
+                                                    lblChuaChon.setAlignment(Pos.CENTER);
+                                                    lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+                                                    lblChuaChon.setPadding(new Insets(5));
+                                                    lblChuaChon.setPrefSize(70, 30);
+                                                    Label lblDangXem = new Label("Đang xem");
+                                                    lblDangXem.setAlignment(Pos.CENTER);
+                                                    lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+                                                    lblDangXem.setPadding(new Insets(5));
+                                                    lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                                    Label lblDaChon = new Label("Đã chọn");
+                                                    lblDaChon.setAlignment(Pos.CENTER);
+                                                    lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                                                    lblDaChon.setPadding(new Insets(5));
+                                                    lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                                    Label lblDaDat = new Label("Đã đặt");
+                                                    lblDaDat.setAlignment(Pos.CENTER);
+                                                    lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                                                    lblDaDat.setPadding(new Insets(5));
+                                                    lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                                    gridPane2.add(lblChuaChon, 0, 7, 3, 1);
+                                                    gridPane2.add(lblDangXem, 3, 7, 3, 1);
+                                                    gridPane2.add(lblDaChon, 0, 8, 3, 1);
+                                                    gridPane2.add(lblDaDat, 3, 8, 3, 1);
                                                 } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("GNK6")) {
                                                     GridPane gridPane = new GridPane();
                                                     tab.setContent(gridPane);
@@ -833,6 +883,31 @@ public class BanVeController implements Initializable {
                                                             });
                                                         }
                                                     }
+                                                    //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
+                                                    Label lblChuaChon = new Label("Chưa chọn");
+                                                    lblChuaChon.setAlignment(Pos.CENTER);
+                                                    lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+                                                    lblChuaChon.setPadding(new Insets(5));
+                                                    lblChuaChon.setPrefSize(70, 30);
+                                                    Label lblDangXem = new Label("Đang xem");
+                                                    lblDangXem.setAlignment(Pos.CENTER);
+                                                    lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+                                                    lblDangXem.setPadding(new Insets(5));
+                                                    lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                                    Label lblDaChon = new Label("Đã chọn");
+                                                    lblDaChon.setAlignment(Pos.CENTER);
+                                                    lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                                                    lblDaChon.setPadding(new Insets(5));
+                                                    lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                                    Label lblDaDat = new Label("Đã đặt");
+                                                    lblDaDat.setAlignment(Pos.CENTER);
+                                                    lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                                                    lblDaDat.setPadding(new Insets(5));
+                                                    lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                                    gridPane.add(lblChuaChon, 0, 7, 3, 1);
+                                                    gridPane.add(lblDangXem, 3, 7, 3, 1);
+                                                    gridPane.add(lblDaChon, 0, 8, 3, 1);
+                                                    gridPane.add(lblDaDat, 3, 8, 3, 1);
                                                 } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("TVIP")) {
                                                     int[][] seatNumbers2 = {
                                                             {2, 4, 6, 8, 10, 12, 14},
@@ -907,6 +982,31 @@ public class BanVeController implements Initializable {
                                                             });
                                                         }
                                                     }
+                                                    //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
+                                                    Label lblChuaChon = new Label("Chưa chọn");
+                                                    lblChuaChon.setAlignment(Pos.CENTER);
+                                                    lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+                                                    lblChuaChon.setPadding(new Insets(5));
+                                                    lblChuaChon.setPrefSize(70, 30);
+                                                    Label lblDangXem = new Label("Đang xem");
+                                                    lblDangXem.setAlignment(Pos.CENTER);
+                                                    lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+                                                    lblDangXem.setPadding(new Insets(5));
+                                                    lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                                    Label lblDaChon = new Label("Đã chọn");
+                                                    lblDaChon.setAlignment(Pos.CENTER);
+                                                    lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                                                    lblDaChon.setPadding(new Insets(5));
+                                                    lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                                    Label lblDaDat = new Label("Đã đặt");
+                                                    lblDaDat.setAlignment(Pos.CENTER);
+                                                    lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                                                    lblDaDat.setPadding(new Insets(5));
+                                                    lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                                    gridPane2.add(lblChuaChon, 0, 7, 3, 1);
+                                                    gridPane2.add(lblDangXem, 3, 7, 3, 1);
+                                                    gridPane2.add(lblDaChon, 0, 8, 3, 1);
+                                                    gridPane2.add(lblDaDat, 3, 8, 3, 1);
                                                 }
                                             }
 
@@ -1938,6 +2038,31 @@ public class BanVeController implements Initializable {
                                                     });
                                                 }
                                             }
+                                            //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
+                                            Label lblChuaChon = new Label("Chưa chọn");
+                                            lblChuaChon.setAlignment(Pos.CENTER);
+                                            lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+                                            lblChuaChon.setPadding(new Insets(5));
+                                            lblChuaChon.setPrefSize(70, 30);
+                                            Label lblDangXem = new Label("Đang xem");
+                                            lblDangXem.setAlignment(Pos.CENTER);
+                                            lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+                                            lblDangXem.setPadding(new Insets(5));
+                                            lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            Label lblDaChon = new Label("Đã chọn");
+                                            lblDaChon.setAlignment(Pos.CENTER);
+                                            lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                                            lblDaChon.setPadding(new Insets(5));
+                                            lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            Label lblDaDat = new Label("Đã đặt");
+                                            lblDaDat.setAlignment(Pos.CENTER);
+                                            lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                                            lblDaDat.setPadding(new Insets(5));
+                                            lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            gridPane1.add(lblChuaChon, 0, 7, 3, 1);
+                                            gridPane1.add(lblDangXem, 3, 7, 3, 1);
+                                            gridPane1.add(lblDaChon, 0, 8, 3, 1);
+                                            gridPane1.add(lblDaDat, 3, 8, 3, 1);
                                         } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NM")) {
                                             GridPane gridPane1 = new GridPane();
                                             tab.setContent(gridPane1);
@@ -2021,6 +2146,31 @@ public class BanVeController implements Initializable {
                                                     });
                                                 }
                                             }
+                                            //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
+                                            Label lblChuaChon = new Label("Chưa chọn");
+                                            lblChuaChon.setAlignment(Pos.CENTER);
+                                            lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+                                            lblChuaChon.setPadding(new Insets(5));
+                                            lblChuaChon.setPrefSize(70, 30);
+                                            Label lblDangXem = new Label("Đang xem");
+                                            lblDangXem.setAlignment(Pos.CENTER);
+                                            lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+                                            lblDangXem.setPadding(new Insets(5));
+                                            lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            Label lblDaChon = new Label("Đã chọn");
+                                            lblDaChon.setAlignment(Pos.CENTER);
+                                            lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                                            lblDaChon.setPadding(new Insets(5));
+                                            lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            Label lblDaDat = new Label("Đã đặt");
+                                            lblDaDat.setAlignment(Pos.CENTER);
+                                            lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                                            lblDaDat.setPadding(new Insets(5));
+                                            lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            gridPane1.add(lblChuaChon, 0, 7, 3, 1);
+                                            gridPane1.add(lblDangXem, 3, 7, 3, 1);
+                                            gridPane1.add(lblDaChon, 0, 8, 3, 1);
+                                            gridPane1.add(lblDaDat, 3, 8, 3, 1);
                                         } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("GNK4")) {
                                             int[][] seatNumbers2 = {
                                                     {3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23, 24, 27, 28},
@@ -2098,6 +2248,31 @@ public class BanVeController implements Initializable {
                                                     });
                                                 }
                                             }
+                                            //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
+                                            Label lblChuaChon = new Label("Chưa chọn");
+                                            lblChuaChon.setAlignment(Pos.CENTER);
+                                            lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+                                            lblChuaChon.setPadding(new Insets(5));
+                                            lblChuaChon.setPrefSize(70, 30);
+                                            Label lblDangXem = new Label("Đang xem");
+                                            lblDangXem.setAlignment(Pos.CENTER);
+                                            lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+                                            lblDangXem.setPadding(new Insets(5));
+                                            lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            Label lblDaChon = new Label("Đã chọn");
+                                            lblDaChon.setAlignment(Pos.CENTER);
+                                            lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                                            lblDaChon.setPadding(new Insets(5));
+                                            lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            Label lblDaDat = new Label("Đã đặt");
+                                            lblDaDat.setAlignment(Pos.CENTER);
+                                            lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                                            lblDaDat.setPadding(new Insets(5));
+                                            lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            gridPane2.add(lblChuaChon, 0, 7, 3, 1);
+                                            gridPane2.add(lblDangXem, 3, 7, 3, 1);
+                                            gridPane2.add(lblDaChon, 0, 8, 3, 1);
+                                            gridPane2.add(lblDaDat, 3, 8, 3, 1);
                                         } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("GNK6")) {
                                             GridPane gridPane = new GridPane();
                                             tab.setContent(gridPane);
@@ -2177,6 +2352,31 @@ public class BanVeController implements Initializable {
                                                     });
                                                 }
                                             }
+                                            //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
+                                            Label lblChuaChon = new Label("Chưa chọn");
+                                            lblChuaChon.setAlignment(Pos.CENTER);
+                                            lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+                                            lblChuaChon.setPadding(new Insets(5));
+                                            lblChuaChon.setPrefSize(70, 30);
+                                            Label lblDangXem = new Label("Đang xem");
+                                            lblDangXem.setAlignment(Pos.CENTER);
+                                            lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+                                            lblDangXem.setPadding(new Insets(5));
+                                            lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            Label lblDaChon = new Label("Đã chọn");
+                                            lblDaChon.setAlignment(Pos.CENTER);
+                                            lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                                            lblDaChon.setPadding(new Insets(5));
+                                            lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            Label lblDaDat = new Label("Đã đặt");
+                                            lblDaDat.setAlignment(Pos.CENTER);
+                                            lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                                            lblDaDat.setPadding(new Insets(5));
+                                            lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            gridPane.add(lblChuaChon, 0, 7, 3, 1);
+                                            gridPane.add(lblDangXem, 3, 7, 3, 1);
+                                            gridPane.add(lblDaChon, 0, 8, 3, 1);
+                                            gridPane.add(lblDaDat, 3, 8, 3, 1);
                                         } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("TVIP")) {
                                             int[][] seatNumbers2 = {
                                                     {2, 4, 6, 8, 10, 12, 14},
@@ -2251,6 +2451,31 @@ public class BanVeController implements Initializable {
                                                     });
                                                 }
                                             }
+                                            //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
+                                            Label lblChuaChon = new Label("Chưa chọn");
+                                            lblChuaChon.setAlignment(Pos.CENTER);
+                                            lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+                                            lblChuaChon.setPadding(new Insets(5));
+                                            lblChuaChon.setPrefSize(70, 30);
+                                            Label lblDangXem = new Label("Đang xem");
+                                            lblDangXem.setAlignment(Pos.CENTER);
+                                            lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+                                            lblDangXem.setPadding(new Insets(5));
+                                            lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            Label lblDaChon = new Label("Đã chọn");
+                                            lblDaChon.setAlignment(Pos.CENTER);
+                                            lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                                            lblDaChon.setPadding(new Insets(5));
+                                            lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            Label lblDaDat = new Label("Đã đặt");
+                                            lblDaDat.setAlignment(Pos.CENTER);
+                                            lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                                            lblDaDat.setPadding(new Insets(5));
+                                            lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
+                                            gridPane2.add(lblChuaChon, 0, 7, 3, 1);
+                                            gridPane2.add(lblDangXem, 3, 7, 3, 1);
+                                            gridPane2.add(lblDaChon, 0, 8, 3, 1);
+                                            gridPane2.add(lblDaDat, 3, 8, 3, 1);
                                         }
                                     }
 
