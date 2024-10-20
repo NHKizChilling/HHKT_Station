@@ -107,6 +107,20 @@ public class TrangChuController implements Initializable {
     }
 
     @FXML
+    protected void showNhanVienGUI() {
+        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("nhan-vien.fxml"));
+        double width = paneMain.getWidth();
+        double height = paneMain.getHeight();
+        try {
+            paneMain.getChildren().clear();
+            paneMain.getChildren().add(loader.load());
+            paneMain.setPrefSize(width, height);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     protected void onClick() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Home Page");

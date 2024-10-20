@@ -34,4 +34,13 @@ public class ConnectDB {
             }
         }
     }
+
+    public static void main(String[] args) {
+        try {
+            connect();
+            System.out.println("Kết nối thành công");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

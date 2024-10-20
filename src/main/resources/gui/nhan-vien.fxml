@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -11,29 +12,29 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1384.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1384.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NhanVienController">
    <children>
-      <AnchorPane layoutX="15.0" layoutY="170.0" prefHeight="570.0" prefWidth="942.0" styleClass="shadow" stylesheets="@../../../../../Employee-Management-System-JavaFX/src/employeemanagementsystem/dashboardDesign.css">
+      <AnchorPane layoutX="15.0" layoutY="170.0" prefHeight="570.0" prefWidth="942.0" styleClass="shadow">
          <children>
-            <TableView fx:id="salary_tableview" layoutX="-1.0" layoutY="-1.0" onMouseClicked="#salarySelect" prefHeight="570.0" prefWidth="942.0">
+            <TableView fx:id="tbl_nhanVien" layoutX="-1.0" layoutY="-1.0" prefHeight="570.0" prefWidth="942.0" stylesheets="@dashboardDesign.css">
                <columns>
-                  <TableColumn fx:id="salary_col_employeeID" prefWidth="114.39999085664749" text="Mã nhân viên" />
-                  <TableColumn fx:id="salary_col_firstName" prefWidth="156.00001525878906" text="Họ và tên" />
-                  <TableColumn fx:id="salary_col_lastName" prefWidth="57.5999755859375" text="Giới tính" />
-                  <TableColumn fx:id="salary_col_position" minWidth="3.0" prefWidth="118.4000244140625" text="Ngày sinh" />
-                  <TableColumn fx:id="salary_col_department" minWidth="2.0" prefWidth="122.4000244140625" text="Số CCCD" />
-                  <TableColumn fx:id="salary_col_salary" minWidth="3.0" prefWidth="99.20001220703125" text="SĐT" />
-                  <TableColumn fx:id="salary_col_salary1" minWidth="3.0" prefWidth="118.39996337890625" text="Chức vụ" />
-                  <TableColumn fx:id="salary_col_salary11" minWidth="3.0" prefWidth="152.00003662109373" text="Tình trạng công việc" />
+                  <TableColumn fx:id="col_maNV" prefWidth="114.39999085664749" text="Mã nhân viên" />
+                  <TableColumn fx:id="col_tenNV" prefWidth="149.0" text="Họ và tên" />
+                  <TableColumn fx:id="col_gioiTinh" prefWidth="66.0" text="Giới tính" />
+                  <TableColumn fx:id="col_dob" minWidth="3.0" prefWidth="118.4000244140625" text="Ngày sinh" />
+                  <TableColumn fx:id="col_cccd" minWidth="2.0" prefWidth="122.4000244140625" text="Số CCCD" />
+                  <TableColumn fx:id="col_sdt" minWidth="3.0" prefWidth="99.20001220703125" text="SĐT" />
+                  <TableColumn fx:id="col_chucVu" minWidth="3.0" prefWidth="118.39996337890625" text="Chức vụ" />
+                  <TableColumn fx:id="col_tinhTrang" minWidth="3.0" prefWidth="152.00003662109373" text="Tình trạng công việc" />
                </columns>
             </TableView>
          </children>
       </AnchorPane>
       <Line endX="840.7999877929688" layoutX="116.0" layoutY="160.0" startX="-100.0" />
       <Line endX="-87.79998779296875" endY="736.4000244140625" layoutX="1057.0" layoutY="12.0" startX="-87.79998779296875" startY="-6.799996852874756" />
-      <ComboBox layoutX="202.0" layoutY="75.0" prefHeight="35.0" prefWidth="150.0" />
-      <TextField layoutX="353.0" layoutY="75.0" prefHeight="35.0" prefWidth="352.0" />
-      <Button layoutX="705.0" layoutY="75.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="65.0" text="Button" />
+      <ComboBox fx:id="cb_search" layoutX="184.0" layoutY="77.0" prefHeight="35.0" prefWidth="126.0" promptText="Mã nhân viên" />
+      <TextField fx:id="txt_search" layoutX="311.0" layoutY="77.0" prefHeight="35.0" prefWidth="352.0" />
+      <Button fx:id="btn_search" layoutX="663.0" layoutY="77.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="65.0" text="Tìm" />
       <Label layoutX="435.0" layoutY="23.0" text="TÌM KIẾM THÔNG TIN">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -54,21 +55,21 @@
             <Label layoutX="29.0" layoutY="320.0" prefHeight="35.0" prefWidth="74.0" text="Số điện thoại" />
             <Label layoutX="31.0" layoutY="376.0" prefHeight="35.0" prefWidth="74.0" text="Email" />
             <Label layoutX="29.0" layoutY="429.0" prefHeight="35.0" prefWidth="74.0" text="Chức vụ" />
-            <TextField layoutX="131.0" layoutY="56.0" prefHeight="35.0" prefWidth="252.0" />
+            <TextField fx:id="txt_maNV" disable="true" layoutX="131.0" layoutY="56.0" prefHeight="35.0" prefWidth="252.0" />
             <Label layoutX="29.0" layoutY="487.0" prefHeight="35.0" prefWidth="74.0" text="Tình trạng CV" />
-            <TextField layoutX="131.0" layoutY="110.0" prefHeight="35.0" prefWidth="252.0" />
-            <TextField layoutX="131.0" layoutY="160.0" prefHeight="35.0" prefWidth="252.0" />
-            <TextField layoutX="131.0" layoutY="213.0" prefHeight="35.0" prefWidth="252.0" />
-            <TextField layoutX="131.0" layoutY="269.0" prefHeight="35.0" prefWidth="252.0" />
-            <TextField layoutX="129.0" layoutY="320.0" prefHeight="35.0" prefWidth="252.0" />
-            <TextField layoutX="129.0" layoutY="376.0" prefHeight="35.0" prefWidth="252.0" />
-            <TextField layoutX="129.0" layoutY="429.0" prefHeight="35.0" prefWidth="252.0" />
-            <TextField layoutX="129.0" layoutY="487.0" prefHeight="35.0" prefWidth="252.0" />
-            <Button layoutX="31.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Xóa trắng" textFill="#151515" />
-            <Button layoutX="123.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Xóa" />
-            <Button layoutX="212.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Cập nhật" />
-            <Button layoutX="297.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Thêm" />
+            <TextField fx:id="txt_tenNV" layoutX="131.0" layoutY="110.0" prefHeight="35.0" prefWidth="252.0" />
+            <TextField fx:id="txt_cccd" layoutX="131.0" layoutY="160.0" prefHeight="35.0" prefWidth="252.0" />
+            <TextField fx:id="txt_sdt" layoutX="129.0" layoutY="320.0" prefHeight="35.0" prefWidth="252.0" />
+            <TextField fx:id="txt_email" layoutX="129.0" layoutY="376.0" prefHeight="35.0" prefWidth="252.0" />
+            <Button fx:id="btn_clear" layoutX="33.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Xóa trắng" textFill="#151515" />
+            <Button fx:id="btn_update" layoutX="169.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Cập nhật" />
+            <Button fx:id="btn_add" layoutX="305.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Thêm" />
+            <DatePicker fx:id="datePicker_dob" layoutX="131.0" layoutY="274.0" />
+            <ComboBox fx:id="cb_gioiTinh" layoutX="131.0" layoutY="218.0" prefWidth="150.0" />
+            <ComboBox fx:id="cb_tinhTrangCV" layoutX="131.0" layoutY="492.0" prefWidth="150.0" />
+            <ComboBox fx:id="cb_chucVu" layoutX="131.0" layoutY="434.0" prefWidth="150.0" />
          </children>
       </Pane>
+      <Button fx:id="btn_reset" layoutX="729.0" layoutY="77.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="65.0" text="Reset" />
    </children>
 </AnchorPane>

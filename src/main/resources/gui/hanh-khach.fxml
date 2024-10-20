@@ -11,59 +11,72 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1384.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HanhKhachController">
    <children>
-      <AnchorPane layoutX="15.0" layoutY="170.0" prefHeight="570.0" prefWidth="942.0" styleClass="shadow" stylesheets="@../../../../../Employee-Management-System-JavaFX/src/employeemanagementsystem/dashboardDesign.css">
+      <AnchorPane layoutX="14.0" layoutY="83.0" prefHeight="299.0" prefWidth="942.0" styleClass="shadow">
          <children>
-            <TableView fx:id="salary_tableview" layoutX="-1.0" layoutY="-1.0" onMouseClicked="#salarySelect" prefHeight="570.0" prefWidth="942.0">
+            <TableView fx:id="tbl_hanhKhach" fixedCellSize="0.0" layoutX="-2.0" layoutY="-1.0" prefHeight="300.0" prefWidth="942.0">
                <columns>
-                  <TableColumn fx:id="salary_col_employeeID" prefWidth="114.39999085664749" text="Mã hành khách" />
-                  <TableColumn fx:id="salary_col_firstName" prefWidth="156.00001525878906" text="Họ và tên" />
-                  <TableColumn fx:id="salary_col_lastName" prefWidth="103.0" text="Giới tính" />
-                  <TableColumn fx:id="salary_col_position" minWidth="3.0" prefWidth="117.0" text="Ngày sinh" />
-                  <TableColumn fx:id="salary_col_department" minWidth="2.0" prefWidth="146.0" text="Số CCCD" />
-                  <TableColumn fx:id="salary_col_salary" minWidth="3.0" prefWidth="119.0" text="SĐT" />
-                  <TableColumn fx:id="salary_col_salary1" minWidth="3.0" prefWidth="181.0" text="Email" />
+                  <TableColumn fx:id="col_cusId" prefWidth="148.0" text="Mã hành khách" />
+                  <TableColumn fx:id="col_name" prefWidth="182.0" text="Họ và tên" />
+                  <TableColumn fx:id="col_cccd" minWidth="2.0" prefWidth="187.0" text="Số CCCD" />
+                  <TableColumn fx:id="col_sdt" minWidth="3.0" prefWidth="139.0" text="SĐT" />
+                  <TableColumn fx:id="col_email" minWidth="3.0" prefWidth="285.0" text="Email" />
                </columns>
             </TableView>
          </children>
       </AnchorPane>
-      <Line endX="840.7999877929688" layoutX="116.0" layoutY="160.0" startX="-100.0" />
+      <Line endX="840.7999877929688" layoutX="114.0" layoutY="66.0" startX="-100.0" />
       <Line endX="-87.79998779296875" endY="736.4000244140625" layoutX="1057.0" layoutY="12.0" startX="-87.79998779296875" startY="-6.799996852874756" />
-      <ComboBox layoutX="202.0" layoutY="75.0" prefHeight="35.0" prefWidth="150.0" />
-      <TextField layoutX="353.0" layoutY="75.0" prefHeight="35.0" prefWidth="352.0" />
-      <Button layoutX="705.0" layoutY="75.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="65.0" text="Button" />
-      <Label layoutX="435.0" layoutY="23.0" text="TÌM KIẾM THÔNG TIN">
+      <ComboBox fx:id="cb_search" layoutX="303.0" layoutY="20.0" prefHeight="35.0" prefWidth="150.0" />
+      <TextField fx:id="txt_searchBar" layoutX="454.0" layoutY="20.0" prefHeight="35.0" prefWidth="352.0" />
+      <Button fx:id="btn_search" layoutX="806.0" layoutY="20.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" text="Tra cứu" />
+      <Label layoutX="16.0" layoutY="24.0" prefHeight="27.0" prefWidth="190.0" text="TÌM KIẾM THÔNG TIN">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Pane layoutX="970.0" layoutY="23.0" prefHeight="710.0" prefWidth="397.0">
+      <Pane layoutX="970.0" layoutY="6.0" prefHeight="483.0" prefWidth="398.0">
          <children>
             <Label layoutX="173.0" layoutY="4.0" text="THÔNG TIN">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="31.0" layoutY="56.0" prefHeight="35.0" prefWidth="74.0" text="Mã hành khách" />
+            <Label layoutX="31.0" layoutY="56.0" prefHeight="35.0" prefWidth="104.0" text="Mã hành khách" />
             <Label layoutX="31.0" layoutY="110.0" prefHeight="35.0" prefWidth="86.0" text="Tên hành khách" />
             <Label layoutX="31.0" layoutY="160.0" prefHeight="35.0" prefWidth="74.0" text="Số CCCD" />
-            <Label layoutX="31.0" layoutY="213.0" prefHeight="35.0" prefWidth="74.0" text="Giới tính" />
-            <Label layoutX="31.0" layoutY="269.0" prefHeight="35.0" prefWidth="74.0" text="Ngày sinh" />
-            <Label layoutX="29.0" layoutY="320.0" prefHeight="35.0" prefWidth="74.0" text="Số điện thoại" />
-            <Label layoutX="31.0" layoutY="376.0" prefHeight="35.0" prefWidth="74.0" text="Email" />
-            <TextField layoutX="145.0" layoutY="56.0" prefHeight="35.0" prefWidth="238.0" />
-            <TextField layoutX="145.0" layoutY="110.0" prefHeight="35.0" prefWidth="238.0" />
-            <TextField layoutX="145.0" layoutY="160.0" prefHeight="35.0" prefWidth="238.0" />
-            <TextField layoutX="145.0" layoutY="213.0" prefHeight="35.0" prefWidth="238.0" />
-            <TextField layoutX="145.0" layoutY="269.0" prefHeight="35.0" prefWidth="238.0" />
-            <TextField layoutX="143.0" layoutY="320.0" prefHeight="35.0" prefWidth="238.0" />
-            <TextField layoutX="143.0" layoutY="376.0" prefHeight="35.0" prefWidth="238.0" />
-            <Button layoutX="31.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Xóa trắng" textFill="#151515" />
-            <Button layoutX="123.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Xóa" />
-            <Button layoutX="212.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Cập nhật" />
-            <Button layoutX="297.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Thêm" />
+            <Label layoutX="31.0" layoutY="215.0" prefHeight="35.0" prefWidth="74.0" text="Số điện thoại" />
+            <Label layoutX="33.0" layoutY="271.0" prefHeight="35.0" prefWidth="74.0" text="Email" />
+            <TextField fx:id="txt_maHK" disable="true" layoutX="145.0" layoutY="56.0" prefHeight="35.0" prefWidth="238.0" />
+            <TextField fx:id="txt_tenHK" layoutX="145.0" layoutY="110.0" prefHeight="35.0" prefWidth="238.0" />
+            <TextField fx:id="txt_cccd" layoutX="145.0" layoutY="160.0" prefHeight="35.0" prefWidth="238.0" />
+            <TextField fx:id="txt_sdt" layoutX="145.0" layoutY="215.0" prefHeight="35.0" prefWidth="238.0" />
+            <TextField fx:id="txt_email" layoutX="145.0" layoutY="271.0" prefHeight="35.0" prefWidth="238.0" />
+            <Button fx:id="btn_clear" layoutX="16.0" layoutY="329.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Xóa trắng" textFill="#151515" />
+            <Button fx:id="btn_update" layoutX="164.0" layoutY="329.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Cập nhật" />
+            <Button fx:id="btn_add" layoutX="309.0" layoutY="329.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Thêm" />
          </children>
       </Pane>
+      <AnchorPane layoutX="13.0" layoutY="423.0" prefHeight="238.0" prefWidth="942.0">
+         <children>
+            <TableView fx:id="tbl_thongTinVe" prefHeight="271.0" prefWidth="942.0">
+               <columns>
+                  <TableColumn fx:id="col_maVe" prefWidth="96.80001544952393" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Mã vé" />
+                  <TableColumn fx:id="col_gaDi" prefWidth="94.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Ga Đi" />
+                  <TableColumn fx:id="col_gaDen" prefWidth="94.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Ga Đến" />
+                  <TableColumn fx:id="col_tau" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Mã tàu" />
+                  <TableColumn fx:id="col_ngayDi" minWidth="1.5999755859375" prefWidth="103.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Ngày đi" />
+                  <TableColumn fx:id="col_gioDi" prefWidth="60.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Giờ đi" />
+                  <TableColumn fx:id="col_maCho" prefWidth="60.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Mã chỗ" />
+                  <TableColumn fx:id="col_loaiVe" prefWidth="122.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Loại vé" />
+                  <TableColumn fx:id="col_khuHoi" prefWidth="100.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Khứ hồi" />
+                  <TableColumn fx:id="col_tinhTrang" prefWidth="130.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Tình trạng" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+      <Button fx:id="btn_inVe" layoutX="882.0" layoutY="701.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="In lại vé" />
+      <Button fx:id="btn_refresh" layoutX="892.0" layoutY="20.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="62.0" text="Làm mới" />
    </children>
 </AnchorPane>

@@ -5,11 +5,9 @@ import java.util.Objects;
 public class ChoNgoi {
     private String maChoNgoi;
     private Toa toa;
-    private int sttCho;
     private int tang;
     private int khoang;
-    private String trangThai;
-    private double giaCho;
+
 
     public ChoNgoi() {
     }
@@ -18,36 +16,32 @@ public class ChoNgoi {
         setMaChoNgoi(maChoNgoi);
     }
 
-    public ChoNgoi(String maChoNgoi, Toa toa, int sttCho, int tang, int khoang, String trangThai, double giaCho) {
+<<<<<<< Updated upstream
+    public ChoNgoi(String maChoNgoi, Toa toa, int tang, int khoang, String trangThai, double giaCho) {
+=======
+    public ChoNgoi(String maChoNgoi, Toa toa, int sttCho, int tang, int khoang) {
+>>>>>>> Stashed changes
         setMaChoNgoi(maChoNgoi);
         setToa(toa);
-        setSttCho(sttCho);
         setTang(tang);
         setKhoang(khoang);
+<<<<<<< Updated upstream
         setTrangThai(trangThai);
         setGiaCho(giaCho);
     }
 
-    public ChoNgoi(String maChoNgoi, Toa toa, int sttCho, int tang, int khoang, String trangThai) {
+    public ChoNgoi(String maChoNgoi, Toa toa, int tang, int khoang, String trangThai) {
         setMaChoNgoi(maChoNgoi);
         setToa(toa);
-        setSttCho(sttCho);
         setTang(tang);
         setKhoang(khoang);
         setTrangThai(trangThai);
+=======
+>>>>>>> Stashed changes
     }
 
 
-    public double getGiaCho() {
-        return giaCho;
-    }
 
-    public void setGiaCho(double giaCho) {
-        if (giaCho < 0) {
-            throw new IllegalArgumentException("Giá chỗ không hợp lệ");
-        }
-        this.giaCho = giaCho;
-    }
 
     public String getMaChoNgoi() {
         return maChoNgoi;
@@ -76,14 +70,6 @@ public class ChoNgoi {
         this.toa = toa;
     }
 
-    public int getSttCho() {
-        return sttCho;
-    }
-
-    public void setSttCho(int sttCho) {
-        this.sttCho = sttCho;
-    }
-
     public int getTang() {
         return tang;
     }
@@ -100,13 +86,6 @@ public class ChoNgoi {
         this.khoang = khoang;
     }
 
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
-    }
 
     @Override
     public boolean equals(Object o) {

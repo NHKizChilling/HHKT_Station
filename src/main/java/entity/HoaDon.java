@@ -11,6 +11,7 @@ public class HoaDon {
     private HanhKhach hanhKhach;
     private double tongTien;
     private double tongGiamGia;
+    private boolean trangThai;
 
     public HoaDon() {
     }
@@ -20,21 +21,22 @@ public class HoaDon {
     }
 
     public HoaDon(String maHoaDon, NhanVien nhanVien, LocalDateTime ngayLapHoaDon,
-                  HanhKhach hanhKhach) {
-        setMaHoaDon(maHoaDon);
-        setNhanVien(nhanVien);
-        setNgayLapHoaDon(ngayLapHoaDon);
-        setHanhKhach(hanhKhach);
-    }
-
-    public HoaDon(String maHoaDon, NhanVien nhanVien, LocalDateTime ngayLapHoaDon,
-                  HanhKhach hanhKhach, double tongTien, double giamGia) {
+                  HanhKhach hanhKhach, double tongTien, double giamGia, boolean trangThai) {
         setMaHoaDon(maHoaDon);
         setNhanVien(nhanVien);
         setNgayLapHoaDon(ngayLapHoaDon);
         setHanhKhach(hanhKhach);
         setTongTien(tongTien);
         setTongGiamGia(giamGia);
+        setTrangThai(trangThai);
+    }
+
+    public boolean isTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
     }
 
     public void tinhTongTien(ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {

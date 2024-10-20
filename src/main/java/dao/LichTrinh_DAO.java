@@ -5,8 +5,10 @@ import entity.ChuyenTau;
 import entity.Ga;
 import entity.LichTrinh;
 
-import java.sql.*;
-import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -38,13 +40,11 @@ public class LichTrinh_DAO {
 
     public LichTrinh getLichTrinhTheoID(String maLichTrinh) {
         LichTrinh lichTrinh = null;
-        PreparedStatement stm = null;
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
             String sql = "Select * from LichTrinh where MaLichTrinh = ?";
-            stm = con.prepareStatement(sql);
-            stm.setString(1, maLichTrinh);
+            Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
                 lichTrinh = getInfo(rs);
@@ -53,29 +53,6 @@ public class LichTrinh_DAO {
             e.printStackTrace();
         }
         return lichTrinh;
-    }
-
-    public ArrayList<LichTrinh> traCuuDSLichTrinh(String MaGaDi, String MaGaDen, LocalDate ngayDi) {
-        ArrayList<LichTrinh> dslt = new ArrayList<>();
-        PreparedStatement stm = null;
-        try {
-            ConnectDB.getInstance();
-            Connection con = ConnectDB.getConnection();
-            String sql = "Select * from LichTrinh where MaGaDen = ? and YEAR(ThoiGianKhoiHanh) = ? and MONTH(ThoiGianKhoiHanh) = ? and DAY(ThoiGianKhoiHanh) = ? and TrangThai = 1";
-            stm = con.prepareStatement(sql);
-            stm.setString(1, MaGaDen);
-            stm.setInt(2, ngayDi.getYear());
-            stm.setInt(3, ngayDi.getMonth().getValue());
-            stm.setInt(4, ngayDi.getDayOfMonth());
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                LichTrinh lt = getInfo(rs);
-                dslt.add(lt);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return dslt;
     }
 
     public boolean updateTrangThaiChuyenTau(String maLichTrinh, boolean trangThai) {
@@ -88,24 +65,6 @@ public class LichTrinh_DAO {
             stm = con.prepareStatement(sql);
             stm.setBoolean(1, trangThai);
             stm.setString(2, maLichTrinh);
-
-            n = stm.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return n > 0;
-    }
-
-    public boolean updateTrangThaiCT(boolean trangThai) {
-        ConnectDB.getInstance();
-        Connection con = ConnectDB.getConnection();
-        int n = 0;
-        PreparedStatement stm = null;
-        try {
-            String sql = "update LichTrinh set TrangThai = ? where ThoiGianKhoiHanh < ?";
-            stm = con.prepareStatement(sql);
-            stm.setBoolean(1, trangThai);
-            stm.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -181,12 +140,16 @@ public class LichTrinh_DAO {
         try {
             String maLichTrinh = rs.getString(1);
             ChuyenTau chuyenTau = new ChuyenTau(rs.getString(2));
-            Ga gaDen = new Ga(rs.getString(3));
-            LocalDateTime thoiGianKhoiHanh = rs.getTimestamp(4).toLocalDateTime();
-            LocalDateTime thoiGianDuKienDen = rs.getTimestamp(5).toLocalDateTime();
-            boolean trangThai = rs.getBoolean(6);
+<<<<<<< Updated upstream
+=======
+            Ga gaDi = new Ga(rs.getString(3));
+>>>>>>> Stashed changes
+            Ga gaDen = new Ga(rs.getString(4));
+            LocalDateTime thoiGianKhoiHanh = rs.getTimestamp(5).toLocalDateTime();
+            LocalDateTime thoiGianDuKienDen = rs.getTimestamp(6).toLocalDateTime();
+            boolean trangThai = rs.getBoolean(7);
 
-            lichTrinh = new LichTrinh(maLichTrinh, chuyenTau, gaDen, thoiGianKhoiHanh, thoiGianDuKienDen, trangThai);
+            lichTrinh = new LichTrinh(maLichTrinh, chuyenTau, gaDi, gaDen, thoiGianKhoiHanh, thoiGianDuKienDen, trangThai);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -40,15 +40,13 @@ public class HanhKhach_DAO {
         PreparedStatement stm;
         int n = 0;
         try {
-            stm = con.prepareStatement("insert into HanhKhach values(?,?,?,?,?,?,?)");
+            stm = con.prepareStatement("insert into HanhKhach values(?,?,?,?,?)");
 
             stm.setString(1, hk.getMaHanhKhach());
             stm.setString(2, hk.getTenHanhKhach());
             stm.setString(3, hk.getSoCCCD());
             stm.setString(4, hk.getSdt());
-            stm.setDate(5, java.sql.Date.valueOf(hk.getNgaySinh()));
-            stm.setBoolean(6, hk.isGioiTinh());
-            stm.setString(7, hk.getEmail());
+            stm.setString(5, hk.getEmail());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -71,15 +69,13 @@ public class HanhKhach_DAO {
         PreparedStatement stm;
         int n = 0;
         try {
-            stm = con.prepareStatement("update HanhKhach set TenHK = ?, SoCCCD = ?, SDT = ?, NgaySinh = ?, GioiTinh = ?, Email = ? where MaHanhKhach = ?");
+            stm = con.prepareStatement("update HanhKhach set TenHK = ?, SoCCCD = ?, SDT = ?, Email = ? where MaHanhKhach = ?");
 
             stm.setString(1, hk.getTenHanhKhach());
             stm.setString(2, hk.getSoCCCD());
             stm.setString(3, hk.getSdt());
-            stm.setDate(4, java.sql.Date.valueOf(hk.getNgaySinh()));
-            stm.setBoolean(5, hk.isGioiTinh());
-            stm.setString(6, hk.getEmail());
-            stm.setString(7, hk.getMaHanhKhach());
+            stm.setString(4, hk.getEmail());
+            stm.setString(5, hk.getMaHanhKhach());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -168,10 +164,8 @@ public class HanhKhach_DAO {
                 String maHanhKhach = rs.getString(1);
                 String tenHanhKhach = rs.getString(2);
                 String cmnd = rs.getString(3);
-                LocalDate ngaySinh = rs.getDate(5).toLocalDate();
-                boolean gioiTinh = rs.getBoolean(6);
-                String email = rs.getString(7);
-                hk = new HanhKhach(maHanhKhach, tenHanhKhach, cmnd, sdt, ngaySinh, gioiTinh, email);
+                String email = rs.getString(4);
+                hk = new HanhKhach(maHanhKhach, tenHanhKhach, cmnd, sdt, email);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -186,11 +180,9 @@ public class HanhKhach_DAO {
             String tenHanhKhach = rs.getString(2);
             String cmnd = rs.getString(3);
             String sdt = rs.getString(4);
-            LocalDate ngaySinh = rs.getDate(5).toLocalDate();
-            boolean gioiTinh = rs.getBoolean(6);
             String email = rs.getString(7);
 
-            hk = new HanhKhach(maHanhKhach, tenHanhKhach, cmnd, sdt, ngaySinh, gioiTinh, email);
+            hk = new HanhKhach(maHanhKhach, tenHanhKhach, cmnd, sdt, email);
         } catch (Exception e) {
             e.printStackTrace();
         }

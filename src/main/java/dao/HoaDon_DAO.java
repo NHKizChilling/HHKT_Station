@@ -29,15 +29,7 @@ public class HoaDon_DAO {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                String maHoaDon = rs.getString(1);
-                LocalDateTime ngayLap = rs.getTimestamp(2).toLocalDateTime();
-                NhanVien maNhanVien = new NhanVien(rs.getString(3));
-                HanhKhach maKhachHang = new HanhKhach(rs.getString(4));
-                double tongTien = rs.getDouble(5);
-                double tongGiamGia = rs.getDouble(6);
-
-                HoaDon hoaDon = new HoaDon(maHoaDon, maNhanVien, ngayLap, maKhachHang, tongTien, tongGiamGia);
-
+                HoaDon hoaDon = getInfo(rs);
                 list.add(hoaDon);
             }
         } catch (Exception e) {
@@ -182,8 +174,9 @@ public class HoaDon_DAO {
             LocalDateTime ngayLap = rs.getTimestamp(4).toLocalDateTime();
             double tongTien = rs.getDouble(5);
             double tongGiamGia = rs.getDouble(6);
+            boolean trangThai = rs.getBoolean(7);
 
-            hoaDon = new HoaDon(maHoaDon, maNhanVien, ngayLap, maKhachHang, tongTien, tongGiamGia);
+            hoaDon = new HoaDon(maHoaDon, maNhanVien, ngayLap, maKhachHang, tongTien, tongGiamGia, trangThai);
         } catch (Exception e) {
             e.printStackTrace();
         }

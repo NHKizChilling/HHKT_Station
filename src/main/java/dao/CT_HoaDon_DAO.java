@@ -148,5 +148,31 @@ public class CT_HoaDon_DAO {
         }
         return cthd;
     }
+
+    public ChiTietHoaDon timTheoMaVe(String maVe) {
+        ChiTietHoaDon cthd = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+
+            String sql = "Select * from ChiTietHoaDon where MaVe = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, maVe);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                HoaDon hoaDon = new HoaDon(rs.getString(1));
+                Ve ve = new Ve(rs.getString(2));
+                double giaVe = rs.getDouble(3);
+                double giaGiam = rs.getDouble(4);
+
+                cthd = new ChiTietHoaDon(hoaDon, ve, giaVe, giaGiam);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cthd;
+    }
 }
 

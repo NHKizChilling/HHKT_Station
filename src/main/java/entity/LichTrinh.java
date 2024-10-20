@@ -6,6 +6,7 @@ import java.util.Objects;
 public class LichTrinh {
     private String maLichTrinh;
     private ChuyenTau chuyenTau;
+    private Ga gaDi;
     private Ga gaDen;
     private LocalDateTime thoiGianKhoiHanh;
     private LocalDateTime thoiGianDuKienDen;
@@ -19,24 +20,18 @@ public class LichTrinh {
         setMaLichTrinh(maLichTrinh);
     }
 
-    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDen, LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
+<<<<<<< Updated upstream
+    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDen,
+                     LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
+=======
+    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDi,Ga gaDen, LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
+>>>>>>> Stashed changes
         setMaLichTrinh(maLichTrinh);
         setChuyenTau(chuyenTau);
+        setGaDi(gaDi);
         setGaDen(gaDen);
-        if (thoiGianKhoiHanh.isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("Thời gian khởi hành không thể ở trước thời gian hiện tại");
-        }  else {
-            if (thoiGianKhoiHanh.isAfter(thoiGianDuKienDen)) {
-                throw new IllegalArgumentException("Thời gian khởi hành không hợp lệ");
-            } else {
-                this.thoiGianKhoiHanh = thoiGianKhoiHanh;
-            }
-        }
-        if (thoiGianDuKienDen.isBefore(thoiGianKhoiHanh)) {
-            throw new IllegalArgumentException("Thời gian dự kiến đến không thể ở trước thời gian khởi hành");
-        } else {
-            this.thoiGianDuKienDen = thoiGianDuKienDen;
-        }
+        setThoiGianKhoiHanh(thoiGianKhoiHanh);
+        setThoiGianDuKienDen(thoiGianDuKienDen);
         setTinhTrang(tinhTrang);
     }
 
@@ -55,6 +50,17 @@ public class LichTrinh {
             throw new IllegalArgumentException("Mã lịch trình không hợp lệ");
         }
         this.maLichTrinh = maLichTrinh;
+    }
+
+    public Ga getGaDi() {
+        return gaDi;
+    }
+
+    public void setGaDi(Ga gaDi) {
+        if (gaDi == null) {
+            throw new IllegalArgumentException("Ga đi không hợp lệ");
+        }
+        this.gaDi = gaDi;
     }
 
     public ChuyenTau getChuyenTau() {
@@ -86,7 +92,10 @@ public class LichTrinh {
     }
 
     public void setThoiGianKhoiHanh(LocalDateTime thoiGianKhoiHanh) {
-
+        if (thoiGianKhoiHanh.isAfter(thoiGianDuKienDen)) {
+            throw new IllegalArgumentException("Thời gian khởi hành không hợp lệ");
+        }
+        this.thoiGianKhoiHanh = thoiGianKhoiHanh;
     }
 
     public LocalDateTime getThoiGianDuKienDen() {
@@ -109,18 +118,6 @@ public class LichTrinh {
 
     public void setTinhTrang(boolean tinhTrang) {
         this.tinhTrang = tinhTrang;
-    }
-
-    @Override
-    public String toString() {
-        return "LichTrinh{" +
-                "maLichTrinh='" + maLichTrinh + '\'' +
-                ", chuyenTau=" + chuyenTau +
-                ", gaDen=" + gaDen +
-                ", thoiGianKhoiHanh=" + thoiGianKhoiHanh +
-                ", thoiGianDuKienDen=" + thoiGianDuKienDen +
-                ", tinhTrang=" + tinhTrang +
-                '}';
     }
 
     @Override
