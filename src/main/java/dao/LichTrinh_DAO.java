@@ -5,10 +5,8 @@ import entity.ChuyenTau;
 import entity.Ga;
 import entity.LichTrinh;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -40,12 +38,14 @@ public class LichTrinh_DAO {
 
     public LichTrinh getLichTrinhTheoID(String maLichTrinh) {
         LichTrinh lichTrinh = null;
+        PreparedStatement stm = null;
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
             String sql = "Select * from LichTrinh where MaLichTrinh = ?";
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery(sql);
+            stm = con.prepareStatement(sql);
+            stm.setString(1, maLichTrinh);
+            ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 lichTrinh = getInfo(rs);
             }
@@ -53,6 +53,71 @@ public class LichTrinh_DAO {
             e.printStackTrace();
         }
         return lichTrinh;
+    }
+
+    public ArrayList<LichTrinh> traCuuDSLichTrinh(String MaGaDi, String MaGaDen, LocalDate ngayDi) {
+        ArrayList<LichTrinh> dslt = new ArrayList<>();
+        PreparedStatement stm = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from LichTrinh where MaGaDi = ? and MaGaDen = ? and YEAR(ThoiGianKhoiHanh) = ? and MONTH(ThoiGianKhoiHanh) = ? and DAY(ThoiGianKhoiHanh) = ? and TrangThai = 1";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, MaGaDi);
+            stm.setString(2, MaGaDen);
+            stm.setInt(3, ngayDi.getYear());
+            stm.setInt(4, ngayDi.getMonth().getValue());
+            stm.setInt(5, ngayDi.getDayOfMonth());
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                LichTrinh lt = getInfo(rs);
+                dslt.add(lt);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dslt;
+    }
+
+    public ArrayList<LichTrinh> traCuuDSLichTrinhTheoNgay(LocalDate ngayDi) {
+        ArrayList<LichTrinh> dslt = new ArrayList<>();
+        PreparedStatement stm = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from LichTrinh where MaGaDi = 'SG' and YEAR(ThoiGianKhoiHanh) = ? and MONTH(ThoiGianKhoiHanh) = ? and DAY(ThoiGianKhoiHanh) = ? and TrangThai = 1";
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, ngayDi.getYear());
+            stm.setInt(2, ngayDi.getMonth().getValue());
+            stm.setInt(3, ngayDi.getDayOfMonth());
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                LichTrinh lt = getInfo(rs);
+                dslt.add(lt);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dslt;
+    }
+
+    public int getSoLuongChoConTrong(String maLichTrinh) {
+        int soLuongChoConTrong = 0;
+        PreparedStatement stm = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "select count(*) from LichTrinh a join ChiTietLichTrinh b on a.MaLichTrinh = b.MaLichTrinh join ChoNgoi c on b.MaSoCho = c.MaSoCho where a.MaLichTrinh= ? and b.TrangThai = 1";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, maLichTrinh);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                soLuongChoConTrong = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return soLuongChoConTrong;
     }
 
     public boolean updateTrangThaiChuyenTau(String maLichTrinh, boolean trangThai) {
@@ -73,6 +138,24 @@ public class LichTrinh_DAO {
         return n > 0;
     }
 
+    public boolean updateTrangThaiCT(boolean trangThai) {
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        int n = 0;
+        PreparedStatement stm = null;
+        try {
+            String sql = "update LichTrinh set TrangThai = ? where ThoiGianKhoiHanh < ?";
+            stm = con.prepareStatement(sql);
+            stm.setBoolean(1, trangThai);
+            stm.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+
+            n = stm.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
+    }
+
     public boolean updateInfo(LichTrinh lichTrinh) {
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
@@ -81,7 +164,6 @@ public class LichTrinh_DAO {
         try {
             String sql = "update LichTrinh set SoHieuTau = ?, MaGaDi = ?, MaGaDen = ?, ThoiGianKhoiHanh = ?, ThoiGianDuKienDen = ?, TrangThai = ? where MaLichTrinh = ?";
             stm = con.prepareStatement(sql);
-
             stm.setString(1, lichTrinh.getChuyenTau().getSoHieutau());
             stm.setString(2, lichTrinh.getGaDi().getMaGa());
             stm.setString(3, lichTrinh.getGaDen().getMaGa());
@@ -89,7 +171,6 @@ public class LichTrinh_DAO {
             stm.setTimestamp(5, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianDuKienDen()));
             stm.setBoolean(6, lichTrinh.isTinhTrang());
             stm.setString(7, lichTrinh.getMaLichTrinh());
-
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -108,10 +189,11 @@ public class LichTrinh_DAO {
             stm = con.prepareStatement(sql);
             stm.setString(1, lichTrinh.getMaLichTrinh());
             stm.setString(2, lichTrinh.getChuyenTau().getSoHieutau());
-            stm.setString(3, lichTrinh.getGaDen().getMaGa());
-            stm.setTimestamp(4, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianKhoiHanh()));
-            stm.setTimestamp(5, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianDuKienDen()));
-            stm.setBoolean(6, lichTrinh.isTinhTrang());
+            stm.setString(3, lichTrinh.getGaDi().getMaGa());
+            stm.setString(4, lichTrinh.getGaDen().getMaGa());
+            stm.setTimestamp(5, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianKhoiHanh()));
+            stm.setTimestamp(6, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianDuKienDen()));
+            stm.setBoolean(7, lichTrinh.isTinhTrang());
 
             n = stm.executeUpdate();
         } catch (Exception e) {

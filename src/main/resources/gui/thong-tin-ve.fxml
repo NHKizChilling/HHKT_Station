@@ -11,21 +11,11 @@
 
 <AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="635.0" style="-fx-background-color: #5098ff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ThongTinVeController">
    <children>
-      <TextField fx:id="txtGaDi" disable="true" editable="false" layoutX="88.0" layoutY="287.0" prefHeight="30.0" prefWidth="190.0" promptText="Ga đi" style="-fx-background-color: transparent; -fx-border-color: #5098ff; -fx-border-width: 0 0 2 0;">
-         <font>
-            <Font name="Times New Roman" size="15.0" />
-         </font>
-      </TextField>
       <Label layoutY="1.0" text="Thông tin chỗ ">
          <font>
             <Font name="Times New Roman Bold" size="22.0" />
          </font>
       </Label>
-      <TextField fx:id="txtGaDen" disable="true" editable="false" layoutX="88.0" layoutY="337.0" prefHeight="30.0" prefWidth="190.0" promptText="Ga đi" style="-fx-background-color: transparent; -fx-border-color: #5098ff; -fx-border-width: 0 0 2 0;">
-         <font>
-            <Font name="Times New Roman" size="15.0" />
-         </font>
-      </TextField>
       <AnchorPane layoutX="301.0" layoutY="30.0" prefHeight="318.0" prefWidth="335.0" style="-fx-border-color: black;">
          <children>
             <TextField fx:id="txtTenHK" layoutX="117.0" layoutY="54.0" prefHeight="30.0" prefWidth="214.0" promptText="Tên hành khách" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
@@ -70,7 +60,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnChonKH" disable="true" layoutX="526.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Tiếp tục" textFill="#6bb1ea" visible="false">
+      <Button fx:id="btnChuyenChonKH" disable="true" layoutX="526.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Tiếp tục" textFill="#6bb1ea" visible="false">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
@@ -85,12 +75,12 @@
       </Label>
       <AnchorPane fx:id="acpKH" layoutX="2.0" layoutY="228.0" prefHeight="172.0" prefWidth="284.0" style="-fx-border-color: black;" visible="false">
          <children>
-            <TextField fx:id="txtMaChoKH" disable="true" editable="false" layoutX="88.0" layoutY="24.0" prefHeight="30.0" prefWidth="190.0" promptText="Mã chỗ ngồi" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
+            <TextField fx:id="txtMaChoKH" disable="true" editable="false" layoutX="88.0" layoutY="13.0" prefHeight="30.0" prefWidth="190.0" promptText="Mã chỗ ngồi" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
                <font>
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtLoaiChoKH" disable="true" editable="false" layoutX="88.0" layoutY="78.0" prefHeight="30.0" prefWidth="190.0" promptText="Loại chỗ" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
+            <TextField fx:id="txtLoaiChoKH" disable="true" editable="false" layoutX="88.0" layoutY="53.0" prefHeight="30.0" prefWidth="190.0" promptText="Loại chỗ" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
                <font>
                   <Font name="Times New Roman" size="15.0" />
                </font>
@@ -100,12 +90,12 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="6.0" layoutY="30.0" text="Mã chỗ ngồi" textFill="WHITE">
+            <Label layoutX="6.0" layoutY="19.0" text="Mã chỗ ngồi" textFill="WHITE">
                <font>
                   <Font name="Times New Roman Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="6.0" layoutY="84.0" text="Loại chỗ" textFill="WHITE">
+            <Label layoutX="6.0" layoutY="58.0" text="Loại chỗ" textFill="WHITE">
                <font>
                   <Font name="Times New Roman Bold" size="15.0" />
                </font>
@@ -120,16 +110,26 @@
                   <Font name="Times New Roman Bold" size="18.0" />
                </font>
             </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="2.0" layoutY="40.0" prefHeight="172.0" prefWidth="284.0" style="-fx-border-color: black;">
-         <children>
-            <TextField fx:id="txtMaCho" disable="true" editable="false" layoutX="88.0" layoutY="24.0" prefHeight="30.0" prefWidth="190.0" promptText="Mã chỗ ngồi" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
+            <TextField fx:id="txtSTTToaKH" disable="true" editable="false" layoutX="87.0" layoutY="93.0" prefHeight="30.0" prefWidth="190.0" promptText="Toa" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
                <font>
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtLoaiCho" disable="true" editable="false" layoutX="88.0" layoutY="78.0" prefHeight="30.0" prefWidth="190.0" promptText="Loại chỗ" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
+            <Label layoutX="5.0" layoutY="98.0" text="Toa" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="2.0" layoutY="40.0" prefHeight="172.0" prefWidth="284.0" style="-fx-border-color: black;">
+         <children>
+            <TextField fx:id="txtMaCho" disable="true" editable="false" layoutX="88.0" layoutY="11.0" prefHeight="30.0" prefWidth="190.0" promptText="Mã chỗ ngồi" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtLoaiCho" disable="true" editable="false" layoutX="88.0" layoutY="52.0" prefHeight="30.0" prefWidth="190.0" promptText="Loại chỗ" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
                <font>
                   <Font name="Times New Roman" size="15.0" />
                </font>
@@ -139,12 +139,12 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="6.0" layoutY="30.0" text="Mã chỗ ngồi" textFill="WHITE">
+            <Label layoutX="6.0" layoutY="17.0" text="Mã chỗ ngồi" textFill="WHITE">
                <font>
                   <Font name="Times New Roman Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="6.0" layoutY="84.0" text="Loại chỗ" textFill="WHITE">
+            <Label layoutX="6.0" layoutY="58.0" text="Loại chỗ" textFill="WHITE">
                <font>
                   <Font name="Times New Roman Bold" size="15.0" />
                </font>
@@ -157,6 +157,16 @@
             <Label layoutX="12.0" layoutY="-15.0" prefHeight="26.0" prefWidth="75.0" style="-fx-background-color: #5098ff; -fx-padding: 0 2 0 2;" text="Chiều đi">
                <font>
                   <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtSTTToa" disable="true" editable="false" layoutX="88.0" layoutY="92.0" prefHeight="30.0" prefWidth="190.0" promptText="Toa" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="6.0" layoutY="98.0" text="Toa" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman Bold" size="15.0" />
                </font>
             </Label>
          </children>

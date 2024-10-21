@@ -17,15 +17,9 @@ public class HanhKhach {
         setMaHanhKhach(maHanhKhach);
     }
 
-    public HanhKhach(String tenHanhKhach, String soCCCD, String sdt, String email) {
-        setTenHanhKhach(tenHanhKhach);
-        setSoCCCD(soCCCD);
-        setSdt(sdt);
-        setEmail(email);
-    }
-
-    public HanhKhach(String maHanhKhach, String tenHanhKhach, String soCCCD, String sdt, String email) {
-        setMaHanhKhach(maHanhKhach);
+    public HanhKhach(String maHanhKhach, String tenHanhKhach, String soCCCD, String sdt,
+                     String email) {
+        this.maHanhKhach = maHanhKhach;
         setTenHanhKhach(tenHanhKhach);
         setSoCCCD(soCCCD);
         setSdt(sdt);
@@ -56,9 +50,9 @@ public class HanhKhach {
         if (tenHanhKhach == null || tenHanhKhach.isBlank()) {
             throw new IllegalArgumentException("Tên hành khách không hợp lệ");
         }
-        if (!tenHanhKhach.matches("^[A-Z][a-z]+(\\s[A-Z][a-z]+)*$")) {
-            throw new IllegalArgumentException("Tên hành khách không hợp lệ");
-        }
+//        if (!tenHanhKhach.matches("^[A-Z][a-z]+(\\s[A-Z][a-z]+)*$")) {
+//            throw new IllegalArgumentException("Tên hành khách không hợp lệ");
+//        }
         this.tenHanhKhach = tenHanhKhach;
     }
 
@@ -86,7 +80,6 @@ public class HanhKhach {
         }
         this.sdt = sdt;
     }
-
 
     public String getEmail() {
         return email;

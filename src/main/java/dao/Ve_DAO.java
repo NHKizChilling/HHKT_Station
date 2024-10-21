@@ -3,10 +3,7 @@ package dao;
 import connectdb.ConnectDB;
 import entity.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -27,7 +24,17 @@ public class Ve_DAO {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                Ve ve = getInfo(rs);
+                String maVe = rs.getString(1);
+                HanhKhach hanhKhach = new HanhKhach(rs.getString(2));
+                ChiTietLichTrinh chiTietLichTrinh = new ChiTietLichTrinh(new ChoNgoi(rs.getString(3)), new LichTrinh(rs.getString(4)));
+                LoaiVe loaiVe = new LoaiVe(rs.getString(5));
+                String tenHK = rs.getString(6);
+                String soCCCD = rs.getString(7);
+                LocalDate ngaySinh = rs.getDate(8).toLocalDate();
+                String tinhTrangVe = rs.getString(9);
+                boolean khuHoi = rs.getBoolean(10);
+
+                Ve ve = new Ve(maVe, hanhKhach, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
 
                 list.add(ve);
             }
@@ -50,12 +57,64 @@ public class Ve_DAO {
             ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
-                ve = getInfo(rs);
+                HanhKhach hanhKhach = new HanhKhach(rs.getString(2));
+                ChiTietLichTrinh chiTietLichTrinh = new ChiTietLichTrinh(new ChoNgoi(rs.getString(3)), new LichTrinh(rs.getString(4)));
+                LoaiVe loaiVe = new LoaiVe(rs.getString(5));
+                String tenHK = rs.getString(6);
+                String soCCCD = rs.getString(7);
+
+                LocalDate ngaySinh = null;
+                if (rs.getDate(8) != null) {
+                    ngaySinh = rs.getDate(8).toLocalDate();
+                }
+                String tinhTrangVe = rs.getString(9);
+                boolean khuHoi = rs.getBoolean(10);
+
+                ve = new Ve(maVe, hanhKhach, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return ve;
+    }
+
+    public Ve getLaiVe(Ve ve) {
+        Ve v = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            PreparedStatement stm = null;
+            String sql = "Select * from Ve where MaHK = ? and MaSoCho = ? and MaLichTrinh = ? and TinhTrangVe = 'DaBan'";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, ve.getHanhKhach().getMaHanhKhach());
+            stm.setString(2, ve.getCtlt().getChoNgoi().getMaChoNgoi());
+            stm.setString(3, ve.getCtlt().getLichTrinh().getMaLichTrinh());
+
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                String maVe = rs.getString(1);
+                HanhKhach hanhKhach = new HanhKhach(rs.getString(2));
+                ChiTietLichTrinh chiTietLichTrinh = new ChiTietLichTrinh(new ChoNgoi(rs.getString(3)), new LichTrinh(rs.getString(4)));
+                LoaiVe loaiVe = new LoaiVe(rs.getString(5));
+                String tenHK = rs.getString(6);
+                String soCCCD = rs.getString(7);
+
+                LocalDate ngaySinh = null;
+                if (rs.getDate(8) != null) {
+                    ngaySinh = rs.getDate(8).toLocalDate();
+                }
+                String tinhTrangVe = rs.getString(9);
+                boolean khuHoi = rs.getBoolean(10);
+
+                v = new Ve(maVe, hanhKhach, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return v;
     }
 
     public boolean create(Ve ve) {
@@ -64,15 +123,23 @@ public class Ve_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            String sql = "Insert into Ve values(?,?,?,?,?,?,?,?,?)";
+            String sql = "Insert into Ve(MaHK, MaSoCho, MaLichTrinh, MaLoaiVe, TenHK, SoCCCD, NgaySinh, TinhTrangVe, KhuHoi) values(?,?,?,?,?,?,?,?,?)";
             stm = con.prepareStatement(sql);
-            stm.setString(1, ve.getMaHK().getMaHanhKhach());
-            stm.setString(2, ve.getMaSoCho().getMaChoNgoi());
-            stm.setString(3, ve.getMaLT().getMaLichTrinh());
-            stm.setString(4, ve.getMaLoaiVe().getMaLoaiVe());
-            stm.setString(5, ve.getTenHK());
-            stm.setString(6, ve.getSoCCCD());
-            stm.setDate(7, java.sql.Date.valueOf(ve.getNgaySinh()));
+            stm.setString(1, ve.getHanhKhach().getMaHanhKhach());
+            stm.setString(2, ve.getCtlt().getChoNgoi().getMaChoNgoi());
+            stm.setString(3, ve.getCtlt().getLichTrinh().getMaLichTrinh());
+            stm.setString(4, ve.getLoaiVe().getMaLoaiVe());
+            stm.setString(5, ve.getTenHanhKhach());
+            if (ve.getSoCCCD() != null) {
+                stm.setString(6, ve.getSoCCCD());
+            } else {
+                stm.setString(6, null);
+            }
+            if (ve.getNgaySinh() != null) {
+                stm.setDate(7, Date.valueOf(ve.getNgaySinh()));
+            } else {
+                stm.setDate(7, null);
+            }
             stm.setString(8, ve.getTinhTrangVe());
             stm.setBoolean(9, ve.isKhuHoi());
 
@@ -99,18 +166,18 @@ public class Ve_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update Ve set MaHK = ?, MaSoCho = ?, MaLichTrinh = ?, MaLoaiVe = ?, TenHK = ?, SoCCCD = ?, NgaySinh = ?, TinhTrangVe = ?, KhuHoi = ? where MaVe = ?");
+            stm = con.prepareStatement("update Ve set MaLoaiVe = ?, MaHK = ?, MaChoNgoi = ?, MaLichTrinh = ?, TenHK =?, SoCCCD = ?, NgaySinh = ?, TinhTrangVe = ?, KhuHoi = ? where MaVe = ?");
 
-            stm.setString(1, ve.getMaHK().getMaHanhKhach());
-            stm.setString(2, ve.getMaSoCho().getMaChoNgoi());
-            stm.setString(3, ve.getMaLT().getMaLichTrinh());
-            stm.setString(4, ve.getMaLoaiVe().getMaLoaiVe());
-            stm.setString(5, ve.getTenHK());
+            stm.setString(1, ve.getLoaiVe().getMaLoaiVe());
+            stm.setString(2, ve.getHanhKhach().getMaHanhKhach());
+            stm.setString(3, ve.getCtlt().getChoNgoi().getMaChoNgoi());
+            stm.setString(4, ve.getCtlt().getLichTrinh().getMaLichTrinh());
+            stm.setString(5, ve.getTenHanhKhach());
             stm.setString(6, ve.getSoCCCD());
-            stm.setDate(7, java.sql.Date.valueOf(ve.getNgaySinh()));
+            stm.setDate(7, Date.valueOf(ve.getNgaySinh()));
             stm.setString(8, ve.getTinhTrangVe());
-            stm.setBoolean(9, ve.isKhuHoi());
-            stm.setString(10, ve.getMaVe());
+            stm.setString(9, ve.getMaVe());
+            stm.setBoolean(10, ve.isKhuHoi());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -167,7 +234,17 @@ public class Ve_DAO {
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
-                Ve ve = getInfo(rs);
+                String maVe = rs.getString(1);
+                HanhKhach hanhKhach = new HanhKhach(rs.getString(2));
+                ChiTietLichTrinh chiTietLichTrinh = new ChiTietLichTrinh(new ChoNgoi(rs.getString(3)), new LichTrinh(rs.getString(4)));
+                LoaiVe loaiVe = new LoaiVe(rs.getString(5));
+                String tenHK = rs.getString(6);
+                String soCCCD = rs.getString(7);
+                LocalDate ngaySinh = rs.getDate(8).toLocalDate();
+                boolean khuHoi = rs.getBoolean(10);
+
+                Ve ve = new Ve(maVe, hanhKhach, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
+
 
                 list.add(ve);
             }
@@ -175,50 +252,5 @@ public class Ve_DAO {
             e.printStackTrace();
         }
         return list;
-    }
-
-    public ArrayList<Ve> getDsTheoMaHK(String maHK) {
-        ArrayList<Ve> list = new ArrayList<>();
-
-        try {
-            ConnectDB.getInstance();
-            Connection con = ConnectDB.getConnection();
-            PreparedStatement stm = null;
-            String sql = "Select * from Ve where MaHK = ?";
-            stm = con.prepareStatement(sql);
-            stm.setString(1, maHK);
-
-            ResultSet rs = stm.executeQuery();
-
-            while (rs.next()) {
-                Ve ve = getInfo(rs);
-
-                list.add(ve);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    public Ve getInfo(ResultSet rs) {
-        Ve ve = null;
-        try {
-            String maVe = rs.getString(1);
-            HanhKhach hanhKhach = new HanhKhach(rs.getString(2));
-            ChoNgoi choNgoi = new ChoNgoi(rs.getString(3));
-            LichTrinh lichTrinh = new LichTrinh(rs.getString(4));
-            LoaiVe loaiVe = new LoaiVe(rs.getString(5));
-            String tenHK = rs.getString(6);
-            String soCCCD = rs.getString(7);
-            LocalDate ngaySinh = rs.getDate(8).toLocalDate();
-            String tinhTrang = rs.getString(9);
-            boolean khuHoi = rs.getBoolean(10);
-
-            ve = new Ve(maVe, hanhKhach, choNgoi, lichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrang, khuHoi);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ve;
     }
 }

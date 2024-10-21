@@ -40,25 +40,16 @@ public class HanhKhach_DAO {
         PreparedStatement stm;
         int n = 0;
         try {
-            stm = con.prepareStatement("insert into HanhKhach values(?,?,?,?,?)");
+            stm = con.prepareStatement("insert into HanhKhach(TenHK, SoCCCD, SDT, Email) values(?,?,?,?)");
 
-            stm.setString(1, hk.getMaHanhKhach());
-            stm.setString(2, hk.getTenHanhKhach());
-            stm.setString(3, hk.getSoCCCD());
-            stm.setString(4, hk.getSdt());
-            stm.setString(5, hk.getEmail());
+            stm.setString(1, hk.getTenHanhKhach());
+            stm.setString(2, hk.getSoCCCD());
+            stm.setString(3, hk.getSdt());
+            stm.setString(4, hk.getEmail());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return n > 0;
     }
@@ -164,7 +155,7 @@ public class HanhKhach_DAO {
                 String maHanhKhach = rs.getString(1);
                 String tenHanhKhach = rs.getString(2);
                 String cmnd = rs.getString(3);
-                String email = rs.getString(4);
+                String email = rs.getString(5);
                 hk = new HanhKhach(maHanhKhach, tenHanhKhach, cmnd, sdt, email);
             }
         } catch (Exception e) {
@@ -180,7 +171,7 @@ public class HanhKhach_DAO {
             String tenHanhKhach = rs.getString(2);
             String cmnd = rs.getString(3);
             String sdt = rs.getString(4);
-            String email = rs.getString(7);
+            String email = rs.getString(5);
 
             hk = new HanhKhach(maHanhKhach, tenHanhKhach, cmnd, sdt, email);
         } catch (Exception e) {

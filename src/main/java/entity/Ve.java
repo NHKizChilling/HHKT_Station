@@ -5,12 +5,11 @@ import java.util.Objects;
 
 public class Ve {
     private String maVe;
-    private HanhKhach maHK;
-    private ChoNgoi maSoCho;
-    private LichTrinh maLT;
-    private LoaiVe maLoaiVe;
-    private String tenHK;
-    private String soCCCD;
+    private HanhKhach hanhKhach;
+    private ChiTietLichTrinh ctlt;
+    private LoaiVe loaiVe;
+    private String tenHanhKhach;
+    private String SoCCCD;
     private LocalDate ngaySinh;
     private String tinhTrangVe;
     private boolean khuHoi;
@@ -22,29 +21,24 @@ public class Ve {
         setMaVe(maVe);
     }
 
-    public Ve(HanhKhach maHK, ChoNgoi maSoCho, LichTrinh maLT, LoaiVe maLoaiVe, String tenHK, String soCCCD, LocalDate ngaySinh, String tinhTrangVe, boolean khuHoi) {
-        setMaHK(maHK);
-        setMaSoCho(maSoCho);
-        setMaLT(maLT);
-        setMaLoaiVe(maLoaiVe);
-        setTenHK(tenHK);
-        setSoCCCD(soCCCD);
-        setNgaySinh(ngaySinh);
+    public Ve(String maVe, HanhKhach hanhKhach, ChiTietLichTrinh ctlt, LoaiVe loaiVe, String tenHK, String SoCCCD, LocalDate ngaySinh, String tinhTrangVe, boolean khuHoi) {
+        this.maVe = maVe;
+        this.loaiVe = loaiVe;
+        this.hanhKhach = hanhKhach;
+        this.ctlt = ctlt;
+        this.tenHanhKhach = tenHK;
+        this.SoCCCD = SoCCCD;
+        this.ngaySinh = ngaySinh;
         setTinhTrangVe(tinhTrangVe);
-        setKhuHoi(khuHoi);
+        this.khuHoi = khuHoi;
     }
 
-    public Ve(String maVe, HanhKhach maHK, ChoNgoi maSoCho, LichTrinh maLT, LoaiVe maLoaiVe, String tenHK, String soCCCD, LocalDate ngaySinh, String tinhTrangVe, boolean khuHoi) {
-        setMaVe(maVe);
-        setMaHK(maHK);
-        setMaSoCho(maSoCho);
-        setMaLT(maLT);
-        setMaLoaiVe(maLoaiVe);
-        setTenHK(tenHK);
-        setSoCCCD(soCCCD);
-        setNgaySinh(ngaySinh);
-        setTinhTrangVe(tinhTrangVe);
-        setKhuHoi(khuHoi);
+    public boolean isKhuHoi() {
+        return khuHoi;
+    }
+
+    public void setKhuHoi(boolean khuHoi) {
+        this.khuHoi = khuHoi;
     }
 
     public String getMaVe() {
@@ -55,60 +49,28 @@ public class Ve {
         this.maVe = maVe;
     }
 
-    public HanhKhach getMaHK() {
-        return maHK;
+    public LoaiVe getLoaiVe() {
+        return loaiVe;
     }
 
-    public void setMaHK(HanhKhach maHK) {
-        this.maHK = maHK;
+    public void setLoaiVe(LoaiVe loaiVe) {
+        this.loaiVe = loaiVe;
     }
 
-    public ChoNgoi getMaSoCho() {
-        return maSoCho;
+    public HanhKhach getHanhKhach() {
+        return hanhKhach;
     }
 
-    public void setMaSoCho(ChoNgoi maSoCho) {
-        this.maSoCho = maSoCho;
+    public void setHanhKhach(HanhKhach hanhKhach) {
+        this.hanhKhach = hanhKhach;
     }
 
-    public LichTrinh getMaLT() {
-        return maLT;
+    public ChiTietLichTrinh getCtlt() {
+        return ctlt;
     }
 
-    public void setMaLT(LichTrinh maLT) {
-        this.maLT = maLT;
-    }
-
-    public LoaiVe getMaLoaiVe() {
-        return maLoaiVe;
-    }
-
-    public void setMaLoaiVe(LoaiVe maLoaiVe) {
-        this.maLoaiVe = maLoaiVe;
-    }
-
-    public String getTenHK() {
-        return tenHK;
-    }
-
-    public void setTenHK(String tenHK) {
-        this.tenHK = tenHK;
-    }
-
-    public String getSoCCCD() {
-        return soCCCD;
-    }
-
-    public void setSoCCCD(String soCCCD) {
-        this.soCCCD = soCCCD;
-    }
-
-    public LocalDate getNgaySinh() {
-        return ngaySinh;
-    }
-
-    public void setNgaySinh(LocalDate ngaySinh) {
-        this.ngaySinh = ngaySinh;
+    public void setCtlt(ChiTietLichTrinh ctlt) {
+        this.ctlt = ctlt;
     }
 
     public String getTinhTrangVe() {
@@ -116,15 +78,46 @@ public class Ve {
     }
 
     public void setTinhTrangVe(String tinhTrangVe) {
+        if (tinhTrangVe == null || tinhTrangVe.isBlank()) {
+            throw new IllegalArgumentException("Tình trạng vé không được rỗng");
+        }
+        if (!tinhTrangVe.matches("^(DaBan|DaDoi|DaHuy)$")) {
+            throw new IllegalArgumentException("Tình trạng vé không hợp lệ");
+        }
         this.tinhTrangVe = tinhTrangVe;
     }
 
-    public boolean isKhuHoi() {
-        return khuHoi;
+    public String getTenHanhKhach() {
+        return tenHanhKhach;
     }
 
-    public void setKhuHoi(boolean khuHoi) {
-        this.khuHoi = khuHoi;
+    public void setTenHanhKhach(String tenHanhKhach) {
+        if (tenHanhKhach == null || tenHanhKhach.isBlank()) {
+            throw new IllegalArgumentException("Tên hành khách không được rỗng");
+        }
+        this.tenHanhKhach = tenHanhKhach;
+    }
+
+    public String getSoCCCD() {
+        return SoCCCD;
+    }
+
+    public void setSoCCCD(String SoCCCD) {
+        if (SoCCCD == null || SoCCCD.isBlank()) {
+            throw new IllegalArgumentException("Số CCCD không được rỗng");
+        }
+        this.SoCCCD = SoCCCD;
+    }
+
+    public LocalDate getNgaySinh() {
+        return ngaySinh;
+    }
+
+    public void setNgaySinh(LocalDate ngaySinh) {
+        if (ngaySinh == null) {
+            throw new IllegalArgumentException("Ngày sinh không được rỗng");
+        }
+        this.ngaySinh = ngaySinh;
     }
 
     @Override

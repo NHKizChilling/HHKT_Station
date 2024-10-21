@@ -71,12 +71,40 @@ public class CT_LichTrinh_DAO {
 
         int n = 0;
         try {
-            String sql = "Update ChiTietLichTrinh set TrangThai = ?, GiaCho = ? where MaChoNgoi = ? and MaLichTrinh = ?";
+            String sql = "Update ChiTietLichTrinh set TrangThai = ?, GiaCho = ? where MaSoCho = ? and MaLichTrinh = ?";
             stm = con.prepareStatement(sql);
             stm.setString(3, ctlt.getChoNgoi().getMaChoNgoi());
             stm.setString(4, ctlt.getLichTrinh().getMaLichTrinh());
             stm.setBoolean(1, ctlt.isTrangThai());
             stm.setDouble(2, ctlt.getGiaCho());
+
+            n = stm.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return n > 0;
+    }
+
+    public boolean updateCTLT(ChiTietLichTrinh ctlt, boolean trangThai) {
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        PreparedStatement stm = null;
+
+        int n = 0;
+        try {
+            String sql = "Update ChiTietLichTrinh set TrangThai = ? where MaSoCho = ? and MaLichTrinh = ?";
+            stm = con.prepareStatement(sql);
+            stm.setBoolean(1, trangThai);
+            stm.setString(2, ctlt.getChoNgoi().getMaChoNgoi());
+            stm.setString(3, ctlt.getLichTrinh().getMaLichTrinh());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -140,6 +168,50 @@ public class CT_LichTrinh_DAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public ChiTietLichTrinh getCTLTTheoCN(String maLichTrinh, String maChoNgoi) {
+        ChiTietLichTrinh ctlt = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            PreparedStatement stm;
+            String sql = "Select * from ChiTietLichTrinh where MaLichTrinh = ? and MaSoCho = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(2, maChoNgoi);
+            stm.setString(1, maLichTrinh);
+
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                ctlt = getInfo(rs);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ctlt;
+    }
+
+    public boolean getTrangThaiCN(String maLichTrinh, String maCho) {
+        boolean trangThai = false;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            PreparedStatement stm;
+            String sql = "Select TrangThai from ChiTietLichTrinh where MaLichTrinh = ? and MaSoCho = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, maLichTrinh);
+            stm.setString(2, maCho);
+
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                trangThai = rs.getBoolean(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return trangThai;
     }
 
     public ArrayList<ChiTietLichTrinh> getCtltTheoMaLichTrinh(String maLichTrinh) {

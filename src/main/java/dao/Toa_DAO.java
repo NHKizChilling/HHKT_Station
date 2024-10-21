@@ -39,14 +39,43 @@ public class Toa_DAO {
         return list;
     }
 
+    public ArrayList<Toa> getAllToaTheoChuyenTau(String soHieuTau) {
+        ArrayList<Toa> list = new ArrayList<>();
+        PreparedStatement st = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+
+            String sql = "Select * from Toa where SoHieuTau = ? order by STTToa";
+            st = con.prepareStatement(sql);
+            st.setString(1, soHieuTau);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                String maToa = rs.getString(1);
+                int soSTTToa = rs.getInt(2);
+                ChuyenTau chuyenTau = new ChuyenTau(rs.getString(3));
+                LoaiToa loaiToa = new LoaiToa(rs.getString(4));
+
+                Toa toa = new Toa(maToa, soSTTToa, loaiToa, chuyenTau);
+                list.add(toa);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public Toa getToaTheoID(String maToa) {
         Toa toa = null;
+        PreparedStatement stm = null;
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
             String sql = "Select * from Toa where MaToa = ?";
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery(sql);
+            stm = con.prepareStatement(sql);
+            stm.setString(1, maToa);
+            ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 int soSTTToa = rs.getInt(2);
                 ChuyenTau chuyenTau = new ChuyenTau(rs.getString(3));

@@ -20,14 +20,25 @@ public class LichTrinh {
         setMaLichTrinh(maLichTrinh);
     }
 
-    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDi,Ga gaDen,
-                     LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
+    public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDi, Ga gaDen, LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
         setMaLichTrinh(maLichTrinh);
         setChuyenTau(chuyenTau);
         setGaDi(gaDi);
         setGaDen(gaDen);
-        setThoiGianKhoiHanh(thoiGianKhoiHanh);
-        setThoiGianDuKienDen(thoiGianDuKienDen);
+        if (thoiGianKhoiHanh.isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Thời gian khởi hành không thể ở trước thời gian hiện tại");
+        }  else {
+            if (thoiGianKhoiHanh.isAfter(thoiGianDuKienDen)) {
+                throw new IllegalArgumentException("Thời gian khởi hành không hợp lệ");
+            } else {
+                this.thoiGianKhoiHanh = thoiGianKhoiHanh;
+            }
+        }
+        if (thoiGianDuKienDen.isBefore(thoiGianKhoiHanh)) {
+            throw new IllegalArgumentException("Thời gian dự kiến đến không thể ở trước thời gian khởi hành");
+        } else {
+            this.thoiGianDuKienDen = thoiGianDuKienDen;
+        }
         setTinhTrang(tinhTrang);
     }
 
@@ -35,28 +46,11 @@ public class LichTrinh {
         return maLichTrinh;
     }
 
-//    // mã bao gồm "LT" + số hiệu tàu + ngày khởi hành
-//    public void sinhMaLichTrinh() {
-//        String rawMaLichTrinh = "LT" + chuyenTau.getSoHieutau() + thoiGianKhoiHanh.toString();
-//        this.maLichTrinh = rawMaLichTrinh.replaceAll("[^a-zA-Z0-9]", "");
-//    }
-
     public void setMaLichTrinh(String maLichTrinh) {
         if (maLichTrinh == null || maLichTrinh.isBlank()) {
             throw new IllegalArgumentException("Mã lịch trình không hợp lệ");
         }
         this.maLichTrinh = maLichTrinh;
-    }
-
-    public Ga getGaDi() {
-        return gaDi;
-    }
-
-    public void setGaDi(Ga gaDi) {
-        if (gaDi == null) {
-            throw new IllegalArgumentException("Ga đi không hợp lệ");
-        }
-        this.gaDi = gaDi;
     }
 
     public ChuyenTau getChuyenTau() {
@@ -81,17 +75,24 @@ public class LichTrinh {
         }
         this.gaDen = gaDen;
     }
-    
+
+    public Ga getGaDi() {
+        return gaDi;
+    }
+
+    public void setGaDi(Ga gaDi) {
+        if (gaDi == null) {
+            throw new IllegalArgumentException("Ga đến không hợp lệ");
+        }
+        this.gaDi = gaDi;
+    }
 
     public LocalDateTime getThoiGianKhoiHanh() {
         return thoiGianKhoiHanh;
     }
 
     public void setThoiGianKhoiHanh(LocalDateTime thoiGianKhoiHanh) {
-        if (thoiGianKhoiHanh.isAfter(thoiGianDuKienDen)) {
-            throw new IllegalArgumentException("Thời gian khởi hành không hợp lệ");
-        }
-        this.thoiGianKhoiHanh = thoiGianKhoiHanh;
+
     }
 
     public LocalDateTime getThoiGianDuKienDen() {
@@ -114,6 +115,18 @@ public class LichTrinh {
 
     public void setTinhTrang(boolean tinhTrang) {
         this.tinhTrang = tinhTrang;
+    }
+
+    @Override
+    public String toString() {
+        return "LichTrinh{" +
+                "maLichTrinh='" + maLichTrinh + '\'' +
+                ", chuyenTau=" + chuyenTau +
+                ", gaDen=" + gaDen +
+                ", thoiGianKhoiHanh=" + thoiGianKhoiHanh +
+                ", thoiGianDuKienDen=" + thoiGianDuKienDen +
+                ", tinhTrang=" + tinhTrang +
+                '}';
     }
 
     @Override

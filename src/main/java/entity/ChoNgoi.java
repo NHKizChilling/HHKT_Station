@@ -5,9 +5,9 @@ import java.util.Objects;
 public class ChoNgoi {
     private String maChoNgoi;
     private Toa toa;
+    private int sttCho;
     private int tang;
     private int khoang;
-
 
     public ChoNgoi() {
     }
@@ -16,31 +16,14 @@ public class ChoNgoi {
         setMaChoNgoi(maChoNgoi);
     }
 
-<<<<<<< Updated upstream
-    public ChoNgoi(String maChoNgoi, Toa toa, int tang, int khoang, String trangThai, double giaCho) {
-=======
+
     public ChoNgoi(String maChoNgoi, Toa toa, int sttCho, int tang, int khoang) {
->>>>>>> Stashed changes
         setMaChoNgoi(maChoNgoi);
         setToa(toa);
+        setSttCho(sttCho);
         setTang(tang);
         setKhoang(khoang);
-<<<<<<< Updated upstream
-        setTrangThai(trangThai);
-        setGiaCho(giaCho);
     }
-
-    public ChoNgoi(String maChoNgoi, Toa toa, int tang, int khoang, String trangThai) {
-        setMaChoNgoi(maChoNgoi);
-        setToa(toa);
-        setTang(tang);
-        setKhoang(khoang);
-        setTrangThai(trangThai);
-=======
->>>>>>> Stashed changes
-    }
-
-
 
 
     public String getMaChoNgoi() {
@@ -68,6 +51,14 @@ public class ChoNgoi {
             throw new IllegalArgumentException("Toa không hợp lệ");
         }
         this.toa = toa;
+    }
+
+    public int getSttCho() {
+        return sttCho;
+    }
+
+    public void setSttCho(int sttCho) {
+        this.sttCho = sttCho;
     }
 
     public int getTang() {
