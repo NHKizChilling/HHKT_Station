@@ -131,7 +131,7 @@ public class HuyVeController implements Initializable {
                 alert.show();
                 return;
             }
-            ArrayList<Ve> listVe = ve_dao.getDsTheoMaHK(search);
+            ArrayList<Ve> listVe = ve_dao.getDSVeTheoMaHK(search);
             renderTable(listVe);
         });
 
@@ -157,7 +157,7 @@ public class HuyVeController implements Initializable {
         tbl_thongTinVe.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 Ve ve = tbl_thongTinVe.getSelectionModel().getSelectedItem();
-                String maHKTmp = ve.getMaHK().getMaHanhKhach();
+                String maHKTmp = ve.getHanhKhach().getMaHanhKhach();
                 HanhKhach hk = hanhKhach_dao.getHanhKhachTheoMa(maHKTmp);
                 txt_maHK.setText(hk.getMaHanhKhach());
                 txt_email.setText(hk.getEmail());
@@ -167,7 +167,7 @@ public class HuyVeController implements Initializable {
 
                 //ngày lập hóa đơn được lấy bằng cách lấy mã hóa đơn từ chi tiết hóa đơn sau
                 //sau đó lấy ngày lập hóa đơn từ hóa đơn
-                ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.timTheoMaVe(ve.getMaVe());
+                ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
                 HoaDon hd = hoaDon_dao.getHoaDonTheoMa(ctHoaDon.getHoaDon().getMaHoaDon());
 
                 // lấy giá vé
@@ -177,7 +177,7 @@ public class HuyVeController implements Initializable {
                 // ngày theo format dd/MM/yyyy HH:mm
                 txt_ngayLap.setText(ngayLap.getDayOfMonth() + "/" + ngayLap.getMonthValue() + "/" + ngayLap.getYear() + " " + ngayLap.getHour() + ":" + ngayLap.getMinute());
 
-                LichTrinh lt = lichTrinh_dao.getLichTrinhTheoID(ve.getMaLT().getMaLichTrinh());
+                LichTrinh lt = lichTrinh_dao.getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
                 txt_gaDi.setText(lt.getGaDi().getTenGa());
                 txt_gaDen.setText(lt.getGaDen().getTenGa());
 

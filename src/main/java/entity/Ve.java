@@ -21,7 +21,20 @@ public class Ve {
         setMaVe(maVe);
     }
 
-    public Ve(String maVe, HanhKhach hanhKhach, ChiTietLichTrinh ctlt, LoaiVe loaiVe, String tenHK, String SoCCCD, LocalDate ngaySinh, String tinhTrangVe, boolean khuHoi) {
+    public Ve(HanhKhach hanhKhach, ChiTietLichTrinh ctlt, LoaiVe loaiVe, String tenHanhKhach,
+              String soCCCD, LocalDate ngaySinh, String tinhTrangVe, boolean khuHoi) {
+        setHanhKhach(hanhKhach);
+        setCtlt(ctlt);
+        setLoaiVe(loaiVe);
+        setTenHanhKhach(tenHanhKhach);
+        setSoCCCD(soCCCD);
+        setNgaySinh(ngaySinh);
+        setTinhTrangVe(tinhTrangVe);
+        setKhuHoi(khuHoi);
+    }
+
+    public Ve(String maVe, HanhKhach hanhKhach, ChiTietLichTrinh ctlt, LoaiVe loaiVe,
+              String tenHK, String SoCCCD, LocalDate ngaySinh, String tinhTrangVe, boolean khuHoi) {
         this.maVe = maVe;
         this.loaiVe = loaiVe;
         this.hanhKhach = hanhKhach;

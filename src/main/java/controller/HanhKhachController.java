@@ -1,6 +1,5 @@
 package controller;
 
-import com.itextpdf.text.DocumentException;
 import dao.HanhKhach_DAO;
 import dao.LichTrinh_DAO;
 import dao.Ve_DAO;
@@ -189,7 +188,7 @@ public class HanhKhachController implements Initializable {
             txt_sdt.setText(hk.getSdt());
             txt_email.setText(hk.getEmail());
 
-            ArrayList<Ve> dsVeTheoMaHK = ve_dao.getDsTheoMaHK(hk.getMaHanhKhach());
+            ArrayList<Ve> dsVeTheoMaHK = ve_dao.getDSVeTheoMaHK(hk.getMaHanhKhach());
             renderTableVe(dsVeTheoMaHK);
         });
 
@@ -281,12 +280,12 @@ public class HanhKhachController implements Initializable {
                 alert.show();
                 return;
             }
-
-            try {
-                new PrintPDF(ve);
-            } catch (IOException | DocumentException ex) {
-                throw new RuntimeException(ex);
-            }
+            // In vé
+//            try {
+//                new PrintPDF(ve);
+//            } catch (IOException | DocumentException ex) {
+//                throw new RuntimeException(ex);
+//            }
         });
     }
 
