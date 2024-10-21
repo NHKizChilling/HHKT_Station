@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -11,7 +13,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="718.0" prefWidth="1384.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HuyVeController">
    <children>
@@ -27,7 +28,7 @@
                   <ComboBox fx:id="cb_search" layoutX="14.0" layoutY="56.0" prefHeight="28.0" prefWidth="85.0" />
                   <TextField fx:id="txt_search" layoutX="99.0" layoutY="56.0" prefHeight="27.0" prefWidth="222.0" />
                   <Line endX="-73.0" endY="138.0" layoutX="413.0" layoutY="61.0" startX="-73.0" startY="-53.0" />
-                  <Button fx:id="btn_search" layoutX="245.0" layoutY="155.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="76.0" style="-fx-background-color: #87CEEB;" text="Tìm kiếm">
+                  <Button fx:id="btn_search" alignment="CENTER_RIGHT" layoutX="223.0" layoutY="155.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="85.0" style="-fx-background-color: #87CEEB;" text="Tìm kiếm">
                      <font>
                         <Font name="System Bold Italic" size="13.0" />
                      </font>
@@ -35,27 +36,35 @@
                   <Line endX="1262.0" layoutX="115.0" layoutY="209.0" startX="-108.0" />
                   <AnchorPane layoutX="348.0" layoutY="4.0" prefHeight="200.0" prefWidth="1030.0">
                      <children>
-                        <TableView fx:id="tbl_thongTinVe" layoutX="-1.0" layoutY="2.0" prefHeight="196.0" prefWidth="1030.0">
+                        <TableView fx:id="tbl_thongTinVe" prefHeight="163.0" prefWidth="1042.0">
                            <columns>
-                              <TableColumn fx:id="col_maVe" prefWidth="84.79998779296875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã vé" />
-                              <TableColumn fx:id="col_maHK" prefWidth="120.79995727539062" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã hành khách" />
-                              <TableColumn fx:id="col_maSoCho" prefWidth="91.20001220703125" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã số chỗ" />
-                              <TableColumn fx:id="col_maLichTrinh" prefWidth="125.60003662109375" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã lịch trình" />
-                              <TableColumn fx:id="col_maLoaiVe" prefWidth="94.39996337890625" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã loại vé" />
-                              <TableColumn fx:id="col_tenHK" prefWidth="126.4000244140625" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Tên hành khách" />
-                              <TableColumn fx:id="col_cccd" prefWidth="87.199951171875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="CCCD" />
-                              <TableColumn fx:id="col_dob" prefWidth="87.199951171875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Ngày sinh" />
-                              <TableColumn fx:id="col_khuHoi" prefWidth="87.199951171875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Khứ hồi" />
-                              <TableColumn fx:id="col_tinhTrangVe" prefWidth="122.40000000000009" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Tình trạng vé" />
+                              <TableColumn fx:id="col_maVe" prefWidth="112.79998779296875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã vé" />
+                              <TableColumn fx:id="col_maKH" prefWidth="112.800048828125" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã khách hàng" />
+                              <TableColumn fx:id="col_thongTinVe" prefWidth="269.60003662109375" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Thông tin vé" />
+                              <TableColumn fx:id="col_loaiVe" prefWidth="146.4000244140625" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Loại vé" />
+                              <TableColumn fx:id="col_loaiCho" prefWidth="132.80010986328125" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Loại chỗ" />
+                              <TableColumn fx:id="col_tenHK" prefWidth="150.39990234375" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Tên hành khách" />
+                              <TableColumn fx:id="col_tinhTrangVe" prefWidth="109.60009765625" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Tình trạng vé" />
                            </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="btn_lamMoi" layoutX="162.0" layoutY="155.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="76.0" style="-fx-background-color: #87CEEB;" text="Làm mới">
+                  <Button fx:id="btn_lamMoi" alignment="CENTER_RIGHT" layoutX="127.0" layoutY="155.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="82.0" style="-fx-background-color: #87CEEB;" text="Làm mới">
                      <font>
                         <Font name="System Bold Italic" size="13.0" />
                      </font>
                   </Button>
+                  <Button fx:id="btnQuetMaVe" alignment="CENTER_RIGHT" layoutX="26.0" layoutY="154.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="87.0" style="-fx-background-color: #87CEEB; -fx-view-order: 1;" text="Quét mã">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <FontAwesomeIcon disable="true" glyphName="BARCODE" layoutX="33.0" layoutY="173.0" />
+                  <FontAwesomeIcon disable="true" glyphName="REFRESH" layoutX="133.0" layoutY="173.0" />
+                  <FontAwesomeIcon disable="true" glyphName="SEARCH" layoutX="229.0" layoutY="173.0" />
                </children>
             </AnchorPane>
          </top>

@@ -161,6 +161,33 @@ public class TrangChuController implements Initializable {
     }
 
     @FXML
+    protected void showNhanVienGUI() {
+        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("nhan-vien.fxml"));
+        double width = paneMain.getWidth();
+        double height = paneMain.getHeight();
+        paneMain.getChildren().clear();
+        try {
+            paneMain.getChildren().add(loader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        paneMain.setPrefSize(width, height);
+    }
+
+    @FXML
+    protected void showHKGUI() {
+        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("hanh-khach.fxml"));
+        double width = paneMain.getWidth();
+        double height = paneMain.getHeight();
+        paneMain.getChildren().clear();
+        try {
+            paneMain.getChildren().add(loader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
     protected void onClick() {
         FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("gioi-thieu.fxml"));
         double width = paneMain.getWidth();

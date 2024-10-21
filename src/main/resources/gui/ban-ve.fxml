@@ -20,9 +20,9 @@
 
 <AnchorPane prefHeight="755.0" prefWidth="1385.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BanVeController">
    <children>
-      <TabPane prefHeight="755.0" prefWidth="1385.0" rotateGraphic="true" style="-fx-background-color: #333;" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="100.0" tabMinHeight="30.0" tabMinWidth="70.0">
+      <TabPane fx:id="tabVe" prefHeight="755.0" prefWidth="1385.0" rotateGraphic="true" style="-fx-background-color: #fff;" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="50.0" tabMaxWidth="100.0" tabMinHeight="30.0" tabMinWidth="70.0">
         <tabs>
-          <Tab style="-fx-background-color: #5098ff; -fx-background-radius: 10 10 0 0;" text="Bán vé">
+          <Tab fx:id="tabBanVe" style="-fx-background-color: #5098ff; -fx-background-radius: 10 10 0 0;" text="Bán vé">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="715.0" prefWidth="1386.0">
                      <children>
@@ -360,12 +360,12 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab style="-fx-background-color: #5098ff; -fx-background-radius: 10 10 0 0;" text="Đổi vé">
+          <Tab fx:id="tabDoiVe" style="-fx-background-color: #5098ff; -fx-background-radius: 10 10 0 0;" text="Đổi vé">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
-            <Tab style="-fx-background-color: #5098ff; -fx-background-radius: 10 10 0 0;" text="Hủy vé">
+            <Tab fx:id="tabHuyVe" style="-fx-background-color: #5098ff; -fx-background-radius: 10 10 0 0;" text="Hủy vé">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>

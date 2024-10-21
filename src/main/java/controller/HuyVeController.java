@@ -1,19 +1,35 @@
 package controller;
 
+import com.github.sarxos.webcam.Webcam;
+import com.google.zxing.*;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
 import dao.*;
 import entity.*;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class HuyVeController implements Initializable {
 
@@ -27,34 +43,32 @@ public class HuyVeController implements Initializable {
     private Button btn_search;
 
     @FXML
+    private Button btnQuetMaVe;
+
+    @FXML
     private TableView<Ve> tbl_thongTinVe;
 
     @FXML
     private TableColumn<Ve, String> col_maVe;
 
     @FXML
-    private TableColumn<Ve, String> col_maHK;
+    private TableColumn<Ve, String> col_maKH;
 
     @FXML
     private TableColumn<Ve, String> col_tinhTrangVe;
 
     @FXML
-    private TableColumn<Ve, String> col_khuHoi;
+    private TableColumn<Ve, String> col_loaiVe;
 
     @FXML
-    private TableColumn<Ve, String> col_maSoCho;
+    private TableColumn<Ve, String> col_loaiCho;
 
     @FXML
-    private TableColumn<Ve, String> col_maLichTrinh;
+    private TableColumn<Ve, String> col_thongTinVe;
 
-    @FXML
-    private TableColumn<Ve, LocalDate> col_dob;
 
     @FXML
     private TableColumn<Ve, String> col_tenHK;
-
-    @FXML
-    private TableColumn<Ve, String> col_cccd;
 
     @FXML
     private Button btn_huyVe;
@@ -114,8 +128,62 @@ public class HuyVeController implements Initializable {
         lichTrinh_dao = new LichTrinh_DAO();
 
 
-        cb_search.getItems().addAll("Mã hành khách", "Số CCCD", "Số điện thoại");
+        cb_search.getItems().addAll("Mã hành khách", "Mã vé", "Số điện thoại");
 
+        btnQuetMaVe.setOnMouseClicked(e -> {
+
+            Webcam webcam = Webcam.getDefault();
+            ScheduledExecutorService timer;
+            webcam.open();
+            //show fps
+            ImageView imageView = new ImageView();
+            imageView.setFitWidth(640);
+            imageView.setFitHeight(480);
+            StackPane root = new StackPane();
+            root.getChildren().add(imageView);
+
+            Stage primaryStage = new Stage();
+            Scene scene = new Scene(root, 640, 480);
+            primaryStage.setTitle("Tra cứu");
+            primaryStage.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
+            primaryStage.setScene(scene);
+            primaryStage.show();
+            // Cập nhật video stream và quét mã vạch theo chu kỳ
+            timer = Executors.newSingleThreadScheduledExecutor();
+            timer.scheduleAtFixedRate(() -> {
+                BufferedImage image = webcam.getImage();
+                if (image != null) {
+                    Image fxImage = SwingFXUtils.toFXImage(image, null);
+                    Platform.runLater(() -> imageView.setImage(fxImage));
+
+                    // Quét mã vạch từ hình ảnh
+                    String result = decodeBarcode(image);
+                    if (result != null) {
+                        txt_search.setText(result);
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setHeaderText(null);
+                            alert.setTitle("Tra cứu");
+                            alert.setContentText("Tra cứu thành công!");
+                            alert.showAndWait();
+                            primaryStage.close();
+                        });
+                        timer.shutdown();
+                        webcam.close();
+                        primaryStage.setOpacity(0);
+                    }
+                }
+            }, 0, 33, TimeUnit.MILLISECONDS);
+
+
+            primaryStage.setOnCloseRequest(es -> {
+                timer.shutdown();
+                webcam.close();
+            });
+
+
+
+        });
         btn_search.setOnAction(e -> {
             String search = txt_search.getText();
             String type = cb_search.getValue();
@@ -129,6 +197,11 @@ public class HuyVeController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Vui lòng nhập thông tin tìm kiếm");
                 alert.show();
+                return;
+            }
+            if (type.equalsIgnoreCase("Mã vé")) {
+                Ve ve = ve_dao.getVeTheoID(search);
+                renderTable(new ArrayList<>(Arrays.asList(ve)));
                 return;
             }
             ArrayList<Ve> listVe = ve_dao.getDSVeTheoMaHK(search);
@@ -178,8 +251,8 @@ public class HuyVeController implements Initializable {
                 txt_ngayLap.setText(ngayLap.getDayOfMonth() + "/" + ngayLap.getMonthValue() + "/" + ngayLap.getYear() + " " + ngayLap.getHour() + ":" + ngayLap.getMinute());
 
                 LichTrinh lt = lichTrinh_dao.getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
-                txt_gaDi.setText(lt.getGaDi().getTenGa());
-                txt_gaDen.setText(lt.getGaDen().getTenGa());
+                txt_gaDi.setText(new Ga_DAO().getGaTheoMaGa(lt.getGaDi().getMaGa()).getTenGa());
+                txt_gaDen.setText(new Ga_DAO().getGaTheoMaGa(lt.getGaDen().getMaGa()).getTenGa());
 
                 LocalDateTime tgKhoiHanh = lt.getThoiGianKhoiHanh();
                 LocalDateTime now = LocalDateTime.now();
@@ -218,16 +291,45 @@ public class HuyVeController implements Initializable {
 
     public void renderTable(ArrayList<Ve> listVe) {
         // TODO
-        ObservableList<Ve> list = FXCollections.observableArrayList(listVe);
-        tbl_thongTinVe.setItems(list);
+        ObservableList<Ve> data = FXCollections.observableArrayList(listVe);
+        tbl_thongTinVe.setItems(data);
         col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));
-        col_maHK.setCellValueFactory(new PropertyValueFactory<>("maHK"));
-        col_maSoCho.setCellValueFactory(new PropertyValueFactory<>("maSoCho"));
-        col_maLichTrinh.setCellValueFactory(new PropertyValueFactory<>("maLT"));
+        col_maKH.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getHanhKhach().getMaHanhKhach()));
+        col_thongTinVe.setCellValueFactory(p -> {
+            Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
+            LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            return new SimpleStringProperty(  lt.getChuyenTau().getSoHieutau()+ " - " + new Ga_DAO().getGaTheoMaGa(lt.getGaDi().getMaGa()).getTenGa() + " - " + new Ga_DAO().getGaTheoMaGa(lt.getGaDen().getMaGa()).getTenGa() + "\n" + formatter.format(lt.getThoiGianKhoiHanh()) + " - " + formatter.format(lt.getThoiGianDuKienDen()));
+        });
+        col_loaiCho.setCellValueFactory(p -> {
+            Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
+            ChoNgoi cn = new ChoNgoi_DAO().getChoNgoiTheoMa(ve.getCtlt().getChoNgoi().getMaChoNgoi());
+            return new SimpleStringProperty(new LoaiToa_DAO().getLoaiToaTheoMa(new Toa_DAO().getToaTheoID(cn.getToa().getMaToa()).getLoaiToa().getMaLoaiToa()).getTenLoaiToa());
+        });
         col_tinhTrangVe.setCellValueFactory(new PropertyValueFactory<>("tinhTrangVe"));
-        col_khuHoi.setCellValueFactory(new PropertyValueFactory<>("khuHoi"));
-        col_dob.setCellValueFactory(new PropertyValueFactory<>("ngaySinh"));
-        col_tenHK.setCellValueFactory(new PropertyValueFactory<>("tenHK"));
-        col_cccd.setCellValueFactory(new PropertyValueFactory<>("soCCCD"));
+        col_loaiVe.setCellValueFactory(p -> {
+            Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
+            return new SimpleStringProperty(new LoaiVe_DAO().getLoaiVeTheoMa(ve.getLoaiVe().getMaLoaiVe()).getTenLoaiVe());
+        });
+        col_tenHK.setCellValueFactory(new PropertyValueFactory<>("tenHanhKhach"));
+    }
+
+    private String decodeBarcode(BufferedImage image){
+        LuminanceSource source = new BufferedImageLuminanceSource(image);
+        BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+
+        // Chỉ định định dạng mã vạch là Code 128, EAN-13, UPC-A hoặc QR Code
+        Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
+        hints.put(DecodeHintType.POSSIBLE_FORMATS, Arrays.asList(
+                BarcodeFormat.CODE_128
+        ));
+
+        try {
+            Result result = new MultiFormatReader().decode(bitmap, hints);
+            return result.getText();
+        } catch (NotFoundException e) {
+            // Không tìm thấy mã vạch trong ảnh
+            return null;
+        }
     }
 }

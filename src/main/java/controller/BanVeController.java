@@ -225,6 +225,18 @@ public class BanVeController implements Initializable {
     @FXML
     private TextField txtEmail;
 
+    @FXML
+    private TabPane tabVe;
+
+    @FXML
+    private Tab tabBanVe;
+
+    @FXML
+    private Tab tabDoiVe;
+
+    @FXML
+    private Tab tabHuyVe;
+
 
     private boolean khuHoi = false;
 
@@ -239,6 +251,21 @@ public class BanVeController implements Initializable {
         try {
             ConnectDB.connect();
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //set doi-ve.fxml cho tabDoiVe
+        try {
+            FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("doi-ve.fxml"));
+            tabDoiVe.setContent(loader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //set huy-ve.fxml cho tabHuyVe
+        try {
+            FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("huy-ve.fxml"));
+            tabHuyVe.setContent(loader.load());
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

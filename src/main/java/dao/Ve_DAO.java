@@ -277,7 +277,10 @@ public class Ve_DAO {
             LoaiVe loaiVe = new LoaiVe(rs.getString(5));
             String tenHK = rs.getString(6);
             String soCCCD = rs.getString(7);
-            LocalDate ngaySinh = rs.getDate(8).toLocalDate();
+            LocalDate ngaySinh = null;
+            if (rs.getDate(8) != null) {
+                ngaySinh = rs.getDate(8).toLocalDate();
+            }
             String tinhTrangVe = rs.getString(9);
             boolean khuHoi = rs.getBoolean(10);
 
