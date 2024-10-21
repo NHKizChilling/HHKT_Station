@@ -220,6 +220,30 @@ public class Ve_DAO {
         return n > 0;
     }
 
+    public ArrayList<Ve> getDSVeTheoMaHK(String maHK) {
+        ArrayList<Ve> list = new ArrayList<>();
+
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            PreparedStatement stm = null;
+            String sql = "Select * from Ve where MaHK = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, maHK);
+
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                Ve ve = getInfo(rs);
+
+                list.add(ve);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public ArrayList<Ve> getVeTheoTinhTrang(String tinhTrangVe) {
         ArrayList<Ve> list = new ArrayList<>();
 
@@ -234,17 +258,7 @@ public class Ve_DAO {
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
-                String maVe = rs.getString(1);
-                HanhKhach hanhKhach = new HanhKhach(rs.getString(2));
-                ChiTietLichTrinh chiTietLichTrinh = new ChiTietLichTrinh(new ChoNgoi(rs.getString(3)), new LichTrinh(rs.getString(4)));
-                LoaiVe loaiVe = new LoaiVe(rs.getString(5));
-                String tenHK = rs.getString(6);
-                String soCCCD = rs.getString(7);
-                LocalDate ngaySinh = rs.getDate(8).toLocalDate();
-                boolean khuHoi = rs.getBoolean(10);
-
-                Ve ve = new Ve(maVe, hanhKhach, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
-
+                Ve ve = getInfo(rs);
 
                 list.add(ve);
             }
@@ -252,5 +266,25 @@ public class Ve_DAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    private Ve getInfo(ResultSet rs) {
+        Ve ve = null;
+        try {
+            String maVe = rs.getString(1);
+            HanhKhach hanhKhach = new HanhKhach(rs.getString(2));
+            ChiTietLichTrinh chiTietLichTrinh = new ChiTietLichTrinh(new ChoNgoi(rs.getString(3)), new LichTrinh(rs.getString(4)));
+            LoaiVe loaiVe = new LoaiVe(rs.getString(5));
+            String tenHK = rs.getString(6);
+            String soCCCD = rs.getString(7);
+            LocalDate ngaySinh = rs.getDate(8).toLocalDate();
+            String tinhTrangVe = rs.getString(9);
+            boolean khuHoi = rs.getBoolean(10);
+
+            ve = new Ve(maVe, hanhKhach, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ve;
     }
 }

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DoiVeController">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="715.0" prefWidth="1386.0">
+         <children>
+            <BorderPane layoutY="1.0" prefHeight="717.0" prefWidth="1386.0">
+               <top>
+                  <AnchorPane prefHeight="233.0" prefWidth="1407.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane layoutY="-1.0" prefHeight="175.0" prefWidth="344.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="21.0" text="TÌM KIẾM VÉ">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cb_search" layoutX="15.0" layoutY="82.0" prefHeight="37.0" prefWidth="93.0" />
+                              <TextField fx:id="txt_search" layoutX="108.0" layoutY="83.0" prefHeight="37.0" prefWidth="179.0" />
+                              <Button fx:id="btn_search" layoutX="207.0" layoutY="156.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" style="-fx-background-color: #87CEEB;" text="Tìm kiếm">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btn_lamMoi" layoutX="107.0" layoutY="156.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="81.0" style="-fx-background-color: #87CEEB;" text="Làm mới">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Button>
+                              <Line endX="15.0" endY="187.0" layoutX="321.0" layoutY="30.0" startX="15.0" startY="-28.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="344.0" layoutY="12.0" prefHeight="165.0" prefWidth="1060.0">
+                           <children>
+                              <TableView fx:id="tbl_thongTinVe" prefHeight="163.0" prefWidth="1033.0">
+                                 <columns>
+                                    <TableColumn fx:id="col_maVe" prefWidth="84.79998779296875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã vé" />
+                                    <TableColumn fx:id="col_maHK" prefWidth="120.79995727539062" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã hành khách" />
+                                    <TableColumn fx:id="col_maSoCho" prefWidth="91.20001220703125" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã số chỗ" />
+                                    <TableColumn fx:id="col_maLichTrinh" prefWidth="125.60003662109375" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã lịch trình" />
+                                    <TableColumn fx:id="col_maLoaiVe" prefWidth="94.39996337890625" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã loại vé" />
+                                    <TableColumn fx:id="col_tenHK" prefWidth="126.4000244140625" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Tên hành khách" />
+                                    <TableColumn fx:id="col_cccd" prefWidth="87.199951171875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="CCCD" />
+                                    <TableColumn fx:id="col_dob" prefWidth="87.199951171875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Ngày sinh" />
+                                    <TableColumn fx:id="col_khuHoi" prefWidth="87.199951171875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Khứ hồi" />
+                                    <TableColumn fx:id="col_tinhTrangVe" prefWidth="122.40000000000009" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Tình trạng vé" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                        <Line endX="1271.0" layoutX="115.0" layoutY="219.0" startX="-115.0" />
+                        <Label fx:id="label_thongBao" layoutX="344.0" layoutY="185.0" textFill="RED">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btn_xacNhan" layoutX="1301.0" layoutY="183.0" mnemonicParsing="false" text="Xác nhận">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </top>
+               <center>
+                  <BorderPane prefHeight="484.0" prefWidth="1387.0" BorderPane.alignment="CENTER">
+                     <left>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <AnchorPane layoutY="14.0" prefHeight="441.0" prefWidth="776.0">
+                                 <children>
+                                    <ComboBox fx:id="cb_gaDi" disable="true" editable="true" layoutX="26.0" layoutY="40.0" prefWidth="150.0" promptText="Ga Đi" style="-fx-background-color: #5098ff;" />
+                                    <Label layoutX="26.0" layoutY="14.0" text="Chọn ga đi:">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="283.0" layoutY="14.0" text="Chọn ngày khởi hành:">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <DatePicker fx:id="dp_ngayKhoiHanh" layoutX="283.0" layoutY="40.0" style="-fx-background-color: #5098ff;" />
+                                    <Label layoutX="26.0" layoutY="91.0" text="Chọn ga đến:">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox fx:id="cb_gaDen" disable="true" editable="true" layoutX="26.0" layoutY="118.0" prefWidth="150.0" promptText="Ga Đến" style="-fx-background-color: #5098ff;" />
+                                    <Button fx:id="btn_traCuuLT" layoutX="26.0" layoutY="180.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, blue, skyblue);" text="Tra cứu" textFill="WHITE">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="18.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <ScrollPane layoutY="253.0" prefHeight="175.0" prefWidth="757.0">
+                                       <content>
+                                          <TableView fx:id="tbl_lichTrinh" prefHeight="174.0" prefWidth="754.0" style="-fx-border-color: #333;">
+                                             <columns>
+                                                <TableColumn fx:id="col_stt" editable="false" prefWidth="50.0" style="-fx-background-color: linear-gradient(to right, #5050ff, #5060ff); -fx-background-radius: 5 0 0 0; -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="STT" />
+                                                <TableColumn fx:id="col_soHieuTau" editable="false" prefWidth="96.0" sortable="false" style="-fx-background-color: linear-gradient(to right, #5060ff, #5065ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Số Hiệu Tàu" />
+                                                <TableColumn fx:id="col_gaDi" editable="false" prefWidth="114.0" sortable="false" style="-fx-background-color: linear-gradient(to right, #5065ff, #5070ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Ga Đi" />
+                                                <TableColumn fx:id="col_gaDen" editable="false" prefWidth="129.0" sortable="false" style="-fx-background-color: linear-gradient(to right, #5070ff, #5075ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Ga Đến" />
+                                                <TableColumn fx:id="col_gioKH" editable="false" prefWidth="124.0" sortable="false" style="-fx-background-color: linear-gradient(to right, #5075ff, #5080ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Giờ khởi hành" />
+                                                <TableColumn fx:id="col_trangThai" editable="false" prefWidth="145.0" sortable="false" style="-fx-background-color: linear-gradient(to right, #5080ff, #5090ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Trạng Thái" />
+                                                <TableColumn fx:id="col_Chon" prefWidth="90.0" style="-fx-background-color: linear-gradient(to right, #5090ff, lightblue); -fx-background-radius: 0 5 0 0; -fx-alignment: center;" />
+                                             </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </content>
+                                    </ScrollPane>
+                                    <Line endX="665.0" layoutX="105.0" layoutY="232.0" startX="-100.0" />
+                                    <Line endX="288.0" endY="-211.0" layoutX="486.0" layoutY="190.0" startX="288.0" startY="274.0" />
+                                    <TextArea layoutX="468.0" layoutY="36.0" prefHeight="129.0" prefWidth="302.0" text="- Chỉ áp dụng với vé cá nhân&#10;- Hành khách được đổi vé khi có đủ các điều kiện sau:&#10;       * Có cùng ga đi, ga đến&#10;       * Đổi vé 1 lần duy nhất&#10;-Thông tin hành khách của vé không được thay đổi&#10;-Không được thay đổi loại vé&#10;" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </left>
+                     <right>
+                        <AnchorPane prefHeight="484.0" prefWidth="606.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button fx:id="btn_doiVe" layoutX="511.0" layoutY="422.0" mnemonicParsing="false" text="Đổi vé">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <AnchorPane fx:id="acpToaTau" prefHeight="372.0" prefWidth="622.0" style="-fx-background-color: #5098ff;" visible="false">
+                                 <children>
+                                    <ScrollPane fx:id="scr1" hbarPolicy="NEVER" layoutX="-3.0" pannable="true" prefHeight="370.0" prefWidth="608.0">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <content>
+                                          <TabPane fx:id="tabToaTau" prefHeight="322.0" prefWidth="752.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" />
+                                       </content>
+                                    </ScrollPane>
+                                    <Label layoutX="200.0" layoutY="339.0" text="Giá:">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblGiaCN" layoutX="260.0" layoutY="339.0">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="btnChonChoNgoi" layoutX="550.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: skyblue;" text="Chọn">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="14.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="btnHuyChon" layoutX="480.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: skyblue;" text="Hủy">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="14.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="btnChonCD" disable="true" layoutX="97.0" layoutY="335.0" mnemonicParsing="false" style="-fx-background-color: skyblue;" text="Khứ hồi">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="14.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <Label layoutX="14.0" layoutY="433.0" text="Phí dịch vụ: 20.000 VNĐ" textFill="RED">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </right>
+                  </BorderPane>
+               </center>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

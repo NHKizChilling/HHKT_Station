@@ -17,6 +17,13 @@ public class HanhKhach {
         setMaHanhKhach(maHanhKhach);
     }
 
+    public HanhKhach(String tenHanhKhach, String soCCCD, String sdt, String email) {
+        setTenHanhKhach(tenHanhKhach);
+        setSoCCCD(soCCCD);
+        setSdt(sdt);
+        setEmail(email);
+    }
+
     public HanhKhach(String maHanhKhach, String tenHanhKhach, String soCCCD, String sdt,
                      String email) {
         this.maHanhKhach = maHanhKhach;
