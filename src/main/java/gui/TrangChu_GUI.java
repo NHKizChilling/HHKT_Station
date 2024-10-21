@@ -18,6 +18,14 @@ public class TrangChu_GUI extends Application {
     public static NhanVien nv;
     public static Stage stage;
 
+    public static Stage getStage() {
+        return stage;
+    }
+
+    public static void setStage(Stage stage) {
+        TrangChu_GUI.stage = stage;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         nv = null;
@@ -47,5 +55,7 @@ public class TrangChu_GUI extends Application {
                 e.consume();
             }
         });
+
+
     }
 }

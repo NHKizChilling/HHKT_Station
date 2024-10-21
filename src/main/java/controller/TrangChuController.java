@@ -5,6 +5,10 @@
  */
 package controller;
 
+import com.github.sarxos.webcam.Webcam;
+import com.google.zxing.*;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
 import connectdb.ConnectDB;
 import dao.*;
 import entity.ChiTietHoaDon;
@@ -13,16 +17,26 @@ import entity.Ve;
 import gui.TrangChu_GUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.glyphfont.FontAwesome;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -31,10 +45,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /*
  * @description:
@@ -48,6 +63,8 @@ public class TrangChuController implements Initializable {
     private AnchorPane paneMain;
     @FXML
     private Button btnFVe;
+    @FXML
+    private Button btnFQLHD;
     @FXML
     private Button btnFNV;
     @FXML
@@ -110,6 +127,7 @@ public class TrangChuController implements Initializable {
             chooseFeatureButton(btnFVe);
         });
         btnFNV.setOnMouseClicked(e -> chooseFeatureButton(btnFNV));
+        btnFQLHD.setOnMouseClicked(e -> chooseFeatureButton(btnFQLHD));
         btnFHK.setOnMouseClicked(e -> chooseFeatureButton(btnFHK));
         btnFBCTK.setOnMouseClicked(e -> chooseFeatureButton(btnFBCTK));
         btnFCT.setOnMouseClicked(e -> chooseFeatureButton(btnFCT));
@@ -158,6 +176,77 @@ public class TrangChuController implements Initializable {
             throw new RuntimeException(e);
         }
         paneMain.setPrefSize(width, height);
+    }
+
+    @FXML
+    protected  void showNhanVienGUI() {
+        Webcam webcam = Webcam.getDefault();
+        ScheduledExecutorService timer;
+        webcam.open();
+        //show fps
+        ImageView imageView = new ImageView();
+        imageView.setFitWidth(640);
+        imageView.setFitHeight(480);
+        StackPane root = new StackPane();
+        root.getChildren().add(imageView);
+
+        Stage primaryStage = new Stage();
+        Scene scene = new Scene(root, 640, 480);
+        primaryStage.setTitle("Tra cứu");
+        primaryStage.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        // Cập nhật video stream và quét mã vạch theo chu kỳ
+        timer = Executors.newSingleThreadScheduledExecutor();
+        timer.scheduleAtFixedRate(() -> {
+            BufferedImage image = webcam.getImage();
+            if (image != null) {
+                Image fxImage = SwingFXUtils.toFXImage(image, null);
+                Platform.runLater(() -> imageView.setImage(fxImage));
+
+                // Quét mã vạch từ hình ảnh
+                String result = decodeBarcode(image);
+                if (result != null) {
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Tra cứu");
+                        alert.setContentText("Tra cứu thành công!");
+                        alert.showAndWait();
+                        primaryStage.close();
+                    });
+                    timer.shutdown();
+                    webcam.close();
+                    primaryStage.setOpacity(0);
+                }
+            }
+        }, 0, 33, TimeUnit.MILLISECONDS);
+
+
+        primaryStage.setOnCloseRequest(e -> {
+            timer.shutdown();
+            webcam.close();
+        });
+    }
+
+    private String decodeBarcode(BufferedImage image) {
+        LuminanceSource source = new BufferedImageLuminanceSource(image);
+        BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+
+        // Chỉ định định dạng mã vạch là Code 128, EAN-13, UPC-A hoặc QR Code
+        Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
+        hints.put(DecodeHintType.POSSIBLE_FORMATS, Arrays.asList(
+                BarcodeFormat.CODE_128,
+                BarcodeFormat.QR_CODE
+        ));
+
+        try {
+            Result result = new MultiFormatReader().decode(bitmap, hints);
+            return result.getText();
+        } catch (NotFoundException e) {
+            // Không tìm thấy mã vạch trong ảnh
+            return null;
+        }
     }
 
     @FXML

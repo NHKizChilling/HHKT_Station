@@ -39,7 +39,7 @@
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnFNV" alignment="CENTER" layoutX="1.0" layoutY="283.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Nhân viên" textFill="WHITE">
+                  <Button fx:id="btnFNV" alignment="CENTER" layoutX="1.0" layoutY="283.0" mnemonicParsing="false" onAction="#showNhanVienGUI" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Nhân viên" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
@@ -136,7 +136,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
-                  <Button fx:id="btnQLHD" alignment="CENTER" layoutX="1.0" layoutY="230.0" mnemonicParsing="false" onAction="#showHoaDonGUI" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Hóa đơn" textFill="WHITE">
+                  <Button fx:id="btnFQLHD" alignment="CENTER" layoutX="1.0" layoutY="230.0" mnemonicParsing="false" onAction="#showHoaDonGUI" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Hóa đơn" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>

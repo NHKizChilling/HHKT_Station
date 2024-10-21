@@ -120,7 +120,7 @@ public class PrintPDF {
         Paragraph p9 = new Paragraph("Loại chỗ/Class: ", fontContent);
         p9.setAlignment(Element.ALIGN_LEFT);
         p9.setSpacingAfter(5);
-        p9.add(new Chunk(loaiToa.getTenLoaiToa() + ((!loaiToa.getMaLoaiToa().matches("(NC|NM)")) ? "\nKhoang" + choNgoi.getKhoang() : ""),fontContentB));
+        p9.add(new Chunk(loaiToa.getTenLoaiToa(),fontContentB));
         document.add(p9);
         //Tạo para có Loại vé
         LoaiVe loaiVe = new LoaiVe_DAO().getLoaiVeTheoMa(ve.getLoaiVe().getMaLoaiVe());
