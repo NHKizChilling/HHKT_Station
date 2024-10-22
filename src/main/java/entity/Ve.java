@@ -116,9 +116,6 @@ public class Ve {
     }
 
     public void setSoCCCD(String SoCCCD) {
-        if (SoCCCD == null || SoCCCD.isBlank()) {
-            throw new IllegalArgumentException("Số CCCD không được rỗng");
-        }
         this.SoCCCD = SoCCCD;
     }
 
@@ -127,9 +124,6 @@ public class Ve {
     }
 
     public void setNgaySinh(LocalDate ngaySinh) {
-        if (ngaySinh == null) {
-            throw new IllegalArgumentException("Ngày sinh không được rỗng");
-        }
         this.ngaySinh = ngaySinh;
     }
 

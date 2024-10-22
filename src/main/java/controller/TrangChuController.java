@@ -49,6 +49,8 @@ public class TrangChuController implements Initializable {
     @FXML
     private Button btnFVe;
     @FXML
+    private Button btnFQLHD;
+    @FXML
     private Button btnFNV;
     @FXML
     private Button btnFHK;
@@ -110,6 +112,7 @@ public class TrangChuController implements Initializable {
             chooseFeatureButton(btnFVe);
         });
         btnFNV.setOnMouseClicked(e -> chooseFeatureButton(btnFNV));
+        btnFQLHD.setOnMouseClicked(e -> chooseFeatureButton(btnFQLHD));
         btnFHK.setOnMouseClicked(e -> chooseFeatureButton(btnFHK));
         btnFBCTK.setOnMouseClicked(e -> chooseFeatureButton(btnFBCTK));
         btnFCT.setOnMouseClicked(e -> chooseFeatureButton(btnFCT));
@@ -246,10 +249,10 @@ public class TrangChuController implements Initializable {
         }
     }
     private void chooseFeatureButton(Button btnChosed) {
-        List<Button> dsF = List.of(btnFVe, btnFNV, btnFHK, btnFBCTK, btnFCT);
+        List<Button> dsF = List.of(btnFVe, btnFQLHD, btnFNV, btnFHK, btnFBCTK, btnFCT);
         dsF.forEach(btn -> {
             if (btn.equals(btnChosed)) {
-                btn.setStyle(btn.getStyle() + "-fx-background-color: skyblue;-fx-border-color: blue;");
+                btn.setStyle(btn.getStyle() + "-fx-background-color: lightgray;-fx-border-color: blue;");
             } else {
                 btn.setStyle(style);
             }

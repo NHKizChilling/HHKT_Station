@@ -285,7 +285,7 @@ public class QLyHoaDonController implements Initializable {
         radioHDLuuTam.setOnAction(event -> {
             lamMoi();
             listHD = hoaDon_dao.getDSHDLuuTam();
-//            listHD.removeIf(hd -> hd.isTrangThai() || hd.getNgayLapHoaDon().plusMinutes(15).isBefore(LocalDateTime.now()));
+            listHD.removeIf(hd -> hd.isTrangThai() || hd.getNgayLapHoaDon().plusMinutes(15).isBefore(LocalDateTime.now()));
             tbhd.getItems().clear();
             tbhd.getItems().addAll(listHD);
         });
@@ -347,6 +347,8 @@ public class QLyHoaDonController implements Initializable {
                 stgHoaDon.setScene(new Scene(acpHoaDon));
                 stgHoaDon.sizeToScene();
                 stgHoaDon.show();
+                Button btnLuuTam = (Button) stgHoaDon.getScene().lookup("#btnLuuTamHD");
+                btnLuuTam.setDisable(true);
                 stgHoaDon.setOnCloseRequest(e1 -> {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Xác nhận");

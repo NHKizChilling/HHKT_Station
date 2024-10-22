@@ -372,14 +372,14 @@ public class BanVeController implements Initializable {
             txtSoCCCD.setText(null);
             txtSDT.setText(null);
             txtEmail.setText(null);
-            if (cbGaDi.getValue() == null || cbGaDi.getEditor().getText() == "") {
+            if (cbGaDi.getValue() == null || cbGaDi.getEditor().getText().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
                 alert.setHeaderText(null);
                 alert.setContentText("Vui lòng chọn ga đi");
                 alert.show();
                 cbGaDi.requestFocus();
-            } else if(cbGaDen.getValue() == null || cbGaDen.getEditor().getText() == "") {
+            } else if(cbGaDen.getValue() == null || cbGaDen.getEditor().getText().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
                 alert.setHeaderText(null);
@@ -1623,34 +1623,16 @@ public class BanVeController implements Initializable {
         //Nhập số điện thoại hiển thị ra khách hàng
 
         txtSDT.setOnKeyTyped(e -> {
-            if (!txtSDT.getText().isEmpty() && !txtSDT.getText().matches("^0[0-9]{9}$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Lỗi");
-                alert.setHeaderText(null);
-                alert.setContentText("Số điện thoại không hợp lệ");
-                alert.show();
-
-                txtSDT.requestFocus();
-                return;
-            }
             if (hk_dao.getKhachHangTheoSDT(txtSDT.getText()) != null) {
                 HanhKhach kh = hk_dao.getKhachHangTheoSDT(txtSDT.getText());
                 txtTenKH.setText(kh.getTenHanhKhach());
                 txtSoCCCD.setText(kh.getSoCCCD());
                 txtEmail.setText(kh.getEmail());
             }
+
         });
 
         txtSoCCCD.setOnKeyTyped(e -> {
-            if (!txtSoCCCD.getText().isEmpty() && !txtSoCCCD.getText().matches("^0[0-9]{11}$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Lỗi");
-                alert.setHeaderText(null);
-                alert.setContentText("Số CCCD chỉ chứa 12 chữ số");
-                alert.show();
-                txtSoCCCD.requestFocus();
-                return;
-            }
             if (hk_dao.getHanhKhachTheoCCCD(txtSoCCCD.getText()) != null) {
                 HanhKhach kh = hk_dao.getHanhKhachTheoCCCD(txtSoCCCD.getText());
                 txtTenKH.setText(kh.getTenHanhKhach());
@@ -1658,19 +1640,6 @@ public class BanVeController implements Initializable {
                 txtEmail.setText(kh.getEmail());
             }
         });
-
-        txtEmail.setOnKeyTyped(e -> {
-            if (!txtEmail.getText().isEmpty() && !txtEmail.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Lỗi");
-                alert.setHeaderText(null);
-                alert.setContentText("Email không hợp lệ");
-                alert.show();
-                txtEmail.requestFocus();
-                return;
-            }
-        });
-
 
         btnLamMoiCN.setOnMouseClicked(e -> {
             txtTenKH.setText("");
@@ -2855,7 +2824,6 @@ public class BanVeController implements Initializable {
                 alert.showAndWait();
                 dpNgayVe.requestFocus();
                 dpNgayVe.show();
-                return;
             }
         });
 
@@ -2895,15 +2863,5 @@ public class BanVeController implements Initializable {
         scr1.setVisible(true);
         scr11.setVisible(false);
         tabTTVe.getTabs().clear();
-    }
-
-    private boolean contains(int[] array, int value) {
-        for (int i : array) {
-            if (i == value) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

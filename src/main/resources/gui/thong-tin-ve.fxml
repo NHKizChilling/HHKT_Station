@@ -22,11 +22,17 @@
                <font>
                   <Font name="Times New Roman" size="15.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </TextField>
             <TextField fx:id="txtSoCCCD" layoutX="117.0" layoutY="162.0" prefHeight="30.0" prefWidth="214.0" promptText="Số CCCD" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
                <font>
                   <Font name="Times New Roman" size="15.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </TextField>
             <Label layoutX="5.0" layoutY="60.0" text="Tên hành khách" textFill="WHITE">
                <font>
@@ -43,13 +49,19 @@
                   <Font name="Times New Roman Bold" size="15.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cbLoaiHK" disable="true" layoutX="119.0" layoutY="111.0" prefHeight="26.0" prefWidth="214.0" promptText="Loại hành khách" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;" visibleRowCount="5" />
+            <ComboBox fx:id="cbLoaiHK" disable="true" layoutX="119.0" layoutY="111.0" prefHeight="26.0" prefWidth="214.0" promptText="Loại hành khách" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;" visibleRowCount="5">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ComboBox>
             <Label layoutX="7.0" layoutY="222.0" prefHeight="18.0" prefWidth="68.0" text="Ngày sinh" textFill="WHITE">
                <font>
                   <Font name="Times New Roman Bold" size="15.0" />
                </font>
             </Label>
-            <DatePicker fx:id="dpNgaySinh" disable="true" editable="false" layoutX="117.0" layoutY="218.0" prefHeight="26.0" prefWidth="214.0" promptText="Ngày sinh" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;" />
+            <DatePicker fx:id="dpNgaySinh" disable="true" editable="false" layoutX="117.0" layoutY="218.0" prefHeight="26.0" prefWidth="214.0" promptText="Ngày sinh" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></DatePicker>
          </children>
       </AnchorPane>
       <Button fx:id="btnXacNhanTT" disable="true" layoutX="522.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Xác nhận" textFill="#6bb1ea" visible="false">

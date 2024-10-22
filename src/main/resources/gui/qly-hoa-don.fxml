@@ -164,8 +164,8 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </TableView>
-            <Line endX="357.29998779296875" endY="-3.79998779296875" layoutX="565.0" layoutY="27.0" startX="-602.0" startY="-3.79998779296875" />
-            <Label layoutX="20.0" layoutY="11.0" style="-fx-background-color: #fff; -fx-padding: 0 5 0 5;" text="Chi tiết hóa đơn">
+            <Line endX="357.29998779296875" endY="-3.79998779296875" layoutX="578.0" layoutY="26.0" startX="-558.0" startY="-3.399993896484375" />
+            <Label layoutX="34.0" layoutY="10.0" style="-fx-background-color: #fff; -fx-padding: 0 5 0 5;" text="Chi tiết hóa đơn">
                <font>
                   <Font name="Times New Roman Bold" size="20.0" />
                </font>

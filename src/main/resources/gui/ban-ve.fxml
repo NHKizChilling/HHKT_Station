@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import java.lang.String?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -28,25 +29,31 @@
                      <children>
                         <BorderPane layoutY="1.0" prefHeight="717.0" prefWidth="1386.0" style="-fx-background-color: black;">
                            <right>
-                              <AnchorPane fx:id="pnlThongTinCho" prefHeight="720.0" prefWidth="635.0" style="-fx-background-color: #5098ff; -fx-border-color: #333;" BorderPane.alignment="CENTER">
+                              <AnchorPane fx:id="pnlThongTinCho" prefHeight="720.0" prefWidth="635.0" style="-fx-background-color: #fff; -fx-border-color: #333;" BorderPane.alignment="CENTER">
                                  <children>
                                     <TabPane fx:id="tabTTVe" prefHeight="430.0" prefWidth="635.0" style="-fx-border-color: #333; -fx-background-color: #fff;" tabClosingPolicy="UNAVAILABLE" />
-                                    <AnchorPane fx:id="acpKH" layoutY="430.0" prefHeight="290.0" prefWidth="635.0" style="-fx-border-color: gray;" visible="false">
+                                    <AnchorPane fx:id="acpKH" layoutY="430.0" prefHeight="290.0" prefWidth="635.0" style="-fx-border-color: gray; -fx-background-color: linear-gradient(to bottom,  #5098ff, lightgray);" visible="false">
                                        <children>
                                           <Label layoutX="98.0" layoutY="14.0" text="Thông tin khách hàng mua vé" textFill="WHITE">
                                              <font>
                                                 <Font name="Times New Roman Bold" size="22.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="txtTenKH" layoutX="209.0" layoutY="54.0" prefHeight="30.0" prefWidth="214.0" promptText="Tên hành khách" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0 0 1 0;">
+                                          <TextField fx:id="txtTenKH" layoutX="209.0" layoutY="54.0" prefHeight="30.0" prefWidth="214.0" promptText="Tên hành khách" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-width: 0 0 1 0; -fx-border-radius: 5;">
                                              <font>
                                                 <Font name="Times New Roman" size="15.0" />
                                              </font>
+                                             <cursor>
+                                                <Cursor fx:constant="TEXT" />
+                                             </cursor>
                                           </TextField>
-                                          <TextField fx:id="txtSoCCCD" layoutX="209.0" layoutY="99.0" prefHeight="30.0" prefWidth="214.0" promptText="Số CCCD" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0 0 1 0;">
+                                          <TextField fx:id="txtSoCCCD" layoutX="209.0" layoutY="99.0" prefHeight="30.0" prefWidth="214.0" promptText="Số CCCD" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-width: 0 0 1 0; -fx-border-radius: 5;">
                                              <font>
                                                 <Font name="Times New Roman" size="15.0" />
                                              </font>
+                                             <cursor>
+                                                <Cursor fx:constant="TEXT" />
+                                             </cursor>
                                           </TextField>
                                           <Label layoutX="97.0" layoutY="60.0" text="Tên hành khách" textFill="WHITE">
                                              <font>
@@ -63,20 +70,26 @@
                                                 <Font name="Times New Roman Bold" size="15.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="txtSDT" layoutX="207.0" layoutY="148.0" prefHeight="30.0" prefWidth="214.0" promptText="Số điện thoại" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0 0 1 0;">
+                                          <TextField fx:id="txtSDT" layoutX="207.0" layoutY="148.0" prefHeight="30.0" prefWidth="214.0" promptText="Số điện thoại" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-width: 0 0 1 0; -fx-border-radius: 5;">
                                              <font>
                                                 <Font name="Times New Roman" size="15.0" />
                                              </font>
+                                             <cursor>
+                                                <Cursor fx:constant="TEXT" />
+                                             </cursor>
                                           </TextField>
                                           <Label layoutX="97.0" layoutY="207.0" prefHeight="18.0" prefWidth="112.0" text="Email" textFill="WHITE">
                                              <font>
                                                 <Font name="Times New Roman Bold" size="15.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="txtEmail" layoutX="207.0" layoutY="201.0" prefHeight="30.0" prefWidth="214.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0 0 1 0;">
+                                          <TextField fx:id="txtEmail" layoutX="207.0" layoutY="201.0" prefHeight="30.0" prefWidth="214.0" promptText="Email" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-width: 0 0 1 0; -fx-border-radius: 5;">
                                              <font>
                                                 <Font name="Times New Roman" size="15.0" />
                                              </font>
+                                             <cursor>
+                                                <Cursor fx:constant="TEXT" />
+                                             </cursor>
                                           </TextField>
                                           <Button fx:id="btnTaoHD" layoutX="255.0" layoutY="252.0" mnemonicParsing="false" style="-fx-background-color: #266bc7;" text="Tạo hóa đơn" textFill="WHITE">
                                              <font>
@@ -104,7 +117,7 @@
                            <center>
                               <AnchorPane prefHeight="428.0" prefWidth="1275.0" style="-fx-background-color: #fff; -fx-border-color: #333;" BorderPane.alignment="CENTER">
                                  <children>
-                                    <TitledPane fx:id="ttpLoaiVe" expanded="false" layoutX="496.0" layoutY="14.0" prefHeight="138.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Loại Vé">
+                                    <TitledPane fx:id="ttpLoaiVe" expanded="false" layoutX="496.0" layoutY="14.0" prefHeight="138.0" prefWidth="200.0" style="-fx-background-color: #fff; -fx-background-radius: 5;" text="Loại Vé">
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="104.0" prefWidth="198.0" style="-fx-background-color: #fff;">
                                              <children>
@@ -202,16 +215,31 @@
                                        <font>
                                           <Font name="Times New Roman Bold" size="15.0" />
                                        </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </TitledPane>
-                                    <DatePicker fx:id="dpNgayKH" editable="false" layoutX="13.0" layoutY="70.0" prefHeight="26.0" prefWidth="152.0" style="-fx-background-color: #5098ff;" />
-                                    <DatePicker fx:id="dpNgayVe" disable="true" editable="false" layoutX="272.0" layoutY="68.0" prefHeight="26.0" prefWidth="153.0" style="-fx-background-color: #5098ff;" />
+                                    <DatePicker fx:id="dpNgayKH" editable="false" layoutX="13.0" layoutY="70.0" prefHeight="26.0" prefWidth="152.0" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></DatePicker>
+                                    <DatePicker fx:id="dpNgayVe" disable="true" editable="false" layoutX="272.0" layoutY="68.0" prefHeight="26.0" prefWidth="153.0" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></DatePicker>
                                     <CheckBox fx:id="chkKhuHoi" layoutX="272.0" layoutY="101.0" mnemonicParsing="false" text="Khứ hồi">
                                        <font>
                                           <Font name="Times New Roman Bold" size="11.0" />
                                        </font>
                                     </CheckBox>
-                                    <ComboBox fx:id="cbGaDi" editable="true" layoutX="15.0" layoutY="20.0" prefWidth="150.0" promptText="Ga Đi" style="-fx-background-color: #5098ff;" />
-                                    <ComboBox fx:id="cbGaDen" editable="true" layoutX="275.0" layoutY="19.0" prefWidth="150.0" promptText="Ga Đến" style="-fx-background-color: #5098ff;" />
+                                    <ComboBox fx:id="cbGaDi" editable="true" layoutX="15.0" layoutY="20.0" prefWidth="150.0" promptText="Ga Đi" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;">
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor></ComboBox>
+                                    <ComboBox fx:id="cbGaDen" editable="true" layoutX="275.0" layoutY="19.0" prefWidth="150.0" promptText="Ga Đến" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;">
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor></ComboBox>
                                     <Label layoutX="15.0" text="Chọn ga đi:">
                                        <font>
                                           <Font name="Times New Roman Bold" size="15.0" />
@@ -232,7 +260,7 @@
                                           <Font name="Times New Roman Bold" size="15.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="btnTraCuuCT" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="125.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="80.0" style="-fx-background-color: linear-gradient(to right, blue, skyblue);" text="Tra cứu" textFill="WHITE">
+                                    <Button fx:id="btnTraCuuCT" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="125.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="80.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Tra cứu">
                                        <font>
                                           <Font name="Times New Roman Bold" size="15.0" />
                                        </font>
@@ -246,17 +274,24 @@
                                             <content>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="174.0" prefWidth="750.0">
                                                    <children>
-                                                      <TableView fx:id="tbTCTLT" layoutY="14.0" prefHeight="174.0" prefWidth="749.0" style="-fx-border-color: #333;">
+                                                      <TableView fx:id="tbTCTLT" prefHeight="188.0" prefWidth="750.0" style="-fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" stylesheets="@dashboardDesign.css">
                                                         <columns>
-                                                          <TableColumn fx:id="colSTT" editable="false" prefWidth="50.0" style="-fx-background-color: linear-gradient(to right, #5050ff, #5060ff); -fx-background-radius: 5 0 0 0; -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="STT" />
-                                                          <TableColumn fx:id="colSoHieuTau" editable="false" prefWidth="75.0" sortable="false" style="-fx-background-color: linear-gradient(to right, #5060ff, #5065ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Số Hiệu Tàu" />
-                                                            <TableColumn fx:id="colGaDi" editable="false" prefWidth="85.59994506835938" sortable="false" style="-fx-background-color: linear-gradient(to right, #5065ff, #5070ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Ga Đi" />
-                                                            <TableColumn fx:id="colGaDen" editable="false" prefWidth="78.40005493164062" sortable="false" style="-fx-background-color: linear-gradient(to right, #5070ff, #5075ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Ga Đến" />
-                                                            <TableColumn fx:id="colGioKH" editable="false" prefWidth="117.5999755859375" sortable="false" style="-fx-background-color: linear-gradient(to right, #5075ff, #5080ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Giờ khởi hành" />
-                                                            <TableColumn fx:id="colTGDen" editable="false" prefWidth="133.5999755859375" sortable="false" style="-fx-background-color: linear-gradient(to right, #5080ff, #5090ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Ngày giờ dự kiến đến" />
-                                                            <TableColumn fx:id="colSLT" prefWidth="97.60003662109375" style="-fx-background-color: linear-gradient(to right, #5090ff, #5095ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Số lượng trống" />
+                                                          <TableColumn fx:id="colSTT" editable="false" prefWidth="50.0" style="-fx-background-color: linear-gradient(to right, #5050ff, #5060ff); -fx-background-radius: 5 0 0 0; -fx-alignment: center;" text="STT" />
+                                                          <TableColumn fx:id="colSoHieuTau" editable="false" prefWidth="75.0" sortable="false" style="-fx-background-color: linear-gradient(to right, #5060ff, #5065ff); -fx-alignment: center;" text="Số Hiệu Tàu" />
+                                                            <TableColumn fx:id="colGaDi" editable="false" prefWidth="85.59994506835938" sortable="false" style="-fx-background-color: linear-gradient(to right, #5065ff, #5070ff); -fx-alignment: center;" text="Ga Đi" />
+                                                            <TableColumn fx:id="colGaDen" editable="false" prefWidth="78.40005493164062" sortable="false" style="-fx-background-color: linear-gradient(to right, #5070ff, #5075ff); -fx-alignment: center;" text="Ga Đến" />
+                                                            <TableColumn fx:id="colGioKH" editable="false" prefWidth="117.5999755859375" sortable="false" style="-fx-background-color: linear-gradient(to right, #5075ff, #5080ff); -fx-alignment: center;" text="Giờ khởi hành" />
+                                                            <TableColumn fx:id="colTGDen" editable="false" prefWidth="133.5999755859375" sortable="false" style="-fx-background-color: linear-gradient(to right, #5080ff, #5090ff); -fx-alignment: center;" text="Ngày giờ dự kiến đến" />
+                                                            <TableColumn fx:id="colSLT" prefWidth="97.60003662109375" style="-fx-background-color: linear-gradient(to right, #5090ff, #5095ff); -fx-alignment: center;" text="Số lượng trống" />
                                                             <TableColumn fx:id="colChon" prefWidth="106.39996337890625" style="-fx-background-color: linear-gradient(to right, #5095ff, lightblue); -fx-background-radius: 0 5 0 0; -fx-alignment: center;" />
                                                         </columns>
+                                                         <styleClass>
+                                                            <String fx:value="shadow" />
+                                                            <String fx:value="table-view" />
+                                                         </styleClass>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
                                                       </TableView>
                                                       <TableView fx:id="tbTCTLTKH" layoutY="14.0" prefHeight="174.0" prefWidth="749.0" style="-fx-border-color: #333;" visible="false">
                                                          <columns>
@@ -276,7 +311,7 @@
                                           </ScrollPane>
                                        </center>
                                     </BorderPane>
-                                    <Button fx:id="btnLamMoi" alignment="CENTER_RIGHT" layoutX="109.0" layoutY="125.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="90.0" style="-fx-background-color: linear-gradient(to left,  lightblue, #a1e0ff);" text="Làm mới">
+                                    <Button fx:id="btnLamMoi" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="125.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="86.0" style="-fx-background-color: #5098ff;" text="Làm mới" textFill="WHITE">
                                        <font>
                                           <Font name="Times New Roman Bold" size="15.0" />
                                        </font>
@@ -284,12 +319,18 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <FontAwesomeIcon disable="true" fill="#00a423" glyphName="REFRESH" layoutX="115.0" layoutY="143.0">
+                                    <FontAwesomeIcon disable="true" glyphName="REFRESH" layoutX="115.0" layoutY="144.0">
                                        <font>
                                           <Font name="Times New Roman" size="12.0" />
                                        </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </FontAwesomeIcon>
-                                    <FontAwesomeIcon disable="true" fill="WHITE" fontSmoothingType="LCD" glyphName="SEARCH" layoutX="17.0" layoutY="143.0" />
+                                    <FontAwesomeIcon disable="true" fill="#5098ff" fontSmoothingType="LCD" glyphName="SEARCH" layoutX="17.0" layoutY="144.0">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></FontAwesomeIcon>
                                     <AnchorPane fx:id="acpToaTau" layoutX="1.0" layoutY="346.0" prefHeight="372.0" prefWidth="742.0" style="-fx-background-color: #5098ff;" visible="false">
                                        <children>
                                           <ScrollPane fx:id="scr1" hbarPolicy="NEVER" layoutX="-1.0" layoutY="-1.0" pannable="true" prefHeight="320.0" prefWidth="750.0" style="-fx-view-order: 2;">

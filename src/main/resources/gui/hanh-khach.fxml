@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -11,11 +14,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HanhKhachController">
+<AnchorPane prefHeight="755.0" prefWidth="1385.0" style="-fx-background-color: #fff;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HanhKhachController">
    <children>
-      <AnchorPane layoutX="14.0" layoutY="83.0" prefHeight="299.0" prefWidth="942.0" styleClass="shadow">
+      <AnchorPane layoutX="14.0" layoutY="83.0" prefHeight="300.0" prefWidth="942.0" style="-fx-background-color: #fff;" styleClass="shadow">
          <children>
-            <TableView fx:id="tbl_hanhKhach" fixedCellSize="0.0" layoutX="-2.0" layoutY="-1.0" prefHeight="300.0" prefWidth="942.0">
+            <TableView fx:id="tbl_hanhKhach" fixedCellSize="0.0" layoutX="-2.0" layoutY="-1.0" prefHeight="300.0" prefWidth="942.0" style="-fx-background-color: #fff; -fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css">
                <columns>
                   <TableColumn fx:id="col_cusId" prefWidth="148.0" text="Mã hành khách" />
                   <TableColumn fx:id="col_name" prefWidth="182.0" text="Họ và tên" />
@@ -23,60 +26,158 @@
                   <TableColumn fx:id="col_sdt" minWidth="3.0" prefWidth="139.0" text="SĐT" />
                   <TableColumn fx:id="col_email" minWidth="3.0" prefWidth="285.0" text="Email" />
                </columns>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </TableView>
          </children>
       </AnchorPane>
       <Line endX="840.7999877929688" layoutX="114.0" layoutY="66.0" startX="-100.0" />
-      <Line endX="-87.79998779296875" endY="736.4000244140625" layoutX="1057.0" layoutY="12.0" startX="-87.79998779296875" startY="-6.799996852874756" />
-      <ComboBox fx:id="cb_search" layoutX="303.0" layoutY="20.0" prefHeight="35.0" prefWidth="150.0" />
-      <TextField fx:id="txt_searchBar" layoutX="454.0" layoutY="20.0" prefHeight="35.0" prefWidth="352.0" />
-      <Button fx:id="btn_search" layoutX="806.0" layoutY="20.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" text="Tra cứu" />
-      <Label layoutX="16.0" layoutY="24.0" prefHeight="27.0" prefWidth="190.0" text="TÌM KIẾM THÔNG TIN">
+      <Line endX="-87.0" endY="743.4000244140625" layoutX="1057.0" layoutY="12.0" startX="-87.79998779296875" startY="-6.799996852874756" />
+      <ComboBox fx:id="cb_search" layoutX="303.0" layoutY="20.0" prefHeight="35.0" prefWidth="138.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ComboBox>
+      <TextField fx:id="txt_searchBar" layoutX="454.0" layoutY="20.0" prefHeight="35.0" prefWidth="316.0" styleClass="shadow" stylesheets="@dashboardDesign.css">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextField>
+      <Button fx:id="btn_search" alignment="CENTER_RIGHT" layoutX="783.0" layoutY="20.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Tra cứu">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Label layoutX="14.0" layoutY="24.0" prefHeight="27.0" prefWidth="238.0" styleClass="label-info" stylesheets="@dashboardDesign.css" text="TÌM KIẾM THÔNG TIN">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="Times New Roman Bold" size="20.0" />
          </font>
       </Label>
-      <Pane layoutX="970.0" layoutY="6.0" prefHeight="483.0" prefWidth="398.0">
+      <Pane layoutX="970.0" layoutY="-1.0" prefHeight="500.0" prefWidth="415.0" style="-fx-background-color: #fff;">
          <children>
-            <Label layoutX="173.0" layoutY="4.0" text="THÔNG TIN">
+            <Label layoutX="150.0" layoutY="10.0" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: #fff; -fx-view-order: 0;" styleClass="label-info" stylesheets="@dashboardDesign.css" text="THÔNG TIN">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="Times New Roman Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="31.0" layoutY="56.0" prefHeight="35.0" prefWidth="104.0" text="Mã hành khách" />
-            <Label layoutX="31.0" layoutY="110.0" prefHeight="35.0" prefWidth="86.0" text="Tên hành khách" />
-            <Label layoutX="31.0" layoutY="160.0" prefHeight="35.0" prefWidth="74.0" text="Số CCCD" />
-            <Label layoutX="31.0" layoutY="215.0" prefHeight="35.0" prefWidth="74.0" text="Số điện thoại" />
-            <Label layoutX="33.0" layoutY="271.0" prefHeight="35.0" prefWidth="74.0" text="Email" />
-            <TextField fx:id="txt_maHK" disable="true" layoutX="145.0" layoutY="56.0" prefHeight="35.0" prefWidth="238.0" />
-            <TextField fx:id="txt_tenHK" layoutX="145.0" layoutY="110.0" prefHeight="35.0" prefWidth="238.0" />
-            <TextField fx:id="txt_cccd" layoutX="145.0" layoutY="160.0" prefHeight="35.0" prefWidth="238.0" />
-            <TextField fx:id="txt_sdt" layoutX="145.0" layoutY="215.0" prefHeight="35.0" prefWidth="238.0" />
-            <TextField fx:id="txt_email" layoutX="145.0" layoutY="271.0" prefHeight="35.0" prefWidth="238.0" />
-            <Button fx:id="btn_clear" layoutX="16.0" layoutY="329.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Xóa trắng" textFill="#151515" />
-            <Button fx:id="btn_update" layoutX="164.0" layoutY="329.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Cập nhật" />
-            <Button fx:id="btn_add" layoutX="309.0" layoutY="329.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Thêm" />
+            <Label layoutX="31.0" layoutY="56.0" prefHeight="35.0" prefWidth="104.0" text="Mã hành khách">
+               <font>
+                  <Font name="Times New Roman Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="31.0" layoutY="110.0" prefHeight="35.0" prefWidth="86.0" text="Tên hành khách">
+               <font>
+                  <Font name="Times New Roman Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="31.0" layoutY="160.0" prefHeight="35.0" prefWidth="74.0" text="Số CCCD">
+               <font>
+                  <Font name="Times New Roman Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="31.0" layoutY="215.0" prefHeight="35.0" prefWidth="74.0" text="Số điện thoại">
+               <font>
+                  <Font name="Times New Roman Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="33.0" layoutY="271.0" prefHeight="35.0" prefWidth="74.0" text="Email">
+               <font>
+                  <Font name="Times New Roman Bold" size="12.0" />
+               </font></Label>
+            <TextField fx:id="txt_maHK" disable="true" layoutX="145.0" layoutY="56.0" prefHeight="35.0" prefWidth="238.0" styleClass="shadow" stylesheets="@dashboardDesign.css">
+               <cursor>
+                  <Cursor fx:constant="DISAPPEAR" />
+               </cursor></TextField>
+            <TextField fx:id="txt_tenHK" layoutX="145.0" layoutY="110.0" prefHeight="35.0" prefWidth="238.0" styleClass="shadow" stylesheets="@dashboardDesign.css">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <TextField fx:id="txt_cccd" layoutX="145.0" layoutY="160.0" prefHeight="35.0" prefWidth="238.0" styleClass="shadow" stylesheets="@dashboardDesign.css">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <TextField fx:id="txt_sdt" layoutX="145.0" layoutY="215.0" prefHeight="35.0" prefWidth="238.0" styleClass="shadow" stylesheets="@dashboardDesign.css">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <TextField fx:id="txt_email" layoutX="145.0" layoutY="271.0" prefHeight="35.0" prefWidth="238.0" styleClass="shadow" stylesheets="@dashboardDesign.css">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <Button fx:id="btn_clear" alignment="CENTER_RIGHT" layoutX="57.0" layoutY="329.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Xóa trắng" textFill="#151515">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="btn_update" alignment="CENTER_RIGHT" layoutX="186.0" layoutY="329.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Cập nhật">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="btn_add" alignment="CENTER_RIGHT" layoutX="309.0" layoutY="329.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="62.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Thêm">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <FontAwesomeIcon disable="true" glyphName="REMOVE" layoutX="63.0" layoutY="350.0" text="">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></FontAwesomeIcon>
+            <FontAwesomeIcon disable="true" glyphName="EDIT" layoutX="193.0" layoutY="350.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></FontAwesomeIcon>
+            <FontAwesomeIcon glyphName="PLUS_CIRCLE" layoutX="317.0" layoutY="350.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></FontAwesomeIcon>
+            <Line endX="214.4000244140625" endY="7.62939453125E-6" layoutX="158.0" layoutY="22.0" startX="-100.0" style="-fx-view-order: 1;" />
          </children>
       </Pane>
-      <AnchorPane layoutX="13.0" layoutY="423.0" prefHeight="238.0" prefWidth="942.0">
+      <AnchorPane layoutX="13.0" layoutY="423.0" prefHeight="238.0" prefWidth="942.0" style="-fx-background-radius: 5;" styleClass="shadow">
          <children>
-            <TableView fx:id="tbl_thongTinVe" prefHeight="271.0" prefWidth="942.0">
+            <TableView fx:id="tbl_thongTinVe" layoutY="8.0" prefHeight="238.0" prefWidth="942.0" style="-fx-background-color: #fff; -fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css">
                <columns>
-                  <TableColumn fx:id="col_maVe" prefWidth="96.80001544952393" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Mã vé" />
-                  <TableColumn fx:id="col_gaDi" prefWidth="94.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Ga Đi" />
-                  <TableColumn fx:id="col_gaDen" prefWidth="94.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Ga Đến" />
-                  <TableColumn fx:id="col_tau" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Mã tàu" />
-                  <TableColumn fx:id="col_ngayDi" minWidth="1.5999755859375" prefWidth="103.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Ngày đi" />
-                  <TableColumn fx:id="col_gioDi" prefWidth="60.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Giờ đi" />
-                  <TableColumn fx:id="col_maCho" prefWidth="60.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Mã chỗ" />
-                  <TableColumn fx:id="col_loaiVe" prefWidth="122.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Loại vé" />
-                  <TableColumn fx:id="col_khuHoi" prefWidth="100.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Khứ hồi" />
-                  <TableColumn fx:id="col_tinhTrang" prefWidth="130.0" style="-fx-border-color: cyan; -fx-border-width: 0 1 0 0;" text="Tình trạng" />
+                  <TableColumn fx:id="col_maVe" prefWidth="119.20001220703125" text="Mã vé" />
+                  <TableColumn fx:id="col_maKH" prefWidth="98.4000244140625" text="Mã khách hàng" />
+                  <TableColumn fx:id="col_thongTinVe" prefWidth="217.5999755859375" text="Thông tin vé" />
+                  <TableColumn fx:id="col_loaiVe" minWidth="0.0" prefWidth="87.20001220703125" text="Loại vé" />
+                  <TableColumn fx:id="col_loaiCho" minWidth="1.5999755859375" prefWidth="128.79998779296875" text="Loại chỗ" />
+                  <TableColumn fx:id="col_tenHK" prefWidth="188.79998779296875" text="Tên hành khách" />
+                  <TableColumn fx:id="col_tinhTrangVe" prefWidth="99.19998779296873" text="Tình trạng" />
                </columns>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <rotationAxis>
+                  <Point3D />
+               </rotationAxis>
             </TableView>
          </children>
       </AnchorPane>
-      <Button fx:id="btn_inVe" layoutX="882.0" layoutY="701.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="In lại vé" />
-      <Button fx:id="btn_refresh" layoutX="892.0" layoutY="20.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="62.0" text="Làm mới" />
+      <Button fx:id="btn_inVe" alignment="CENTER_RIGHT" layoutX="869.0" layoutY="710.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: green;" text="In lại vé" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="btn_refresh" alignment="CENTER_RIGHT" layoutX="871.0" layoutY="20.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Làm mới">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <FontAwesomeIcon disable="true" fill="WHITE" glyphName="PRINT" layoutX="877.0" layoutY="732.0" />
+      <Label alignment="CENTER" layoutX="971.0" layoutY="503.0" prefHeight="255.0" prefWidth="415.0" style="-fx-background-color: linear-gradient(to bottom, #fff, #5098ff);" text="HHKT STATION hân hạnh được phục vụ quý khách!!!" textFill="#525fff">
+         <font>
+            <Font name="Times New Roman Bold" size="16.0" />
+         </font>
+      </Label>
+      <Line endX="840.7999877929688" layoutX="114.0" layoutY="406.0" startX="-100.0" />
+      <Label layoutX="42.0" layoutY="393.0" prefHeight="27.0" prefWidth="138.0" style="-fx-background-color: #fff;" text="  THÔNG TIN VÉ">
+         <font>
+            <Font name="Times New Roman Bold" size="16.0" />
+         </font>
+      </Label>
+      <FontAwesomeIcon disable="true" glyphName="SEARCH" layoutX="790.0" layoutY="41.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </FontAwesomeIcon>
+      <FontAwesomeIcon disable="true" glyphName="REFRESH" layoutX="877.0" layoutY="41.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </FontAwesomeIcon>
    </children>
 </AnchorPane>

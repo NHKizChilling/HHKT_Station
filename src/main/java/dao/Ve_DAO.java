@@ -166,7 +166,7 @@ public class Ve_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update Ve set MaLoaiVe = ?, MaHK = ?, MaChoNgoi = ?, MaLichTrinh = ?, TenHK =?, SoCCCD = ?, NgaySinh = ?, TinhTrangVe = ?, KhuHoi = ? where MaVe = ?");
+            stm = con.prepareStatement("update Ve set MaLoaiVe = ?, MaHK = ?, MaSoCho = ?, MaLichTrinh = ?, TenHK =?, SoCCCD = ?, NgaySinh = ?, TinhTrangVe = ?, KhuHoi = ? where MaVe = ?");
 
             stm.setString(1, ve.getLoaiVe().getMaLoaiVe());
             stm.setString(2, ve.getHanhKhach().getMaHanhKhach());
@@ -174,10 +174,15 @@ public class Ve_DAO {
             stm.setString(4, ve.getCtlt().getLichTrinh().getMaLichTrinh());
             stm.setString(5, ve.getTenHanhKhach());
             stm.setString(6, ve.getSoCCCD());
-            stm.setDate(7, Date.valueOf(ve.getNgaySinh()));
+            LocalDate ngaySinh = ve.getNgaySinh();
+            if (ngaySinh == null) {
+                stm.setDate(7, null);
+            } else {
+                stm.setDate(7, Date.valueOf(ve.getNgaySinh()));
+            }
             stm.setString(8, ve.getTinhTrangVe());
-            stm.setString(9, ve.getMaVe());
-            stm.setBoolean(10, ve.isKhuHoi());
+            stm.setString(10, ve.getMaVe());
+            stm.setBoolean(9, ve.isKhuHoi());
 
             n = stm.executeUpdate();
         } catch (Exception e) {

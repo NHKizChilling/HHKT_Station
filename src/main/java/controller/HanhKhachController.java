@@ -1,8 +1,8 @@
 package controller;
 
-import dao.HanhKhach_DAO;
-import dao.LichTrinh_DAO;
-import dao.Ve_DAO;
+import com.itextpdf.text.DocumentException;
+import dao.*;
+import entity.ChoNgoi;
 import entity.HanhKhach;
 import entity.LichTrinh;
 import entity.Ve;
@@ -70,31 +70,22 @@ public class HanhKhachController implements Initializable {
     private TableColumn<Ve, String> col_maVe;
 
     @FXML
-    private TableColumn<LichTrinh, String> col_gaDi;
+    private TableColumn<Ve, String> col_maKH;
 
     @FXML
-    private TableColumn<LichTrinh, String> col_gaDen;
-
-    @FXML
-    private TableColumn<LichTrinh, String> col_tau;
-
-    @FXML
-    private TableColumn<LichTrinh, String> col_ngayDi;
-
-    @FXML
-    private TableColumn<LichTrinh, String> col_gioDi;
-
-    @FXML
-    private TableColumn<LichTrinh, String> col_maCho;
+    private TableColumn<Ve, String> col_tinhTrangVe;
 
     @FXML
     private TableColumn<Ve, String> col_loaiVe;
 
     @FXML
-    private TableColumn<Ve, String> col_khuHoi;
+    private TableColumn<Ve, String> col_loaiCho;
 
     @FXML
-    private TableColumn<Ve, String> col_tinhTrang;
+    private TableColumn<Ve, String> col_thongTinVe;
+
+    @FXML
+    private TableColumn<Ve, String> col_tenHK;
 
     // Cột thông tin hành khách
     @FXML
@@ -281,11 +272,11 @@ public class HanhKhachController implements Initializable {
                 return;
             }
             // In vé
-//            try {
-//                new PrintPDF(ve);
-//            } catch (IOException | DocumentException ex) {
-//                throw new RuntimeException(ex);
-//            }
+            try {
+                new PrintPDF().inVe(ve);
+            } catch (IOException | DocumentException ex) {
+                throw new RuntimeException(ex);
+            }
         });
     }
 
@@ -305,41 +296,27 @@ public class HanhKhachController implements Initializable {
     }
 
     public void renderTableVe(ArrayList<Ve> list) {
-        ObservableList<Ve> dsVe = FXCollections.observableArrayList(list);
-        tbl_thongTinVe.setItems(dsVe);
+        ObservableList<Ve> data = FXCollections.observableArrayList(list);
+        tbl_thongTinVe.setItems(data);
         col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));
-        col_gaDi.setCellValueFactory(param -> {
-            String lichTrinh = param.getValue().getMaLichTrinh();
-            LichTrinh lt = lichTrinh_dao.getLichTrinhTheoID(lichTrinh);
-            return new SimpleStringProperty(lt.getGaDi().getTenGa());
+        col_maKH.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getHanhKhach().getMaHanhKhach()));
+        col_thongTinVe.setCellValueFactory(p -> {
+            Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
+            LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            return new SimpleStringProperty(  lt.getChuyenTau().getSoHieutau()+ " - " + new Ga_DAO().getGaTheoMaGa(lt.getGaDi().getMaGa()).getTenGa() + " - " + new Ga_DAO().getGaTheoMaGa(lt.getGaDen().getMaGa()).getTenGa() + "\n" + formatter.format(lt.getThoiGianKhoiHanh()) + " - " + formatter.format(lt.getThoiGianDuKienDen()));
         });
-        col_gaDen.setCellValueFactory(param -> {
-            String lichTrinh = param.getValue().getMaLichTrinh();
-            LichTrinh lt = lichTrinh_dao.getLichTrinhTheoID(lichTrinh);
-            return new SimpleStringProperty(lt.getGaDen().getTenGa());
+        col_loaiCho.setCellValueFactory(p -> {
+            Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
+            ChoNgoi cn = new ChoNgoi_DAO().getChoNgoiTheoMa(ve.getCtlt().getChoNgoi().getMaChoNgoi());
+            return new SimpleStringProperty(new LoaiToa_DAO().getLoaiToaTheoMa(new Toa_DAO().getToaTheoID(cn.getToa().getMaToa()).getLoaiToa().getMaLoaiToa()).getTenLoaiToa());
         });
-        col_tau.setCellValueFactory(param -> {
-            String lichTrinh = param.getValue().getMaLichTrinh();
-            LichTrinh lt = lichTrinh_dao.getLichTrinhTheoID(lichTrinh);
-            return new SimpleStringProperty(lt.getChuyenTau().getSoHieutau());
+        col_tinhTrangVe.setCellValueFactory(new PropertyValueFactory<>("tinhTrangVe"));
+        col_loaiVe.setCellValueFactory(p -> {
+            Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
+            return new SimpleStringProperty(new LoaiVe_DAO().getLoaiVeTheoMa(ve.getLoaiVe().getMaLoaiVe()).getTenLoaiVe());
         });
-        col_ngayDi.setCellValueFactory(param -> {
-            String lichTrinh = param.getValue().getMaLichTrinh();
-            LichTrinh lt = lichTrinh_dao.getLichTrinhTheoID(lichTrinh);
-            return new SimpleStringProperty(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(lt.getThoiGianKhoiHanh()));
-        });
-        col_gioDi.setCellValueFactory(param -> {
-            String lichTrinh = param.getValue().getMaLichTrinh();
-            LichTrinh lt = lichTrinh_dao.getLichTrinhTheoID(lichTrinh);
-            return new SimpleStringProperty(DateTimeFormatter.ofPattern("HH:mm").format(lt.getThoiGianKhoiHanh()));
-        });
-        col_maCho.setCellValueFactory(new PropertyValueFactory<>("maCho"));
-        col_loaiVe.setCellValueFactory(new PropertyValueFactory<>("loaiVe"));
-        col_khuHoi.setCellValueFactory(param -> {
-            boolean khuHoi = param.getValue().isKhuHoi();
-            return new SimpleStringProperty(khuHoi ? "Khứ hồi" : "Một chiều");
-        });
-        col_tinhTrang.setCellValueFactory(new PropertyValueFactory<>("tinhTrang"));
+        col_tenHK.setCellValueFactory(new PropertyValueFactory<>("tenHanhKhach"));
     }
 
     public boolean checkInput(String tenHK, String cccd, String sdt, String email) {
