@@ -6,6 +6,7 @@
 package controller;
 
 import com.itextpdf.text.DocumentException;
+import com.sun.javafx.binding.StringFormatter;
 import dao.*;
 import entity.*;
 import javafx.animation.KeyFrame;
@@ -231,13 +232,15 @@ public class HoaDonController implements Initializable {
         });
 
         if (!txtThanhTien.getText().isEmpty() && txtTienKH.getText() != null) {
-            double t = tongTien/1000;
-            t = Math.round(t);
 
-            btnGia1.setText(df.format(Math.round(t) * 1000 / 10 * 10));
-            btnGia2.setText(df.format(Math.round(t) * 2000 / 10 * 10));
-            btnGia3.setText(df.format(Math.round(t) * 3000 / 10 * 10));
-            btnGia4.setText(df.format(Math.round(t) * 4000 / 10 * 10));
+            double hangNghin = tongTien / 1000;
+            double hangChucNghin = tongTien / 10000;
+            double hangTramNghin = tongTien / 100000;
+            double hangTrieu = tongTien / 1000000;
+
+            btnGia1.setText(df.format(tongTien));
+
+            
         }
 
 
