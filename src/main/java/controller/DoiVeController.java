@@ -198,10 +198,14 @@ public class DoiVeController implements Initializable {
                     String maVe = ve.getMaVe();
                     ChiTietHoaDon cthd = cthd_dao.getCT_HoaDonTheoMaVe(maVe);
                     HoaDon hd = hd_dao.getHoaDonTheoMa(cthd.getHoaDon().getMaHoaDon());
-                    LocalDateTime ngayLap = hd.getNgayLapHoaDon();
+
+                    String maLichTrinh = ve.getCtlt().getLichTrinh().getMaLichTrinh();
+                    LichTrinh lt = lichTrinh_dao.getLichTrinhTheoID(maLichTrinh);
+                    LocalDateTime gioTauChay = lt.getThoiGianKhoiHanh();
                     LocalDateTime now = LocalDateTime.now();
+
                     // Nếu đổi vé trước 24h thì được đổi
-                    if (ngayLap.plusDays(1).isBefore(now)) {
+                    if (gioTauChay.plusDays(1).isBefore(now)) {
                         label_thongBao.setText("Vé đã quá hạn đổi");
                         ve = null;
                     } else {

@@ -183,8 +183,9 @@ public class HuyVeController implements Initializable {
 
                 LocalDateTime tgKhoiHanh = lt.getThoiGianKhoiHanh();
                 LocalDateTime now = LocalDateTime.now();
+
                 // nếu trả trước 4h thì hủy được, chiết khấu là 20%
-                if (tgKhoiHanh.isAfter(now) && tgKhoiHanh.minusHours(4).isBefore(now)) {
+                if (tgKhoiHanh.isAfter(now) && tgKhoiHanh.plusHours(4).isAfter(now)) {
                     txt_chietKhau.setText("20%");
                     txt_hoanTien.setText(String.valueOf(ctHoaDon.getGiaVe() * 0.8));
                     isHuy = true;
