@@ -31,18 +31,10 @@ public class LoaderController implements Initializable {
     private ProgressBar progressBar;
     @FXML
     private Label lblLoading;
-    Timeline timeline = new Timeline(
-            new KeyFrame(Duration.seconds(0.5),
-                    e -> {
-                        progressBar.setProgress(progressBar.getProgress() + 0.1);
-                        lblLoading.setText("Loading " + Math.round(progressBar.getProgress() * 100.0) + "%");
-                    }));
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         double progress = 0.0;
         progressBar.setProgress(progress);
-        timeline.setCycleCount(10);
-        timeline.play();
 
 
     }

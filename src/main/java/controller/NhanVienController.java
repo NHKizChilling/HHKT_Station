@@ -107,7 +107,7 @@ public class NhanVienController implements Initializable {
 
         // Chức năng tìm kiếm
         btn_search.setOnAction(e -> {
-            String search = txt_search.getText();
+            String search = txt_search.getText().toLowerCase();
             String type = cb_search.getValue();
             if (type == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -125,9 +125,9 @@ public class NhanVienController implements Initializable {
             }
             ArrayList<NhanVien> listSearch = new ArrayList<>(list.stream()
                 .filter(nv -> switch (type) {
-                    case "Mã nhân viên" -> nv.getMaNhanVien().contains(search);
-                    case "Tên nhân viên" -> nv.getTenNhanVien().contains(search);
-                    case "Số điện thoại" -> nv.getSdt().contains(search);
+                    case "Mã nhân viên" -> nv.getMaNhanVien().toLowerCase().contains(search);
+                    case "Tên nhân viên" -> nv.getTenNhanVien().toLowerCase().contains(search);
+                    case "Số điện thoại" -> nv.getSdt().toLowerCase().contains(search);
                     default -> false;
                 })
                 .toList());
@@ -138,7 +138,16 @@ public class NhanVienController implements Initializable {
         btn_reset.setOnAction(e -> {
             renderNhanVienTable(list);
             txt_search.clear();
-            cb_search.getSelectionModel().clearSelection();
+            cb_search.setPromptText("Tìm kiếm theo");
+            txt_maNV.clear();
+            txt_tenNV.clear();
+            txt_cccd.clear();
+            cb_gioiTinh.getSelectionModel().clearSelection();
+            datePicker_dob.setValue(null);
+            txt_sdt.clear();
+            txt_email.clear();
+            cb_chucVu.getSelectionModel().clearSelection();
+            cb_tinhTrangCV.getSelectionModel().clearSelection();
         });
 
         // Chức năng hiển thị thông tin nhân viên khi click vào bảng

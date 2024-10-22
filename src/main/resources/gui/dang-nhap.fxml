@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -46,14 +47,20 @@
    <center>
       <AnchorPane prefHeight="346.0" prefWidth="368.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="txtTK" layoutX="90.0" layoutY="108.0" prefHeight="30.0" prefWidth="231.0" promptText="Mã nhân viên" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: blue;">
+            <TextField fx:id="txtTK" layoutX="90.0" layoutY="108.0" prefHeight="30.0" prefWidth="231.0" promptText="Mã nhân viên" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: blue;" text="NV300404000">
                <font>
                   <Font name="Times New Roman" size="15.0" />
-               </font></TextField>
-            <PasswordField fx:id="pwd" layoutX="90.0" layoutY="168.0" onKeyReleased="#changeInputPass" prefHeight="30.0" prefWidth="231.0" promptText="Mật khẩu" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: blue;">
+               </font>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <PasswordField fx:id="pwd" layoutX="90.0" layoutY="168.0" onKeyReleased="#changeInputPass" prefHeight="30.0" prefWidth="231.0" promptText="Mật khẩu" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: blue;" text="30042000">
                <font>
                   <Font name="Times New Roman" size="15.0" />
-               </font></PasswordField>
+               </font>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></PasswordField>
             <Button fx:id="btnDangNhap" alignment="BASELINE_RIGHT" layoutX="206.0" layoutY="246.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="28.0" prefWidth="101.0" style="-fx-background-color: skyblue; -fx-background-radius: 10;" text="Đăng nhập">
                <font>
                   <Font name="Times New Roman Bold" size="15.0" />
@@ -73,7 +80,10 @@
                         </Stop>
                      </stops>
                   </LinearGradient>
-               </textFill></Button>
+               </textFill>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             <Button fx:id="btnLamMoi" alignment="BASELINE_RIGHT" layoutX="90.0" layoutY="246.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="28.0" prefWidth="89.0" style="-fx-background-color: skyblue; -fx-background-radius: 10;" text="Làm mới">
                <font>
                   <Font name="Times New Roman Bold" size="15.0" />
@@ -93,7 +103,10 @@
                         </Stop>
                      </stops>
                   </LinearGradient>
-               </textFill></Button>
+               </textFill>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             <Button fx:id="btnThoat" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="160.0" layoutY="294.0" mnemonicParsing="false" onAction="#onQuitButtonClick" prefHeight="28.0" prefWidth="73.0" style="-fx-background-color: #e36856; -fx-background-radius: 10;" text="Thoát">
                <font>
                   <Font name="Times New Roman Bold" size="15.0" />
@@ -113,7 +126,10 @@
                         </Stop>
                      </stops>
                   </LinearGradient>
-               </textFill></Button>
+               </textFill>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             <Label contentDisplay="CENTER" layoutX="115.0" layoutY="7.0" text="Đăng nhập" textAlignment="CENTER" textFill="#5098ff">
                <font>
                   <Font name="Times New Roman Bold" size="30.0" />
@@ -165,11 +181,17 @@
                <font>
                   <Font name="Times New Roman" size="15.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </FontAwesomeIcon>
             <TextField fx:id="txtPwd" layoutX="90.0" layoutY="168.0" onKeyReleased="#changeInputTextPass" prefHeight="30.0" prefWidth="231.0" promptText="Mật khẩu" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: blue; -fx-view-order: 1;" visible="false">
                <font>
                   <Font name="Times New Roman" size="15.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
             </TextField>
             <FontAwesomeIcon glyphName="USERS" layoutX="160.0" layoutY="83.0" size="4em">
                <font>
@@ -192,7 +214,7 @@
                   </LinearGradient>
                </fill>
             </FontAwesomeIcon>
-            <FontAwesomeIcon glyphName="REFRESH" layoutX="97.0" layoutY="265.0" text="">
+            <FontAwesomeIcon disable="true" glyphName="REFRESH" layoutX="97.0" layoutY="265.0" text="">
                <fill>
                   <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0">
                      <stops>
@@ -209,8 +231,11 @@
                      </stops>
                   </LinearGradient>
                </fill>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </FontAwesomeIcon>
-            <FontAwesomeIcon glyphName="SIGN_IN" layoutX="211.0" layoutY="265.0" text="">
+            <FontAwesomeIcon disable="true" glyphName="SIGN_IN" layoutX="211.0" layoutY="265.0" text="">
                <fill>
                   <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0">
                      <stops>
@@ -227,6 +252,9 @@
                      </stops>
                   </LinearGradient>
                </fill>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </FontAwesomeIcon>
             <Hyperlink alignment="CENTER" layoutX="211.0" layoutY="212.0" onAction="#quenMatKhau" text="Quên mật khẩu?">
                <font>
@@ -249,7 +277,10 @@
                   </LinearGradient>
                </textFill>
             </Hyperlink>
-            <FontAwesomeIcon glyphName="WARNING" layoutX="168.0" layoutY="312.0" />
+            <FontAwesomeIcon disable="true" glyphName="WARNING" layoutX="168.0" layoutY="312.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></FontAwesomeIcon>
          </children>
       </AnchorPane>
    </center>

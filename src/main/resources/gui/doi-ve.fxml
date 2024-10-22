@@ -33,7 +33,7 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="cb_search" layoutX="232.0" layoutY="63.0" prefHeight="37.0" prefWidth="93.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
+                              <ComboBox fx:id="cb_search" layoutX="232.0" layoutY="63.0" prefHeight="37.0" prefWidth="93.0" promptText="Tìm theo" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></ComboBox>
@@ -71,17 +71,17 @@
                               <FontAwesomeIcon disable="true" glyphName="SEARCH" layoutX="18.0" layoutY="175.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="344.0" layoutY="12.0" prefHeight="166.0" prefWidth="1044.0">
+                        <AnchorPane layoutX="334.0" layoutY="11.0" prefHeight="166.0" prefWidth="1023.0">
                            <children>
-                              <TableView fx:id="tbl_thongTinVe" layoutX="-9.0" layoutY="1.0" prefHeight="163.0" prefWidth="1038.0" style="-fx-background-color: #fff;" stylesheets="@dashboardDesign.css">
+                              <TableView fx:id="tbl_thongTinVe" layoutY="1.0" prefHeight="163.0" prefWidth="1042.0" stylesheets="@dashboardDesign.css">
                                  <columns>
-                                    <TableColumn fx:id="col_maVe" prefWidth="112.79998779296875" style="-fx-background-color: #87eba4; -fx-background-radius: 10 0 0 0; -fx-border-radius: 10 0 0 0; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã vé" />
-                                    <TableColumn fx:id="col_maKH" prefWidth="112.800048828125" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Mã khách hàng" />
-                                    <TableColumn fx:id="col_thongTinVe" prefWidth="285.5999755859375" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Thông tin vé" />
-                                    <TableColumn fx:id="col_loaiVe" prefWidth="119.2000732421875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Loại vé" />
-                                    <TableColumn fx:id="col_loaiCho" prefWidth="147.20001220703125" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Loại chỗ" />
-                                    <TableColumn fx:id="col_tenHK" prefWidth="163.2000732421875" style="-fx-background-color: #87eba4; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Tên hành khách" />
-                                    <TableColumn fx:id="col_tinhTrangVe" prefWidth="96.7999267578125" style="-fx-background-color: #87eba4; -fx-background-radius: 0 10 0 0; -fx-border-radius: 0 10 0 0; -fx-border-color: black; -fx-border-width: 0 1 0 0;" text="Tình trạng vé" />
+                                    <TableColumn fx:id="col_maVe" prefWidth="112.79998779296875" style="-fx-border-radius: 10 0 0 0;" text="Mã vé" />
+                                    <TableColumn fx:id="col_maKH" prefWidth="112.800048828125" text="Mã khách hàng" />
+                                    <TableColumn fx:id="col_thongTinVe" prefWidth="285.5999755859375" text="Thông tin vé" />
+                                    <TableColumn fx:id="col_loaiVe" prefWidth="119.2000732421875" text="Loại vé" />
+                                    <TableColumn fx:id="col_loaiCho" prefWidth="147.20001220703125" text="Loại chỗ" />
+                                    <TableColumn fx:id="col_tenHK" prefWidth="163.2000732421875" text="Tên hành khách" />
+                                    <TableColumn fx:id="col_tinhTrangVe" prefWidth="97.59995117187509" style="-fx-background-radius: 10;" text="Tình trạng vé" />
                                  </columns>
                                  <styleClass>
                                     <String fx:value="shadow" />
@@ -117,7 +117,7 @@
                      <right>
                         <AnchorPane prefHeight="490.0" prefWidth="634.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
                            <children>
-                              <Button fx:id="btn_doiVe" alignment="CENTER_RIGHT" disable="true" layoutX="486.0" layoutY="427.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="94.0" style="-fx-background-color: lightgreen; -fx-border-radius: 5; -fx-border-color: gray;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Đổi vé">
+                              <Button fx:id="btn_doiVe" alignment="CENTER_RIGHT" disable="true" layoutX="486.0" layoutY="427.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="94.0" style="-fx-background-color: linear-gradient(to right, lightblue, #5098ff); -fx-border-radius: 5; -fx-border-color: gray;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Đổi vé">
                                  <font>
                                     <Font name="Times New Roman" size="20.0" />
                                  </font>
@@ -183,7 +183,7 @@
                                        </font>
                                     </Label>
                                     <ComboBox fx:id="cb_gaDen" disable="true" editable="true" layoutX="26.0" layoutY="118.0" prefWidth="150.0" promptText="Ga Đến" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" />
-                                    <Button fx:id="btn_traCuuLT" alignment="CENTER_RIGHT" disable="true" layoutX="20.0" layoutY="180.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="96.0" style="-fx-background-color: #5098ff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Tra cứu">
+                                    <Button fx:id="btn_traCuuLT" alignment="CENTER_RIGHT" disable="true" layoutX="30.0" layoutY="180.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="96.0" style="-fx-background-color: #5098ff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Tra cứu">
                                        <font>
                                           <Font name="Times New Roman Bold" size="18.0" />
                                        </font>
@@ -191,15 +191,15 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <TableView fx:id="tbl_lichTrinh" fixedCellSize="0.0" layoutX="5.0" layoutY="242.0" prefHeight="215.0" prefWidth="730.0" style="-fx-background-color: #fff;" stylesheets="@dashboardDesign.css">
+                                    <TableView fx:id="tbl_lichTrinh" fixedCellSize="0.0" layoutX="5.0" layoutY="242.0" prefHeight="215.0" prefWidth="730.0" style="-fx-background-color: #fff; -fx-background-radius: 10;" styleClass="shadow" stylesheets="@dashboardDesign.css">
                                        <columns>
-                                          <TableColumn fx:id="col_stt" editable="false" prefWidth="40.000000953674316" style="-fx-background-color: linear-gradient(to right, #5050ff, #5060ff); -fx-alignment: center;" text="STT" />
-                                          <TableColumn fx:id="col_soHieuTau" editable="false" prefWidth="82.39999008178711" sortable="false" style="-fx-background-color: linear-gradient(to right, #5060ff, #5065ff); -fx-alignment: center;" text="Số Hiệu Tàu" />
-                                          <TableColumn fx:id="col_gaDi" editable="false" prefWidth="116.79998779296875" sortable="false" style="-fx-background-color: linear-gradient(to right, #5065ff, #5070ff); -fx-alignment: center;" text="Ga Đi" />
-                                          <TableColumn fx:id="col_gaDen" editable="false" prefWidth="121.60005187988281" sortable="false" style="-fx-background-color: linear-gradient(to right, #5070ff, #5075ff); -fx-alignment: center;" text="Ga Đến" />
-                                          <TableColumn fx:id="col_gioKH" editable="false" prefWidth="155.199951171875" sortable="false" style="-fx-background-color: linear-gradient(to right, #5075ff, #5080ff); -fx-alignment: center;" text="Giờ khởi hành" />
-                                          <TableColumn fx:id="col_trangThai" editable="false" prefWidth="100.79998779296875" sortable="false" style="-fx-background-color: linear-gradient(to right, #5080ff, #5090ff); -fx-alignment: center;" text="Trạng Thái" />
-                                          <TableColumn fx:id="col_Chon" maxWidth="168.800048828125" prefWidth="110.39996337890625" style="-fx-background-color: linear-gradient(to right, #5090ff, lightblue); -fx-alignment: center;" />
+                                          <TableColumn fx:id="col_stt" editable="false" prefWidth="40.000000953674316" text="STT" />
+                                          <TableColumn fx:id="col_soHieuTau" editable="false" prefWidth="82.39999008178711" sortable="false" text="Số Hiệu Tàu" />
+                                          <TableColumn fx:id="col_gaDi" editable="false" prefWidth="116.79998779296875" sortable="false" text="Ga Đi" />
+                                          <TableColumn fx:id="col_gaDen" editable="false" prefWidth="121.60005187988281" sortable="false" text="Ga Đến" />
+                                          <TableColumn fx:id="col_gioKH" editable="false" prefWidth="155.199951171875" sortable="false" text="Giờ khởi hành" />
+                                          <TableColumn fx:id="col_trangThai" editable="false" prefWidth="100.79998779296875" sortable="false" text="Trạng Thái" />
+                                          <TableColumn fx:id="col_Chon" maxWidth="168.800048828125" prefWidth="110.39996337890625" />
                                        </columns>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -208,7 +208,7 @@
                                     <Line endX="631.3999633789062" layoutX="105.0" layoutY="232.0" startX="-100.0" />
                                     <Line endX="288.0" endY="-228.10000610351562" layoutX="448.0" layoutY="200.0" startX="288.0" startY="274.0" />
                                     <TextArea layoutX="413.0" layoutY="14.0" prefHeight="129.0" prefWidth="302.0" text="- Chỉ áp dụng với vé cá nhân&#10;- Hành khách được đổi vé khi có đủ các điều kiện sau:&#10;       * Có cùng ga đi, ga đến&#10;       * Đổi vé 1 lần duy nhất&#10;-Thông tin hành khách của vé không được thay đổi&#10;-Không được thay đổi loại vé&#10;" />
-                                    <FontAwesomeIcon glyphName="SEARCH_PLUS" layoutX="26.0" layoutY="201.0" />
+                                    <FontAwesomeIcon glyphName="SEARCH_PLUS" layoutX="36.0" layoutY="201.0" />
                                  </children>
                               </AnchorPane>
                            </children>

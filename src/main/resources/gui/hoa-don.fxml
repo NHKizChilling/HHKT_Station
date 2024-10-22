@@ -85,28 +85,28 @@
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor></TextField>
-                        <Button fx:id="btnGia4" layoutX="873.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" text="1000000">
+                        <Button fx:id="btnGia4" layoutX="873.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="1000000">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <font>
                               <Font name="Times New Roman" size="12.0" />
                            </font></Button>
-                        <Button fx:id="btnGia3" cache="true" layoutX="765.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" text="500000">
+                        <Button fx:id="btnGia3" cache="true" layoutX="765.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="500000">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <font>
                               <Font name="Times New Roman" size="12.0" />
                            </font></Button>
-                        <Button fx:id="btnGia2" layoutX="873.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" text="200000">
+                        <Button fx:id="btnGia2" layoutX="873.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="200000">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <font>
                               <Font name="Times New Roman" size="12.0" />
                            </font></Button>
-                        <Button fx:id="btnGia1" layoutX="765.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" text="100000">
+                        <Button fx:id="btnGia1" layoutX="765.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="100000">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -119,21 +119,21 @@
                            </font>
                         </Label>
                         <TextField fx:id="txtTienTra" disable="true" layoutX="556.0" layoutY="72.0" prefHeight="36.0" prefWidth="190.0" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-width: 0 0 2 0;" />
-                        <Button fx:id="btnLuuTamHD" alignment="CENTER_RIGHT" layoutX="534.0" layoutY="130.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="87.0" style="-fx-background-color: #5098ff; -fx-border-radius: 3; -fx-background-radius: 10; -fx-border-radius: 10;" text="Lưu tạm">
+                        <Button fx:id="btnLuuTamHD" alignment="CENTER_RIGHT" layoutX="534.0" layoutY="130.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="87.0" style="-fx-background-color: #5098ff; -fx-border-radius: 3; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Lưu tạm">
                            <font>
                               <Font name="Times New Roman Bold" size="14.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <Button fx:id="btnInHD" alignment="CENTER_RIGHT" disable="true" layoutX="646.0" layoutY="131.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="96.0" style="-fx-view-order: 0; -fx-background-color: #ff6868; -fx-background-radius: 10;" text="In hóa đơn">
+                        <Button fx:id="btnInHD" alignment="CENTER_RIGHT" disable="true" layoutX="646.0" layoutY="131.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="96.0" style="-fx-view-order: 0; -fx-background-color: #ff6868; -fx-background-radius: 10;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="In hóa đơn">
                            <font>
                               <Font name="Times New Roman Bold" size="14.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <Button fx:id="btnThanhToan" alignment="CENTER_RIGHT" layoutX="403.0" layoutY="131.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="103.0" style="-fx-background-color: lightgreen; -fx-border-radius: 1; -fx-border-radius: 10; -fx-background-radius: 10;" text="Thanh toán">
+                        <Button fx:id="btnThanhToan" alignment="CENTER_RIGHT" layoutX="403.0" layoutY="131.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="103.0" style="-fx-background-color: lightgreen; -fx-border-radius: 1; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Thanh toán">
                            <font>
                               <Font name="Times New Roman Bold" size="14.0" />
                            </font>
@@ -166,7 +166,7 @@
                            </font>
                         </Label>
                         <FontAwesomeIcon glyphName="ARROW_LEFT" layoutX="20.0" layoutY="174.0" />
-                        <Button fx:id="btnBackBanVe" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="157.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-radius: 15; -fx-view-order: 0;" text="Quay lại">
+                        <Button fx:id="btnBackBanVe" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="157.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-radius: 15; -fx-view-order: 0;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Quay lại">
                            <font>
                               <Font name="Times New Roman Bold" size="12.0" />
                            </font>
@@ -180,15 +180,15 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff; -fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
                      <children>
-                        <TableView fx:id="tbCTHD" layoutX="1.0" prefHeight="306.0" prefWidth="985.0" style="-fx-background-color: #fff; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #333; -fx-border-width: 2 1 2 1;" stylesheets="@dashboardDesign.css">
+                        <TableView fx:id="tbCTHD" layoutX="1.0" prefHeight="306.0" prefWidth="985.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css">
                           <columns>
-                            <TableColumn fx:id="colSTT" prefWidth="42.39999461174011" style="-fx-background-color: #5098ff; -fx-border-width: 0 1 1 0; -fx-border-color: black; -fx-alignment: center;" text="STT" />
-                            <TableColumn fx:id="colTTVe" prefWidth="237.60001754760742" style="-fx-background-color: #5098ff; -fx-border-color: black; -fx-border-width: 0 1 1 0;" text="Thông tin vé" />
-                              <TableColumn fx:id="colLoaiCho" prefWidth="136.79998779296875" style="-fx-background-color: #5098ff; -fx-border-color: black; -fx-border-width: 0 1 1 0; -fx-alignment: center;" text="Loại chỗ" />
-                              <TableColumn fx:id="colLoaiVe" prefWidth="139.20001220703125" style="-fx-background-color: #5098ff; -fx-border-color: black; -fx-border-width: 0 1 1 0; -fx-alignment: center;" text="Loại vé" />
-                              <TableColumn fx:id="colGiaVe" prefWidth="137.60003662109375" style="-fx-background-color: #5098ff; -fx-border-color: black; -fx-border-width: 0 1 1 0; -fx-alignment: center-right;" text="Giá vé" />
-                              <TableColumn fx:id="colGiaGiam" prefWidth="127.20001220703125" style="-fx-background-color: #5098ff; -fx-border-color: black; -fx-border-width: 0 1 1 0; -fx-alignment: center-right;" text="Giảm giá" />
-                              <TableColumn fx:id="colThanhTien" prefWidth="160.0" style="-fx-background-color: #5098ff; -fx-border-color: black; -fx-border-width: 0 1 1 0; -fx-alignment: center-right;" text="Thành tiền" />
+                            <TableColumn fx:id="colSTT" prefWidth="42.39999461174011" text="STT" />
+                            <TableColumn fx:id="colTTVe" prefWidth="237.60001754760742" text="Thông tin vé" />
+                              <TableColumn fx:id="colLoaiCho" prefWidth="136.79998779296875" text="Loại chỗ" />
+                              <TableColumn fx:id="colLoaiVe" prefWidth="139.20001220703125" text="Loại vé" />
+                              <TableColumn fx:id="colGiaVe" prefWidth="137.60003662109375" text="Giá vé" />
+                              <TableColumn fx:id="colGiaGiam" prefWidth="127.20001220703125" text="Giảm giá" />
+                              <TableColumn fx:id="colThanhTien" prefWidth="160.0" text="Thành tiền" />
                           </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />

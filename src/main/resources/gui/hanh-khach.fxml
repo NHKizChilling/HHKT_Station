@@ -34,7 +34,7 @@
       </AnchorPane>
       <Line endX="840.7999877929688" layoutX="114.0" layoutY="66.0" startX="-100.0" />
       <Line endX="-87.0" endY="743.4000244140625" layoutX="1057.0" layoutY="12.0" startX="-87.79998779296875" startY="-6.799996852874756" />
-      <ComboBox fx:id="cb_search" layoutX="303.0" layoutY="20.0" prefHeight="35.0" prefWidth="138.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
+      <ComboBox fx:id="cb_search" layoutX="303.0" layoutY="20.0" prefHeight="35.0" prefWidth="138.0" promptText="Tìm kiếm theo" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ComboBox>
@@ -146,7 +146,7 @@
             </TableView>
          </children>
       </AnchorPane>
-      <Button fx:id="btn_inVe" alignment="CENTER_RIGHT" layoutX="869.0" layoutY="710.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: green;" text="In lại vé" textFill="WHITE">
+      <Button fx:id="btn_inVe" alignment="CENTER_RIGHT" disable="true" layoutX="869.0" layoutY="710.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #5098ff;" text="In lại vé" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

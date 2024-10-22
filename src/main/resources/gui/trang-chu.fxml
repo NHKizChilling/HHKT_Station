@@ -19,7 +19,7 @@
    <children>
       <BorderPane prefHeight="795.0" prefWidth="1540.0">
          <left>
-            <AnchorPane prefHeight="755.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to bottom, lightblue, #5098ff);" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="755.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to bottom, lightblue, #5098ff); -fx-border-color: #333; -fx-border-width: 1 1 0 0;" styleClass="shadow" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="155.0" fitWidth="155.0" layoutX="2.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -115,7 +115,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
-                  <Button fx:id="btnDangXuat" layoutX="7.0" layoutY="686.0" mnemonicParsing="false" onAction="#dangXuat" prefHeight="38.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="ĐĂNG XUẤT">
+                  <Button fx:id="btnDangXuat" alignment="BOTTOM_LEFT" layoutX="7.0" layoutY="686.0" mnemonicParsing="false" onAction="#dangXuat" prefHeight="38.0" prefWidth="99.0" style="-fx-background-color: transparent;" text="ĐĂNG XUẤT">
                      <font>
                         <Font name="Times New Roman Bold" size="12.0" />
                      </font>
@@ -153,7 +153,7 @@
             </AnchorPane>
          </left>
          <top>
-            <Pane prefHeight="40.0" prefWidth="1540.0" style="-fx-background-color: linear-gradient(to bottom, #5098ff, lightblue);" BorderPane.alignment="CENTER">
+            <Pane prefHeight="40.0" prefWidth="1540.0" style="-fx-background-color: linear-gradient(to bottom, #5098ff, lightblue);" styleClass="shadow" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
                <children>
                   <Label fx:id="lblTenNhanVien" layoutX="1285.0" layoutY="11.0" prefHeight="16.0" prefWidth="215.0" style="-fx-view-order: 1;" text="Chào, Nhân viên Nguyễn Võ Hiệp" textFill="WHITE">
                      <font>

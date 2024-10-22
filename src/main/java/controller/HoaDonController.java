@@ -311,6 +311,7 @@ public class HoaDonController implements Initializable {
                     alert.setHeaderText("Thanh toán thành công");
                     btnInHD.setDisable(false);
                     btnThanhToan.setDisable(true);
+                    btnLuuTamHD.setDisable(true);
                     alert.showAndWait();
                     getData.dsve = list;
                     getData.dscthd = listcthd_new;

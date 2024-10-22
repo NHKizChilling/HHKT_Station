@@ -11,11 +11,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1385.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GioiThieuController">
    <children>
-      <AnchorPane layoutX="-1.0" layoutY="306.0" style="-fx-background-color: #8bbbff;" styleClass="shadow" stylesheets="@dashboardDesign.css">
+      <AnchorPane layoutX="1.0" layoutY="306.0" prefHeight="450.0" prefWidth="1380.0" style="-fx-background-color: #8bbbff;" styleClass="shadow" stylesheets="@dashboardDesign.css">
          <children>
-            <BorderPane layoutY="26.0" prefHeight="424.0" prefWidth="1386.0">
+            <BorderPane layoutY="26.0" prefHeight="424.0" prefWidth="1380.0">
                <center>
-                  <BarChart fx:id="chartChuyenTau" alternativeColumnFillVisible="true" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1386.0" scaleShape="false" style="-fx-background-color: #8bbbff; -fx-border-color: black; -fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
+                  <BarChart fx:id="chartChuyenTau" alternativeColumnFillVisible="true" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1380.0" scaleShape="false" style="-fx-background-color: #8bbbff; -fx-border-color: black; -fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>

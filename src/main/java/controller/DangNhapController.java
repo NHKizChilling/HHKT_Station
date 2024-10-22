@@ -13,6 +13,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import entity.NhanVien;
 import entity.TaiKhoan;
 import gui.TrangChu_GUI;
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -55,96 +57,117 @@ public class DangNhapController {
     @FXML
     protected void onLoginButtonClick() throws SQLException, IOException {
         ConnectDB.connect();
-        getData.nv = new NhanVien_DAO().getNhanVien("NV291204004");
-//        Stage stg = new Stage();
-//        FXMLLoader fxmlLoader1 = new FXMLLoader(TrangChu_GUI.class.getResource("loader.fxml"));
-//        Scene scene1 = new Scene(fxmlLoader1.load());
-//        stg.setScene(scene1);
-//        stg.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
-//        ProgressBar loader = (ProgressBar) stg.getScene().lookup("#progressBar");
-//        loader.setProgress(0.0);
-//        loader.setStyle("-fx-accent: #00bfff;");
-        FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("trang-chu.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        TrangChu_GUI.stage.setScene(scene);
-        TrangChu_GUI.stage.show();
-        TrangChu_GUI.stage.centerOnScreen();
 
+//        FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("trang-chu.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load());
+//        TrangChu_GUI.stage.setScene(scene);
+//        TrangChu_GUI.stage.show();
+//        TrangChu_GUI.stage.centerOnScreen();
+        String manv = txtTK.getText();
+        String pass1 = pwd.getText();
+        String pass2 = txtPwd.getText();
+        if(manv == null || manv.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Đăng nhập");
+            alert.setContentText("Vui lòng nhập mã nhân viên!");
+            alert.showAndWait();
+            txtTK.requestFocus();
+            return;
+        } else if (pass1 == null || pass1.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Đăng nhập");
+            alert.setContentText("Vui lòng mật khẩu!");
+            alert.showAndWait();
+            if(pwd.isVisible()) {
+                pwd.requestFocus();
+            } else {
+                txtPwd.requestFocus();
+            }
+            return;
+        }
+        else {
+            TaiKhoan taiKhoan = new TaiKhoan_DAO().getTaiKhoanTheoMaNV(manv);
+            if(taiKhoan == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Đăng nhập");
+                alert.setContentText("Sai tên tài khoản!");
+                alert.showAndWait();
+                txtTK.requestFocus();
+                return;
+            } else {
+                if(taiKhoan.getMatKhau().equals(pass1)) {
+                    if(taiKhoan.getTrangThaiTK().equals("Đang hoạt động")) {
 
-        return;
-//        String manv = txtTK.getText();
-//        String pass1 = pwd.getText();
-//        String pass2 = txtPwd.getText();
-//        if(manv == null || manv.isEmpty()) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setHeaderText(null);
-//            alert.setTitle("Đăng nhập");
-//            alert.setContentText("Vui lòng nhập mã nhân viên!");
-//            alert.showAndWait();
-//            txtTK.requestFocus();
-//            return;
-//        } else if (pass1 == null || pass1.isEmpty()) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setHeaderText(null);
-//            alert.setTitle("Đăng nhập");
-//            alert.setContentText("Vui lòng mật khẩu!");
-//            alert.showAndWait();
-//            if(pwd.isVisible()) {
-//                pwd.requestFocus();
-//            } else {
-//                txtPwd.requestFocus();
-//            }
-//            return;
-//        }
-//        else {
-//            TaiKhoan taiKhoan = new TaiKhoan_DAO().getTaiKhoanTheoMaNV(manv);
-//            if(taiKhoan == null) {
-//                Alert alert = new Alert(Alert.AlertType.ERROR);
-//                alert.setHeaderText(null);
-//                alert.setTitle("Đăng nhập");
-//                alert.setContentText("Sai tên tài khoản!");
-//                alert.showAndWait();
-//                txtTK.requestFocus();
-//                return;
-//            } else {
-//                if(taiKhoan.getMatKhau().equals(pass1)) {
-//                    if(taiKhoan.getTrangThaiTK().equals("Đang hoạt động")) {
-//                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                        alert.setHeaderText(null);
-//                        alert.setTitle("Đăng nhập");
-//                        alert.setContentText("Đăng nhập thành công");
-//                        alert.show();
-//                        getData.nv = new NhanVien_DAO().getNhanVien(manv);
-//                        FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("trang-chu.fxml"));
-//                        Scene scene = new Scene(fxmlLoader.load());
-//                        TrangChu_GUI.stage.setScene(scene);
-//                        TrangChu_GUI.stage.show();
-//                        TrangChu_GUI.stage.centerOnScreen();
-//                        return;
-//                    } else {
-//                        Alert alert = new Alert(Alert.AlertType.ERROR);
-//                        alert.setHeaderText(null);
-//                        alert.setTitle("Đăng nhập");
-//                        alert.setContentText("Tài khoản đã bị khóa!");
-//                        alert.showAndWait();
-//                        txtTK.requestFocus();
-//                        return;
-//                    }
-//                } else {
-//                    Alert alert = new Alert(Alert.AlertType.ERROR);
-//                    alert.setHeaderText(null);
-//                    alert.setTitle("Đăng nhập");
-//                    alert.setContentText("Sai mật khẩu!");
-//                    alert.showAndWait();
-//                    if(pwd.isVisible()) {
-//                        pwd.requestFocus();
-//                    } else {
-//                        txtPwd.requestFocus();
-//                    }
-//                    return;
-//                }
-//            }
-//        }
+                        getData.nv = new NhanVien_DAO().getNhanVien(manv);
+
+                        Stage stg = new Stage();
+                        FXMLLoader fxmlLoader1 = new FXMLLoader(TrangChu_GUI.class.getResource("loader.fxml"));
+                        Scene scene1 = new Scene(fxmlLoader1.load());
+                        stg.setScene(scene1);
+                        stg.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
+                        ProgressBar progressBar = (ProgressBar) stg.getScene().lookup("#progressBar");
+                        Label lblLoading = (Label) stg.getScene().lookup("#lblLoading");
+                        TrangChu_GUI.stage.close();
+                        stg.show();
+
+                        FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("trang-chu.fxml"));
+                        Timeline timeline = new Timeline(
+                                new KeyFrame(Duration.seconds(0.5),
+                                        e -> {
+                                            progressBar.setProgress(progressBar.getProgress() + 0.1);
+                                            if (Math.round(progressBar.getProgress() * 100.0) % 20 == 0) {
+                                                lblLoading.setText("Loading.." + Math.round(progressBar.getProgress() * 100.0) + "%");
+                                            } else {
+
+                                                lblLoading.setText("Loading..." + Math.round(progressBar.getProgress() * 100.0) + "%");
+                                            }
+                                        }));
+
+                        timeline.setCycleCount(10);
+                        timeline.play();
+                        timeline.setOnFinished(e -> {
+                                    stg.close();
+                                    try {
+                                        Scene scene = new Scene(fxmlLoader.load());
+                                        TrangChu_GUI.stage.setScene(scene);
+                                        TrangChu_GUI.stage.show();
+                                        TrangChu_GUI.stage.centerOnScreen();
+                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                        alert.setHeaderText(null);
+                                        alert.setTitle("Đăng nhập");
+                                        alert.setContentText("Đăng nhập thành công");
+                                        alert.show();
+                                    } catch (IOException ioException) {
+                                        ioException.printStackTrace();
+                                    }
+                                });
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Đăng nhập");
+                        alert.setContentText("Tài khoản đã bị khóa!");
+                        alert.showAndWait();
+                        txtTK.requestFocus();
+                        return;
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Đăng nhập");
+                    alert.setContentText("Sai mật khẩu!");
+                    alert.showAndWait();
+                    if(pwd.isVisible()) {
+                        pwd.requestFocus();
+                    } else {
+                        txtPwd.requestFocus();
+                    }
+                    return;
+                }
+            }
+        }
     }
 
     @FXML
@@ -171,6 +194,7 @@ public class DangNhapController {
         if(pwd.isVisible()) {
             pwd.setVisible(false);
             txtPwd.setVisible(true);
+            txtPwd.setText(pwd.getText());
             iShowPwd.setIcon(FontAwesomeIcons.EYE);
             if (pwd.isFocused()) {
                 txtPwd.requestFocus();
@@ -178,6 +202,7 @@ public class DangNhapController {
         } else {
             pwd.setVisible(true);
             txtPwd.setVisible(false);
+            pwd.setText(txtPwd.getText());
             iShowPwd.setIcon(FontAwesomeIcons.EYE_SLASH);
             if (txtPwd.isFocused()) {
                 pwd.requestFocus();

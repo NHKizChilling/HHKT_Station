@@ -19,17 +19,17 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1385.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.QLyHoaDonController">
    <children>
-      <TableView fx:id="tbhd" layoutY="62.0" prefHeight="293.0" prefWidth="958.0" style="-fx-background-radius: 5; -fx-border-color: #333; -fx-border-radius: 5;">
+      <TableView fx:id="tbhd" layoutY="62.0" prefHeight="293.0" prefWidth="959.0" style="-fx-background-radius: 5; -fx-border-color: #333; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css">
          <columns>
-            <TableColumn fx:id="colSTT" editable="false" prefWidth="40.000001430511475" style="-fx-background-color: linear-gradient(to right, #5055ff, #5060ff); -fx-background-radius: 5 0 0 0; -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="STT" />
-            <TableColumn fx:id="colMaHD" editable="false" prefWidth="108.79998397827148" style="-fx-background-color: linear-gradient(to right, #5060ff, #5065ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Mã hoá đơn" />
-            <TableColumn fx:id="colNgayLapHD" editable="false" prefWidth="145.59999084472656" style="-fx-background-color: linear-gradient(to right, #5065ff, #5070ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Ngày lập hoá đơn" />
-            <TableColumn fx:id="colSLVe" editable="false" prefWidth="92.00006103515625" style="-fx-background-color: linear-gradient(to right, #5070ff, #5075ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center-right;" text="Số lượng vé" />
-            <TableColumn fx:id="colKH" editable="false" minWidth="1.5999755859375" prefWidth="99.19998168945312" style="-fx-background-color: linear-gradient(to right, #5080ff, #5090ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Khách hàng" />
-            <TableColumn fx:id="colTienVe" editable="false" prefWidth="113.5999755859375" style="-fx-background-color: linear-gradient(to right, #5075ff, #5080ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center-right;" text="Tổng tiền vé" />
-            <TableColumn fx:id="colTienGiam" editable="false" prefWidth="120.79998779296875" style="-fx-background-color: linear-gradient(to right, #5075ff, #5080ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center-right;" text="Tổng tiền giảm" />
-            <TableColumn fx:id="colTienThue" editable="false" prefWidth="92.79998779296875" style="-fx-background-color: linear-gradient(to right, #5075ff, #5080ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center-right;" text="Thuế ( 10%)" />
-            <TableColumn fx:id="colThanhTien" editable="false" prefWidth="138.39996337890625" style="-fx-background-color: linear-gradient(to right, #5075ff, #5080ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-background-radius: 0 5 0 0; -fx-alignment: center-right;" text="Thành tiền" />
+            <TableColumn fx:id="colSTT" editable="false" prefWidth="40.000001430511475" text="STT" />
+            <TableColumn fx:id="colMaHD" editable="false" prefWidth="108.79998397827148" text="Mã hoá đơn" />
+            <TableColumn fx:id="colNgayLapHD" editable="false" prefWidth="145.59999084472656" text="Ngày lập hoá đơn" />
+            <TableColumn fx:id="colSLVe" editable="false" prefWidth="92.00006103515625" text="Số lượng vé" />
+            <TableColumn fx:id="colKH" editable="false" minWidth="1.5999755859375" prefWidth="99.19998168945312" text="Khách hàng" />
+            <TableColumn fx:id="colTienVe" editable="false" prefWidth="113.5999755859375" text="Tổng tiền vé" />
+            <TableColumn fx:id="colTienGiam" editable="false" prefWidth="120.79998779296875" text="Tổng tiền giảm" />
+            <TableColumn fx:id="colTienThue" editable="false" prefWidth="93.0" text="Thuế ( 10%)" />
+            <TableColumn fx:id="colThanhTien" editable="false" maxWidth="143.20000000000005" prefWidth="143.20000000000005" text="Thành tiền" />
          </columns>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -40,7 +40,7 @@
             <Font name="Times New Roman Bold" size="14.0" />
          </font></Label>
       <Line endX="-33.20001220703125" endY="273.5" layoutX="993.0" layoutY="82.0" startX="-33.20001220703125" startY="-82.0" />
-      <Label layoutX="1021.0" layoutY="9.0" style="-fx-view-order: 0; -fx-background-color: #fff; -fx-padding: 0 5 0 5;" text="Thông tin hóa đơn">
+      <Label layoutX="965.0" layoutY="9.0" style="-fx-view-order: 0; -fx-background-color: #fff; -fx-padding: 0 5 0 5; -fx-background-radius: 10;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Thông tin hóa đơn">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
          </font></Label>
@@ -118,7 +118,7 @@
          <font>
             <Font size="14.0" />
          </font></TextField>
-      <Label layoutX="1009.0" layoutY="366.0" style="-fx-background-color: #fff; -fx-padding: 0 5 0 5;" text="Chi tiết vé">
+      <Label layoutX="964.0" layoutY="366.0" style="-fx-background-color: #fff; -fx-padding: 0 5 0 5; -fx-background-radius: 10;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Chi tiết vé">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
@@ -150,15 +150,15 @@
       </Label>
       <AnchorPane fx:id="acpCTHD" layoutY="357.0" prefHeight="334.0" prefWidth="960.0">
          <children>
-            <TableView fx:id="tbCTHD" layoutY="53.0" prefHeight="286.0" prefWidth="960.0" style="-fx-border-color: #333; -fx-border-width: 2 1 2 1; -fx-border-radius: 5;">
+            <TableView fx:id="tbCTHD" layoutY="53.0" prefHeight="286.0" prefWidth="960.0" style="-fx-border-color: #333; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css">
                <columns>
-                  <TableColumn fx:id="colSTT1" editable="false" prefWidth="42.39999461174011" style="-fx-background-color: #5098ff; -fx-border-width: 0 1 1 0; -fx-border-color: black; -fx-alignment: center;" text="STT" />
-                  <TableColumn fx:id="colTTVe" editable="false" prefWidth="237.60001754760742" style="-fx-background-color: #5098ff; -fx-border-color: black; -fx-border-width: 0 1 1 0;" text="Thông tin vé" />
-                  <TableColumn fx:id="colLoaiCho" editable="false" prefWidth="136.79998779296875" style="-fx-background-color: #5098ff; -fx-border-color: black; -fx-border-width: 0 1 1 0; -fx-alignment: center;" text="Loại chỗ" />
-                  <TableColumn fx:id="colLoaiVe" editable="false" prefWidth="139.20001220703125" style="-fx-background-color: #5098ff; -fx-border-color: black; -fx-border-width: 0 1 1 0; -fx-alignment: center;" text="Loại vé" />
-                  <TableColumn fx:id="colGiaVe" editable="false" prefWidth="127.99993896484375" style="-fx-background-color: #5098ff; -fx-border-color: black; -fx-border-width: 0 1 1 0; -fx-alignment: center-right;" text="Giá vé" />
-                  <TableColumn fx:id="colGiaGiam" editable="false" prefWidth="135.99993896484375" style="-fx-background-color: #5098ff; -fx-border-color: black; -fx-border-width: 0 1 1 0; -fx-alignment: center-right;" text="Giảm giá" />
-                  <TableColumn fx:id="colTongTienVe" editable="false" prefWidth="134.4000244140625" style="-fx-background-color: #5098ff; -fx-border-color: black; -fx-border-width: 0 1 1 0; -fx-alignment: center-right;" text="Thành tiền" />
+                  <TableColumn fx:id="colSTT1" editable="false" prefWidth="42.39999461174011" text="STT" />
+                  <TableColumn fx:id="colTTVe" editable="false" prefWidth="237.60001754760742" text="Thông tin vé" />
+                  <TableColumn fx:id="colLoaiCho" editable="false" prefWidth="136.79998779296875" text="Loại chỗ" />
+                  <TableColumn fx:id="colLoaiVe" editable="false" prefWidth="139.20001220703125" text="Loại vé" />
+                  <TableColumn fx:id="colGiaVe" editable="false" prefWidth="127.99993896484375" text="Giá vé" />
+                  <TableColumn fx:id="colGiaGiam" editable="false" prefWidth="135.99993896484375" text="Giảm giá" />
+                  <TableColumn fx:id="colTongTienVe" editable="false" prefWidth="134.4000244140625" text="Thành tiền" />
                </columns>
                <cursor>
                   <Cursor fx:constant="HAND" />

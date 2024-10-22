@@ -138,7 +138,24 @@ public class HanhKhachController implements Initializable {
 
         btn_search.setOnAction(e -> {
             String searchType = cb_search.getValue();
+            if (searchType == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Lỗi");
+                alert.setHeaderText("Vui lòng chọn loại tìm kiếm");
+                alert.show();
+                cb_search.requestFocus();
+                cb_search.show();
+                return;
+            }
             String searchBar = txt_searchBar.getText();
+            if (searchBar.isBlank()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Lỗi");
+                alert.setHeaderText("Vui lòng nhập từ khóa tìm kiếm");
+                alert.show();
+                txt_searchBar.requestFocus();
+                return;
+            }
             ArrayList<HanhKhach> dsHanhKhach = new ArrayList<>();
             HanhKhach hk;
             switch (searchType) {
@@ -161,12 +178,28 @@ public class HanhKhachController implements Initializable {
                     }
                     break;
             }
+            if (dsHanhKhach.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Thông báo");
+                alert.setHeaderText("Không tìm thấy kết quả");
+                alert.show();
+                txt_searchBar.requestFocus();
+                return;
+            }
             renderTableHanhKhach(dsHanhKhach);
         });
 
         btn_refresh.setOnAction(e -> {
+            txt_searchBar.clear();
+            txt_searchBar.requestFocus();
             renderTableHanhKhach(hanhKhach_dao.getAllHanhKhach());
-            renderTableVe(ve_dao.getAllVe());
+            cb_search.setPromptText("Tìm kiếm theo");
+            tbl_thongTinVe.setItems(null);
+            txt_maHK.clear();
+            txt_tenHK.clear();
+            txt_cccd.clear();
+            txt_sdt.clear();
+            txt_email.clear();
         });
 
         tbl_hanhKhach.setOnMouseClicked(e -> {
@@ -251,6 +284,16 @@ public class HanhKhachController implements Initializable {
                     alert.setHeaderText("Cập nhật hành khách thất bại");
                     alert.show();
                 }
+            }
+        });
+
+        tbl_thongTinVe.setOnMouseClicked(e -> {
+            Ve ve = tbl_thongTinVe.getSelectionModel().getSelectedItem();
+            if (!ve.getTinhTrangVe().equals("DaHuy")) {
+                btn_inVe.setDisable(false);
+            } else {
+                btn_inVe.setDisable(true);
+
             }
         });
 

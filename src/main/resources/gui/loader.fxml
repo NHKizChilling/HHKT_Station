@@ -1,20 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #5098ff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoaderController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="204.0" prefWidth="500.0" style="-fx-background-color: linear-gradient(to right, lightblue, #5098ff);" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoaderController">
    <children>
-      <ProgressBar fx:id="progressBar" layoutX="50.0" layoutY="50.0" prefWidth="200.0" progress="0.49" />
-      <Label fx:id="lblLoading" alignment="CENTER" contentDisplay="CENTER" layoutX="120.0" layoutY="77.0" text="Đang tải..." />
-      <Label contentDisplay="CENTER" layoutX="72.0" layoutY="14.0" text="HHKT STATION">
+      <ProgressBar fx:id="progressBar" layoutX="-5.0" layoutY="190.0" prefHeight="20.0" prefWidth="510.0" progress="0.0" />
+      <Label fx:id="lblLoading" alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="168.0" text="Loading..." textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Italic" size="13.0" />
+         </font></Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="14.0" text="CÔNG TY CỔ PHẦN VẬN TẢI ĐƯỜNG SẮT HHKT" textAlignment="CENTER">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.3407079477225785" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.05699805170297623" green="0.33975309133529663" blue="0.9052631855010986" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.26035088300704956" green="0.33969590067863464" blue="0.557894766330719" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <Label contentDisplay="CENTER" layoutX="200.0" layoutY="37.0" text="Welcome!!!">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
          </font>
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
@@ -24,14 +52,30 @@
                         <Color green="0.15333333611488342" blue="0.4842105209827423" />
                      </color>
                   </Stop>
+                  <Stop offset="0.9973082099596231">
+                     <color>
+                        <Color red="0.061754386872053146" green="0.2923040986061096" blue="0.9263157844543457" />
+                     </color>
+                  </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="0.07040935754776001" green="0.2930370271205902" blue="0.9052631855010986" />
+                        <Color red="0.07122807204723358" green="0.29644444584846497" blue="0.9157894849777222" />
                      </color>
                   </Stop>
                </stops>
             </LinearGradient>
          </textFill>
       </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="392.0" layoutY="169.0" text="HHKT Station v1.0" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Italic" size="14.0" />
+         </font>
+      </Label>
+      <FontAwesomeIcon glyphName="UPLOAD" layoutX="9.0" layoutY="181.0" />
+      <ImageView fitHeight="66.0" fitWidth="100.0" layoutX="212.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/logo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
