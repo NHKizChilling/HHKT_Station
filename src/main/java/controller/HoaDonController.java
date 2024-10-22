@@ -26,6 +26,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /*
@@ -232,10 +233,11 @@ public class HoaDonController implements Initializable {
         if (!txtThanhTien.getText().isEmpty() && txtTienKH.getText() != null) {
             double t = tongTien/1000;
             t = Math.round(t);
-            btnGia1.setText(t * 1000 + "");
-            btnGia2.setText(t * 2 * 1000 + "");
-            btnGia3.setText(t * 5 * 1000 + "");
-            btnGia4.setText(t * 10 * 1000 + "");
+
+            btnGia1.setText(df.format(Math.round(t) * 1000 / 10 * 10));
+            btnGia2.setText(df.format(Math.round(t) * 2000 / 10 * 10));
+            btnGia3.setText(df.format(Math.round(t) * 3000 / 10 * 10));
+            btnGia4.setText(df.format(Math.round(t) * 4000 / 10 * 10));
         }
 
 
