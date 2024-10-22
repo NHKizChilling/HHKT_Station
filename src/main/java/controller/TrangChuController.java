@@ -13,6 +13,7 @@ import entity.Ve;
 import gui.TrangChu_GUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -100,7 +101,16 @@ public class TrangChuController implements Initializable {
         btnFNV.setOnMouseClicked(e -> chooseFeatureButton(btnFNV));
         btnFHK.setOnMouseClicked(e -> chooseFeatureButton(btnFHK));
         btnFBCTK.setOnMouseClicked(e -> chooseFeatureButton(btnFBCTK));
-        btnFCT.setOnMouseClicked(e -> chooseFeatureButton(btnFCT));
+
+        btnFCT.setOnMouseClicked(e -> {try {
+            ConnectDB.connect();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+            new LichTrinh_DAO().updateTrangThaiCT(false);
+            chooseFeatureButton(btnFCT);
+        });
+
         TrangChu_GUI.nv = getData.nv;
         lblTenNhanVien.setText("Chào, " + TrangChu_GUI.nv.getChucVu() + " " + TrangChu_GUI.nv.getTenNhanVien());
     }
@@ -155,6 +165,19 @@ public class TrangChuController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void onBtnFCTClick() {
+        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("chuyen-tau.fxml"));
+        double width = paneMain.getWidth();
+        double height = paneMain.getHeight();
+        try {
+            paneMain.getChildren().clear();
+            paneMain.getChildren().add(loader.load());
+            paneMain.setPrefSize(width, height);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     protected void dangXuat() {
@@ -189,4 +212,6 @@ public class TrangChuController implements Initializable {
             }
         });
     }
+
+
 }

@@ -54,6 +54,43 @@ public class LichTrinh_DAO {
         }
         return lichTrinh;
     }
+    public ArrayList<LichTrinh>  traCuuDSLichTrinhTheoID(String maLichTrinh) {
+        ArrayList<LichTrinh> dslt = new ArrayList<>();
+        PreparedStatement stm = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from LichTrinh where MaLichTrinh = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, maLichTrinh);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                LichTrinh lt = getInfo(rs);
+                dslt.add(lt);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dslt;
+    }
+    public LichTrinh getLichTrinhTheoSHT(String soHieuTau) {
+        LichTrinh lichTrinh = null;
+        PreparedStatement stm = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from LichTrinh where SoHieuTau = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, soHieuTau);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                lichTrinh = getInfo(rs);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lichTrinh;
+    }
 
     public ArrayList<LichTrinh> traCuuDSLichTrinh(String MaGaDi, String MaGaDen, LocalDate ngayDi) {
         ArrayList<LichTrinh> dslt = new ArrayList<>();
@@ -78,7 +115,6 @@ public class LichTrinh_DAO {
         }
         return dslt;
     }
-
     public int getSoLuongChoConTrong(String maLichTrinh) {
         int soLuongChoConTrong = 0;
         PreparedStatement stm = null;
