@@ -272,7 +272,7 @@ public class HuyVeController implements Initializable {
             if (isHuy) {
                 Ve ve = tbl_thongTinVe.getSelectionModel().getSelectedItem();
                 if (ve != null) {
-                    boolean result = ve_dao.updateTinhTrangVe(ve.getMaVe(), "Đã hủy");
+                    boolean result = ve_dao.updateTinhTrangVe(ve.getMaVe(), "DaHuy");
                     if (result) {
                         label_thongBao.setText("Hủy vé thành công");
                         isHuy = false;

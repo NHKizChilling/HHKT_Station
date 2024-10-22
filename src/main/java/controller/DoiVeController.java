@@ -297,17 +297,18 @@ public class DoiVeController implements Initializable {
             String tenGaDi = ga_dao.getGaTheoMaGa(lt.getGaDi().getMaGa()).getTenGa();
             String tenGaDen = ga_dao.getGaTheoMaGa(lt.getGaDen().getMaGa()).getTenGa();
 
-            //hiển thị tên ga đi và ga đến lên combobox
-            cb_gaDi.getItems().add(tenGaDi);
-            cb_gaDen.getItems().add(tenGaDen);
+            cb_gaDi.setValue(tenGaDi);
+            cb_gaDen.setValue(tenGaDen);
         });
 
         btn_traCuuLT.setOnAction(e -> {
             String gaDi = cb_gaDi.getValue();
             String gaDen = cb_gaDen.getValue();
-            LocalDate ngayKhoiHanh = dp_ngayKhoiHanh.getValue();
 
-            if (gaDi == null || gaDen == null || ngayKhoiHanh == null) {
+            String maGaDi = ga_dao.getGaTheoTenGa(gaDi).getMaGa();
+            String maGaDen = ga_dao.getGaTheoTenGa(gaDen).getMaGa();
+
+            if (gaDi == null || gaDen == null || dp_ngayKhoiHanh.getValue() == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
                 alert.setHeaderText(null);
@@ -316,9 +317,10 @@ public class DoiVeController implements Initializable {
                 return;
             }
 
-            ArrayList<LichTrinh> listLT = lichTrinh_dao.getAll().stream()
-                    .filter(lt -> lt.getGaDi().getTenGa().equals(gaDi) && lt.getGaDen().getTenGa().equals(gaDen) && lt.getThoiGianKhoiHanh().toLocalDate().equals(ngayKhoiHanh))
-                    .collect(Collectors.toCollection(ArrayList::new));
+            ArrayList<LichTrinh> listLT = lichTrinh_dao.traCuuDSLichTrinh(maGaDi, maGaDen, dp_ngayKhoiHanh.getValue());
+            System.out.println(gaDi);
+            System.out.println(gaDen);
+            System.out.println(listLT);
             renderTableLichTrinh(listLT);
         });
 
@@ -374,7 +376,7 @@ public class DoiVeController implements Initializable {
             boolean khuHoiMoi = ve.isKhuHoi();
 
             //tạo vé mới
-            Ve veMoi = new Ve(hk, ctlt, lv, tenHK, soCCCD, dob, "Đã đổi", khuHoiMoi);
+            Ve veMoi = new Ve(hk, ctlt, lv, tenHK, soCCCD, dob, "DaDoi", khuHoiMoi);
             ve_dao.create(veMoi);
 
             //cập nhật vé cũ
