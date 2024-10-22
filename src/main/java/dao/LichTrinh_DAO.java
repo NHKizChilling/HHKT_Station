@@ -199,7 +199,7 @@ public class LichTrinh_DAO {
         int n = 0;
         PreparedStatement stm;
         try {
-            String sql = "insert into LichTrinh values(?,?,?,?,?,?,?)";
+            String sql = "insert into LichTrinh(MaLichTrinh, SoHieuTau, MaGaDi, MaGaDen, ThoiGianKhoiHanh, ThoiGianDuKienDen, TrangThai) values(?,?,?,?,?,?,?)";
             stm = con.prepareStatement(sql);
             stm.setString(1, lichTrinh.getMaLichTrinh());
             stm.setString(2, lichTrinh.getChuyenTau().getSoHieutau());

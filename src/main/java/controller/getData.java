@@ -23,4 +23,5 @@ public class getData {
     public static LichTrinh ltkh;
     public static ArrayList<Ve> dsve;
     public static ArrayList<ChiTietHoaDon> dscthd;
+    public static ChuyenTau ct;
 }

@@ -2,10 +2,7 @@ package controller;
 
 import connectdb.ConnectDB;
 import dao.*;
-import entity.ChiTietLichTrinh;
-import entity.Ga;
-import entity.LichTrinh;
-import entity.Toa;
+import entity.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +16,7 @@ import javafx.util.Callback;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -338,67 +336,177 @@ public class LichTrinhController implements Initializable {
                 }
             }
         });
-        btn_capNhat.setOnMouseClicked(e -> {
-            // Kiểm tra nếu không có lịch trình nào được chọn
-            LichTrinh selectedLichTrinh = tbl_ChuyenTau.getSelectionModel().getSelectedItem();
-            if (selectedLichTrinh == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Lỗi");
+
+//        btn_capNhat.setOnAction(e -> {
+//            String maLT = txt_maLichTrinh.getText().trim();
+//            String soHT = txt_soHieuTau.getText().trim();
+//            String maGaDi = cb_gaDi.getValue();
+//            String maGaDen = cb_gaDen.getValue();
+//
+//            LocalDate thoiGianKhoiHanhDate = tgKhoiHanh.getValue();
+//            LocalDate thoiGianDuKienDate = tgDK.getValue();
+//
+//            // Chuyển đổi thành LocalDateTime
+//            LocalDateTime thoiGianKhoiHanh = thoiGianKhoiHanhDate != null ? thoiGianKhoiHanhDate.atStartOfDay() : null;
+//            LocalDateTime thoiGianDuKien = thoiGianDuKienDate != null ? thoiGianDuKienDate.atStartOfDay() : null;
+//
+//            ChuyenTau chuyenTau = new ChuyenTau(soHT);
+//            Ga gaDiObj = new Ga(maGaDi);
+//            Ga gaDenObj = new Ga(maGaDen);
+//
+//            boolean trangThai = cb_trangThai.getValue() != null && cb_trangThai.getValue().equalsIgnoreCase("Hoạt động");
+//
+//            if (maLT.isBlank()) {
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Lỗi");
+//                alert.setHeaderText("Chưa chọn lịch trình cần cập nhật");
+//                alert.show();
+//                return;
+//            }
+//
+//            try {
+//                // Tạo đối tượng LichTrinh
+//                LichTrinh lt = new LichTrinh(maLT, chuyenTau, gaDiObj, gaDenObj, thoiGianKhoiHanh, thoiGianDuKien, trangThai);
+//
+//                // Cập nhật thông tin
+//                LichTrinh_DAO lichTrinhDAO = new LichTrinh_DAO();
+//                if (lichTrinhDAO.updateInfo(lt)) {
+//                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                    alert.setTitle("Thành công");
+//                    alert.setHeaderText("Cập nhật lịch trình thành công");
+//                    alert.show();
+//
+//                    // Cập nhật danh sách lịch trình và làm mới bảng
+//                    dslt.set(dslt.indexOf(lt), lt);
+//                    renderLichTrinhTable(); // Gọi hàm để làm mới bảng
+//                } else {
+//                    Alert alert = new Alert(Alert.AlertType.ERROR);
+//                    alert.setTitle("Lỗi");
+//                    alert.setHeaderText("Cập nhật lịch trình thất bại");
+//                    alert.show();
+//                }
+//            } catch (IllegalArgumentException ex) {
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Lỗi");
+//                alert.setHeaderText(ex.getMessage());
+//                alert.show();
+//            } catch (Exception ex) {
+//                ex.printStackTrace(); // In ra thông báo lỗi
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Lỗi");
+//                alert.setHeaderText("Đã xảy ra lỗi trong quá trình cập nhật lịch trình");
+//                alert.show();
+//            }
+//        });
+
+//        btnThemChuyenTau.setOnAction(e -> {
+//            try {
+//                String maLT = txt_maLichTrinh.getText().trim();
+//                String soHT = txt_soHieuTau.getText().trim();
+//                String maGaDi = cb_gaDi.getValue();
+//                String maGaDen = cb_gaDen.getValue();
+//
+//                if (maGaDi == null || maGaDen == null || soHT.isEmpty()) {
+//                    Alert alert = new Alert(Alert.AlertType.WARNING);
+//                    alert.setTitle("Cảnh báo");
+//                    alert.setHeaderText("Thông tin không đầy đủ");
+//                    alert.setContentText("Vui lòng nhập đầy đủ thông tin");
+//                    alert.show();
+//                    return;
+//                }
+//
+//                LocalDate thoiGianKhoiHanhDate = tgKhoiHanh.getValue();
+//                LocalDate thoiGianDuKienDate = tgDK.getValue();
+//
+//                if (thoiGianKhoiHanhDate == null || thoiGianDuKienDate == null) {
+//                    Alert alert = new Alert(Alert.AlertType.WARNING);
+//                    alert.setTitle("Cảnh báo");
+//                    alert.setHeaderText("Thông tin không đầy đủ");
+//                    alert.setContentText("Vui lòng chọn thời gian khởi hành và dự kiến");
+//                    alert.show();
+//                    return;
+//                }
+//
+//                // Chuyển đổi thành LocalDateTime
+//                LocalDateTime thoiGianKhoiHanh = thoiGianKhoiHanhDate.atStartOfDay();
+//                LocalDateTime thoiGianDuKien = thoiGianDuKienDate.atStartOfDay();
+//
+//                ChuyenTau chuyenTau = new ChuyenTau(soHT);
+//                Ga gaDiObj = new Ga(maGaDi);
+//                Ga gaDenObj = new Ga(maGaDen);
+//
+//                boolean trangThai = cb_trangThai.getValue() != null && cb_trangThai.getValue().equalsIgnoreCase("Hoạt động");
+//
+//                // Tạo mã lịch trình mới từ mã cũ
+//                String maLTcu = dslt.get(dslt.size() - 1).getMaLichTrinh();
+//                String ngayDi = maLTcu.substring(2, 10); // lấy ngày từ mã (ví dụ: "20231022")
+//                String maLTmoi = "LT" + ngayDi + maGaDen; // Sử dụng mã ga đến từ giao diện
+//
+//                // Tạo đối tượng LichTrinh
+//                LichTrinh lt = new LichTrinh(maLTmoi, chuyenTau, gaDiObj, gaDenObj, thoiGianKhoiHanh, thoiGianDuKien, trangThai);
+//
+//                // Thêm lịch trình vào database
+//                if (lt_dao.create(lt)) {
+//                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                    alert.setTitle("Thành công");
+//                    alert.setHeaderText("Thêm lịch trình thành công");
+//                    alert.show();
+//
+//                    dslt.add(lt);
+//                } else {
+//                    Alert alert = new Alert(Alert.AlertType.ERROR);
+//                    alert.setTitle("Lỗi");
+//                    alert.setHeaderText("Thêm lịch trình thất bại");
+//                    alert.show();
+//                }
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Lỗi");
+//                alert.setHeaderText("Đã xảy ra lỗi");
+//                alert.setContentText(ex.getMessage());
+//                alert.show();
+//            }
+//        });
+
+        btn_xoa.setOnMouseClicked(e -> {
+            LichTrinh lichTrinhChon = tbl_ChuyenTau.getSelectionModel().getSelectedItem();
+            if (lichTrinhChon != null) {
+                Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmAlert.setTitle("Xác nhận xóa");
+                confirmAlert.setHeaderText(null);
+                confirmAlert.setContentText("Bạn có chắc chắn muốn xóa lịch trình này không?");
+                ButtonType yesButton = new ButtonType("Có", ButtonBar.ButtonData.YES);
+                ButtonType noButton = new ButtonType("Không", ButtonBar.ButtonData.NO);
+                confirmAlert.getButtonTypes().setAll(yesButton, noButton);
+
+                confirmAlert.showAndWait().ifPresent(response -> {
+                    if (response == yesButton) {
+                        // Cập nhật trạng thái thành không hoạt động
+                        boolean result = lt_dao.updateTrangThaiChuyenTau(lichTrinhChon.getMaLichTrinh(), false);
+                        if (result) {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Thành công");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Lịch trình đã được cập nhật thành không hoạt động.");
+                            alert.show();
+
+                            dslt.remove(lichTrinhChon);
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Lỗi");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Cập nhật trạng thái thất bại.");
+                            alert.show();
+                        }
+                    }
+                });
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Cảnh báo");
                 alert.setHeaderText(null);
-                alert.setContentText("Vui lòng chọn lịch trình cần cập nhật");
+                alert.setContentText("Vui lòng chọn lịch trình cần xóa.");
                 alert.show();
-                return;
-            }
-
-            // Xác nhận lại thông tin từ người dùng
-            Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmAlert.setTitle("Xác nhận");
-            confirmAlert.setHeaderText(null);
-            confirmAlert.setContentText("Bạn có chắc muốn cập nhật lịch trình này?");
-            if (confirmAlert.showAndWait().get() != ButtonType.OK) {
-                return;
-            }
-
-            // Lấy thông tin cập nhật từ giao diện
-            LocalDate thoiGianKhoiHanh = tgKhoiHanh.getValue();
-            LocalDate thoiGianDuKienDen = tgDK.getValue();
-            try {
-                // Cập nhật lại các thuộc tính cho lịch trình
-                selectedLichTrinh.getChuyenTau().setSoHieutau(txt_soHieuTau.getText());
-                selectedLichTrinh.getGaDi().setMaGa(cb_gaDi.getValue());
-                selectedLichTrinh.getGaDen().setMaGa(cb_gaDen.getValue());
-                selectedLichTrinh.setThoiGianKhoiHanh(thoiGianKhoiHanh.atStartOfDay());
-                selectedLichTrinh.setThoiGianDuKienDen(thoiGianDuKienDen.atStartOfDay());
-
-
-                // Cập nhật trạng thái hoạt động
-                String trangThai = cb_trangThai.getValue();
-                if (trangThai != null) {
-                    selectedLichTrinh.setTinhTrang(trangThai.equalsIgnoreCase("Hoạt động"));
-                }
-
-                // Gọi hàm update trong DAO để cập nhật dữ liệu
-                boolean isUpdated = lt_dao.updateInfo(selectedLichTrinh);
-                if (isUpdated) {
-                    // Hiển thị thông báo thành công
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Thông báo");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Cập nhật lịch trình thành công!");
-                    alert.show();
-
-                    // Refresh bảng dữ liệu
-                    tbl_ChuyenTau.refresh();
-                } else {
-                    // Hiển thị thông báo lỗi nếu cập nhật không thành công
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Lỗi");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Cập nhật lịch trình không thành công!");
-                    alert.show();
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
             }
         });
 
@@ -446,5 +554,18 @@ public class LichTrinhController implements Initializable {
             boolean tinhTrang = param.getValue().isTinhTrang();
             return new SimpleStringProperty(tinhTrang ? "Hoạt động" : "Không hoạt động");
         });
+    }
+    private void renderLichTrinhTable() {
+        ObservableList<LichTrinh> lichTrinhList = FXCollections.observableArrayList(dslt); // dslt là danh sách lưu trữ LichTrinh
+        tbl_ChuyenTau.setItems(lichTrinhList);
+        col_maLichTrinh.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("lichTrinh"));
+        col_soHieuTau.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("chuyenTau"));
+        col_gaDi.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("gaDi"));
+        col_gaDen.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("gaDen"));
+        col_tgKhoiHanh.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("thoiGianKhoiHanh"));
+        col_tgDK.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("thoiGianDuKienDen"));
+        col_trangThaiHoatDong.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("trangThaiHoatDong"));
+
+
     }
 }
