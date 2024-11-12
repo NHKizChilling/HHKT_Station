@@ -58,8 +58,8 @@ public class GioiThieuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        ArrayList<LichTrinh> list = lt_dao.traCuuDSLichTrinhTheoNgay(LocalDate.of(2024, 10, 23));
-
+        ArrayList<LichTrinh> list = lt_dao.traCuuDSLichTrinhTheoNgay(LocalDate.now());
+        list.removeIf(lt -> !lt.getThoiGianKhoiHanh().isAfter(LocalDateTime.now()));
         ObservableList<XYChart.Data<String, Integer>> data = FXCollections.observableArrayList();
         Set<String> set = new HashSet<>();
         int dem = 0;

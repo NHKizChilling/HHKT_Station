@@ -185,15 +185,14 @@ public class LichTrinh_DAO {
         int n = 0;
         PreparedStatement stm;
         try {
-            String sql = "insert into LichTrinh values(?,?,?,?,?,?,?)";
+            String sql = "insert into LichTrinh values(?,?,?,?,?,?)";
             stm = con.prepareStatement(sql);
-            stm.setString(1, lichTrinh.getMaLichTrinh());
-            stm.setString(2, lichTrinh.getChuyenTau().getSoHieutau());
-            stm.setString(3, lichTrinh.getGaDi().getMaGa());
-            stm.setString(4, lichTrinh.getGaDen().getMaGa());
-            stm.setTimestamp(5, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianKhoiHanh()));
-            stm.setTimestamp(6, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianDuKienDen()));
-            stm.setBoolean(7, lichTrinh.isTinhTrang());
+            stm.setString(1, lichTrinh.getChuyenTau().getSoHieutau());
+            stm.setString(2, lichTrinh.getGaDi().getMaGa());
+            stm.setString(3, lichTrinh.getGaDen().getMaGa());
+            stm.setTimestamp(4, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianKhoiHanh()));
+            stm.setTimestamp(5, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianDuKienDen()));
+            stm.setBoolean(6, lichTrinh.isTinhTrang());
 
             n = stm.executeUpdate();
         } catch (Exception e) {

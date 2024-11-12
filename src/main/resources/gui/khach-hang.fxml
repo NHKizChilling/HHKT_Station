@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="755.0" prefWidth="1385.0" style="-fx-background-color: #fff;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HanhKhachController">
+<AnchorPane prefHeight="755.0" prefWidth="1385.0" style="-fx-background-color: #fff;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.KhachHangController">
    <children>
       <AnchorPane layoutX="14.0" layoutY="83.0" prefHeight="300.0" prefWidth="942.0" style="-fx-background-color: #fff;" styleClass="shadow">
          <children>

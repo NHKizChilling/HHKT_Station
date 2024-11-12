@@ -145,7 +145,7 @@ public class HoaDonController implements Initializable {
         txtTenNV.setText(nhanVien.getTenNhanVien());
         txtMaHD.setText(getData.hd.getMaHoaDon());
         txtNgayLapHD.setText(getData.hd.getNgayLapHoaDon().toString());
-        txtKH.setText(getData.hk.getTenHanhKhach());
+        txtKH.setText(getData.hk.getTenKH());
         txtSDT.setText(getData.hk.getSdt());
         dscthd = new ArrayList<>();
         dsve = getData.dsve;
@@ -250,8 +250,8 @@ public class HoaDonController implements Initializable {
                 alert.showAndWait();
                 return;
             }
-            hd.setTongTien(tongTien);
-            hd.setTongGiamGia(tongGiamGia);
+            hd.tinhTongTien(dscthd);
+            hd.tinhTongGiamGia(dscthd);
             hd.setTrangThai(false);
             getData.hd = hd;
             if(new HoaDon_DAO().update(hd)) {
@@ -286,8 +286,8 @@ public class HoaDonController implements Initializable {
                 alert.setContentText("Vui lòng chọn số tiền khách hàng trả");
                 alert.showAndWait();
             } else {
-                hd.setTongTien(tongTien);
-                hd.setTongGiamGia(tongGiamGia);
+                hd.tinhTongTien(dscthd);
+                hd.tinhTongGiamGia(dscthd);
                 hd.setTrangThai(true);
                 getData.hd = hd;
                 if(new HoaDon_DAO().update(hd)) {
@@ -301,8 +301,8 @@ public class HoaDonController implements Initializable {
                         list.add(ve);
                         listcthd_new.add(new ChiTietHoaDon(hd, ve));
                     }
-                    for (ChiTietHoaDon cthd : listcthd_new) {
-                        if (new CT_HoaDon_DAO().getCT_HoaDon(cthd.getHoaDon().getMaHoaDon()).size() == 0) {
+                    if (new CT_HoaDon_DAO().getCT_HoaDon(hd.getMaHoaDon()).size() == 0) {
+                        for (ChiTietHoaDon cthd : listcthd_new) {
                             new CT_HoaDon_DAO().create(cthd);
                         }
                     }

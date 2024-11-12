@@ -1,8 +1,9 @@
 package dao;
 
 import connectdb.ConnectDB;
-import entity.HanhKhach;
+import entity.KhachHang;
 import entity.HoaDon;
+import entity.KhuyenMai;
 import entity.NhanVien;
 
 import java.sql.*;
@@ -86,7 +87,7 @@ public class HoaDon_DAO {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
             PreparedStatement stm = null;
-            String sql = "Select * from HoaDon where MaHK = ?";
+            String sql = "Select * from HoaDon where MaKH = ?";
             stm = con.prepareStatement(sql);
             stm.setString(1, maKH);
 
@@ -130,7 +131,7 @@ public class HoaDon_DAO {
 
             stm.setString(1, hoaDon.getMaHoaDon());
             stm.setString(2, hoaDon.getNhanVien().getMaNhanVien());
-            stm.setString(3, hoaDon.getHanhKhach().getMaHanhKhach());
+            stm.setString(3, hoaDon.getKhachHang().getMaKH());
             stm.setTimestamp(4, java.sql.Timestamp.valueOf(hoaDon.getNgayLapHoaDon()));
             stm.setDouble(5, hoaDon.getTongTien());
             stm.setDouble(6, hoaDon.getTongGiamGia());
@@ -156,10 +157,10 @@ public class HoaDon_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("insert into HoaDon(MaNV, MaHK, NgayLapHoaDon, TongTien, TongGiamGia, TrangThai) values(?,?,?,0,0,?)");
+            stm = con.prepareStatement("insert into HoaDon(MaNV, MaKH, NgayLapHoaDon, TongTien, TongGiamGia, TrangThai) values(?,?,?,0,0,?)");
 
             stm.setString(1, hoaDon.getNhanVien().getMaNhanVien());
-            stm.setString(2, hoaDon.getHanhKhach().getMaHanhKhach());
+            stm.setString(2, hoaDon.getKhachHang().getMaKH());
             stm.setTimestamp(3, java.sql.Timestamp.valueOf(hoaDon.getNgayLapHoaDon()));
             stm.setBoolean(4, hoaDon.isTrangThai());
 
@@ -205,10 +206,10 @@ public class HoaDon_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update HoaDon set MaNV = ?, MaHK = ?, NgayLapHoaDon = ?, TongTien = ?, TongGiamGia = ?, TrangThai = ? where MaHD = ?");
+            stm = con.prepareStatement("update HoaDon set MaNV = ?, MaKH = ?, NgayLapHoaDon = ?, TongTien = ?, TongGiamGia = ?, TrangThai = ? where MaHD = ?");
 
             stm.setString(1, hoaDon.getNhanVien().getMaNhanVien());
-            stm.setString(2, hoaDon.getHanhKhach().getMaHanhKhach());
+            stm.setString(2, hoaDon.getKhachHang().getMaKH());
             stm.setTimestamp(3, java.sql.Timestamp.valueOf(hoaDon.getNgayLapHoaDon()));
             stm.setDouble(4, hoaDon.getTongTien());
             stm.setDouble(5, hoaDon.getTongGiamGia());
@@ -275,14 +276,15 @@ public class HoaDon_DAO {
         HoaDon hoaDon = null;
         try {
             String maHoaDon = rs.getString(1);
-            NhanVien maNhanVien = new NhanVien(rs.getString(2));
-            HanhKhach maKhachHang = new HanhKhach(rs.getString(3));
+            NhanVien nhanVien = new NhanVien(rs.getString(2));
+            KhachHang khachHang = new KhachHang(rs.getString(3));
             LocalDateTime ngayLap = rs.getTimestamp(4).toLocalDateTime();
+            KhuyenMai khuyenMai = new KhuyenMai(rs.getString(5));
             double tongTien = rs.getDouble(5);
             double tongGiamGia = rs.getDouble(6);
             boolean trangThai = rs.getBoolean(7);
 
-            hoaDon = new HoaDon(maHoaDon, maNhanVien, ngayLap, maKhachHang, tongTien, tongGiamGia, trangThai);
+            hoaDon = new HoaDon(maHoaDon, nhanVien,  khachHang, ngayLap, khuyenMai,tongTien, tongGiamGia, trangThai);
         } catch (Exception e) {
             e.printStackTrace();
         }

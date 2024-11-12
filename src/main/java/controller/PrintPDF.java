@@ -10,19 +10,15 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.Barcode;
-import com.itextpdf.text.pdf.qrcode.QRCode;
 import dao.*;
 import entity.*;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.Image;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 /*
@@ -210,7 +206,7 @@ public class PrintPDF {
         document.add(new Paragraph("Địa chỉ: Số 12A Nguyễn Văn Bảo, Phường 4, Quận Gò Vấp, Thành phố Hồ Chí Minh, Việt Nam", regularFont));
         document.add(new Paragraph(" "));
         // Add buyer info
-        document.add(new Paragraph("\nHọ tên người mua hàng: " + new HanhKhach_DAO().getHanhKhachTheoMa(hoaDon.getHanhKhach().getMaHanhKhach()).getTenHanhKhach(), boldFont));
+        document.add(new Paragraph("\nHọ tên người mua hàng: " + new KhachHang_DAO().getKhachHangTheoMaKH(hoaDon.getKhachHang().getMaKH()).getTenKH(), boldFont));
         document.add(new Paragraph("Hình thức thanh toán: Tiền mặt", regularFont));
         document.add(new Paragraph(" "));
 

@@ -274,7 +274,7 @@
                                             <content>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="174.0" prefWidth="750.0">
                                                    <children>
-                                                      <TableView fx:id="tbTCTLT" prefHeight="188.0" prefWidth="750.0" style="-fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" stylesheets="@dashboardDesign.css">
+                                                      <TableView fx:id="tbTCTLT" prefHeight="188.0" prefWidth="750.0" style="-fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" stylesheets="@dashboardDesign.css" visible="false">
                                                         <columns>
                                                           <TableColumn fx:id="colSTT" editable="false" prefWidth="50.0" text="STT" />
                                                           <TableColumn fx:id="colSoHieuTau" editable="false" prefWidth="75.0" sortable="false" text="Số Hiệu Tàu" />
@@ -293,16 +293,16 @@
                                                             <String fx:value="shadow" />
                                                          </styleClass>
                                                       </TableView>
-                                                      <TableView fx:id="tbTCTLTKH" layoutY="14.0" prefHeight="174.0" prefWidth="749.0" style="-fx-border-color: #333;" visible="false">
+                                                      <TableView fx:id="tbTCTLTKH" prefHeight="177.0" prefWidth="750.0" style="-fx-background-color: #fff;" styleClass="shadow" stylesheets="@dashboardDesign.css" visible="false">
                                                          <columns>
-                                                            <TableColumn fx:id="colSTTKH" editable="false" prefWidth="50.0" style="-fx-background-color: linear-gradient(to right, #5050ff, #5060ff); -fx-background-radius: 5 0 0 0; -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="STT" />
-                                                            <TableColumn fx:id="colSoHieuTauKH" editable="false" prefWidth="75.0" sortable="false" style="-fx-background-color: linear-gradient(to right, #5060ff, #5065ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Số Hiệu Tàu" />
-                                                            <TableColumn fx:id="colGaDiKH" editable="false" prefWidth="85.59994506835938" sortable="false" style="-fx-background-color: linear-gradient(to right, #5065ff, #5070ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Ga Đi" />
-                                                            <TableColumn fx:id="colGaDenKH" editable="false" prefWidth="78.40005493164062" sortable="false" style="-fx-background-color: linear-gradient(to right, #5070ff, #5075ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Ga Đến" />
-                                                            <TableColumn fx:id="colGioKHkh" editable="false" prefWidth="117.5999755859375" sortable="false" style="-fx-background-color: linear-gradient(to right, #5075ff, #5080ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Giờ khởi hành" />
-                                                            <TableColumn fx:id="colTGDenKH" editable="false" prefWidth="133.5999755859375" sortable="false" style="-fx-background-color: linear-gradient(to right, #5080ff, #5090ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Ngày giờ dự kiến đến" />
-                                                            <TableColumn fx:id="colSLTKH" prefWidth="97.60003662109375" style="-fx-background-color: linear-gradient(to right, #5090ff, #5095ff); -fx-border-color: cyan; -fx-border-width: 0 1 0 0; -fx-alignment: center;" text="Số lượng trống" />
-                                                            <TableColumn fx:id="colChonKH" prefWidth="106.39996337890625" style="-fx-background-color: linear-gradient(to right, #5095ff, lightblue); -fx-background-radius: 0 5 0 0; -fx-alignment: center;" />
+                                                            <TableColumn fx:id="colSTTKH" editable="false" prefWidth="50.0" text="STT" />
+                                                            <TableColumn fx:id="colSoHieuTauKH" editable="false" prefWidth="75.0" sortable="false" text="Số Hiệu Tàu" />
+                                                            <TableColumn fx:id="colGaDiKH" editable="false" prefWidth="85.59994506835938" sortable="false" text="Ga Đi" />
+                                                            <TableColumn fx:id="colGaDenKH" editable="false" prefWidth="78.40005493164062" sortable="false" text="Ga Đến" />
+                                                            <TableColumn fx:id="colGioKHkh" editable="false" prefWidth="117.5999755859375" sortable="false" text="Giờ khởi hành" />
+                                                            <TableColumn fx:id="colTGDenKH" editable="false" prefWidth="133.5999755859375" sortable="false" text="Ngày giờ dự kiến đến" />
+                                                            <TableColumn fx:id="colSLTKH" prefWidth="97.60003662109375" text="Số lượng trống" />
+                                                            <TableColumn fx:id="colChonKH" prefWidth="106.39996337890625" />
                                                          </columns>
                                                       </TableView>
                                                    </children>

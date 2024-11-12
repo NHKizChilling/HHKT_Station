@@ -1,51 +1,50 @@
 package dao;
 
 import connectdb.ConnectDB;
-import entity.HanhKhach;
+import entity.KhachHang;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class HanhKhach_DAO {
+public class KhachHang_DAO {
 
-    public HanhKhach_DAO() {
+    public KhachHang_DAO() {
     }
 
-    public ArrayList<HanhKhach> getAllHanhKhach() {
-        ArrayList<HanhKhach> listHanhKhach = new ArrayList<>();
+    public ArrayList<KhachHang> getAllKhachHang() {
+        ArrayList<KhachHang> dsKhachHang = new ArrayList<>();
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "SELECT * FROM HanhKhach";
+            String sql = "SELECT * FROM KhachHang";
             Statement st = con.createStatement();
 
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                HanhKhach hanhKhach = getInfo(rs);
-                listHanhKhach.add(hanhKhach);
+                KhachHang khachHang = getInfo(rs);
+                dsKhachHang.add(khachHang);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listHanhKhach;
+        return dsKhachHang;
     }
 
-    public boolean create(HanhKhach hk) {
+    public boolean create(KhachHang kh) {
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
         PreparedStatement stm;
         int n = 0;
         try {
-            stm = con.prepareStatement("insert into HanhKhach(TenHK, SoCCCD, SDT, Email) values(?,?,?,?)");
+            stm = con.prepareStatement("insert into KhachHang(TenKH, SoCCCD, SDT, Email) values(?,?,?,?)");
 
-            stm.setString(1, hk.getTenHanhKhach());
-            stm.setString(2, hk.getSoCCCD());
-            stm.setString(3, hk.getSdt());
-            stm.setString(4, hk.getEmail());
+            stm.setString(1, kh.getTenKH());
+            stm.setString(2, kh.getSoCCCD());
+            stm.setString(3, kh.getSdt());
+            stm.setString(4, kh.getEmail());
 
             n = stm.executeUpdate();
         } catch (Exception e) {
@@ -54,43 +53,20 @@ public class HanhKhach_DAO {
         return n > 0;
     }
 
-    public boolean update(HanhKhach hk) {
+    public boolean update(KhachHang kh) {
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
         PreparedStatement stm;
         int n = 0;
         try {
-            stm = con.prepareStatement("update HanhKhach set TenHK = ?, SoCCCD = ?, SDT = ?, Email = ? where MaHanhKhach = ?");
+            stm = con.prepareStatement("update KhachHang set TenKH = ?, SoCCCD = ?, SDT = ?, Email = ? where MaKH = ?");
 
-            stm.setString(1, hk.getTenHanhKhach());
-            stm.setString(2, hk.getSoCCCD());
-            stm.setString(3, hk.getSdt());
-            stm.setString(4, hk.getEmail());
-            stm.setString(5, hk.getMaHanhKhach());
+            stm.setString(1, kh.getTenKH());
+            stm.setString(2, kh.getSoCCCD());
+            stm.setString(3, kh.getSdt());
+            stm.setString(4, kh.getEmail());
+            stm.setString(5, kh.getMaKH());
 
-            n = stm.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return n > 0;
-    }
-
-    public boolean delete(String maHanhKhach) {
-        ConnectDB.getInstance();
-        Connection con = ConnectDB.getConnection();
-        PreparedStatement stm;
-        int n = 0;
-        try {
-            stm = con.prepareStatement("delete from HanhKhach where MaHK = ?");
-            stm.setString(1, maHanhKhach);
             n = stm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,78 +82,101 @@ public class HanhKhach_DAO {
         return n > 0;
     }
 
-    public HanhKhach getHanhKhachTheoMa(String maHanhKhach) {
-        HanhKhach hk = null;
+    public boolean delete(String maKH) {
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        PreparedStatement stm;
+        int n = 0;
+        try {
+            stm = con.prepareStatement("delete from KhachHang where MaKH = ?");
+            stm.setString(1, maKH);
+            n = stm.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return n > 0;
+    }
+
+    public KhachHang getKhachHangTheoMaKH(String maKH) {
+        KhachHang kh = null;
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from HanhKhach where MaHK = ?";
+            String sql = "Select * from KhachHang where maKH = ?";
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setString(1, maHanhKhach);
+            stm.setString(1, maKH);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                hk = getInfo(rs);
+                kh = getInfo(rs);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return hk;
+        return kh;
     }
 
-    public HanhKhach getHanhKhachTheoCCCD(String soCCCD) {
-        HanhKhach hk = null;
+    public KhachHang getKHTheoCCCD(String soCCCD) {
+        KhachHang kh = null;
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from HanhKhach where SoCCCD = ?";
+            String sql = "Select * from KhachHang where SoCCCD = ?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1, soCCCD);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                hk = getInfo(rs);
+                kh = getInfo(rs);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return hk;
+        return kh;
     }
 
-    public HanhKhach getKhachHangTheoSDT(String sdt) {
-        HanhKhach hk = null;
+    public KhachHang getKhachHangTheoSDT(String sdt) {
+        KhachHang kh = null;
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from HanhKhach where SDT = ?";
+            String sql = "Select * from KhachHang where SDT = ?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1, sdt);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                String maHanhKhach = rs.getString(1);
-                String tenHanhKhach = rs.getString(2);
+                String maKH = rs.getString(1);
+                String tenKH = rs.getString(2);
                 String cmnd = rs.getString(3);
                 String email = rs.getString(5);
-                hk = new HanhKhach(maHanhKhach, tenHanhKhach, cmnd, sdt, email);
+                kh = new KhachHang(maKH, tenKH, cmnd, sdt, email);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return hk;
+        return kh;
     }
 
-    public HanhKhach getInfo(ResultSet rs) {
-        HanhKhach hk = null;
+    public KhachHang getInfo(ResultSet rs) {
+        KhachHang kh = null;
         try {
-            String maHanhKhach = rs.getString(1);
-            String tenHanhKhach = rs.getString(2);
+            String maKH = rs.getString(1);
+            String tenKH = rs.getString(2);
             String cmnd = rs.getString(3);
             String sdt = rs.getString(4);
             String email = rs.getString(5);
 
-            hk = new HanhKhach(maHanhKhach, tenHanhKhach, cmnd, sdt, email);
+            kh = new KhachHang(maKH, tenKH, cmnd, sdt, email);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return hk;
+        return kh;
     }
 }
 

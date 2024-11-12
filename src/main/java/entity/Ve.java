@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Ve {
     private String maVe;
-    private HanhKhach hanhKhach;
+    private KhachHang khachHang;
     private ChiTietLichTrinh ctlt;
     private LoaiVe loaiVe;
     private String tenHanhKhach;
@@ -21,9 +21,9 @@ public class Ve {
         setMaVe(maVe);
     }
 
-    public Ve(HanhKhach hanhKhach, ChiTietLichTrinh ctlt, LoaiVe loaiVe, String tenHanhKhach,
+    public Ve(KhachHang khachHang, ChiTietLichTrinh ctlt, LoaiVe loaiVe, String tenHanhKhach,
               String soCCCD, LocalDate ngaySinh, String tinhTrangVe, boolean khuHoi) {
-        setHanhKhach(hanhKhach);
+        setHanhKhach(khachHang);
         setCtlt(ctlt);
         setLoaiVe(loaiVe);
         setTenHanhKhach(tenHanhKhach);
@@ -33,11 +33,11 @@ public class Ve {
         setKhuHoi(khuHoi);
     }
 
-    public Ve(String maVe, HanhKhach hanhKhach, ChiTietLichTrinh ctlt, LoaiVe loaiVe,
+    public Ve(String maVe, KhachHang khachHang, ChiTietLichTrinh ctlt, LoaiVe loaiVe,
               String tenHK, String SoCCCD, LocalDate ngaySinh, String tinhTrangVe, boolean khuHoi) {
         this.maVe = maVe;
         this.loaiVe = loaiVe;
-        this.hanhKhach = hanhKhach;
+        this.khachHang = khachHang;
         this.ctlt = ctlt;
         this.tenHanhKhach = tenHK;
         this.SoCCCD = SoCCCD;
@@ -70,12 +70,12 @@ public class Ve {
         this.loaiVe = loaiVe;
     }
 
-    public HanhKhach getHanhKhach() {
-        return hanhKhach;
+    public KhachHang getHanhKhach() {
+        return khachHang;
     }
 
-    public void setHanhKhach(HanhKhach hanhKhach) {
-        this.hanhKhach = hanhKhach;
+    public void setHanhKhach(KhachHang khachHang) {
+        this.khachHang = khachHang;
     }
 
     public ChiTietLichTrinh getCtlt() {

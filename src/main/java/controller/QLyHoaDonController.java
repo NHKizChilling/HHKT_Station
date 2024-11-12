@@ -168,7 +168,7 @@ public class QLyHoaDonController implements Initializable {
     private CT_LichTrinh_DAO ct_lichTrinh_dao = new CT_LichTrinh_DAO();
     private ChoNgoi_DAO choNgoi_dao = new ChoNgoi_DAO();
     private LichTrinh_DAO lichTrinh_dao = new LichTrinh_DAO();
-    private HanhKhach_DAO hanhKhach_dao = new HanhKhach_DAO();
+    private KhachHang_DAO khach_Hang_dao = new KhachHang_DAO();
     private Ve_DAO ve_dao = new Ve_DAO();
     private LoaiVe_DAO loaiVe_dao = new LoaiVe_DAO();
     private Toa_DAO toa_dao = new Toa_DAO();
@@ -231,7 +231,7 @@ public class QLyHoaDonController implements Initializable {
         colSTT.setCellValueFactory(p -> new SimpleIntegerProperty(tbhd.getItems().indexOf(p.getValue()) + 1).asObject());
         colMaHD.setCellValueFactory(new PropertyValueFactory<HoaDon,String>("maHoaDon"));
         colNgayLapHD.setCellValueFactory(p -> new SimpleStringProperty(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(p.getValue().getNgayLapHoaDon())));
-        colKH.setCellValueFactory(p -> new SimpleStringProperty(hanhKhach_dao.getHanhKhachTheoMa(p.getValue().getHanhKhach().getMaHanhKhach()).getTenHanhKhach()));
+        colKH.setCellValueFactory(p -> new SimpleStringProperty(khach_Hang_dao.getKhachHangTheoMaKH(p.getValue().getKhachHang().getMaKH()).getTenKH()));
         colSLVe.setCellValueFactory(p -> {
             listCTHD = ct_hoaDon_dao.getCT_HoaDon(p.getValue().getMaHoaDon());
             return new SimpleIntegerProperty(listCTHD.size()).asObject();
@@ -251,7 +251,7 @@ public class QLyHoaDonController implements Initializable {
             HoaDon hd = tbhd.getSelectionModel().getSelectedItem();
             if (hd != null) {
                 txtMaHD.setText(hd.getMaHoaDon());
-                txtTenKH.setText(hanhKhach_dao.getHanhKhachTheoMa(hd.getHanhKhach().getMaHanhKhach()).getTenHanhKhach());
+                txtTenKH.setText(khach_Hang_dao.getKhachHangTheoMaKH(hd.getKhachHang().getMaKH()).getTenKH());
                 dpNgayLapHD.setValue(hd.getNgayLapHoaDon().toLocalDate());
                 txtTongTien.setText(nf.format(hd.getTongTien()));
                 txtTienGiam.setText(nf.format(hd.getTongGiamGia()));
@@ -328,7 +328,7 @@ public class QLyHoaDonController implements Initializable {
         btnThanhToan.setOnAction(event -> {
             HoaDon hd = tbhd.getSelectionModel().getSelectedItem();
             getData.hd = hd;
-            getData.hk = hanhKhach_dao.getHanhKhachTheoMa(hd.getHanhKhach().getMaHanhKhach());
+            getData.hk = khach_Hang_dao.getKhachHangTheoMaKH(hd.getKhachHang().getMaKH());
             ArrayList<ChiTietHoaDon> dscthd = ct_hoaDon_dao.getCT_HoaDon(hd.getMaHoaDon());
             getData.dscthd = dscthd;
             ArrayList<Ve> dsve = new ArrayList<>();

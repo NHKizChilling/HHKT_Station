@@ -7,8 +7,9 @@ import java.util.Objects;
 public class HoaDon {
     private String maHoaDon;
     private NhanVien nhanVien;
+    private KhachHang khachHang;
     private LocalDateTime ngayLapHoaDon;
-    private HanhKhach hanhKhach;
+    private KhuyenMai khuyenMai;
     private double tongTien;
     private double tongGiamGia;
     private boolean TrangThai;
@@ -20,22 +21,24 @@ public class HoaDon {
         this.maHoaDon = maHoaDon;
     }
 
-    public HoaDon(String maHoaDon, NhanVien nhanVien, HanhKhach hanhKhach, LocalDateTime ngayLapHoaDon, boolean trangThai) {
+    public HoaDon(String maHoaDon, NhanVien nhanVien, KhachHang khachHang, LocalDateTime ngayLapHoaDon, KhuyenMai khuyenMai,boolean trangThai) {
         this.maHoaDon = maHoaDon;
         setNhanVien(nhanVien);
         setNgayLapHoaDon(ngayLapHoaDon);
-        setHanhKhach(hanhKhach);
+        setKhuyenMai(khuyenMai);
+        setKhachHang(khachHang);
         setTrangThai(trangThai);
     }
 
-    public HoaDon(String maHoaDon, NhanVien nhanVien, LocalDateTime ngayLapHoaDon,
-                  HanhKhach hanhKhach, double tongTien, double giamGia, boolean trangThai) {
+    public HoaDon(String maHoaDon, NhanVien nhanVien, KhachHang khachHang,LocalDateTime ngayLapHoaDon, KhuyenMai khuyenMai,
+                  double tongTien, double giamGia, boolean trangThai) {
         setMaHoaDon(maHoaDon);
         setNhanVien(nhanVien);
+        setKhachHang(khachHang);
         setNgayLapHoaDon(ngayLapHoaDon);
-        setHanhKhach(hanhKhach);
-        setTongTien(tongTien);
-        setTongGiamGia(giamGia);
+        setKhuyenMai(khuyenMai);
+        this.tongTien = tongTien;
+        this.tongGiamGia = giamGia;
         setTrangThai(trangThai);
     }
 
@@ -70,16 +73,8 @@ public class HoaDon {
         return tongTien;
     }
 
-    public void setTongTien(double tongTien) {
-        this.tongTien = tongTien;
-    }
-
     public double getTongGiamGia() {
         return tongGiamGia;
-    }
-
-    public void setTongGiamGia(double tongGiamGia) {
-        this.tongGiamGia = tongGiamGia;
     }
 
     public String getMaHoaDon() {
@@ -122,15 +117,21 @@ public class HoaDon {
         this.ngayLapHoaDon = ngayLapHoaDon;
     }
 
-    public HanhKhach getHanhKhach() {
-        return hanhKhach;
+
+    public KhuyenMai getKhuyenMai() {
+        return khuyenMai;
     }
 
-    public void setHanhKhach(HanhKhach hanhKhach) {
-        if (hanhKhach == null) {
-            throw new IllegalArgumentException("Hành khách không hợp lệ");
-        }
-        this.hanhKhach = hanhKhach;
+    public void setKhuyenMai(KhuyenMai khuyenMai) {
+        this.khuyenMai = khuyenMai;
+    }
+
+    public KhachHang getKhachHang() {
+        return khachHang;
+    }
+
+    public void setKhachHang(KhachHang khachHang) {
+        this.khachHang = khachHang;
     }
 
 
