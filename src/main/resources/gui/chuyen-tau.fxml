@@ -138,7 +138,6 @@
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </DatePicker>
-            <AnchorPane fx:id="paneTime" layoutX="23.0" layoutY="440.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: cyan;" />
          </children>
       </Pane>
       <Label layoutX="14.0" layoutY="271.0" style="-fx-view-order: 0; -fx-background-color: #fff;" styleClass="label-info" stylesheets="@dashboardDesign.css" text="DANH SÁCH CHUYẾN TÀU">
