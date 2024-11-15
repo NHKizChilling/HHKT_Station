@@ -3,7 +3,7 @@ package controller;
 import com.itextpdf.text.DocumentException;
 import dao.*;
 import entity.ChoNgoi;
-import entity.HanhKhach;
+import entity.KhachHang;
 import entity.LichTrinh;
 import entity.Ve;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,12 +16,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class HanhKhachController implements Initializable {
+public class KhachHangController implements Initializable {
 
     @FXML
     private ComboBox<String> cb_search;
@@ -36,7 +36,7 @@ public class HanhKhachController implements Initializable {
     private Button btn_refresh;
 
     @FXML
-    private TableView<HanhKhach> tbl_hanhKhach;
+    private TableView<KhachHang> tbl_hanhKhach;
 
     @FXML
     private TableView<Ve> tbl_thongTinVe;
@@ -44,25 +44,25 @@ public class HanhKhachController implements Initializable {
 
     // Cột thông tin hành khách
     @FXML
-    private TableColumn<HanhKhach, String> col_cusId;
+    private TableColumn<KhachHang, String> col_cusId;
 
     @FXML
-    private TableColumn<HanhKhach, String> col_name;
+    private TableColumn<KhachHang, String> col_name;
 
 //    @FXML
-//    private TableColumn<HanhKhach, String> col_gender;
+//    private TableColumn<KhachHang, String> col_gender;
 //
 //    @FXML
-//    private TableColumn<HanhKhach, String> col_dob;
+//    private TableColumn<KhachHang, String> col_dob;
 
     @FXML
-    private TableColumn<HanhKhach, String> col_cccd;
+    private TableColumn<KhachHang, String> col_cccd;
 
     @FXML
-    private TableColumn<HanhKhach, String> col_sdt;
+    private TableColumn<KhachHang, String> col_sdt;
 
     @FXML
-    private TableColumn<HanhKhach, String> col_email;
+    private TableColumn<KhachHang, String> col_email;
 
 
     // Cột thông tin vé
@@ -123,18 +123,18 @@ public class HanhKhachController implements Initializable {
 
     private Ve_DAO ve_dao;
     private LichTrinh_DAO lichTrinh_dao;
-    private HanhKhach_DAO hanhKhach_dao;
+    private KhachHang_DAO khach_Hang_dao;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ve_dao = new Ve_DAO();
         lichTrinh_dao = new LichTrinh_DAO();
-        hanhKhach_dao = new HanhKhach_DAO();
+        khach_Hang_dao = new KhachHang_DAO();
 
         cb_search.getItems().addAll("Mã hành khách", "Số CCCD", "Số điện thoại");
         //cb_gender.getItems().addAll("Nam", "Nữ");
 
-        renderTableHanhKhach(hanhKhach_dao.getAllHanhKhach());
+        renderTableHanhKhach(khach_Hang_dao.getAllKhachHang());
 
         btn_search.setOnAction(e -> {
             String searchType = cb_search.getValue();
@@ -156,29 +156,29 @@ public class HanhKhachController implements Initializable {
                 txt_searchBar.requestFocus();
                 return;
             }
-            ArrayList<HanhKhach> dsHanhKhach = new ArrayList<>();
-            HanhKhach hk;
+            ArrayList<KhachHang> dsKhachHangs = new ArrayList<>();
+            KhachHang hk;
             switch (searchType) {
                 case "Mã hành khách":
-                    hk = hanhKhach_dao.getHanhKhachTheoMa(searchBar);
+                    hk = khach_Hang_dao.getKhachHangTheoMaKH(searchBar);
                     if (hk != null) {
-                        dsHanhKhach.add(hk);
+                        dsKhachHangs.add(hk);
                     }
                     break;
                 case "Số CCCD":
-                    hk = hanhKhach_dao.getHanhKhachTheoCCCD(searchBar);
+                    hk = khach_Hang_dao.getKHTheoCCCD(searchBar);
                     if (hk != null) {
-                        dsHanhKhach.add(hk);
+                        dsKhachHangs.add(hk);
                     }
                     break;
                 case "Số điện thoại":
-                    hk = hanhKhach_dao.getKhachHangTheoSDT(searchBar);
+                    hk = khach_Hang_dao.getKhachHangTheoSDT(searchBar);
                     if (hk != null) {
-                        dsHanhKhach.add(hk);
+                        dsKhachHangs.add(hk);
                     }
                     break;
             }
-            if (dsHanhKhach.isEmpty()) {
+            if (dsKhachHangs.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Thông báo");
                 alert.setHeaderText("Không tìm thấy kết quả");
@@ -186,13 +186,13 @@ public class HanhKhachController implements Initializable {
                 txt_searchBar.requestFocus();
                 return;
             }
-            renderTableHanhKhach(dsHanhKhach);
+            renderTableHanhKhach(dsKhachHangs);
         });
 
         btn_refresh.setOnAction(e -> {
             txt_searchBar.clear();
             txt_searchBar.requestFocus();
-            renderTableHanhKhach(hanhKhach_dao.getAllHanhKhach());
+            renderTableHanhKhach(khach_Hang_dao.getAllKhachHang());
             cb_search.setPromptText("Tìm kiếm theo");
             tbl_thongTinVe.setItems(null);
             txt_maHK.clear();
@@ -203,16 +203,16 @@ public class HanhKhachController implements Initializable {
         });
 
         tbl_hanhKhach.setOnMouseClicked(e -> {
-            HanhKhach hk = tbl_hanhKhach.getSelectionModel().getSelectedItem();
-            txt_maHK.setText(hk.getMaHanhKhach());
-            txt_tenHK.setText(hk.getTenHanhKhach());
+            KhachHang hk = tbl_hanhKhach.getSelectionModel().getSelectedItem();
+            txt_maHK.setText(hk.getMaKH());
+            txt_tenHK.setText(hk.getTenKH());
             txt_cccd.setText(hk.getSoCCCD());
             //cb_gender.setValue(hk.isGioiTinh() ? "Nữ" : "Nam");
             //datePicker_dob.setValue(hk.getNgaySinh());
             txt_sdt.setText(hk.getSdt());
             txt_email.setText(hk.getEmail());
 
-            ArrayList<Ve> dsVeTheoMaHK = ve_dao.getDSVeTheoMaHK(hk.getMaHanhKhach());
+            ArrayList<Ve> dsVeTheoMaHK = ve_dao.getDSVeTheoMaKH(hk.getMaKH());
             renderTableVe(dsVeTheoMaHK);
         });
 
@@ -235,14 +235,14 @@ public class HanhKhachController implements Initializable {
             String email = txt_email.getText();
 
             if (checkInput(tenHK, cccd, sdt, email)) {
-                //HanhKhach hk = new HanhKhach(tenHK, cccd, sdt, dob, gioiTinh, email);
-                HanhKhach hk = new HanhKhach(tenHK, cccd, sdt, email);
-                if (hanhKhach_dao.create(hk)) {
+                //KhachHang hk = new KhachHang(tenHK, cccd, sdt, dob, gioiTinh, email);
+                KhachHang hk = new KhachHang(tenHK, cccd, sdt, email);
+                if (khach_Hang_dao.create(hk)) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Thành công");
                     alert.setHeaderText("Thêm hành khách thành công");
                     alert.show();
-                    renderTableHanhKhach(hanhKhach_dao.getAllHanhKhach());
+                    renderTableHanhKhach(khach_Hang_dao.getAllKhachHang());
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Lỗi");
@@ -270,14 +270,14 @@ public class HanhKhachController implements Initializable {
             }
 
             if (checkInput(tenHK, cccd, sdt, email)) {
-                //HanhKhach hk = new HanhKhach(maHK, tenHK, cccd, sdt, dob, gioiTinh, email);
-                HanhKhach hk = new HanhKhach(maHK, tenHK, cccd, sdt, email);
-                if (hanhKhach_dao.update(hk)) {
+                //KhachHang hk = new KhachHang(maHK, tenHK, cccd, sdt, dob, gioiTinh, email);
+                KhachHang hk = new KhachHang(maHK, tenHK, cccd, sdt, email);
+                if (khach_Hang_dao.update(hk)) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Thành công");
                     alert.setHeaderText("Cập nhật hành khách thành công");
                     alert.show();
-                    renderTableHanhKhach(hanhKhach_dao.getAllHanhKhach());
+                    renderTableHanhKhach(khach_Hang_dao.getAllKhachHang());
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Lỗi");
@@ -298,7 +298,7 @@ public class HanhKhachController implements Initializable {
         });
 
         btn_inVe.setOnAction(e -> {
-            HanhKhach hk = tbl_hanhKhach.getSelectionModel().getSelectedItem();
+            KhachHang hk = tbl_hanhKhach.getSelectionModel().getSelectedItem();
             if (hk == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
@@ -316,18 +316,18 @@ public class HanhKhachController implements Initializable {
             }
             // In vé
             try {
-                new PrintPDF().inVe(ve);
+                new PrintPDF().inVe(new ArrayList<>(Arrays.asList(ve)));
             } catch (IOException | DocumentException ex) {
                 throw new RuntimeException(ex);
             }
         });
     }
 
-    public void renderTableHanhKhach(ArrayList<HanhKhach> list) {
-        ObservableList<HanhKhach> dsHk = FXCollections.observableArrayList(list);
-        tbl_hanhKhach.setItems(dsHk);
-        col_cusId.setCellValueFactory(new PropertyValueFactory<>("maHanhKhach"));
-        col_name.setCellValueFactory(new PropertyValueFactory<>("tenHanhKhach"));
+    public void renderTableHanhKhach(ArrayList<KhachHang> list) {
+        ObservableList<KhachHang> dskh = FXCollections.observableArrayList(list);
+        tbl_hanhKhach.setItems(dskh);
+        col_cusId.setCellValueFactory(new PropertyValueFactory<>("maKH"));
+        col_name.setCellValueFactory(new PropertyValueFactory<>("tenKH"));
 //        col_gender.setCellValueFactory(cellData -> {
 //            boolean gioiTinh = cellData.getValue().isGioiTinh();
 //            return new SimpleStringProperty(gioiTinh ? "Nữ" : "Nam");
@@ -342,7 +342,7 @@ public class HanhKhachController implements Initializable {
         ObservableList<Ve> data = FXCollections.observableArrayList(list);
         tbl_thongTinVe.setItems(data);
         col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));
-        col_maKH.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getHanhKhach().getMaHanhKhach()));
+        col_maKH.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getHanhKhach().getMaKH()));
         col_thongTinVe.setCellValueFactory(p -> {
             Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
             LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());

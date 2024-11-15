@@ -23,7 +23,6 @@ import javafx.stage.Stage;
 
 import java.awt.image.BufferedImage;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -113,7 +112,7 @@ public class HuyVeController implements Initializable {
     private Label label_thongBao;
 
     private Ve_DAO ve_dao;
-    private HanhKhach_DAO hanhKhach_dao;
+    private KhachHang_DAO khach_Hang_dao;
     private CT_HoaDon_DAO ct_hoaDon_dao;
     private HoaDon_DAO hoaDon_dao;
     private LichTrinh_DAO lichTrinh_dao;
@@ -122,7 +121,7 @@ public class HuyVeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ve_dao = new Ve_DAO();
-        hanhKhach_dao = new HanhKhach_DAO();
+        khach_Hang_dao = new KhachHang_DAO();
         ct_hoaDon_dao = new CT_HoaDon_DAO();
         hoaDon_dao = new HoaDon_DAO();
         lichTrinh_dao = new LichTrinh_DAO();
@@ -204,7 +203,7 @@ public class HuyVeController implements Initializable {
                 renderTable(new ArrayList<>(Arrays.asList(ve)));
                 return;
             }
-            ArrayList<Ve> listVe = ve_dao.getDSVeTheoMaHK(search);
+            ArrayList<Ve> listVe = ve_dao.getDSVeTheoMaKH(search);
             renderTable(listVe);
         });
 
@@ -230,13 +229,13 @@ public class HuyVeController implements Initializable {
         tbl_thongTinVe.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 Ve ve = tbl_thongTinVe.getSelectionModel().getSelectedItem();
-                String maHKTmp = ve.getHanhKhach().getMaHanhKhach();
-                HanhKhach hk = hanhKhach_dao.getHanhKhachTheoMa(maHKTmp);
-                txt_maHK.setText(hk.getMaHanhKhach());
+                String maHKTmp = ve.getHanhKhach().getMaKH();
+                KhachHang hk = khach_Hang_dao.getKhachHangTheoMaKH(maHKTmp);
+                txt_maHK.setText(hk.getMaKH());
                 txt_email.setText(hk.getEmail());
                 txt_sdt.setText(hk.getSdt());
                 txt_cccd.setText(hk.getSoCCCD());
-                txt_tenHK.setText(hk.getTenHanhKhach());
+                txt_tenHK.setText(hk.getTenKH());
 
                 //ngày lập hóa đơn được lấy bằng cách lấy mã hóa đơn từ chi tiết hóa đơn sau
                 //sau đó lấy ngày lập hóa đơn từ hóa đơn
@@ -295,7 +294,7 @@ public class HuyVeController implements Initializable {
         ObservableList<Ve> data = FXCollections.observableArrayList(listVe);
         tbl_thongTinVe.setItems(data);
         col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));
-        col_maKH.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getHanhKhach().getMaHanhKhach()));
+        col_maKH.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getHanhKhach().getMaKH()));
         col_thongTinVe.setCellValueFactory(p -> {
             Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
             LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());

@@ -1,66 +1,65 @@
 package entity;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
-public class HanhKhach {
-    private String maHanhKhach;
-    private String tenHanhKhach;
+public class KhachHang {
+    private String maKH;
+    private String tenKH;
     private String soCCCD;
     private String sdt;
     private String email;
 
-    public HanhKhach() {
+    public KhachHang() {
     }
 
-    public HanhKhach(String maHanhKhach) {
-        setMaHanhKhach(maHanhKhach);
+    public KhachHang(String maKH) {
+        setMaHanhKhach(maKH);
     }
 
-    public HanhKhach(String tenHanhKhach, String soCCCD, String sdt, String email) {
-        setTenHanhKhach(tenHanhKhach);
+    public KhachHang(String tenKH, String soCCCD, String sdt, String email) {
+        setTenKH(tenKH);
         setSoCCCD(soCCCD);
         setSdt(sdt);
         setEmail(email);
     }
 
-    public HanhKhach(String maHanhKhach, String tenHanhKhach, String soCCCD, String sdt,
+    public KhachHang(String maKH, String tenKH, String soCCCD, String sdt,
                      String email) {
-        this.maHanhKhach = maHanhKhach;
-        setTenHanhKhach(tenHanhKhach);
+        this.maKH = maKH;
+        setTenKH(tenKH);
         setSoCCCD(soCCCD);
         setSdt(sdt);
         setEmail(email);
     }
 
-    public String getMaHanhKhach() {
-        return maHanhKhach;
+    public String getMaKH() {
+        return maKH;
     }
 
     // mã hành khách bao gồm: HK+8 chữ số tăng dần
-    public void setMaHanhKhach(String maHanhKhach) {
-        if (maHanhKhach == null || maHanhKhach.isBlank()) {
-            throw new IllegalArgumentException("Mã hành khách không hợp lệ");
+    public void setMaHanhKhach(String maKH) {
+        if (maKH == null || maKH.isBlank()) {
+            throw new IllegalArgumentException("Mã khách hàng không hợp lệ");
         }
-        if (!maHanhKhach.matches("HK[0-9]{8}$")) {
-            throw new IllegalArgumentException("Mã hành khách không hợp lệ");
+        if (!maKH.matches("KH[0-9]{8}$")) {
+            throw new IllegalArgumentException("Mã khách hàng không hợp lệ");
         }
-        this.maHanhKhach = maHanhKhach;
+        this.maKH = maKH;
     }
 
-    public String getTenHanhKhach() {
-        return tenHanhKhach;
+    public String getTenKH() {
+        return tenKH;
     }
 
     // tên hành khách thì mỗi chứ cái đầu phải ghi hoa và không chứa ký tự đặc biệt, số. phải có khoảng trắng giữa các chữ
-    public void setTenHanhKhach(String tenHanhKhach) {
-        if (tenHanhKhach == null || tenHanhKhach.isBlank()) {
+    public void setTenKH(String tenKH) {
+        if (tenKH == null || tenKH.isBlank()) {
             throw new IllegalArgumentException("Tên hành khách không hợp lệ");
         }
 //        if (!tenHanhKhach.matches("^[A-Z][a-z]+(\\s[A-Z][a-z]+)*$")) {
 //            throw new IllegalArgumentException("Tên hành khách không hợp lệ");
 //        }
-        this.tenHanhKhach = tenHanhKhach;
+        this.tenKH = tenKH;
     }
 
     public String getSoCCCD() {
@@ -102,12 +101,13 @@ public class HanhKhach {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof HanhKhach hanhKhach)) return false;
-        return Objects.equals(getMaHanhKhach(), hanhKhach.getMaHanhKhach()) && Objects.equals(getSoCCCD(), hanhKhach.getSoCCCD());
+        if (o == null || getClass() != o.getClass()) return false;
+        KhachHang khachHang = (KhachHang) o;
+        return Objects.equals(maKH, khachHang.maKH);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMaHanhKhach(), getSoCCCD());
+        return Objects.hashCode(maKH);
     }
 }

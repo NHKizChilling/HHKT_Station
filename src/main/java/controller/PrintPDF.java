@@ -10,19 +10,15 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.Barcode;
-import com.itextpdf.text.pdf.qrcode.QRCode;
 import dao.*;
 import entity.*;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.Image;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 /*
@@ -37,14 +33,11 @@ public class PrintPDF {
 
     }
 
-    public void inVe(Ve ve) throws IOException, DocumentException {
-        // Thay thế các giá trị mẫu bằng dữ liệu thực tế
+    public void inVe(ArrayList<Ve> dsve) throws IOException, DocumentException {
 
-        // ...
-        String filename = ve.getMaVe() + ".pdf";
         // Tạo một document
         Document document = new Document(new Rectangle(250, 550));
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("src/main/resources/pdf/" + filename));
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("src/main/resources/pdf/" + "dsve.pdf"));
         document.addLanguage("vi");
         document.open();
         //Cho phép viết tiếng Việt không lỗi mất chữ có dấu
@@ -53,116 +46,120 @@ public class PrintPDF {
         Font fontTitle = new Font(bf, 12, Font.BOLD);
         Font fontContent = new Font(bf, 11, Font.NORMAL);
         Font fontContentB = new Font(bf, 11, Font.BOLD);
-
-        document.setMargins(10, 10, 10, 10);
+        //set cùng 1 size margin cho các page
         //cho nội dung căn giữa
-        Paragraph p = new Paragraph("CÔNG TY CỔ PHẦN VẬN TẢI ĐƯỜNG SẮT HHKT", fontTitle);
-        p.setAlignment(Element.ALIGN_CENTER);
-        document.add(p);
-        Paragraph p1 = new Paragraph("VÉ TÀU", new Font(bf, 12, Font.NORMAL));
-        p1.setAlignment(Element.ALIGN_CENTER);
-        document.add(p1);
-        //Xuống thêm 1 dòng
-        Barcode barcode = new Barcode128();
-        barcode.setCode(ve.getMaVe());
-        Image barcodeImage = barcode.createAwtImage(Color.BLACK, Color.WHITE);
-        com.itextpdf.text.Image img = com.itextpdf.text.Image.getInstance(barcodeImage, null);
-        img.setAlignment(Element.ALIGN_CENTER);
-        document.add(img);
-        Paragraph p2 = new Paragraph("Mã vé/TicketID: " + ve.getMaVe(), fontContent);
-        p2.setAlignment(Element.ALIGN_CENTER);
-        document.add(p2);
-        //Tạo para có Ga Đi          Ga Đến
-        Paragraph p3 = new Paragraph();
-        p3.setAlignment(Element.ALIGN_CENTER);
-        p3.setFont(fontContent);
-        p3.add(new Chunk("Ga đi/From"));
-        p3.add(new Chunk("          "));
-        p3.add(new Chunk("Ga đến/To"));
-        document.add(p3);
-        //Tên ga
-        LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
-        String gaDi = new Ga_DAO().getGaTheoMaGa(lt.getGaDi().getMaGa()).getTenGa();
-        String gaDen = new Ga_DAO().getGaTheoMaGa(lt.getGaDen().getMaGa()).getTenGa();
-        Paragraph p4 = new Paragraph(gaDi.toUpperCase() + "           " + gaDen.toUpperCase(), fontTitle);
-        p4.setAlignment(Element.ALIGN_CENTER);
-        document.add(p4);
+        for (Ve ve : dsve) {
+            Paragraph p = new Paragraph("CÔNG TY CỔ PHẦN VẬN TẢI ĐƯỜNG SẮT HHKT", fontTitle);
+            p.setAlignment(Element.ALIGN_CENTER);
+            document.add(p);
+            Paragraph p1 = new Paragraph("VÉ TÀU", new Font(bf, 12, Font.NORMAL));
+            p1.setAlignment(Element.ALIGN_CENTER);
+            document.add(p1);
+            //Xuống thêm 1 dòng
+            Barcode barcode = new Barcode128();
+            barcode.setCode(ve.getMaVe());
+            Image barcodeImage = barcode.createAwtImage(Color.BLACK, Color.WHITE);
+            com.itextpdf.text.Image img = com.itextpdf.text.Image.getInstance(barcodeImage, null);
+            img.setAlignment(Element.ALIGN_CENTER);
+            document.add(img);
+            Paragraph p2 = new Paragraph("Mã vé/TicketID: " + ve.getMaVe(), fontContent);
+            p2.setAlignment(Element.ALIGN_CENTER);
+            document.add(p2);
+            //Tạo para có Ga Đi          Ga Đến
+            Paragraph p3 = new Paragraph();
+            p3.setAlignment(Element.ALIGN_CENTER);
+            p3.setFont(fontContent);
+            p3.add(new Chunk("Ga đi/From"));
+            p3.add(new Chunk("          "));
+            p3.add(new Chunk("Ga đến/To"));
+            document.add(p3);
+            //Tên ga
+            LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
+            String gaDi = new Ga_DAO().getGaTheoMaGa(lt.getGaDi().getMaGa()).getTenGa();
+            String gaDen = new Ga_DAO().getGaTheoMaGa(lt.getGaDen().getMaGa()).getTenGa();
+            Paragraph p4 = new Paragraph(gaDi.toUpperCase() + "           " + gaDen.toUpperCase(), fontTitle);
+            p4.setAlignment(Element.ALIGN_CENTER);
+            document.add(p4);
 
-        document.add(new Paragraph(" "));
-        //Tạo para có ngày giờ
-        Paragraph p5 = new Paragraph("Tàu/Train: ", fontContent);
-        p5.setAlignment(Element.ALIGN_JUSTIFIED);
-        p5.add(new Chunk(lt.getChuyenTau().getSoHieutau(), fontContentB));
-        //tạo margin bottom
-        p5.setSpacingAfter(5);
-        document.add(p5);
-        //Tạo para có ngày giờ
-        Paragraph p6 = new Paragraph("Ngày/Date: ", fontContent);
-        p6.setAlignment(Element.ALIGN_LEFT);
-        p6.add(new Chunk(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(lt.getThoiGianKhoiHanh()), fontContentB));
-        p6.setSpacingAfter(5);
-        document.add(p6);
-        //Tạo para có ngày giờ
-        Paragraph p7 = new Paragraph("Giờ/Time: ", fontContent);
-        p7.setAlignment(Element.ALIGN_LEFT);
-        p7.add(new Chunk(DateTimeFormatter.ofPattern("HH:mm").format(lt.getThoiGianKhoiHanh()), fontContentB));
-        p7.setSpacingAfter(5);
-        document.add(p7);
-        //Tạo para có Toa
-        ChoNgoi choNgoi = new ChoNgoi_DAO().getChoNgoiTheoMa(ve.getCtlt().getChoNgoi().getMaChoNgoi());
-        Toa toa = new Toa_DAO().getToaTheoID(choNgoi.getToa().getMaToa());
-        Paragraph p8 = new Paragraph("Toa/Coach: " + toa.getSoSTToa() +  "     Chỗ/Seat: " + choNgoi.getSttCho(), fontContent);
-        p8.setAlignment(Element.ALIGN_LEFT);
-        p8.setSpacingAfter(5);
-        document.add(p8);
-        //Tạo para có Loại chỗ
-        LoaiToa loaiToa = new LoaiToa_DAO().getLoaiToaTheoMa(toa.getLoaiToa().getMaLoaiToa());
-        Paragraph p9 = new Paragraph("Loại chỗ/Class: ", fontContent);
-        p9.setAlignment(Element.ALIGN_LEFT);
-        p9.setSpacingAfter(5);
-        p9.add(new Chunk(loaiToa.getTenLoaiToa(),fontContentB));
-        document.add(p9);
-        //Tạo para có Loại vé
-        LoaiVe loaiVe = new LoaiVe_DAO().getLoaiVeTheoMa(ve.getLoaiVe().getMaLoaiVe());
-        Paragraph p10 = new Paragraph("Loại vé/Ticket: ", fontContent);
-        p10.setAlignment(Element.ALIGN_LEFT);
-        p10.setSpacingAfter(5);
-        p10.add(new Chunk(loaiVe.getTenLoaiVe(), fontContentB));
-        document.add(p10);
-        //Tạo para có Họ tên
-        Paragraph p11 = new Paragraph("Họ tên/Name: ", fontContent);
-        p11.setAlignment(Element.ALIGN_LEFT);
-        p11.setSpacingAfter(5);
-        p11.add(new Chunk(ve.getTenHanhKhach(), fontContentB));
-        document.add(p11);
-        //Tạo para có Giấy tờ
-        Paragraph p12 = new Paragraph("Giấy tờ/Passport: ", fontContent);
-        p12.setAlignment(Element.ALIGN_LEFT);
-        p12.setSpacingAfter(5);
-        p12.add(new Chunk(ve.getSoCCCD(), fontContentB));
-        document.add(p12);
-        //Tạo para có Địa chỉ
-        Paragraph p13 = new Paragraph("Giá/Price: ", fontContent);
-        p13.setAlignment(Element.ALIGN_LEFT);
-        p13.setSpacingAfter(5);
-        p13.add(new Chunk(new DecimalFormat("#,### VNĐ").format(new CT_HoaDon_DAO().getCT_HoaDonTheoMaVe(ve.getMaVe()).getGiaVe()), fontContentB));
+            document.add(new Paragraph(" "));
+            //Tạo para có ngày giờ
+            Paragraph p5 = new Paragraph("Tàu/Train: ", fontContent);
+            p5.setAlignment(Element.ALIGN_JUSTIFIED);
+            p5.add(new Chunk(lt.getChuyenTau().getSoHieutau(), fontContentB));
+            //tạo margin bottom
+            p5.setSpacingAfter(5);
+            document.add(p5);
+            //Tạo para có ngày giờ
+            Paragraph p6 = new Paragraph("Ngày/Date: ", fontContent);
+            p6.setAlignment(Element.ALIGN_LEFT);
+            p6.add(new Chunk(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(lt.getThoiGianKhoiHanh()), fontContentB));
+            p6.setSpacingAfter(5);
+            document.add(p6);
+            //Tạo para có ngày giờ
+            Paragraph p7 = new Paragraph("Giờ/Time: ", fontContent);
+            p7.setAlignment(Element.ALIGN_LEFT);
+            p7.add(new Chunk(DateTimeFormatter.ofPattern("HH:mm").format(lt.getThoiGianKhoiHanh()), fontContentB));
+            p7.setSpacingAfter(5);
+            document.add(p7);
+            //Tạo para có Toa
+            ChoNgoi choNgoi = new ChoNgoi_DAO().getChoNgoiTheoMa(ve.getCtlt().getChoNgoi().getMaChoNgoi());
+            Toa toa = new Toa_DAO().getToaTheoID(choNgoi.getToa().getMaToa());
+            Paragraph p8 = new Paragraph("Toa/Coach: " + toa.getSoSTToa() +  "     Chỗ/Seat: " + choNgoi.getSttCho(), fontContent);
+            p8.setAlignment(Element.ALIGN_LEFT);
+            p8.setSpacingAfter(5);
+            document.add(p8);
+            //Tạo para có Loại chỗ
+            LoaiToa loaiToa = new LoaiToa_DAO().getLoaiToaTheoMa(toa.getLoaiToa().getMaLoaiToa());
+            Paragraph p9 = new Paragraph("Loại chỗ/Class: ", fontContent);
+            p9.setAlignment(Element.ALIGN_LEFT);
+            p9.setSpacingAfter(5);
+            p9.add(new Chunk(loaiToa.getTenLoaiToa(),fontContentB));
+            document.add(p9);
+            //Tạo para có Loại vé
+            LoaiVe loaiVe = new LoaiVe_DAO().getLoaiVeTheoMa(ve.getLoaiVe().getMaLoaiVe());
+            Paragraph p10 = new Paragraph("Loại vé/Ticket: ", fontContent);
+            p10.setAlignment(Element.ALIGN_LEFT);
+            p10.setSpacingAfter(5);
+            p10.add(new Chunk(loaiVe.getTenLoaiVe(), fontContentB));
+            document.add(p10);
+            //Tạo para có Họ tên
+            Paragraph p11 = new Paragraph("Họ tên/Name: ", fontContent);
+            p11.setAlignment(Element.ALIGN_LEFT);
+            p11.setSpacingAfter(5);
+            p11.add(new Chunk(ve.getTenHanhKhach(), fontContentB));
+            document.add(p11);
+            //Tạo para có Giấy tờ
+            Paragraph p12 = new Paragraph("Giấy tờ/Passport: ", fontContent);
+            p12.setAlignment(Element.ALIGN_LEFT);
+            p12.setSpacingAfter(5);
+            p12.add(new Chunk(ve.getSoCCCD(), fontContentB));
+            document.add(p12);
+            //Tạo para có Địa chỉ
+            Paragraph p13 = new Paragraph("Giá/Price: ", fontContent);
+            p13.setAlignment(Element.ALIGN_LEFT);
+            p13.setSpacingAfter(5);
+            p13.add(new Chunk(new DecimalFormat("#,### VNĐ").format(new CT_HoaDon_DAO().getCT_HoaDonTheoMaVe(ve.getMaVe()).getGiaVe()), fontContentB));
 
-        document.add(p13);
-        String text = "";
-        for (int i = 0; i < document.getPageSize().getWidth()/10; i++) {
-            text += "-";
+            document.add(p13);
+            String text = "";
+            for (int i = 0; i < document.getPageSize().getWidth()/10; i++) {
+                text += "-";
+            }
+            Paragraph p14 = new Paragraph(text + "\nHotline: 1900 1000\n" +
+                    "Website: www.vetau.com.vn", fontContent);
+            p14.setAlignment(Element.ALIGN_CENTER);
+            document.add(p14);
+            Paragraph luuY = new Paragraph(text + "\nLưu ý: Hành khách khi đi tàu nhớ mang theo giấy tờ định danh để soát vé trước khi lên tàu", fontContent);
+            luuY.setAlignment(Element.ALIGN_CENTER);
+            document.add(luuY);
+            if (dsve.indexOf(ve) != dsve.size() - 1) {
+                document.newPage();
+            }
         }
-        Paragraph p14 = new Paragraph(text + "\nHotline: 1900 1000\n" +
-                "Website: www.vetau.com.vn", fontContent);
-        p14.setAlignment(Element.ALIGN_CENTER);
-        document.add(p14);
-        Paragraph luuY = new Paragraph(text + "\nLưu ý: Hành khách khi đi tàu nhớ mang theo giấy tờ định danh để soát vé trước khi lên tàu", fontContent);
-        luuY.setAlignment(Element.ALIGN_CENTER);
-        document.add(luuY);
 
         try {
             document.close();
-            Desktop.getDesktop().open(new File("src/main/resources/pdf/" + filename));
+            Desktop.getDesktop().open(new File("src/main/resources/pdf/" + "dsve.pdf"));
         }catch (Exception e){
             System.out.println("Tạo vé thất bại!");
         }
@@ -210,7 +207,7 @@ public class PrintPDF {
         document.add(new Paragraph("Địa chỉ: Số 12A Nguyễn Văn Bảo, Phường 4, Quận Gò Vấp, Thành phố Hồ Chí Minh, Việt Nam", regularFont));
         document.add(new Paragraph(" "));
         // Add buyer info
-        document.add(new Paragraph("\nHọ tên người mua hàng: " + new HanhKhach_DAO().getHanhKhachTheoMa(hoaDon.getHanhKhach().getMaHanhKhach()).getTenHanhKhach(), boldFont));
+        document.add(new Paragraph("\nHọ tên người mua hàng: " + new KhachHang_DAO().getKhachHangTheoMaKH(hoaDon.getKhachHang().getMaKH()).getTenKH(), boldFont));
         document.add(new Paragraph("Hình thức thanh toán: Tiền mặt", regularFont));
         document.add(new Paragraph(" "));
 
@@ -294,10 +291,4 @@ public class PrintPDF {
         }
     }
 
-    public static void main(String[] args) throws IOException, DocumentException {
-        Ve ve = new Ve();
-        HoaDon hd = new HoaDon();
-//        new PrintPDF().inVe(ve);
-        new PrintPDF().inHoaDon(hd);
-    }
 }

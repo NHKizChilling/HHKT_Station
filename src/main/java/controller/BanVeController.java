@@ -49,7 +49,7 @@ public class BanVeController implements Initializable {
     private LichTrinh_DAO lt_dao = new LichTrinh_DAO();
     private CT_LichTrinh_DAO ctlt_dao = new CT_LichTrinh_DAO();
     private Ga_DAO ga_dao = new Ga_DAO();
-    private HanhKhach_DAO hk_dao = new HanhKhach_DAO();
+    private KhachHang_DAO hk_dao = new KhachHang_DAO();
     private Ve_DAO ve_dao = new Ve_DAO();
     private HoaDon_DAO hd_dao = new HoaDon_DAO();
     private ChuyenTau_DAO ct_dao = new ChuyenTau_DAO();
@@ -269,6 +269,16 @@ public class BanVeController implements Initializable {
             e.printStackTrace();
         }
 
+        tabVe.setOnMouseClicked(e -> {
+            tabVe.getSelectionModel().getSelectedItem().setStyle("-fx-background-color: lightgray;");
+            for (Tab tab : tabVe.getTabs()) {
+                if (!tab.equals(tabVe.getSelectionModel().getSelectedItem())) {
+                    tab.setStyle("-fx-background-color: linear-gradient(to right, lightblue, #5098ff);");
+                }
+            }
+        });
+
+
         tbTCTLT.setItems(null);
 
         tbTCTLT.setStyle(tbTCTLT.getStyle() + "-fx-selection-bar: #FFD700; -fx-selection-bar-non-focused: #FFD700;-fx-alignment: CENTER;-fx-content-display: CENTER;-fx-background-color: #fff;");
@@ -407,6 +417,7 @@ public class BanVeController implements Initializable {
                     String maGaDi = ga_dao.getGaTheoTenGa(cbGaDi.getValue()).getMaGa();
                     String maGaDen = ga_dao.getGaTheoTenGa(cbGaDen.getValue()).getMaGa();
                     ArrayList<LichTrinh> list = lt_dao.traCuuDSLichTrinh(maGaDi, maGaDen, dpNgayKH.getValue());
+                    list.removeIf(lt -> !lt.getThoiGianKhoiHanh().isAfter(LocalDateTime.now()));
                     dslt = FXCollections.observableList(list);
                     if (dslt.isEmpty()) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1538,8 +1549,8 @@ public class BanVeController implements Initializable {
                     return;
                 }
             }
-            if (hk_dao.getKhachHangTheoSDT(txtSDT.getText()) == null && hk_dao.getHanhKhachTheoCCCD(txtSoCCCD.getText()) == null) {
-                hk_dao.create(new HanhKhach("temp",txtTenKH.getText(), txtSoCCCD.getText(), txtSDT.getText(), txtEmail.getText()));
+            if (hk_dao.getKhachHangTheoSDT(txtSDT.getText()) == null && hk_dao.getKHTheoCCCD(txtSoCCCD.getText()) == null) {
+                hk_dao.create(new KhachHang("temp",txtTenKH.getText(), txtSoCCCD.getText(), txtSDT.getText(), txtEmail.getText()));
             }
             getData.hk = hk_dao.getKhachHangTheoSDT(txtSDT.getText());
             int i = 1;
@@ -1563,7 +1574,7 @@ public class BanVeController implements Initializable {
             getData.dsve = dsve;
             LocalDateTime now = LocalDateTime.now();
             now = now.minusNanos(now.getNano());
-            HoaDon hd = new HoaDon("temp", getData.nv, getData.hk, now, false);
+            HoaDon hd = new HoaDon("temp", getData.nv, getData.hk, now, new KhuyenMai(null), false);
             if (hd_dao.createTempInvoice(hd)) {
                 //get hóa đơn vừa tạo
                 getData.hd = hd_dao.getHoaDonVuaTao();
@@ -1624,8 +1635,8 @@ public class BanVeController implements Initializable {
 
         txtSDT.setOnKeyTyped(e -> {
             if (hk_dao.getKhachHangTheoSDT(txtSDT.getText()) != null) {
-                HanhKhach kh = hk_dao.getKhachHangTheoSDT(txtSDT.getText());
-                txtTenKH.setText(kh.getTenHanhKhach());
+                KhachHang kh = hk_dao.getKhachHangTheoSDT(txtSDT.getText());
+                txtTenKH.setText(kh.getTenKH());
                 txtSoCCCD.setText(kh.getSoCCCD());
                 txtEmail.setText(kh.getEmail());
             }
@@ -1633,9 +1644,9 @@ public class BanVeController implements Initializable {
         });
 
         txtSoCCCD.setOnKeyTyped(e -> {
-            if (hk_dao.getHanhKhachTheoCCCD(txtSoCCCD.getText()) != null) {
-                HanhKhach kh = hk_dao.getHanhKhachTheoCCCD(txtSoCCCD.getText());
-                txtTenKH.setText(kh.getTenHanhKhach());
+            if (hk_dao.getKHTheoCCCD(txtSoCCCD.getText()) != null) {
+                KhachHang kh = hk_dao.getKHTheoCCCD(txtSoCCCD.getText());
+                txtTenKH.setText(kh.getTenKH());
                 txtSDT.setText(kh.getSdt());
                 txtEmail.setText(kh.getEmail());
             }

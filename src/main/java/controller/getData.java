@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class getData {
     public static NhanVien nv;
     public static HoaDon hd;
-    public static HanhKhach hk;
+    public static KhachHang hk;
     public static LichTrinh lt;
     public static LichTrinh ltkh;
     public static ArrayList<Ve> dsve;

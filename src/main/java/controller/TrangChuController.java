@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
@@ -32,7 +33,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -118,6 +118,7 @@ public class TrangChuController implements Initializable {
         btnFCT.setOnMouseClicked(e -> chooseFeatureButton(btnFCT));
         TrangChu_GUI.nv = getData.nv;
         lblTenNhanVien.setText("Chào, " + TrangChu_GUI.nv.getChucVu() + " " + TrangChu_GUI.nv.getTenNhanVien());
+        MenuItem item = new MenuItem("Bán vé");
     }
 
     @FXML
@@ -178,8 +179,22 @@ public class TrangChuController implements Initializable {
     }
 
     @FXML
+    protected void showChuyenTauGUI() {
+        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("chuyen-tau.fxml"));
+        double width = paneMain.getWidth();
+        double height = paneMain.getHeight();
+        paneMain.getChildren().clear();
+        try {
+            paneMain.getChildren().add(loader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        paneMain.setPrefSize(width, height);
+    }
+
+    @FXML
     protected void showHKGUI() {
-        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("hanh-khach.fxml"));
+        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("khach-hang.fxml"));
         double width = paneMain.getWidth();
         double height = paneMain.getHeight();
         paneMain.getChildren().clear();

@@ -25,7 +25,7 @@ public class Ve_DAO {
 
             while (rs.next()) {
                 String maVe = rs.getString(1);
-                HanhKhach hanhKhach = new HanhKhach(rs.getString(2));
+                KhachHang khachHang = new KhachHang(rs.getString(2));
                 ChiTietLichTrinh chiTietLichTrinh = new ChiTietLichTrinh(new ChoNgoi(rs.getString(3)), new LichTrinh(rs.getString(4)));
                 LoaiVe loaiVe = new LoaiVe(rs.getString(5));
                 String tenHK = rs.getString(6);
@@ -37,7 +37,7 @@ public class Ve_DAO {
                 String tinhTrangVe = rs.getString(9);
                 boolean khuHoi = rs.getBoolean(10);
 
-                Ve ve = new Ve(maVe, hanhKhach, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
+                Ve ve = new Ve(maVe, khachHang, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
 
                 list.add(ve);
             }
@@ -60,7 +60,7 @@ public class Ve_DAO {
             ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
-                HanhKhach hanhKhach = new HanhKhach(rs.getString(2));
+                KhachHang khachHang = new KhachHang(rs.getString(2));
                 ChiTietLichTrinh chiTietLichTrinh = new ChiTietLichTrinh(new ChoNgoi(rs.getString(3)), new LichTrinh(rs.getString(4)));
                 LoaiVe loaiVe = new LoaiVe(rs.getString(5));
                 String tenHK = rs.getString(6);
@@ -73,7 +73,7 @@ public class Ve_DAO {
                 String tinhTrangVe = rs.getString(9);
                 boolean khuHoi = rs.getBoolean(10);
 
-                ve = new Ve(maVe, hanhKhach, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
+                ve = new Ve(maVe, khachHang, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
 
             }
         } catch (Exception e) {
@@ -88,9 +88,9 @@ public class Ve_DAO {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
             PreparedStatement stm = null;
-            String sql = "Select * from Ve where MaHK = ? and MaSoCho = ? and MaLichTrinh = ? and TinhTrangVe = 'DaBan'";
+            String sql = "Select * from Ve where MaKH = ? and MaSoCho = ? and MaLichTrinh = ? and TinhTrangVe = 'DaBan'";
             stm = con.prepareStatement(sql);
-            stm.setString(1, ve.getHanhKhach().getMaHanhKhach());
+            stm.setString(1, ve.getHanhKhach().getMaKH());
             stm.setString(2, ve.getCtlt().getChoNgoi().getMaChoNgoi());
             stm.setString(3, ve.getCtlt().getLichTrinh().getMaLichTrinh());
 
@@ -98,7 +98,7 @@ public class Ve_DAO {
 
             if (rs.next()) {
                 String maVe = rs.getString(1);
-                HanhKhach hanhKhach = new HanhKhach(rs.getString(2));
+                KhachHang khachHang = new KhachHang(rs.getString(2));
                 ChiTietLichTrinh chiTietLichTrinh = new ChiTietLichTrinh(new ChoNgoi(rs.getString(3)), new LichTrinh(rs.getString(4)));
                 LoaiVe loaiVe = new LoaiVe(rs.getString(5));
                 String tenHK = rs.getString(6);
@@ -111,7 +111,7 @@ public class Ve_DAO {
                 String tinhTrangVe = rs.getString(9);
                 boolean khuHoi = rs.getBoolean(10);
 
-                v = new Ve(maVe, hanhKhach, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
+                v = new Ve(maVe, khachHang, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
 
             }
         } catch (Exception e) {
@@ -126,9 +126,9 @@ public class Ve_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            String sql = "Insert into Ve(MaHK, MaSoCho, MaLichTrinh, MaLoaiVe, TenHK, SoCCCD, NgaySinh, TinhTrangVe, KhuHoi) values(?,?,?,?,?,?,?,?,?)";
+            String sql = "Insert into Ve(MaKH, MaSoCho, MaLichTrinh, MaLoaiVe, TenHK, SoCCCD, NgaySinh, TinhTrangVe, KhuHoi) values(?,?,?,?,?,?,?,?,?)";
             stm = con.prepareStatement(sql);
-            stm.setString(1, ve.getHanhKhach().getMaHanhKhach());
+            stm.setString(1, ve.getHanhKhach().getMaKH());
             stm.setString(2, ve.getCtlt().getChoNgoi().getMaChoNgoi());
             stm.setString(3, ve.getCtlt().getLichTrinh().getMaLichTrinh());
             stm.setString(4, ve.getLoaiVe().getMaLoaiVe());
@@ -169,10 +169,10 @@ public class Ve_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update Ve set MaLoaiVe = ?, MaHK = ?, MaSoCho = ?, MaLichTrinh = ?, TenHK =?, SoCCCD = ?, NgaySinh = ?, TinhTrangVe = ?, KhuHoi = ? where MaVe = ?");
+            stm = con.prepareStatement("update Ve set MaLoaiVe = ?, MaKH = ?, MaSoCho = ?, MaLichTrinh = ?, TenHK =?, SoCCCD = ?, NgaySinh = ?, TinhTrangVe = ?, KhuHoi = ? where MaVe = ?");
 
             stm.setString(1, ve.getLoaiVe().getMaLoaiVe());
-            stm.setString(2, ve.getHanhKhach().getMaHanhKhach());
+            stm.setString(2, ve.getHanhKhach().getMaKH());
             stm.setString(3, ve.getCtlt().getChoNgoi().getMaChoNgoi());
             stm.setString(4, ve.getCtlt().getLichTrinh().getMaLichTrinh());
             stm.setString(5, ve.getTenHanhKhach());
@@ -228,16 +228,16 @@ public class Ve_DAO {
         return n > 0;
     }
 
-    public ArrayList<Ve> getDSVeTheoMaHK(String maHK) {
+    public ArrayList<Ve> getDSVeTheoMaKH(String maKH) {
         ArrayList<Ve> list = new ArrayList<>();
 
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
             PreparedStatement stm = null;
-            String sql = "Select * from Ve where MaHK = ?";
+            String sql = "Select * from Ve where MaKH = ?";
             stm = con.prepareStatement(sql);
-            stm.setString(1, maHK);
+            stm.setString(1, maKH);
 
             ResultSet rs = stm.executeQuery();
 
@@ -280,7 +280,7 @@ public class Ve_DAO {
         Ve ve = null;
         try {
             String maVe = rs.getString(1);
-            HanhKhach hanhKhach = new HanhKhach(rs.getString(2));
+            KhachHang khachHang = new KhachHang(rs.getString(2));
             ChiTietLichTrinh chiTietLichTrinh = new ChiTietLichTrinh(new ChoNgoi(rs.getString(3)), new LichTrinh(rs.getString(4)));
             LoaiVe loaiVe = new LoaiVe(rs.getString(5));
             String tenHK = rs.getString(6);
@@ -292,7 +292,7 @@ public class Ve_DAO {
             String tinhTrangVe = rs.getString(9);
             boolean khuHoi = rs.getBoolean(10);
 
-            ve = new Ve(maVe, hanhKhach, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
+            ve = new Ve(maVe, khachHang, chiTietLichTrinh, loaiVe, tenHK, soCCCD, ngaySinh, tinhTrangVe, khuHoi);
         } catch (SQLException e) {
             e.printStackTrace();
         }

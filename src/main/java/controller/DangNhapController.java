@@ -6,6 +6,7 @@
 package controller;
 
 import connectdb.ConnectDB;
+import dao.LichTrinh_DAO;
 import dao.NhanVien_DAO;
 import dao.TaiKhoan_DAO;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -102,48 +103,52 @@ public class DangNhapController {
                     if(taiKhoan.getTrangThaiTK().equals("Đang hoạt động")) {
 
                         getData.nv = new NhanVien_DAO().getNhanVien(manv);
-
-                        Stage stg = new Stage();
-                        FXMLLoader fxmlLoader1 = new FXMLLoader(TrangChu_GUI.class.getResource("loader.fxml"));
-                        Scene scene1 = new Scene(fxmlLoader1.load());
-                        stg.setScene(scene1);
-                        stg.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
-                        ProgressBar progressBar = (ProgressBar) stg.getScene().lookup("#progressBar");
-                        Label lblLoading = (Label) stg.getScene().lookup("#lblLoading");
-                        TrangChu_GUI.stage.close();
-                        stg.show();
+                        new LichTrinh_DAO().updateTrangThaiCT(false);
+//                        Stage stg = new Stage();
+//                        FXMLLoader fxmlLoader1 = new FXMLLoader(TrangChu_GUI.class.getResource("loader.fxml"));
+//                        Scene scene1 = new Scene(fxmlLoader1.load());
+//                        stg.setScene(scene1);
+//                        stg.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
+//                        ProgressBar progressBar = (ProgressBar) stg.getScene().lookup("#progressBar");
+//                        Label lblLoading = (Label) stg.getScene().lookup("#lblLoading");
+//                        TrangChu_GUI.stage.close();
+//                        stg.show();
 
                         FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("trang-chu.fxml"));
-                        Timeline timeline = new Timeline(
-                                new KeyFrame(Duration.seconds(0.5),
-                                        e -> {
-                                            progressBar.setProgress(progressBar.getProgress() + 0.1);
-                                            if (Math.round(progressBar.getProgress() * 100.0) % 20 == 0) {
-                                                lblLoading.setText("Loading.." + Math.round(progressBar.getProgress() * 100.0) + "%");
-                                            } else {
-
-                                                lblLoading.setText("Loading..." + Math.round(progressBar.getProgress() * 100.0) + "%");
-                                            }
-                                        }));
-
-                        timeline.setCycleCount(10);
-                        timeline.play();
-                        timeline.setOnFinished(e -> {
-                                    stg.close();
-                                    try {
-                                        Scene scene = new Scene(fxmlLoader.load());
-                                        TrangChu_GUI.stage.setScene(scene);
-                                        TrangChu_GUI.stage.show();
-                                        TrangChu_GUI.stage.centerOnScreen();
-                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                        alert.setHeaderText(null);
-                                        alert.setTitle("Đăng nhập");
-                                        alert.setContentText("Đăng nhập thành công");
-                                        alert.show();
-                                    } catch (IOException ioException) {
-                                        ioException.printStackTrace();
-                                    }
-                                });
+                        Scene scene = new Scene(fxmlLoader.load());
+                        TrangChu_GUI.stage.setScene(scene);
+                        TrangChu_GUI.stage.show();
+                        TrangChu_GUI.stage.centerOnScreen();
+//                        Timeline timeline = new Timeline(
+//                                new KeyFrame(Duration.seconds(0.5),
+//                                        e -> {
+//                                            progressBar.setProgress(progressBar.getProgress() + 0.1);
+//                                            if (Math.round(progressBar.getProgress() * 100.0) % 20 == 0) {
+//                                                lblLoading.setText("Loading.." + Math.round(progressBar.getProgress() * 100.0) + "%");
+//                                            } else {
+//
+//                                                lblLoading.setText("Loading..." + Math.round(progressBar.getProgress() * 100.0) + "%");
+//                                            }
+//                                        }));
+//
+//                        timeline.setCycleCount(10);
+//                        timeline.play();
+//                        timeline.setOnFinished(e -> {
+//                                    stg.close();
+//                                    try {
+//                                        Scene scene = new Scene(fxmlLoader.load());
+//                                        TrangChu_GUI.stage.setScene(scene);
+//                                        TrangChu_GUI.stage.show();
+//                                        TrangChu_GUI.stage.centerOnScreen();
+//                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                                        alert.setHeaderText(null);
+//                                        alert.setTitle("Đăng nhập");
+//                                        alert.setContentText("Đăng nhập thành công");
+//                                        alert.show();
+//                                    } catch (IOException ioException) {
+//                                        ioException.printStackTrace();
+//                                    }
+//                                });
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setHeaderText(null);

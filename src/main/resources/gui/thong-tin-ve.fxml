@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="635.0" style="-fx-background-color: linear-gradient(to bottom, #5098ff, lightblue );" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ThongTinVeController">
+<AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="635.0" style="-fx-background-color: #5098ff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ThongTinVeController">
    <children>
       <Label layoutY="1.0" text="Thông tin chỗ ">
          <font>
@@ -23,7 +23,7 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
                <cursor>
-                  <Cursor fx:constant="HAND" />
+                  <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
             <TextField fx:id="txtSoCCCD" layoutX="117.0" layoutY="162.0" prefHeight="30.0" prefWidth="214.0" promptText="Số CCCD" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
@@ -31,7 +31,7 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
                <cursor>
-                  <Cursor fx:constant="HAND" />
+                  <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
             <Label layoutX="5.0" layoutY="60.0" text="Tên hành khách" textFill="WHITE">
@@ -58,9 +58,9 @@
                   <Font name="Times New Roman Bold" size="15.0" />
                </font>
             </Label>
-            <DatePicker fx:id="dpNgaySinh" disable="true" editable="false" layoutX="117.0" layoutY="218.0" prefHeight="26.0" prefWidth="214.0" promptText="Ngày sinh" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
+            <DatePicker fx:id="dpNgaySinh" disable="true" layoutX="117.0" layoutY="218.0" prefHeight="26.0" prefWidth="214.0" promptText="Ngày sinh" style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
                <cursor>
-                  <Cursor fx:constant="HAND" />
+                  <Cursor fx:constant="TEXT" />
                </cursor></DatePicker>
          </children>
       </AnchorPane>

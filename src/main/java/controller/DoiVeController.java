@@ -39,7 +39,6 @@ import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 public class DoiVeController implements Initializable {
 
@@ -341,7 +340,7 @@ public class DoiVeController implements Initializable {
             }
 
             //lấy thông tin vé cũ
-            HanhKhach hk = ve.getHanhKhach();
+            KhachHang hk = ve.getHanhKhach();
             LoaiVe lv = ve.getLoaiVe();
             String tenHK = ve.getTenHanhKhach();
             String soCCCD = ve.getSoCCCD();
@@ -365,7 +364,7 @@ public class DoiVeController implements Initializable {
 
             // Gọi phương thức in vé
             try {
-                new PrintPDF().inVe(veMoi);
+                new PrintPDF().inVe(new ArrayList<Ve>(Arrays.asList(veMoi)));
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -379,7 +378,7 @@ public class DoiVeController implements Initializable {
         ObservableList<Ve> data = FXCollections.observableArrayList(listVe);
         tbl_thongTinVe.setItems(data);
         col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));
-        col_maKH.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getHanhKhach().getMaHanhKhach()));
+        col_maKH.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getHanhKhach().getMaKH()));
         col_thongTinVe.setCellValueFactory(p -> {
             Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
             LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());

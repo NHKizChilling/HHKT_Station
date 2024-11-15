@@ -100,6 +100,8 @@ public class HoaDonController implements Initializable {
     private ArrayList<ChiTietHoaDon> dscthd;
     private double tongTien = 0;
     private double tongGiamGia = 0;
+    private ArrayList<KhuyenMai> dsKM;
+    private KhuyenMai_DAO km_dao = new KhuyenMai_DAO();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -139,26 +141,28 @@ public class HoaDonController implements Initializable {
 //        timeline1.setCycleCount(Timeline.INDEFINITE);
 //        timeline1.play();
 
-
+        dsKM = km_dao.getAllKM();
         NumberFormat df = DecimalFormat.getCurrencyInstance();
         NhanVien nhanVien = getData.nv;
         HoaDon hd = getData.hd;
+        KhuyenMai km = km_dao.getKMGiamCaoNhat();
+        hd.setKhuyenMai(km);
         txtMaNV.setText(nhanVien.getMaNhanVien());
         txtTenNV.setText(nhanVien.getTenNhanVien());
         txtMaHD.setText(getData.hd.getMaHoaDon());
         txtNgayLapHD.setText(getData.hd.getNgayLapHoaDon().toString());
-        txtKH.setText(getData.hk.getTenHanhKhach());
+        txtKH.setText(getData.hk.getTenKH());
         txtSDT.setText(getData.hk.getSdt());
         dscthd = new ArrayList<>();
         dsve = getData.dsve;
         for (Ve ve : dsve) {
             ChiTietHoaDon cthd = new ChiTietHoaDon(hd, ve);
             dscthd.add(cthd);
-            tongTien += (cthd.getGiaVe() - 2000) * 1.1 + 2000;
-            tongGiamGia += cthd.getGiaGiam();
         }
-        tongTien = Math.round(tongTien / 1000) * 1000;
-        tongGiamGia = Math.round(tongGiamGia / 1000) * 1000;
+        hd.tinhTongTien(dscthd);
+        hd.tinhTongGiamGia(dscthd);
+        tongTien = hd.getTongTien();
+        tongGiamGia = hd.getTongGiamGia();
         tbCTHD.getItems().addAll(dscthd);
         colTTVe.setCellValueFactory(new PropertyValueFactory<ChiTietHoaDon,String>("ve"));
         colLoaiCho.setCellValueFactory(new PropertyValueFactory<ChiTietHoaDon,String>("ve"));
@@ -255,8 +259,8 @@ public class HoaDonController implements Initializable {
                 alert.showAndWait();
                 return;
             }
-            hd.setTongTien(tongTien);
-            hd.setTongGiamGia(tongGiamGia);
+            hd.tinhTongTien(dscthd);
+            hd.tinhTongGiamGia(dscthd);
             hd.setTrangThai(false);
             getData.hd = hd;
             if(new HoaDon_DAO().update(hd)) {
@@ -291,8 +295,8 @@ public class HoaDonController implements Initializable {
                 alert.setContentText("Vui lòng chọn số tiền khách hàng trả");
                 alert.showAndWait();
             } else {
-                hd.setTongTien(tongTien);
-                hd.setTongGiamGia(tongGiamGia);
+                hd.tinhTongTien(dscthd);
+                hd.tinhTongGiamGia(dscthd);
                 hd.setTrangThai(true);
                 getData.hd = hd;
                 if(new HoaDon_DAO().update(hd)) {
@@ -306,8 +310,8 @@ public class HoaDonController implements Initializable {
                         list.add(ve);
                         listcthd_new.add(new ChiTietHoaDon(hd, ve));
                     }
-                    for (ChiTietHoaDon cthd : listcthd_new) {
-                        if (new CT_HoaDon_DAO().getCT_HoaDon(cthd.getHoaDon().getMaHoaDon()).size() == 0) {
+                    if (new CT_HoaDon_DAO().getCT_HoaDon(hd.getMaHoaDon()).size() == 0) {
+                        for (ChiTietHoaDon cthd : listcthd_new) {
                             new CT_HoaDon_DAO().create(cthd);
                         }
                     }
@@ -329,9 +333,7 @@ public class HoaDonController implements Initializable {
             try {
                 printPDF.inHoaDon(getData.hd);
                 ArrayList<Ve> list = getData.dsve;
-                for (Ve ve : list) {
-                    printPDF.inVe(ve);
-                }
+                printPDF.inVe(list);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Thông báo");
                 alert.setHeaderText("In hóa đơn thành công");

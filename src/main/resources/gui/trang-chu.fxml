@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import java.lang.String?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -19,7 +20,7 @@
    <children>
       <BorderPane prefHeight="795.0" prefWidth="1540.0">
          <left>
-            <AnchorPane prefHeight="755.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to bottom, lightblue, #5098ff); -fx-border-color: #333; -fx-border-width: 1 1 0 0;" styleClass="shadow" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="755.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to bottom, lightblue, #5098ff); -fx-border-color: #333; -fx-border-width: 1 1 0 0;" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="155.0" fitWidth="155.0" layoutX="2.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -49,7 +50,7 @@
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnFCT" alignment="CENTER" layoutX="1.0" layoutY="386.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Chuyến tàu" textFill="WHITE">
+                  <Button fx:id="btnFCT" alignment="CENTER" layoutX="1.0" layoutY="386.0" mnemonicParsing="false" onAction="#showChuyenTauGUI" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: blue; -fx-border-width: 0 0 2 0; -fx-view-order: 0; -fx-cursor: hand;" text="Chuyến tàu" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
@@ -150,6 +151,11 @@
                      </cursor>
                   </FontAwesomeIcon>
                </children>
+               <styleClass>
+                  <String fx:value="shadow" />
+                  <String fx:value="nav-btn" />
+                  <String fx:value="nav-form" />
+               </styleClass>
             </AnchorPane>
          </left>
          <top>
