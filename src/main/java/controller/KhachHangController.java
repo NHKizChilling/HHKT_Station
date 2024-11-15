@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class KhachHangController implements Initializable {
@@ -315,7 +316,7 @@ public class KhachHangController implements Initializable {
             }
             // In vé
             try {
-                new PrintPDF().inVe(ve);
+                new PrintPDF().inVe(new ArrayList<>(Arrays.asList(ve)));
             } catch (IOException | DocumentException ex) {
                 throw new RuntimeException(ex);
             }

@@ -1,18 +1,13 @@
 package entity;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class KhuyenMai {
-    //MaKM VARCHAR(15) PRIMARY KEY,
-    //	MoTa VARCHAR(50) NOT NULL,
-    //	NgayApDung DATE NOT NULL,
-    //	NgayHetHan DATE NOT NULL,
-    //	MucKM FLOAT NOT NULL,
-    //	TrangThai BIT NOT NULL
     private String maKM;
     private String moTa;
-    private String ngayApDung;
-    private String ngayHetHan;
+    private LocalDate ngayApDung;
+    private LocalDate ngayHetHan;
     private float mucKM;
     private boolean trangThai;
 
@@ -23,7 +18,7 @@ public class KhuyenMai {
         this.maKM = maKM;
     }
 
-    public KhuyenMai(String maKM, String moTa, String ngayApDung, String ngayHetHan, float mucKM, boolean trangThai) {
+    public KhuyenMai(String maKM, String moTa, LocalDate ngayApDung, LocalDate ngayHetHan, float mucKM, boolean trangThai) {
         this.maKM = maKM;
         this.moTa = moTa;
         this.ngayApDung = ngayApDung;
@@ -48,19 +43,19 @@ public class KhuyenMai {
         this.moTa = moTa;
     }
 
-    public String getNgayApDung() {
+    public LocalDate getNgayApDung() {
         return ngayApDung;
     }
 
-    public void setNgayApDung(String ngayApDung) {
+    public void setNgayApDung(LocalDate ngayApDung) {
         this.ngayApDung = ngayApDung;
     }
 
-    public String getNgayHetHan() {
+    public LocalDate getNgayHetHan() {
         return ngayHetHan;
     }
 
-    public void setNgayHetHan(String ngayHetHan) {
+    public void setNgayHetHan(LocalDate ngayHetHan) {
         this.ngayHetHan = ngayHetHan;
     }
 

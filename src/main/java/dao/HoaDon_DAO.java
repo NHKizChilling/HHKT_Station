@@ -280,11 +280,11 @@ public class HoaDon_DAO {
             KhachHang khachHang = new KhachHang(rs.getString(3));
             LocalDateTime ngayLap = rs.getTimestamp(4).toLocalDateTime();
             KhuyenMai khuyenMai = new KhuyenMai(rs.getString(5));
-            double tongTien = rs.getDouble(5);
-            double tongGiamGia = rs.getDouble(6);
-            boolean trangThai = rs.getBoolean(7);
+            double tongTien = rs.getDouble(6);
+            double tongGiamGia = rs.getDouble(7);
+            boolean trangThai = rs.getBoolean(8);
 
-            hoaDon = new HoaDon(maHoaDon, nhanVien,  khachHang, ngayLap, khuyenMai,tongTien, tongGiamGia, trangThai);
+            hoaDon = new HoaDon(maHoaDon, nhanVien,  khachHang, ngayLap, khuyenMai, tongTien, tongGiamGia, trangThai);
         } catch (Exception e) {
             e.printStackTrace();
         }

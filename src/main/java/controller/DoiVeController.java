@@ -364,7 +364,7 @@ public class DoiVeController implements Initializable {
 
             // Gọi phương thức in vé
             try {
-                new PrintPDF().inVe(veMoi);
+                new PrintPDF().inVe(new ArrayList<Ve>(Arrays.asList(veMoi)));
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

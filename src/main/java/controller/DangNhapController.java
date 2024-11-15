@@ -104,15 +104,15 @@ public class DangNhapController {
 
                         getData.nv = new NhanVien_DAO().getNhanVien(manv);
                         new LichTrinh_DAO().updateTrangThaiCT(false);
-                        Stage stg = new Stage();
-                        FXMLLoader fxmlLoader1 = new FXMLLoader(TrangChu_GUI.class.getResource("loader.fxml"));
-                        Scene scene1 = new Scene(fxmlLoader1.load());
-                        stg.setScene(scene1);
-                        stg.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
-                        ProgressBar progressBar = (ProgressBar) stg.getScene().lookup("#progressBar");
-                        Label lblLoading = (Label) stg.getScene().lookup("#lblLoading");
-                        TrangChu_GUI.stage.close();
-                        stg.show();
+//                        Stage stg = new Stage();
+//                        FXMLLoader fxmlLoader1 = new FXMLLoader(TrangChu_GUI.class.getResource("loader.fxml"));
+//                        Scene scene1 = new Scene(fxmlLoader1.load());
+//                        stg.setScene(scene1);
+//                        stg.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
+//                        ProgressBar progressBar = (ProgressBar) stg.getScene().lookup("#progressBar");
+//                        Label lblLoading = (Label) stg.getScene().lookup("#lblLoading");
+//                        TrangChu_GUI.stage.close();
+//                        stg.show();
 
                         FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("trang-chu.fxml"));
                         Scene scene = new Scene(fxmlLoader.load());

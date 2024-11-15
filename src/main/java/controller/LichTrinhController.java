@@ -1,12 +1,15 @@
 package controller;
 
+import com.jfoenix.controls.JFXTimePicker;
 import connectdb.ConnectDB;
 import dao.*;
 import entity.*;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -16,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.*;
 
-public class ChuyenTauController implements Initializable {
+public class LichTrinhController implements Initializable {
 
     @FXML
     private Button btn_add;
@@ -49,7 +52,7 @@ public class ChuyenTauController implements Initializable {
     private ComboBox<String> cb_infoGaDi;
 
     @FXML
-    private ComboBox<String> cb_viTri;
+    private DatePicker datePicker_tgDKDen;
 
     @FXML
     private TableView<LichTrinh> tbl_lichTrinh;
@@ -103,6 +106,7 @@ public class ChuyenTauController implements Initializable {
             e.printStackTrace();
         }
         initDao();
+        list = new ArrayList<>();
         ArrayList<Ga> listGa = ga_DAO.getAllGa();
         for (Ga ga : listGa) {
             cb_GaDen.getItems().add(ga.getTenGa());
@@ -114,9 +118,6 @@ public class ChuyenTauController implements Initializable {
         cb_soHieuTau.getItems().addAll(listSoHieuTau);
         HashSet<String> set = ga_DAO.getAllGa().stream().map(ga -> ga.getViTri()).collect(HashSet::new, Set::add, Set::addAll);
 
-        for (String viTri : set) {
-            cb_viTri.getItems().add(viTri);
-        }
         for (String soHieuTau : listSoHieuTau) {
             cb_soHieuTau.getItems().add(soHieuTau);
         }
@@ -125,7 +126,6 @@ public class ChuyenTauController implements Initializable {
         new AutoCompleteComboBoxListener<>(cb_soHieuTau);
         new AutoCompleteComboBoxListener<>(cb_infoGaDen);
         new AutoCompleteComboBoxListener<>(cb_infoGaDi);
-        new AutoCompleteComboBoxListener<>(cb_viTri);
         cb_infoTrangThaiHoatDong.getItems().addAll("Hoạt động", "Tạm ngưng hoạt động", "Kết thúc");
 
         col_maLichTrinh.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMaLichTrinh()));
@@ -142,6 +142,7 @@ public class ChuyenTauController implements Initializable {
                 cb_infoGaDi.setValue(lichTrinh.getGaDi().getTenGa());
                 cb_infoGaDen.setValue(lichTrinh.getGaDen().getTenGa());
                 datePicker_tgKhoiHanh.setValue(lichTrinh.getThoiGianKhoiHanh().toLocalDate());
+                datePicker_tgDKDen.setValue(lichTrinh.getThoiGianDuKienDen().toLocalDate());
                 cb_infoTrangThaiHoatDong.setValue(col_trangThaiHoatDong.getCellData(lichTrinh));
                 cb_infoGaDi.setDisable(true);
                 cb_infoGaDen.setDisable(true);
@@ -182,20 +183,28 @@ public class ChuyenTauController implements Initializable {
 
     protected void timKiem() {
         // TODO Auto-generated method stub
-        String gaDi = cb_GaDi.getValue();
-        String gaDen = cb_GaDen.getValue();
+        list = new ArrayList<>();
+        Ga gaDi = ga_DAO.getGaTheoTenGa(cb_GaDi.getValue());
+        Ga gaDen = ga_DAO.getGaTheoTenGa(cb_GaDen.getValue());
         LocalDate ngayKH = dp_ngayKH.getValue();
+        if (gaDi == null && gaDen == null && ngayKH == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Thông báo");
+            alert.setHeaderText("Vui lòng nhập thông tin tìm kiếm");
+            alert.show();
+            cb_GaDi.requestFocus();
+            return;
+        }
         if (ngayKH == null) {
-            ngayKH = LocalDate.now();
-            list = lichTrinh_DAO.traCuuDSLichTrinh(gaDi, gaDen, ngayKH);
+            list = lichTrinh_DAO.traCuuDSLichTrinh(gaDi.getMaGa(), gaDen.getMaGa());
         } else {
-            if (cb_GaDi.getValue() == null && cb_GaDen.getValue() == null) {
-                list = lichTrinh_DAO.traCuuDSLichTrinhTheoNgay(ngayKH);
+            if (gaDi != null && gaDen != null) {
+                list = lichTrinh_DAO.traCuuDSLichTrinh(gaDi.getMaGa(), gaDen.getMaGa(), ngayKH);
             } else {
-                list = lichTrinh_DAO.traCuuDSLichTrinh(gaDi, gaDen, ngayKH);
+                list = lichTrinh_DAO.traCuuDSLichTrinhTheoNgay(ngayKH);
             }
         }
-        if (list == null) {
+        if (list.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Thông báo");
             alert.setHeaderText("Không tìm thấy lịch trình nào");
@@ -204,25 +213,28 @@ public class ChuyenTauController implements Initializable {
             cb_GaDi.requestFocus();
             return;
         }
-        tbl_lichTrinh.getSelectionModel().clearSelection();
-        tbl_lichTrinh.getItems().addAll(list);
+        tbl_lichTrinh.setItems(null);
+        tbl_lichTrinh.setItems(FXCollections.observableArrayList(list));
     }
 
     protected void clear() {
         txt_maLichTrinh.clear();
         cb_soHieuTau.setValue(null);
         cb_soHieuTau.setPromptText("Số hiệu tàu");
+        cb_soHieuTau.setDisable(false);
         cb_GaDi.setValue(null);
         cb_GaDi.setPromptText("Ga đi");
         cb_GaDen.setValue(null);
         cb_GaDen.setPromptText("Ga đến");
+        dp_ngayKH.setValue(null);
         cb_infoGaDi.setValue(null);
         cb_infoGaDi.setPromptText("Ga đi");
+        cb_infoGaDi.setDisable(false);
         cb_infoGaDen.setValue(null);
         cb_infoGaDen.setPromptText("Ga đến");
-        cb_viTri.setValue(null);
-        cb_viTri.setPromptText("Tỉnh/Thành phố");
+        cb_infoGaDen.setDisable(false);
         datePicker_tgKhoiHanh.setValue(null);
+        datePicker_tgDKDen.setValue(null);
         cb_infoTrangThaiHoatDong.setValue(null);
         tbl_lichTrinh.setItems(null);
         cb_GaDi.requestFocus();
@@ -317,10 +329,10 @@ public class ChuyenTauController implements Initializable {
         cb_infoGaDi.setPromptText("Ga đi");
         cb_infoGaDen.setValue(null);
         cb_infoGaDen.setPromptText("Ga đến");
-        cb_viTri.setValue(null);
-        cb_viTri.setPromptText("Tỉnh/Thành phố");
         datePicker_tgKhoiHanh.setValue(null);
+        datePicker_tgDKDen.setValue(null);
         cb_infoTrangThaiHoatDong.setValue(null);
         cb_soHieuTau.requestFocus();
+        tbl_lichTrinh.getSelectionModel().clearSelection();
     }
 }

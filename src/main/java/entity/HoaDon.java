@@ -45,20 +45,25 @@ public class HoaDon {
     public void tinhTongTien(ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
         double tongTien = 0;
         double phiDichVu = dsChiTietHoaDon.size() * 2000;
+        double tongKM = 0;
 
         for (ChiTietHoaDon chiTietHoaDon : dsChiTietHoaDon) {
             tongTien += (chiTietHoaDon.getGiaVe() - 2000 ) * 1.1;
+            tongKM += (chiTietHoaDon.getGiaVe() - 2000) * khuyenMai.getMucKM();
         }
+        tongTien -= tongKM;
         tongTien += phiDichVu;
         this.tongTien = tongTien;
     }
 
     public void tinhTongGiamGia(ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
         double tongGiamGia = 0;
+        double tongKM = 0;
         for (ChiTietHoaDon chiTietHoaDon : dsChiTietHoaDon) {
             tongGiamGia += chiTietHoaDon.getGiaGiam();
+            tongKM += (chiTietHoaDon.getGiaVe() - 2000) * khuyenMai.getMucKM();
         }
-        this.tongGiamGia = tongGiamGia;
+        this.tongGiamGia = tongGiamGia + tongKM;
     }
 
     public boolean isTrangThai() {

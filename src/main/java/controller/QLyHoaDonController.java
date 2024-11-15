@@ -31,6 +31,7 @@ import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -285,7 +286,7 @@ public class QLyHoaDonController implements Initializable {
         radioHDLuuTam.setOnAction(event -> {
             lamMoi();
             listHD = hoaDon_dao.getDSHDLuuTam();
-            listHD.removeIf(hd -> hd.isTrangThai() || hd.getNgayLapHoaDon().plusMinutes(15).isBefore(LocalDateTime.now()));
+            listHD.removeIf(hd -> hd.getNgayLapHoaDon().plusMinutes(15).isBefore(LocalDateTime.now()));
             tbhd.getItems().clear();
             tbhd.getItems().addAll(listHD);
         });
@@ -312,7 +313,7 @@ public class QLyHoaDonController implements Initializable {
             ChiTietHoaDon cthd = tbCTHD.getSelectionModel().getSelectedItem();
 
             try {
-                new PrintPDF().inVe(ve_dao.getVeTheoID(cthd.getVe().getMaVe()));
+                new PrintPDF().inVe(new ArrayList<>(Arrays.asList(ve_dao.getVeTheoID(cthd.getVe().getMaVe()))));
             } catch (Exception e) {
                 e.printStackTrace();
             }

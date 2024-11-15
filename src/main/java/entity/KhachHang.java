@@ -39,10 +39,10 @@ public class KhachHang {
     // mã hành khách bao gồm: HK+8 chữ số tăng dần
     public void setMaHanhKhach(String maKH) {
         if (maKH == null || maKH.isBlank()) {
-            throw new IllegalArgumentException("Mã hành khách không hợp lệ");
+            throw new IllegalArgumentException("Mã khách hàng không hợp lệ");
         }
-        if (!maKH.matches("HK[0-9]{8}$")) {
-            throw new IllegalArgumentException("Mã hành khách không hợp lệ");
+        if (!maKH.matches("KH[0-9]{8}$")) {
+            throw new IllegalArgumentException("Mã khách hàng không hợp lệ");
         }
         this.maKH = maKH;
     }

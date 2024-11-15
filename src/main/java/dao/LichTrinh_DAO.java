@@ -55,6 +55,27 @@ public class LichTrinh_DAO {
         return lichTrinh;
     }
 
+    public ArrayList<LichTrinh> traCuuDSLichTrinh(String MaGaDi, String MaGaDen) {
+        ArrayList<LichTrinh> dslt = new ArrayList<>();
+        PreparedStatement stm = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from LichTrinh where MaGaDi = ? and MaGaDen = ? and TrangThai = 1";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, MaGaDi);
+            stm.setString(2, MaGaDen);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                LichTrinh lt = getInfo(rs);
+                dslt.add(lt);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dslt;
+    }
+
     public ArrayList<LichTrinh> traCuuDSLichTrinh(String MaGaDi, String MaGaDen, LocalDate ngayDi) {
         ArrayList<LichTrinh> dslt = new ArrayList<>();
         PreparedStatement stm = null;

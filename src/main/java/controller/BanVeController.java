@@ -1574,7 +1574,7 @@ public class BanVeController implements Initializable {
             getData.dsve = dsve;
             LocalDateTime now = LocalDateTime.now();
             now = now.minusNanos(now.getNano());
-            HoaDon hd = new HoaDon("temp", getData.nv, getData.hk, now, null, false);
+            HoaDon hd = new HoaDon("temp", getData.nv, getData.hk, now, new KhuyenMai(null), false);
             if (hd_dao.createTempInvoice(hd)) {
                 //get hóa đơn vừa tạo
                 getData.hd = hd_dao.getHoaDonVuaTao();
