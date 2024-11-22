@@ -5,11 +5,8 @@
  */
 package controller;
 
-import com.jfoenix.controls.JFXButton;
 import connectdb.ConnectDB;
 import dao.*;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.Ve;
@@ -24,7 +21,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 import javafx.util.Duration;
 
 import java.awt.*;
@@ -51,55 +47,23 @@ public class TrangChuController implements Initializable {
     @FXML
     private AnchorPane paneMain;
     @FXML
-    private AnchorPane acpVe;
+    private Button btnFVe;
     @FXML
-    private JFXButton btnFVe;
+    private Button btnFQLHD;
     @FXML
-    private JFXButton btnFQLHD;
+    private Button btnFNV;
     @FXML
-    private JFXButton btnFNV;
+    private Button btnFHK;
     @FXML
-    private JFXButton btnFKH;
+    private Button btnFBCTK;
     @FXML
-    private JFXButton btnFBCTK;
-    @FXML
-    private JFXButton btnFCT;
-    @FXML
-    private JFXButton btnUM;
-    @FXML
-    private JFXButton btnBanVeGUI;
-    @FXML
-    private JFXButton btnDoiVeGUI;
-    @FXML
-    private JFXButton btnHuyVeGUI;
-    @FXML
-    private JFXButton btnTraCuuVe;
+    private Button btnFCT;
     @FXML
     private Label lblTenNhanVien;
     @FXML
     private Label timer;
     @FXML
     private Label lblNgay;
-    @FXML
-    private FontAwesomeIcon iconDown;
-    @FXML
-    private FontAwesomeIcon iconCT;
-
-    @FXML
-    private FontAwesomeIcon iconHD;
-
-    @FXML
-    private FontAwesomeIcon iconHK;
-
-    @FXML
-    private FontAwesomeIcon iconHelp;
-
-    @FXML
-    private FontAwesomeIcon iconNV;
-
-    @FXML
-    private FontAwesomeIcon iconTK;
-
 
     private Ve_DAO ve_dao = new Ve_DAO();
     private HoaDon_DAO hd_dao = new HoaDon_DAO();
@@ -107,7 +71,6 @@ public class TrangChuController implements Initializable {
 
     Time time = new Time(DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
     private String style = null;
-    private String styleLV2 = null;
     Timeline timeline = new Timeline(
             new KeyFrame(Duration.seconds(1),
                     e -> {
@@ -139,12 +102,6 @@ public class TrangChuController implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
         style = btnFVe.getStyle();
-        styleLV2 = btnBanVeGUI.getStyle();
-        iconDown.setIcon(FontAwesomeIcons.ANGLE_DOWN);
-        btnBanVeGUI.setOnMouseClicked(e -> chooseFeatureButtonLV2(btnBanVeGUI));
-        btnDoiVeGUI.setOnMouseClicked(e -> chooseFeatureButtonLV2(btnDoiVeGUI));
-        btnHuyVeGUI.setOnMouseClicked(e -> chooseFeatureButtonLV2(btnHuyVeGUI));
-        btnTraCuuVe.setOnMouseClicked(e -> chooseFeatureButtonLV2(btnTraCuuVe));
         btnFVe.setOnMouseClicked(e -> {
             try {
                 ConnectDB.connect();
@@ -153,132 +110,20 @@ public class TrangChuController implements Initializable {
             }
             new LichTrinh_DAO().updateTrangThaiCT(false);
             chooseFeatureButton(btnFVe);
-            if (iconDown.getText().equals("\uF107")) {
-                btnFVe.setStyle(btnFVe.getStyle() + "-fx-border-width: 2 0 0 0");
-                iconDown.setIcon(FontAwesomeIcons.ANGLE_UP);
-                acpVe.setVisible(true);
-                List<Button> dsF = List.of(btnFQLHD, btnFNV, btnFKH, btnFBCTK, btnFCT, btnUM);
-                List<FontAwesomeIcon> dsIcon = List.of(iconHD, iconNV, iconHK, iconCT, iconTK, iconHelp);
-                dsF.forEach(btn -> {
-                    btn.setLayoutY(btn.getLayoutY() + acpVe.getHeight());
-                });
-                dsIcon.forEach(icon -> {
-                    icon.setLayoutY(icon.getLayoutY() + acpVe.getHeight());
-                });
-            } else {
-                btnFVe.setStyle(btnFVe.getStyle() + "-fx-border-width: 0 0 2 0");
-                iconDown.setIcon(FontAwesomeIcons.ANGLE_DOWN);
-                acpVe.setVisible(false);
-                //cho layout các button còn lại + 50
-                List<Button> dsF = List.of(btnFQLHD, btnFNV, btnFKH, btnFBCTK, btnFCT, btnUM);
-                List<FontAwesomeIcon> dsIcon = List.of(iconHD, iconNV, iconHK, iconCT, iconTK, iconHelp);
-                dsF.forEach(btn -> {
-                    btn.setLayoutY(btn.getLayoutY() - acpVe.getHeight());
-                });
-                dsIcon.forEach(icon -> {
-                    icon.setLayoutY(icon.getLayoutY() - acpVe.getHeight());
-                });
-            }
         });
         btnFNV.setOnMouseClicked(e -> chooseFeatureButton(btnFNV));
         btnFQLHD.setOnMouseClicked(e -> chooseFeatureButton(btnFQLHD));
-        btnFKH.setOnMouseClicked(e -> chooseFeatureButton(btnFKH));
+        btnFHK.setOnMouseClicked(e -> chooseFeatureButton(btnFHK));
         btnFBCTK.setOnMouseClicked(e -> chooseFeatureButton(btnFBCTK));
         btnFCT.setOnMouseClicked(e -> chooseFeatureButton(btnFCT));
         TrangChu_GUI.nv = getData.nv;
         lblTenNhanVien.setText("Chào, " + TrangChu_GUI.nv.getChucVu() + " " + TrangChu_GUI.nv.getTenNhanVien());
+        MenuItem item = new MenuItem("Bán vé");
     }
 
     @FXML
     protected void showBanVeGUI() {
         FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("ban-ve.fxml"));
-        double width = paneMain.getWidth();
-        double height = paneMain.getHeight();
-        try {
-            paneMain.getChildren().clear();
-            paneMain.getChildren().add(loader.load());
-            paneMain.setPrefSize(width, height);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ArrayList<HoaDon> dsHD = hd_dao.getDSHDLuuTam();
-        for (HoaDon hd : dsHD) {
-            //Xóa hóa đơn lưu hơn 15 phút
-            if (hd.getNgayLapHoaDon().plusMinutes(15).isBefore(LocalDateTime.now())) {
-                ArrayList<ChiTietHoaDon> dsCTHD = new CT_HoaDon_DAO().getCT_HoaDon(hd.getMaHoaDon());
-                for (ChiTietHoaDon cthd : dsCTHD) {
-                    if (cthd != null) {
-                        Ve ve = ve_dao.getVeTheoID(cthd.getVe().getMaVe());
-                        ve_dao.updateTinhTrangVe(ve.getMaVe(), "DaHuy");
-                        ctlt_dao.updateCTLT(ve.getCtlt(), true);
-                    }
-                }
-            }
-        }
-    }
-
-    @FXML
-    protected void showDoiVeGUI() {
-        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("doi-ve.fxml"));
-        double width = paneMain.getWidth();
-        double height = paneMain.getHeight();
-        try {
-            paneMain.getChildren().clear();
-            paneMain.getChildren().add(loader.load());
-            paneMain.setPrefSize(width, height);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ArrayList<HoaDon> dsHD = hd_dao.getDSHDLuuTam();
-        for (HoaDon hd : dsHD) {
-            //Xóa hóa đơn lưu hơn 15 phút
-            if (hd.getNgayLapHoaDon().plusMinutes(15).isBefore(LocalDateTime.now())) {
-                ArrayList<ChiTietHoaDon> dsCTHD = new CT_HoaDon_DAO().getCT_HoaDon(hd.getMaHoaDon());
-                for (ChiTietHoaDon cthd : dsCTHD) {
-                    if (cthd != null) {
-                        Ve ve = ve_dao.getVeTheoID(cthd.getVe().getMaVe());
-                        ve_dao.updateTinhTrangVe(ve.getMaVe(), "DaHuy");
-                        ctlt_dao.updateCTLT(ve.getCtlt(), true);
-                    }
-                }
-            }
-        }
-    }
-
-    @FXML
-    protected void showHuyVeGUI() {
-        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("huy-ve.fxml"));
-        double width = paneMain.getWidth();
-        double height = paneMain.getHeight();
-        try {
-            paneMain.getChildren().clear();
-            paneMain.getChildren().add(loader.load());
-            paneMain.setPrefSize(width, height);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ArrayList<HoaDon> dsHD = hd_dao.getDSHDLuuTam();
-        for (HoaDon hd : dsHD) {
-            //Xóa hóa đơn lưu hơn 15 phút
-            if (hd.getNgayLapHoaDon().plusMinutes(15).isBefore(LocalDateTime.now())) {
-                ArrayList<ChiTietHoaDon> dsCTHD = new CT_HoaDon_DAO().getCT_HoaDon(hd.getMaHoaDon());
-                for (ChiTietHoaDon cthd : dsCTHD) {
-                    if (cthd != null) {
-                        Ve ve = ve_dao.getVeTheoID(cthd.getVe().getMaVe());
-                        ve_dao.updateTinhTrangVe(ve.getMaVe(), "DaHuy");
-                        ctlt_dao.updateCTLT(ve.getCtlt(), true);
-                    }
-                }
-            }
-        }
-    }
-
-    @FXML
-    protected void showTraCuuVeGUI() {
-        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("test.gui.fxml"));
         double width = paneMain.getWidth();
         double height = paneMain.getHeight();
         try {
@@ -348,7 +193,7 @@ public class TrangChuController implements Initializable {
     }
 
     @FXML
-    protected void showKHGUI() {
+    protected void showHKGUI() {
         FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("khach-hang.fxml"));
         double width = paneMain.getWidth();
         double height = paneMain.getHeight();
@@ -400,7 +245,7 @@ public class TrangChuController implements Initializable {
             ConnectDB.disconnect();
             getData.nv = null;
             getData.hd = null;
-            getData.kh = null;
+            getData.hk = null;
             getData.lt = null;
             getData.ltkh = null;
             getData.dsve = null;
@@ -419,23 +264,12 @@ public class TrangChuController implements Initializable {
         }
     }
     private void chooseFeatureButton(Button btnChosed) {
-        List<Button> dsF = List.of(btnFVe, btnFQLHD, btnFNV, btnFKH, btnFBCTK, btnFCT);
+        List<Button> dsF = List.of(btnFVe, btnFQLHD, btnFNV, btnFHK, btnFBCTK, btnFCT);
         dsF.forEach(btn -> {
             if (btn.equals(btnChosed)) {
                 btn.setStyle(btn.getStyle() + "-fx-background-color: lightgray;-fx-border-color: blue;");
             } else {
                 btn.setStyle(style);
-            }
-        });
-    }
-
-    private void chooseFeatureButtonLV2(Button btnChosed) {
-        List<Button> dsF = List.of(btnBanVeGUI, btnDoiVeGUI, btnHuyVeGUI, btnTraCuuVe);
-        dsF.forEach(btn -> {
-            if (btn.equals(btnChosed)) {
-                btn.setStyle(btn.getStyle() + "-fx-background-color: lightblue;-fx-border-color: white;");
-            } else {
-                btn.setStyle(styleLV2);
             }
         });
     }
