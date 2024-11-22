@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import java.lang.String?>
 <?import javafx.scene.Cursor?>
@@ -7,41 +8,45 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" prefHeight="715.0" prefWidth="1386.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DoiVeController">
+<AnchorPane minHeight="-Infinity" prefHeight="755.0" prefWidth="1386.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DoiVeController">
    <children>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="715.0" prefWidth="1386.0">
          <children>
             <BorderPane prefHeight="715.0" prefWidth="1386.0">
                <top>
-                  <AnchorPane prefHeight="233.0" prefWidth="1407.0" BorderPane.alignment="CENTER">
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1388.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutX="-10.0" layoutY="-14.0" prefHeight="175.0" prefWidth="344.0">
+                        <AnchorPane layoutX="-2.0" layoutY="-14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="152.0" prefWidth="328.0">
                            <children>
-                              <Label layoutX="14.0" layoutY="21.0" text="TÌM KIẾM VÉ">
+                              <Label layoutX="14.0" layoutY="21.0" text="ĐỔI VÉ">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="cb_search" layoutX="232.0" layoutY="63.0" prefHeight="37.0" prefWidth="93.0" promptText="Tìm theo" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
+                              <ComboBox fx:id="cb_search" layoutX="230.0" layoutY="48.0" prefHeight="37.0" prefWidth="93.0" promptText="Tìm theo" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
-                                 </cursor></ComboBox>
-                              <TextField fx:id="txt_search" layoutX="14.0" layoutY="63.0" prefHeight="38.0" prefWidth="207.0" style="-fx-background-color: #fff;" styleClass="shadow" stylesheets="@dashboardDesign.css">
+                                 </cursor>
+                              </ComboBox>
+                              <TextField fx:id="txt_search" layoutX="14.0" layoutY="48.0" prefHeight="38.0" prefWidth="207.0" promptText="Nhập thông tin tra cứu" style="-fx-background-color: #fff;" styleClass="shadow" stylesheets="@dashboardDesign.css">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
-                                 </cursor></TextField>
-                              <Button fx:id="btn_search" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="156.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Tìm kiếm">
+                                 </cursor>
+                              </TextField>
+                              <Button fx:id="btn_search" alignment="CENTER_RIGHT" layoutX="17.0" layoutY="110.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="91.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Tìm kiếm">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -49,7 +54,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="btn_lamMoi" alignment="CENTER_RIGHT" layoutX="124.0" layoutY="156.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="87.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Làm mới">
+                              <Button fx:id="btn_lamMoi" alignment="CENTER_RIGHT" layoutX="128.0" layoutY="110.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="87.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Làm mới">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -57,8 +62,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Line endX="15.0" endY="187.0" layoutX="321.0" layoutY="30.0" startX="15.0" startY="-28.0" />
-                              <Button fx:id="btnQuetMaVe" alignment="CENTER_RIGHT" disable="true" layoutX="232.0" layoutY="156.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="89.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Quét mã">
+                              <Button fx:id="btnQuetMaVe" alignment="CENTER_RIGHT" disable="true" layoutX="236.0" layoutY="110.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="89.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Quét mã">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -66,14 +70,14 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <FontAwesomeIcon disable="true" glyphName="BARCODE" layoutX="237.0" layoutY="176.0" />
-                              <FontAwesomeIcon disable="true" glyphName="REFRESH" layoutX="129.0" layoutY="175.0" />
-                              <FontAwesomeIcon disable="true" glyphName="SEARCH" layoutX="18.0" layoutY="175.0" />
+                              <FontAwesomeIcon disable="true" glyphName="BARCODE" layoutX="241.0" layoutY="130.0" />
+                              <FontAwesomeIcon disable="true" glyphName="REFRESH" layoutX="133.0" layoutY="129.0" />
+                              <FontAwesomeIcon disable="true" glyphName="SEARCH" layoutX="22.0" layoutY="129.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="334.0" layoutY="11.0" prefHeight="166.0" prefWidth="1023.0">
+                        <AnchorPane layoutX="337.0" prefHeight="146.0" prefWidth="1042.0">
                            <children>
-                              <TableView fx:id="tbl_thongTinVe" layoutY="1.0" prefHeight="163.0" prefWidth="1042.0" stylesheets="@dashboardDesign.css">
+                              <TableView fx:id="tbl_thongTinVe" prefHeight="150.0" prefWidth="1042.0" stylesheets="@dashboardDesign.css">
                                  <columns>
                                     <TableColumn fx:id="col_maVe" prefWidth="112.79998779296875" style="-fx-border-radius: 10 0 0 0;" text="Mã vé" />
                                     <TableColumn fx:id="col_maKH" prefWidth="112.800048828125" text="Mã khách hàng" />
@@ -90,13 +94,13 @@
                               </TableView>
                            </children>
                         </AnchorPane>
-                        <Line endX="1271.0" layoutX="115.0" layoutY="219.0" startX="-115.0" />
+                        <Line endX="1271.0" layoutX="115.0" layoutY="200.0" startX="-115.0" />
                         <Label fx:id="label_thongBao" layoutX="344.0" layoutY="185.0" textFill="RED">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btn_xacNhan" alignment="CENTER_RIGHT" disable="true" layoutX="1279.0" layoutY="182.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="88.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Xác nhận">
+                        <Button fx:id="btn_xacNhan" alignment="CENTER_RIGHT" disable="true" layoutX="1280.0" layoutY="160.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="88.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Xác nhận">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -104,11 +108,12 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <FontAwesomeIcon disable="true" fill="GREEN" glyphName="CHECK_CIRCLE" layoutX="1286.0" layoutY="201.0">
+                        <FontAwesomeIcon disable="true" fill="GREEN" glyphName="CHECK_CIRCLE" layoutX="1287.0" layoutY="179.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </FontAwesomeIcon>
+                        <Line endX="15.0" endY="176.5" layoutX="315.0" layoutY="23.0" startX="15.0" startY="-23.000001907348633" />
                      </children>
                   </AnchorPane>
                </top>
@@ -117,7 +122,7 @@
                      <right>
                         <AnchorPane prefHeight="490.0" prefWidth="634.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
                            <children>
-                              <Button fx:id="btn_doiVe" alignment="CENTER_RIGHT" disable="true" layoutX="486.0" layoutY="427.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="94.0" style="-fx-background-color: linear-gradient(to right, lightblue, #5098ff); -fx-border-radius: 5; -fx-border-color: gray;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Đổi vé">
+                              <Button fx:id="btn_doiVe" alignment="CENTER_RIGHT" disable="true" layoutX="541.0" layoutY="510.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="94.0" style="-fx-background-color: linear-gradient(to right, lightblue, #5098ff); -fx-border-radius: 5; -fx-border-color: gray;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Đổi vé">
                                  <font>
                                     <Font name="Times New Roman" size="20.0" />
                                  </font>
@@ -125,90 +130,193 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <AnchorPane fx:id="acpToaTau" prefHeight="374.0" prefWidth="649.0" style="-fx-background-color: #5098ff;" visible="false">
-                                 <children>
-                                    <ScrollPane fx:id="scrToaTau" hbarPolicy="NEVER" layoutX="-3.0" pannable="true" prefHeight="374.0" prefWidth="651.0">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <content>
-                                          <TabPane fx:id="tabToaTau" prefHeight="374.0" prefWidth="652.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" />
-                                       </content>
-                                    </ScrollPane>
-                                    <Label layoutX="200.0" layoutY="339.0" text="Giá:">
-                                       <font>
-                                          <Font name="Times New Roman Bold" size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="lblGiaCN" layoutX="260.0" layoutY="339.0">
-                                       <font>
-                                          <Font name="Times New Roman Bold" size="15.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
-                              <Label layoutX="14.0" layoutY="433.0" text="Phí dịch vụ: 20.000 VNĐ" textFill="RED">
+                              <Label layoutX="12.0" layoutY="518.0" text="Phí dịch vụ: 20.000 VNĐ" textFill="RED">
                                  <font>
                                     <Font name="Times New Roman Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <FontAwesomeIcon disable="true" glyphName="EXCHANGE" layoutX="494.0" layoutY="450.0">
+                              <FontAwesomeIcon disable="true" glyphName="EXCHANGE" layoutX="549.0" layoutY="533.0">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </FontAwesomeIcon>
+                              <Pane layoutX="141.0" layoutY="382.0" prefHeight="99.0" prefWidth="494.0">
+                                 <children>
+                                    <Label layoutX="47.0" layoutY="58.0" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white; -fx-border-color: #333;" />
+                                    <Label layoutX="306.0" layoutY="58.0" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: green; -fx-border-color: #333;" />
+                                    <Label layoutX="170.0" layoutY="58.0" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: red; -fx-border-color: #333;" />
+                                    <Label layoutX="84.0" layoutY="64.0" text="Chỗ trống">
+                                       <font>
+                                          <Font name="Times New Roman Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="343.0" layoutY="64.0" text="Chỗ đã chọn">
+                                       <font>
+                                          <Font name="Times New Roman Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="208.0" layoutY="64.0" text="Chỗ đã bán">
+                                       <font>
+                                          <Font name="Times New Roman Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Pane layoutX="20.0" layoutY="20.0" prefHeight="18.0" prefWidth="50.0" style="-fx-background-color: skyblue; -fx-background-radius: 5;">
+                                       <children>
+                                          <ImageView fitHeight="25.0" fitWidth="50.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../img/trainCar.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Pane>
+                                    <Label layoutX="77.0" layoutY="20.0" text="Toa còn vé">
+                                       <font>
+                                          <Font name="Times New Roman Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Pane layoutX="155.0" layoutY="20.0" prefHeight="18.0" prefWidth="50.0" style="-fx-background-color: red; -fx-background-radius: 5;">
+                                       <children>
+                                          <ImageView fitHeight="25.0" fitWidth="50.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../img/trainCar.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Pane>
+                                    <Label layoutX="212.0" layoutY="20.0" text="Toa hết vé">
+                                       <font>
+                                          <Font name="Times New Roman Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Pane layoutX="306.0" layoutY="20.0" prefHeight="18.0" prefWidth="50.0" style="-fx-background-color: lightgreen; -fx-background-radius: 5;">
+                                       <children>
+                                          <ImageView fitHeight="25.0" fitWidth="50.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../img/trainCar.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Pane>
+                                    <Label layoutX="363.0" layoutY="20.0" text="Toa đang chọn">
+                                       <font>
+                                          <Font name="Times New Roman Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                              <Label fx:id="lblToa" alignment="CENTER" contentDisplay="CENTER" layoutX="175.0" layoutY="28.0" maxWidth="500.0" prefHeight="28.0" prefWidth="300.0" text="Label" textFill="#5098ff">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane fx:id="paneToa" layoutX="-1.0" layoutY="73.0" prefHeight="250.0" prefWidth="650.0" style="-fx-background-color: skyblue; -fx-background-radius: 10; -fx-border-color: #333; -fx-border-radius: 10;" />
+                              <Pane layoutX="32.0" layoutY="389.0" prefHeight="92.0" prefWidth="118.0">
+                                 <children>
+                                    <Label layoutX="10.0" layoutY="14.0" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #5098ff; -fx-border-color: #333; -fx-border-width: 0 0 0 3;" />
+                                    <Label layoutX="47.0" layoutY="20.0" text="Ghế">
+                                       <font>
+                                          <Font name="Times New Roman Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="10.0" layoutY="55.0" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: lightyellow; -fx-border-color: #333; -fx-border-width: 0 0 3 0;" />
+                                    <Label layoutX="48.0" layoutY="61.0" text="Giường">
+                                       <font>
+                                          <Font name="Times New Roman Italic" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                              <Label fx:id="lblGia" contentDisplay="CENTER" layoutX="474.0" layoutY="337.0" maxWidth="500.0" prefHeight="28.0" prefWidth="150.0" text="Giá:" textFill="#5098ff">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="24.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                      </right>
                      <center>
                         <AnchorPane prefHeight="530.0" prefWidth="760.0" BorderPane.alignment="CENTER">
                            <children>
-                              <AnchorPane layoutY="14.0" prefHeight="475.0" prefWidth="738.0" style="-fx-background-color: #fff;">
+                              <AnchorPane prefHeight="489.0" prefWidth="738.0" style="-fx-background-color: #fff;">
                                  <children>
-                                    <ComboBox fx:id="cb_gaDi" disable="true" editable="true" layoutX="26.0" layoutY="40.0" prefWidth="150.0" promptText="Ga Đi" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" />
-                                    <Label layoutX="26.0" layoutY="14.0" text="Chọn ga đi:">
+                                    <ComboBox fx:id="cb_gaDi" disable="true" layoutX="85.0" layoutY="10.0" prefHeight="27.0" prefWidth="178.0" promptText="Ga Đi" style="-fx-background-color: #fff; -fx-border-color: #5098ff; -fx-border-radius: 5;" />
+                                    <Label layoutX="8.0" layoutY="14.0" text="Ga đi:">
                                        <font>
                                           <Font name="Times New Roman Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="219.0" layoutY="14.0" text="Chọn ngày khởi hành:">
+                                    <Label layoutX="6.0" layoutY="94.0" text="Ngày đi:">
                                        <font>
                                           <Font name="Times New Roman Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <DatePicker fx:id="dp_ngayKhoiHanh" layoutX="219.0" layoutY="40.0" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;" />
-                                    <Label layoutX="26.0" layoutY="91.0" text="Chọn ga đến:">
+                                    <DatePicker fx:id="dp_ngayKhoiHanh" layoutX="85.0" layoutY="90.0" style="-fx-background-color: #fff; -fx-border-color: #5098ff; -fx-border-radius: 5;" />
+                                    <Label layoutX="8.0" layoutY="54.0" text="Ga đến:">
                                        <font>
                                           <Font name="Times New Roman Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="cb_gaDen" disable="true" editable="true" layoutX="26.0" layoutY="118.0" prefWidth="150.0" promptText="Ga Đến" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" />
-                                    <Button fx:id="btn_traCuuLT" alignment="CENTER_RIGHT" disable="true" layoutX="30.0" layoutY="180.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="96.0" style="-fx-background-color: #5098ff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Tra cứu">
+                                    <ComboBox fx:id="cb_gaDen" disable="true" layoutX="85.0" layoutY="50.0" prefHeight="27.0" prefWidth="178.0" promptText="Ga Đến" style="-fx-background-color: #fff; -fx-border-color: #5098ff; -fx-border-radius: 5;" />
+                                    <Line endX="631.3999633789062" layoutX="104.0" layoutY="145.0" startX="-100.0" />
+                                    <Line endX="288.00006103515625" endY="-200.5" layoutX="448.0" layoutY="200.0" startX="288.00006103515625" startY="355.0" />
+                                    <TextArea layoutX="433.0" prefHeight="130.0" prefWidth="302.0" style="-fx-background-color: #fff; -fx-background-radius: 10; -fx-border-color: #333; -fx-border-radius: 5;" text="- Chỉ áp dụng với vé cá nhân&#10;- Hành khách được đổi vé khi có đủ các điều kiện sau:&#10;       * Có cùng ga đi, ga đến&#10;       * Đổi vé 1 lần duy nhất&#10;-Thông tin hành khách của vé không được thay đổi&#10;-Không được thay đổi loại vé&#10;" />
+                                    <JFXButton fx:id="btnTraCuuCT" alignment="CENTER_RIGHT" buttonType="RAISED" layoutX="304.0" layoutY="86.0" prefHeight="36.0" prefWidth="106.0" ripplerFill="#5098ff" style="-fx-background-color: #5098ff; -fx-background-radius: 10;" text="Tra cứu" textFill="WHITE">
                                        <font>
-                                          <Font name="Times New Roman Bold" size="18.0" />
+                                          <Font name="Times New Roman Bold" size="20.0" />
                                        </font>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
-                                    </Button>
-                                    <TableView fx:id="tbl_lichTrinh" fixedCellSize="0.0" layoutX="5.0" layoutY="242.0" prefHeight="215.0" prefWidth="730.0" style="-fx-background-color: #fff; -fx-background-radius: 10;" styleClass="shadow" stylesheets="@dashboardDesign.css">
-                                       <columns>
-                                          <TableColumn fx:id="col_stt" editable="false" prefWidth="40.000000953674316" text="STT" />
-                                          <TableColumn fx:id="col_soHieuTau" editable="false" prefWidth="82.39999008178711" sortable="false" text="Số Hiệu Tàu" />
-                                          <TableColumn fx:id="col_gaDi" editable="false" prefWidth="116.79998779296875" sortable="false" text="Ga Đi" />
-                                          <TableColumn fx:id="col_gaDen" editable="false" prefWidth="121.60005187988281" sortable="false" text="Ga Đến" />
-                                          <TableColumn fx:id="col_gioKH" editable="false" prefWidth="155.199951171875" sortable="false" text="Giờ khởi hành" />
-                                          <TableColumn fx:id="col_trangThai" editable="false" prefWidth="100.79998779296875" sortable="false" text="Trạng Thái" />
-                                          <TableColumn fx:id="col_Chon" maxWidth="168.800048828125" prefWidth="110.39996337890625" />
-                                       </columns>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </TableView>
-                                    <Line endX="631.3999633789062" layoutX="105.0" layoutY="232.0" startX="-100.0" />
-                                    <Line endX="288.0" endY="-228.10000610351562" layoutX="448.0" layoutY="200.0" startX="288.0" startY="274.0" />
-                                    <TextArea layoutX="413.0" layoutY="14.0" prefHeight="129.0" prefWidth="302.0" text="- Chỉ áp dụng với vé cá nhân&#10;- Hành khách được đổi vé khi có đủ các điều kiện sau:&#10;       * Có cùng ga đi, ga đến&#10;       * Đổi vé 1 lần duy nhất&#10;-Thông tin hành khách của vé không được thay đổi&#10;-Không được thay đổi loại vé&#10;" />
-                                    <FontAwesomeIcon glyphName="SEARCH_PLUS" layoutX="36.0" layoutY="201.0" />
+                                    </JFXButton>
+                                    <FontAwesomeIcon disable="true" fill="#ffeded" glyphName="SEARCH_PLUS" layoutX="312.0" layoutY="108.0" />
+                                    <HBox fx:id="grTrain" alignment="BASELINE_CENTER" layoutX="38.0" layoutY="401.0" prefHeight="100.0" prefWidth="662.0" />
+                                    <HBox fx:id="paneTau" alignment="CENTER" cache="true" layoutX="40.0" layoutY="165.0" prefHeight="195.0" prefWidth="658.0" style="-fx-background-color: #fff;" />
+                                    <Pane layoutX="136.0" layoutY="513.0" prefHeight="52.0" prefWidth="494.0">
+                                       <children>
+                                          <Pane layoutX="20.0" layoutY="20.0" prefHeight="18.0" prefWidth="50.0" style="-fx-background-color: skyblue; -fx-background-radius: 5;">
+                                             <children>
+                                                <ImageView fitHeight="25.0" fitWidth="50.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/trainCar.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                          </Pane>
+                                          <Label layoutX="77.0" layoutY="20.0" text="Toa còn vé">
+                                             <font>
+                                                <Font name="Times New Roman Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane layoutX="155.0" layoutY="20.0" prefHeight="18.0" prefWidth="50.0" style="-fx-background-color: red; -fx-background-radius: 5;">
+                                             <children>
+                                                <ImageView fitHeight="25.0" fitWidth="50.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/trainCar.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                          </Pane>
+                                          <Label layoutX="212.0" layoutY="20.0" text="Toa hết vé">
+                                             <font>
+                                                <Font name="Times New Roman Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane layoutX="306.0" layoutY="20.0" prefHeight="18.0" prefWidth="50.0" style="-fx-background-color: lightgreen; -fx-background-radius: 5;">
+                                             <children>
+                                                <ImageView fitHeight="25.0" fitWidth="50.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/trainCar.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                          </Pane>
+                                          <Label layoutX="363.0" layoutY="20.0" text="Toa đang chọn">
+                                             <font>
+                                                <Font name="Times New Roman Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
                                  </children>
                               </AnchorPane>
                            </children>

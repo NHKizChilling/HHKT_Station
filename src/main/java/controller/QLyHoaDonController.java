@@ -9,6 +9,8 @@ import connectdb.ConnectDB;
 import dao.*;
 import entity.*;
 import gui.TrangChu_GUI;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -22,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -329,7 +332,7 @@ public class QLyHoaDonController implements Initializable {
         btnThanhToan.setOnAction(event -> {
             HoaDon hd = tbhd.getSelectionModel().getSelectedItem();
             getData.hd = hd;
-            getData.hk = khach_Hang_dao.getKhachHangTheoMaKH(hd.getKhachHang().getMaKH());
+            getData.kh = khach_Hang_dao.getKhachHangTheoMaKH(hd.getKhachHang().getMaKH());
             ArrayList<ChiTietHoaDon> dscthd = ct_hoaDon_dao.getCT_HoaDon(hd.getMaHoaDon());
             getData.dscthd = dscthd;
             ArrayList<Ve> dsve = new ArrayList<>();
@@ -338,6 +341,7 @@ public class QLyHoaDonController implements Initializable {
                 ve.setCtlt(ct_lichTrinh_dao.getCTLTTheoCN(ve.getCtlt().getLichTrinh().getMaLichTrinh(), ve.getCtlt().getChoNgoi().getMaChoNgoi()));
                 ve.setLoaiVe(loaiVe_dao.getLoaiVeTheoMa(ve.getLoaiVe().getMaLoaiVe()));
                 dsve.add(ve);
+                cthd.setVe(ve);
             }
             getData.dsve = dsve;
             try {
@@ -354,13 +358,9 @@ public class QLyHoaDonController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Xác nhận");
                     alert.setHeaderText(null);
-                    alert.setContentText("Bạn có chắc chắn muốn thoát?");
+                    alert.setContentText("Xác nhận thoát?");
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.OK) {
-                        HoaDon hoaDon = hoaDon_dao.getHoaDonVuaTao();
-                        if (!hoaDon.isTrangThai() && hoaDon.getTongTien() == 0) {
-                            hoaDon_dao.delete(hoaDon);
-                        }
                         stgHoaDon.close();
                         radioAllHD.setSelected(true);
                         lamMoi();
@@ -369,20 +369,7 @@ public class QLyHoaDonController implements Initializable {
 
                 Button btnBack = (Button) acpHoaDon.lookup("#btnBackBanVe");
                 btnBack.setOnMouseClicked(e1 -> {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Xác nhận");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Bạn có chắc chắn muốn thoát?");
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.get() == ButtonType.OK) {
-                        HoaDon hoaDon = hoaDon_dao.getHoaDonVuaTao();
-                        if (!hoaDon.isTrangThai() && hoaDon.getTongTien() == 0) {
-                            hoaDon_dao.delete(hoaDon);
-                        }
-                        stgHoaDon.close();
-                        radioAllHD.setSelected(true);
-                        lamMoi();
-                    }
+                    stgHoaDon.close();
                 });
             } catch (IOException ex) {
                 ex.printStackTrace();
