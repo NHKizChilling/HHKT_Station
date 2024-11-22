@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="179.0" prefWidth="120.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="imgTau" fitHeight="179.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/headtrain.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust contrast="-1.0" />
+         </effect>
+      </ImageView>
+      <Pane layoutX="3.0" layoutY="14.0" prefHeight="50.0" prefWidth="112.0" style="-fx-background-color: #fff; -fx-background-radius: 10;">
+         <children>
+            <Label fx:id="lblTGKH" layoutX="49.0" layoutY="7.0">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="1.0" layoutY="29.0" text="TG đến:">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="1.0" layoutY="7.0" text="TG đi:">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTGDen" layoutX="49.0" layoutY="29.0">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label fx:id="lblSoHieuTau" alignment="CENTER" layoutX="47.0" style="-fx-background-color: #fff; -fx-background-radius: 20;" text="SE1">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
