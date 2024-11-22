@@ -5,11 +5,17 @@
  */
 package controller;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXRadioButton;
 import connectdb.ConnectDB;
 import dao.*;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import entity.*;
 import gui.TrangChu_GUI;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,25 +25,30 @@ import javafx.fxml.Initializable;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import java.util.*;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.control.TitledPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 /*
  * @description:
@@ -57,36 +68,81 @@ public class BanVeController implements Initializable {
     private LoaiToa_DAO ltoa_dao = new LoaiToa_DAO();
     private LoaiVe_DAO lv_dao = new LoaiVe_DAO();
     private ChoNgoi_DAO cn_dao = new ChoNgoi_DAO();
-    private int stt = 0;
-    @FXML
-    private FontAwesomeIcon btnGiamSLhssv;
+
+    private final String styleGheThuong = "-fx-background-color: white; -fx-text-fill: black;-fx-border-color: black;";
+    private final String styleGheDaChon = "-fx-background-color: green; -fx-text-fill: white;-fx-border-color: black;";
+    private final String styleGhe1 = "-fx-border-width: 0 0 0 3;";
+    private final String styleGhe2 = "-fx-border-width: 0 3 0 0;";
+    private final String styleGheDaDat = "-fx-background-color: red; -fx-text-fill: white;-fx-border-color: black;";
+    private final String styleGiuong = "-fx-background-color: white; -fx-text-fill: black;-fx-border-color: black;-fx-border-width: 0 0 3 0;";
+    private final String styleGiuongDaChon = "-fx-background-color: green; -fx-text-fill: white;-fx-border-color: black;-fx-border-width: 0 0 3 0;";
+    private final String styleGiuongDaDat = "-fx-background-color: red; -fx-text-fill: white;-fx-border-color: black;-fx-border-width: 0 0 3 0;";
 
     @FXML
-    private FontAwesomeIcon btnGiamSLnct;
+    private Pane paneTau;
 
     @FXML
-    private FontAwesomeIcon btnGiamSLnl;
+    private Pane paneChonCD;
 
     @FXML
-    private FontAwesomeIcon btnGiamSLte;
+    private JFXButton btnLamMoi;
 
     @FXML
-    private FontAwesomeIcon btnTangSLhssv;
+    private JFXButton btnLamMoiTTKH;
 
     @FXML
-    private FontAwesomeIcon btnTangSLnct;
+    private JFXButton btnTaoHD;
 
     @FXML
-    private FontAwesomeIcon btnTangSLnl;
+    private JFXButton btnTraCuuCT;
 
     @FXML
-    private FontAwesomeIcon btnTangSLte;
+    private JFXButton btnChonCD;
 
     @FXML
-    private ComboBox<String> cbGaDen;
+    private JFXButton btnChonKH;
 
     @FXML
-    private ComboBox<String> cbGaDi;
+    private JFXButton btnChonFullToa;
+
+    @FXML
+    private JFXButton btnChonKhoang;
+
+    @FXML
+    private JFXButton btnHuyChon;
+
+    @FXML
+    private JFXButton btnXoaAllCN;
+
+    @FXML
+    private JFXComboBox<String> cbGaDen;
+
+    @FXML
+    private JFXComboBox<String> cbGaDi;
+
+    @FXML
+    private ComboBox<String> cbKhoang;
+
+    @FXML
+    private TableColumn<ChiTietLichTrinh, String> colGiaCho;
+
+    @FXML
+    private TableColumn<LichTrinh, Integer> colLT_SLTrong;
+
+    @FXML
+    private TableColumn<LichTrinh, String> colLT_SoHieu;
+
+    @FXML
+    private TableColumn<ChiTietLichTrinh, String> colSTTCho;
+
+    @FXML
+    private TableColumn<ChiTietLichTrinh, String> colSoHieuTau;
+
+    @FXML
+    private TableColumn<ChiTietLichTrinh, Integer> colToa;
+
+    @FXML
+    private TableColumn<ChiTietLichTrinh, FontAwesomeIcon> colXoaCN;
 
     @FXML
     private DatePicker dpNgayKH;
@@ -95,156 +151,43 @@ public class BanVeController implements Initializable {
     private DatePicker dpNgayVe;
 
     @FXML
-    private Button btnTraCuuCT;
+    private HBox grTrain;
 
     @FXML
-    private Button btnLamMoi;
+    private BorderPane paneToa;
 
     @FXML
-    private CheckBox chkKhuHoi;
+    private JFXRadioButton rdBtnKH;
 
     @FXML
-    private TableColumn<LichTrinh, String> colGaDen;
+    private JFXRadioButton rdBtnMC;
 
     @FXML
-    private TableColumn<LichTrinh, String> colGaDi;
+    private TableView<LichTrinh> tbLT;
 
     @FXML
-    private TableColumn<LichTrinh, String> colGioKH;
-
-    @FXML
-    private TableColumn<LichTrinh, Integer> colSTT;
-
-    @FXML
-    private TableColumn<LichTrinh, String> colSoHieuTau;
-
-    @FXML
-    private TableColumn<LichTrinh, String> colTGDen;
-
-    @FXML
-    private TableColumn<LichTrinh, String> colSLT;
-
-    @FXML
-    private TableColumn<LichTrinh, String> colChon;
-
-    @FXML
-    private TableColumn<LichTrinh, String> colGaDenKH;
-
-    @FXML
-    private TableColumn<LichTrinh, String> colGaDiKH;
-
-    @FXML
-    private TableColumn<LichTrinh, String> colGioKHkh;
-
-    @FXML
-    private TableColumn<LichTrinh, Integer> colSTTKH;
-
-    @FXML
-    private TableColumn<LichTrinh, String> colSoHieuTauKH;
-
-    @FXML
-    private TableColumn<LichTrinh, String> colTGDenKH;
-
-    @FXML
-    private TableColumn<LichTrinh, String> colSLTKH;
-
-    @FXML
-    private TableColumn<LichTrinh, String> colChonKH;
-    @FXML
-    private TitledPane ttpLoaiVe;
-
-    @FXML
-    private Label lblSLhssv;
-
-    @FXML
-    private Label lblSLnct;
-
-    @FXML
-    private Label lblSLnl;
-
-    @FXML
-    private Label lblSLte;
-
-    @FXML
-    private Label lblGiaCN;
-
-    @FXML
-    private AnchorPane acpKH;
-
-    @FXML
-    private AnchorPane acpToaTau;
-
-    @FXML
-    private TabPane tabToaTau;
-
-    @FXML
-    private TabPane tabToaTauKH;
-
-    @FXML
-    private TabPane tabTTVe;
-
-    @FXML
-    private TableView<LichTrinh> tbTCTLT;
-
-    @FXML
-    private TableView<LichTrinh> tbTCTLTKH;
-
-    @FXML
-    private Button btnTaoHD;
-
-    @FXML
-    private Button btnLamMoiCN;
-
-    @FXML
-    private Button btnChonCD;
-
-    @FXML
-    private Button btnChonKH;
-
-    @FXML
-    private  Button btnChonChoNgoi;
-
-    @FXML
-    private ScrollPane scr1;
-
-    @FXML
-    private ScrollPane scr11;
-
-    @FXML
-    private  Button btnHuyChon;
-
-    @FXML
-    private TextField txtTenKH;
-
-    @FXML
-    private TextField txtSoCCCD;
-
-    @FXML
-    private TextField txtSDT;
+    private TableView<ChiTietLichTrinh> tbTTCN;
 
     @FXML
     private TextField txtEmail;
 
     @FXML
-    private TabPane tabVe;
+    private TextField txtSDT;
 
     @FXML
-    private Tab tabBanVe;
+    private TextField txtSoCCCD;
 
     @FXML
-    private Tab tabDoiVe;
+    private TextField txtTenKH;
 
     @FXML
-    private Tab tabHuyVe;
+    private Label lblToa;
 
-
-    private boolean khuHoi = false;
-
+    private String chosedId = null;
     private ObservableList<LichTrinh> dslt = null;
-    private ObservableList<LichTrinh> dsltkh = null;
-    private String idBtnChosen = "";
-
-    private String idBtnChonKH = "";
+    private ArrayList<ChiTietLichTrinh> dsctlt = new ArrayList<>();
+    private ObservableList<ChiTietLichTrinh> dsttcn = null;
+    private ArrayList<ChiTietLichTrinh> dsctltkh = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -253,48 +196,65 @@ public class BanVeController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //set doi-ve.fxml cho tabDoiVe
-        try {
-            FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("doi-ve.fxml"));
-            tabDoiVe.setContent(loader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        tbLT.setItems(null);
+        colLT_SoHieu.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChuyenTau().getSoHieutau()));
+        colLT_SLTrong.setCellValueFactory(cellData -> new SimpleIntegerProperty(lt_dao.getSoLuongChoConTrong(cellData.getValue().getMaLichTrinh())).asObject());
+        tbLT.setStyle(tbLT.getStyle() + "-fx-selection-bar: #FFD700; -fx-selection-bar-non-focused: #FFD700;-fx-alignment: CENTER;-fx-content-display: CENTER;-fx-background-color: #fff;");
 
-        //set huy-ve.fxml cho tabHuyVe
-        try {
-            FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("huy-ve.fxml"));
-            tabHuyVe.setContent(loader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        tbTTCN.setItems(null);
+        tbTTCN.setStyle(tbTTCN.getStyle() + "-fx-selection-bar: #FFD700; -fx-selection-bar-non-focused: #FFD700;-fx-alignment: CENTER;-fx-content-display: CENTER;-fx-background-color: #fff;");
+        colSoHieuTau.setCellValueFactory(cellData -> {
 
-        tabVe.setOnMouseClicked(e -> {
-            tabVe.getSelectionModel().getSelectedItem().setStyle("-fx-background-color: lightgray;");
-            for (Tab tab : tabVe.getTabs()) {
-                if (!tab.equals(tabVe.getSelectionModel().getSelectedItem())) {
-                    tab.setStyle("-fx-background-color: linear-gradient(to right, lightblue, #5098ff);");
+            return new SimpleStringProperty(lt_dao.getLichTrinhTheoID(cellData.getValue().getLichTrinh().getMaLichTrinh()).getChuyenTau().getSoHieutau());
+        });
+        colToa.setCellValueFactory(cellData -> {
+            Toa toa = toa_dao.getToaTheoID(cn_dao.getChoNgoiTheoMa(cellData.getValue().getChoNgoi().getMaChoNgoi()).getToa().getMaToa());
+            return new SimpleIntegerProperty(toa.getSoSTToa()).asObject();
+        });
+        colSTTCho.setCellValueFactory(cellData -> {
+            ChoNgoi cn = cn_dao.getChoNgoiTheoMa(cellData.getValue().getChoNgoi().getMaChoNgoi());
+            Toa toa = toa_dao.getToaTheoID(cn.getToa().getMaToa());
+            LoaiToa lt = ltoa_dao.getLoaiToaTheoMa(toa.getLoaiToa().getMaLoaiToa());
+            return new SimpleStringProperty("Chỗ " + cn.getSttCho() + " " + lt.getTenLoaiToa());
+        });
+        colGiaCho.setCellValueFactory(cellData -> new SimpleStringProperty(DecimalFormat.getCurrencyInstance().format(cellData.getValue().getGiaCho())));
+        colXoaCN.setCellValueFactory(cellData -> {
+            FontAwesomeIcon icon = new FontAwesomeIcon();
+            icon.setIcon(FontAwesomeIcons.TRASH);
+            icon.setFill(Color.RED);
+            icon.setSize("20");
+            icon.setCursor(Cursor.HAND);
+            icon.setOnMouseClicked(e -> {
+                tbTTCN.getItems().remove(cellData.getValue());
+                dsctlt.remove(cellData.getValue());
+                tbTTCN.refresh();
+                //đổi màu ghế đã chọn
+                Button btn = (Button) paneToa.lookup("#" + cellData.getValue().getChoNgoi().getMaChoNgoi());
+                if (btn != null) {
+                    btn.setStyle(btn.getStyle() + "-fx-background-color: white; -fx-text-fill: black;");
+                }
+                if (!dsctlt.isEmpty()) {
+                    btnXoaAllCN.setDisable(false);
+                } else {
+                    btnXoaAllCN.setDisable(true);
+                }
+            });
+            return new SimpleObjectProperty<>(icon);
+        });
+
+        ArrayList<LichTrinh> temp = lt_dao.traCuuDSLichTrinhTheoNgay(LocalDate.of(2024, 12, 1));
+        showTauTheoLT(temp);
+        tbLT.setItems(FXCollections.observableList(temp));
+
+        tbLT.setOnMouseClicked(e -> {
+            if (e.getButton() == MouseButton.PRIMARY) {
+                LichTrinh lt1 = tbLT.getSelectionModel().getSelectedItem();
+                if (lt1 != null) {
+                    paneTau.lookup("#" + lt1.getMaLichTrinh()).fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, MouseButton.PRIMARY, 0, false, false, false, false, false, false, false, false, false, false, null));
                 }
             }
         });
 
-
-        tbTCTLT.setItems(null);
-
-        tbTCTLT.setStyle(tbTCTLT.getStyle() + "-fx-selection-bar: #FFD700; -fx-selection-bar-non-focused: #FFD700;-fx-alignment: CENTER;-fx-content-display: CENTER;-fx-background-color: #fff;");
-        tbTCTLTKH.setItems(null);
-
-        tbTCTLTKH.setStyle(tbTCTLT.getStyle() + "-fx-selection-bar: #FFD700; -fx-selection-bar-non-focused: #FFD700;-fx-alignment: CENTER;-fx-content-display: CENTER;-fx-background-color: #fff;");
-        chkKhuHoi.setOnAction(e -> {
-            if (chkKhuHoi.isSelected()) {
-                khuHoi = true;
-                dpNgayVe.setDisable(false);
-            } else {
-                khuHoi = false;
-                dpNgayVe.setDisable(true);
-                dpNgayVe.setValue(null);
-            }
-        });
         ArrayList<Ga> ga = new Ga_DAO().getAllGa();
         ArrayList<String> tenGa = new ArrayList<>();
         for (Ga g : ga) {
@@ -305,8 +265,8 @@ public class BanVeController implements Initializable {
         new AutoCompleteComboBoxListener<>(cbGaDi);
         new AutoCompleteComboBoxListener<>(cbGaDen);
         cbGaDen.setOnAction(e -> {
-            if (cbGaDi.getValue() != null && cbGaDen.getValue() != null) {
-                if(cbGaDi.getValue().equals(cbGaDen.getValue())) {
+            if (cbGaDen.getSelectionModel().getSelectedItem() != null && cbGaDi.getSelectionModel().getSelectedItem() != null) {
+                if (cbGaDi.getValue().equals(cbGaDen.getValue())) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Lỗi");
                     alert.setHeaderText(null);
@@ -319,8 +279,8 @@ public class BanVeController implements Initializable {
         });
 
         cbGaDi.setOnAction(e -> {
-            if (cbGaDi.getValue() != null && cbGaDen.getValue() != null) {
-                if(cbGaDi.getValue().equals(cbGaDen.getValue())) {
+            if (cbGaDi.getSelectionModel().getSelectedItem() != null && cbGaDen.getSelectionModel().getSelectedItem() != null) {
+                if (cbGaDi.getValue().equals(cbGaDen.getValue())) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Lỗi");
                     alert.setHeaderText(null);
@@ -356,28 +316,22 @@ public class BanVeController implements Initializable {
             lamMoi();
         });
 
-        colSoHieuTau.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("chuyenTau"));
-        colGaDi.setCellValueFactory((new PropertyValueFactory<LichTrinh, String>("gaDi")));
-        colGaDen.setCellValueFactory((new PropertyValueFactory<LichTrinh, String>("gaDen")));
-        colGioKH.setCellValueFactory((new PropertyValueFactory<LichTrinh, String>("thoiGianKhoiHanh")));
-        colTGDen.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("thoiGianDuKienDen"));
-        colSLT.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("lichTrinh"));
+        //Gộp 2 JFXRadioButton lại 1 nhóm
+        ToggleGroup group = new ToggleGroup();
+        rdBtnKH.setToggleGroup(group);
+        rdBtnMC.setToggleGroup(group);
+        rdBtnMC.setSelected(true);
 
-        colSoHieuTauKH.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("chuyenTau"));
-        colGaDiKH.setCellValueFactory((new PropertyValueFactory<LichTrinh, String>("gaDi")));
-        colGaDenKH.setCellValueFactory((new PropertyValueFactory<LichTrinh, String>("gaDen")));
-        colGioKHkh.setCellValueFactory((new PropertyValueFactory<LichTrinh, String>("thoiGianKhoiHanh")));
-        colTGDenKH.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("thoiGianDuKienDen"));
-        colSLTKH.setCellValueFactory(new PropertyValueFactory<LichTrinh, String>("lichTrinh"));
+        rdBtnMC.setOnAction(e -> {
+            dpNgayVe.setDisable(true);
+        });
+
+        rdBtnKH.setOnAction(e -> {
+            dpNgayVe.setDisable(false);
+        });
 
         btnTraCuuCT.setOnMouseClicked(e -> {
-            tbTCTLT.setItems(null);
-            tbTCTLTKH.setItems(null);
-            tbTCTLT.setVisible(true);
-            tbTCTLTKH.setVisible(false);
-            idBtnChosen = "";
-            idBtnChonKH = "";
-            acpKH.setVisible(false);
+            tbLT.setItems(null);
             txtTenKH.setText(null);
             txtSoCCCD.setText(null);
             txtSDT.setText(null);
@@ -389,14 +343,14 @@ public class BanVeController implements Initializable {
                 alert.setContentText("Vui lòng chọn ga đi");
                 alert.show();
                 cbGaDi.requestFocus();
-            } else if(cbGaDen.getValue() == null || cbGaDen.getEditor().getText().isEmpty()) {
+            } else if (cbGaDen.getValue() == null || cbGaDen.getEditor().getText().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
                 alert.setHeaderText(null);
                 alert.setContentText("Vui lòng chọn ga đến");
                 alert.show();
                 cbGaDen.requestFocus();
-            } else if(dpNgayKH.getValue() == null) {
+            } else if (dpNgayKH.getValue() == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
                 alert.setHeaderText(null);
@@ -404,7 +358,7 @@ public class BanVeController implements Initializable {
                 alert.showAndWait();
                 dpNgayKH.requestFocus();
                 dpNgayKH.show();
-            } else if(chkKhuHoi.isSelected() && dpNgayVe.getValue() == null) {
+            } else if (rdBtnKH.isSelected() && dpNgayVe.getValue() == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
                 alert.setHeaderText(null);
@@ -413,1072 +367,139 @@ public class BanVeController implements Initializable {
                 dpNgayVe.requestFocus();
                 dpNgayVe.show();
             } else {
-                if(Integer.parseInt(lblSLnl.getText()) > 0 || Integer.parseInt(lblSLnct.getText()) > 0 || Integer.parseInt(lblSLhssv.getText()) > 0 || Integer.parseInt(lblSLte.getText()) > 0) {
-                    String maGaDi = ga_dao.getGaTheoTenGa(cbGaDi.getValue()).getMaGa();
-                    String maGaDen = ga_dao.getGaTheoTenGa(cbGaDen.getValue()).getMaGa();
-                    ArrayList<LichTrinh> list = lt_dao.traCuuDSLichTrinh(maGaDi, maGaDen, dpNgayKH.getValue());
-                    list.removeIf(lt -> !lt.getThoiGianKhoiHanh().isAfter(LocalDateTime.now()));
-                    dslt = FXCollections.observableList(list);
-                    if (dslt.isEmpty()) {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Thông báo");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Không tìm thấy chuyến tàu phù hợp");
-                        alert.show();
-                        cbGaDi.requestFocus();
-                    } else {
-                        tbTCTLT.setItems(dslt);
-                        tbTCTLT.requestFocus();
-                        tabToaTau.getTabs().clear();
-                        tabToaTauKH.getTabs().clear();
-                        tabTTVe.getTabs().clear();
-                        acpToaTau.setVisible(false);
-                        if (khuHoi) {
-                            btnChonKH.setDisable(false);
-                            btnChonCD.setDisable(true);
-                        } else {
-                            btnChonKH.setDisable(true);
-                            btnChonCD.setDisable(true);
-                        }
 
-                        colSTT.setCellValueFactory(column -> new SimpleIntegerProperty(tbTCTLT.getItems().indexOf(column.getValue()) + 1).asObject());
-
-                        colSoHieuTau.setCellValueFactory(param ->
-                                new SimpleStringProperty(param.getValue().getChuyenTau().getSoHieutau()));
-
-                        colGaDi.setCellValueFactory(param ->
-                                new SimpleStringProperty(ga_dao.getGaTheoMaGa(param.getValue().getGaDi().getMaGa()).getTenGa()));
-
-                        colGaDen.setCellValueFactory(param ->
-                                new SimpleStringProperty(ga_dao.getGaTheoMaGa(param.getValue().getGaDen().getMaGa()).getTenGa()));
-
-                        colGioKH.setCellValueFactory(param -> {
-                            return new SimpleStringProperty(DateTimeFormatter.ofPattern("HH:mm").format(param.getValue().getThoiGianKhoiHanh()));
-                        });
-                        colTGDen.setCellValueFactory(param -> {
-                            return new SimpleStringProperty(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(param.getValue().getThoiGianDuKienDen()));
-                        });
-
-                        colSLT.setCellValueFactory(param -> {
-                            return new SimpleStringProperty(lt_dao.getSoLuongChoConTrong(param.getValue().getMaLichTrinh()) + "");
-                        });
-                        Callback<TableColumn<LichTrinh, String>, TableCell<LichTrinh, String>> cellFoctory = (TableColumn<LichTrinh, String> param) -> {
-                            // make cell containing buttons
-                            final TableCell<LichTrinh, String> cell = new TableCell<LichTrinh, String>() {
-                                @Override
-                                public void updateItem(String item, boolean empty) {
-                                    super.updateItem(item, empty);
-                                    if (empty) {
-                                        setGraphic(null);
-                                        setText(null);
-
-                                    } else {
-                                        Button btnChon = new Button("Xem chi tiết");
-                                        btnChon.setStyle("-fx-cursor: hand;-fx-background-color: #5098ff;-fx-text-fill: white;-fx-border-radius: 5px;");
-                                        HBox manageBtn = new HBox(btnChon);
-                                        btnChon.setId("btnChon");
-                                        manageBtn.setStyle("-fx-alignment:center;");
-                                        setGraphic(manageBtn);
-                                        setText(null);
-                                        btnChon.setOnAction(e -> {
-                                                //lấy thông tin lịch trình chọn xem
-
-                                            LichTrinh lt = tbTCTLT.getItems().get(getIndex());
-                                            getData.lt = lt;
-                                            if (tabTTVe.getTabs().size() > 0) {
-                                                for (Tab t : tabTTVe.getTabs()) {
-                                                    TextField txtMaCho =(TextField) t.getContent().lookup("#txtMaCho");
-                                                    TextField txtLoaiCho =(TextField) t.getContent().lookup("#txtLoaiCho");
-                                                    TextField txtSTTToa =(TextField) t.getContent().lookup("#txtSTTToa");
-                                                    TextField txtGia =(TextField) t.getContent().lookup("#txtGia");
-                                                    txtMaCho.setText(null);
-                                                    txtLoaiCho.setText(null);
-                                                    txtSTTToa.setText(null);
-                                                    txtGia.setText(null);
-                                                }
-                                                tabTTVe.getSelectionModel().selectFirst();
-                                            }
-                                            ArrayList<Toa> dstoa = toa_dao.getAllToaTheoChuyenTau(lt.getChuyenTau().getSoHieutau());
-                                            ArrayList<ChiTietLichTrinh> dsctlt = ctlt_dao.getCtltTheoMaLichTrinh(lt.getMaLichTrinh());
-                                            if (dsctlt.isEmpty()) {
-                                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                                alert.setTitle("Thông báo");
-                                                alert.setHeaderText(null);
-                                                alert.setContentText("Lịch trình rỗng");
-                                                alert.show();
-                                                return;
-                                            }
-                                            acpToaTau.setVisible(true);
-                                            scr1.setVisible(true);
-                                            scr11.setVisible(false);
-                                            tabToaTau.getTabs().clear();
-                                            for (Toa toa : dstoa) {
-                                                Tab tab = new Tab("Toa " + toa.getSoSTToa() + " - " + ltoa_dao.getLoaiToaTheoMa(toa.getLoaiToa().getMaLoaiToa()).getTenLoaiToa());
-                                                tab.setClosable(false);
-                                                ArrayList<ChoNgoi> dscn = cn_dao.getDsChoNgoiTheoToa(toa.getMaToa());
-                                                if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NC")){
-
-                                                    GridPane gridPane1 = new GridPane();
-                                                    tab.setContent(gridPane1);
-                                                    tabToaTau.getTabs().add(tab);
-
-                                                    gridPane1.setAlignment(Pos.CENTER);
-                                                    gridPane1.setPadding(new Insets(10));
-                                                    gridPane1.setVgap(5);
-                                                    gridPane1.setHgap(5);
-                                                    int seatNumbers1[][] = {
-                                                            {1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57, 64},
-                                                            {2, 7, 10, 15, 18, 23, 26, 31, 34, 39, 42, 47, 50, 55, 58, 63},
-                                                            {3, 6, 11, 14, 19, 22, 27, 30, 35, 38, 43, 46, 51, 54, 59, 62},
-                                                            {4, 5, 12, 13, 20, 21, 28, 29, 36, 37, 44, 45, 52, 53, 60, 61}
-                                                    };
-
-                                                    Pane pane = new Pane();
-                                                    pane.setPrefHeight(60);
-                                                    pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 2, 0, 2))));
-                                                    Pane pane1 = new Pane();
-                                                    pane1.setPrefHeight(60);
-                                                    pane1.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 2, 0, 2))));
-                                                    gridPane1.add(pane, 9, 0, 1, 2);
-                                                    gridPane1.add(pane1, 9, 4, 1, 2);
-                                                    // Tạo giao diện ghế
-                                                    for (int row = 0; row < 4; row++) {
-                                                        for (int col = 0; col < 16; col++) {
-                                                            int seatNumber = seatNumbers1[row][col];
-                                                            Button seatButton = new Button(String.valueOf(seatNumber));
-                                                            for (ChoNgoi cn : dscn) {
-                                                                if(cn.getSttCho() == seatNumber) {
-                                                                    seatButton.setId(cn.getMaChoNgoi());
-                                                                }
-                                                            }
-                                                            seatButton.setMinSize(30, 30); // Kích thước nút ghế
-
-                                                            // Kiểm tra trạng thái của ghế
-                                                            ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
-
-                                                            if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
-                                                                seatButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                            } else {
-                                                                seatButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                            }
-                                                            // Thêm nút vào GridPane
-                                                            // Với row = 2 thêm lối đi ở giữa (tăng thêm 1 để tạo khoảng trống)
-                                                            gridPane1.add(seatButton, col + (col >= 8 ? 2 : 0), row > 1 ? row + 2 : row);
-                                                            seatButton.setOnMouseClicked(event -> {
-                                                                if (seatButton.getStyle().contains("green")) {
-                                                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                                    alert.setTitle("Lỗi");
-                                                                    alert.setHeaderText(null);
-                                                                    alert.setContentText("Ghế đã được chọn");
-                                                                    alert.show();
-                                                                } else if (seatButton.getStyle().contains("red")) {
-                                                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                                    alert.setTitle("Lỗi");
-                                                                    alert.setHeaderText(null);
-                                                                    alert.setContentText("Ghế đã được đặt");
-                                                                    alert.show();
-                                                                } else {
-                                                                    btnChonChoNgoi.setDisable(false);
-                                                                    btnHuyChon.setDisable(false);
-                                                                    if (idBtnChosen != "") {
-                                                                        for (Tab t: tabToaTau.getTabs()) {
-                                                                            GridPane gp = (GridPane) t.getContent();
-                                                                            Button btn = (Button) gp.lookup("#" + idBtnChosen);
-                                                                            if (btn != null) {
-                                                                                btn.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                                                break;
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    idBtnChosen = seatButton.getId();
-                                                                    seatButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                                    lblGiaCN.setText(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId()).getGiaCho() + "");
-                                                                }
-                                                            });
-                                                        }
-                                                    }
-                                                    //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
-                                                    Label lblChuaChon = new Label("Chưa chọn");
-                                                    lblChuaChon.setAlignment(Pos.CENTER);
-                                                    lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                    lblChuaChon.setPadding(new Insets(5));
-                                                    lblChuaChon.setPrefSize(70, 30);
-                                                    Label lblDangXem = new Label("Đang xem");
-                                                    lblDangXem.setAlignment(Pos.CENTER);
-                                                    lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                    lblDangXem.setPadding(new Insets(5));
-                                                    lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    Label lblDaChon = new Label("Đã chọn");
-                                                    lblDaChon.setAlignment(Pos.CENTER);
-                                                    lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                                                    lblDaChon.setPadding(new Insets(5));
-                                                    lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    Label lblDaDat = new Label("Đã đặt");
-                                                    lblDaDat.setAlignment(Pos.CENTER);
-                                                    lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                    lblDaDat.setPadding(new Insets(5));
-                                                    lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    gridPane1.add(lblChuaChon, 0, 7, 3, 1);
-                                                    gridPane1.add(lblDangXem, 3, 7, 3, 1);
-                                                    gridPane1.add(lblDaChon, 0, 8, 3, 1);
-                                                    gridPane1.add(lblDaDat, 3, 8, 3, 1);
-
-                                                } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NM")) {
-                                                    GridPane gridPane1 = new GridPane();
-                                                    tab.setContent(gridPane1);
-                                                    tabToaTau.getTabs().add(tab);
-
-                                                    gridPane1.setAlignment(Pos.CENTER);
-                                                    gridPane1.setPadding(new Insets(10));
-                                                    gridPane1.setVgap(5);
-                                                    gridPane1.setHgap(5);
-                                                    int seatNumbers1[][] = {
-                                                            {1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57, 64},
-                                                            {2, 7, 10, 15, 18, 23, 26, 31, 34, 39, 42, 47, 50, 55, 58, 63},
-                                                            {3, 6, 11, 14, 19, 22, 27, 30, 35, 38, 43, 46, 51, 54, 59, 62},
-                                                            {4, 5, 12, 13, 20, 21, 28, 29, 36, 37, 44, 45, 52, 53, 60, 61}
-                                                    };
-
-                                                    // Ghế đã được đặt (màu đỏ) và ghế còn trống (màu trắng)
-
-                                                    Pane pane = new Pane();
-                                                    pane.setPrefHeight(60);
-                                                    pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 2, 0, 2))));
-                                                    Pane pane1 = new Pane();
-                                                    pane1.setPrefHeight(60);
-                                                    pane1.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 2, 0, 2))));
-                                                    gridPane1.add(pane, 9, 0, 1, 2);
-                                                    gridPane1.add(pane1, 9, 4, 1, 2);
-                                                    // Tạo giao diện ghế
-                                                    for (int row = 0; row < 4; row++) {
-                                                        for (int col = 0; col < 16; col++) {
-                                                            int seatNumber = seatNumbers1[row][col];
-                                                            Button seatButton = new Button(String.valueOf(seatNumber));
-                                                            for (ChoNgoi cn : dscn) {
-                                                                if(cn.getSttCho() == seatNumber) {
-                                                                    seatButton.setId(cn.getMaChoNgoi());
-                                                                }
-                                                            }
-                                                            seatButton.setMinSize(30, 30); // Kích thước nút ghế
-
-                                                            // Kiểm tra trạng thái của ghế
-                                                            ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
-
-                                                            if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
-                                                                seatButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                            } else {
-                                                                seatButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                            }
-
-                                                            // Thêm nút vào GridPane
-                                                            // Với row = 2 thêm lối đi ở giữa (tăng thêm 1 để tạo khoảng trống)
-                                                            gridPane1.add(seatButton, col + (col >= 8 ? 2 : 0), row > 1 ? row + 2 : row);
-                                                            seatButton.setOnMouseClicked(event -> {
-                                                                if (seatButton.getStyle().contains("green")) {
-                                                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                                    alert.setTitle("Lỗi");
-                                                                    alert.setHeaderText(null);
-                                                                    alert.setContentText("Ghế đã được chọn");
-                                                                    alert.show();
-                                                                } else if (seatButton.getStyle().contains("red")) {
-                                                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                                    alert.setTitle("Lỗi");
-                                                                    alert.setHeaderText(null);
-                                                                    alert.setContentText("Ghế đã được đặt");
-                                                                    alert.show();
-                                                                } else {
-                                                                    btnChonChoNgoi.setDisable(false);
-                                                                    btnHuyChon.setDisable(false);
-                                                                    if (idBtnChosen != "") {
-                                                                        for (Tab t: tabToaTau.getTabs()) {
-                                                                            GridPane gp = (GridPane) t.getContent();
-                                                                            Button btn = (Button) gp.lookup("#" + idBtnChosen);
-                                                                            if (btn != null) {
-                                                                                btn.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                                                break;
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    idBtnChosen = seatButton.getId();
-                                                                    seatButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                                    lblGiaCN.setText(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(),seatButton.getId()).getGiaCho() + "");
-                                                                }
-                                                            });
-                                                        }
-                                                    }
-                                                    //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
-                                                    Label lblChuaChon = new Label("Chưa chọn");
-                                                    lblChuaChon.setAlignment(Pos.CENTER);
-                                                    lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                    lblChuaChon.setPadding(new Insets(5));
-                                                    lblChuaChon.setPrefSize(70, 30);
-                                                    Label lblDangXem = new Label("Đang xem");
-                                                    lblDangXem.setAlignment(Pos.CENTER);
-                                                    lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                    lblDangXem.setPadding(new Insets(5));
-                                                    lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    Label lblDaChon = new Label("Đã chọn");
-                                                    lblDaChon.setAlignment(Pos.CENTER);
-                                                    lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                                                    lblDaChon.setPadding(new Insets(5));
-                                                    lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    Label lblDaDat = new Label("Đã đặt");
-                                                    lblDaDat.setAlignment(Pos.CENTER);
-                                                    lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                    lblDaDat.setPadding(new Insets(5));
-                                                    lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    gridPane1.add(lblChuaChon, 0, 7, 3, 1);
-                                                    gridPane1.add(lblDangXem, 3, 7, 3, 1);
-                                                    gridPane1.add(lblDaChon, 0, 8, 3, 1);
-                                                    gridPane1.add(lblDaDat, 3, 8, 3, 1);
-                                                } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("GNK4")) {
-                                                    int[][] seatNumbers2 = {
-                                                            {3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23, 24, 27, 28},
-                                                            {1, 2, 5, 6, 9, 10, 13, 14, 17, 18, 21, 22, 25, 26}
-                                                    };
-
-                                                    // Ghế đã được đặt (màu đỏ) và ghế còn trống (màu trắng hoặc xanh)
-
-                                                    GridPane gridPane2 = new GridPane();
-                                                    tab.setContent(gridPane2);
-                                                    tabToaTau.getTabs().add(tab);
-                                                    gridPane2.setAlignment(Pos.CENTER);
-                                                    gridPane2.setVgap(5);
-                                                    gridPane2.setHgap(5);
-                                                    gridPane2.add(new Label("T2"), 0, 1);
-                                                    gridPane2.add(new Label("T1"), 0, 2);
-                                                    gridPane2.add(new Label("  Khoang 1"), 1, 0, 3, 1);
-                                                    gridPane2.add(new Label("  Khoang 2"), 4, 0, 3, 1);
-                                                    gridPane2.add(new Label("  Khoang 3"), 7, 0, 3, 1);
-                                                    gridPane2.add(new Label("  Khoang 4"), 10, 0, 3, 1);
-                                                    gridPane2.add(new Label("  Khoang 5"), 13, 0, 3, 1);
-                                                    gridPane2.add(new Label("  Khoang 6"), 16, 0, 3, 1);
-                                                    gridPane2.add(new Label("  Khoang 7"), 19, 0, 3, 1);
-                                                    // Số thứ tự ghế như hình (theo hàng từ T1 đến T2 và các khoang 1-4)
-                                                    for (int row = 0; row < 2; row++) {
-                                                        for (int col = 0; col < 14; col++) {
-                                                            int seatNumber = seatNumbers2[row][col];
-                                                            Button seatButton = new Button(String.valueOf(seatNumber));
-                                                            for (ChoNgoi cn : dscn) {
-                                                                if(cn.getSttCho() == seatNumber) {
-                                                                    seatButton.setId(cn.getMaChoNgoi());
-                                                                }
-                                                            }
-                                                            seatButton.setMinSize(30, 30);
-                                                            ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
-
-                                                            if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
-                                                                seatButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                            } else {
-                                                                seatButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                            }
-
-                                                            // Thêm nút vào GridPane (với col/2 để tạo khoảng trống giữa các khoang)
-                                                            gridPane2.add(seatButton, col + (col / 2) + 1, row + 1);
-                                                            seatButton.setOnMouseClicked(event -> {
-                                                                if (seatButton.getStyle().contains("green")) {
-                                                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                                    alert.setTitle("Lỗi");
-                                                                    alert.setHeaderText(null);
-                                                                    alert.setContentText("Ghế đã được chọn");
-                                                                    alert.show();
-                                                                } else if (seatButton.getStyle().contains("red")) {
-                                                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                                    alert.setTitle("Lỗi");
-                                                                    alert.setHeaderText(null);
-                                                                    alert.setContentText("Ghế đã được đặt");
-                                                                    alert.show();
-                                                                } else {
-                                                                    btnChonChoNgoi.setDisable(false);
-                                                                    btnHuyChon.setDisable(false);
-                                                                    if (idBtnChosen != "") {
-                                                                        for (Tab t: tabToaTau.getTabs()) {
-                                                                            GridPane gp = (GridPane) t.getContent();
-                                                                            Button btn = (Button) gp.lookup("#" + idBtnChosen);
-                                                                            if (btn != null) {
-                                                                                btn.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                                                break;
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    idBtnChosen = seatButton.getId();
-                                                                    seatButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                                    lblGiaCN.setText(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(),seatButton.getId()).getGiaCho() + "");
-                                                                }
-                                                            });
-                                                        }
-                                                    }
-                                                    //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
-                                                    Label lblChuaChon = new Label("Chưa chọn");
-                                                    lblChuaChon.setAlignment(Pos.CENTER);
-                                                    lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                    lblChuaChon.setPadding(new Insets(5));
-                                                    lblChuaChon.setPrefSize(70, 30);
-                                                    Label lblDangXem = new Label("Đang xem");
-                                                    lblDangXem.setAlignment(Pos.CENTER);
-                                                    lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                    lblDangXem.setPadding(new Insets(5));
-                                                    lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    Label lblDaChon = new Label("Đã chọn");
-                                                    lblDaChon.setAlignment(Pos.CENTER);
-                                                    lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                                                    lblDaChon.setPadding(new Insets(5));
-                                                    lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    Label lblDaDat = new Label("Đã đặt");
-                                                    lblDaDat.setAlignment(Pos.CENTER);
-                                                    lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                    lblDaDat.setPadding(new Insets(5));
-                                                    lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    gridPane2.add(lblChuaChon, 0, 7, 3, 1);
-                                                    gridPane2.add(lblDangXem, 3, 7, 3, 1);
-                                                    gridPane2.add(lblDaChon, 0, 8, 3, 1);
-                                                    gridPane2.add(lblDaDat, 3, 8, 3, 1);
-                                                } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("GNK6")) {
-                                                    GridPane gridPane = new GridPane();
-                                                    tab.setContent(gridPane);
-                                                    tabToaTau.getTabs().add(tab);
-                                                    gridPane.setAlignment(Pos.CENTER);
-                                                    gridPane.setVgap(5);
-                                                    gridPane.setHgap(5);
-                                                    gridPane.add(new Label("T3"), 0, 1);
-                                                    gridPane.add(new Label("T2"), 0, 2);
-                                                    gridPane.add(new Label("T1"), 0, 3);
-                                                    gridPane.add(new Label("  Khoang 1"), 1, 0, 3, 1);
-                                                    gridPane.add(new Label("  Khoang 2"), 4, 0, 3, 1);
-                                                    gridPane.add(new Label("  Khoang 3"), 7, 0, 3, 1);
-                                                    gridPane.add(new Label("  Khoang 4"), 10, 0, 3, 1);
-                                                    gridPane.add(new Label("  Khoang 5"), 13, 0, 3, 1);
-                                                    gridPane.add(new Label("  Khoang 6"), 16, 0, 3, 1);
-                                                    gridPane.add(new Label("  Khoang 7"), 19, 0, 3, 1);
-                                                    // Số thứ tự ghế như hình (theo hàng từ T1 đến T3 và các khoang 1-7)
-                                                    int[][] seatNumbers = {
-                                                            {5, 6, 11, 12, 17, 18, 23, 24, 29, 30, 35, 36, 41, 42},
-                                                            {3, 4, 9, 10, 15, 16, 21, 22, 27, 28, 33, 34, 39, 40},
-                                                            {1, 2, 7, 8, 13, 14, 19, 20, 25, 26, 31, 32, 37, 38}
-                                                    };
-
-                                                    // Tạo giao diện
-                                                    for (int row = 0; row < 3; row++) {
-                                                        for (int col = 0; col < 14; col++) {
-                                                            int seatNumber = seatNumbers[row][col];
-                                                            Button seatButton = new Button(String.valueOf(seatNumber));
-                                                            for (ChoNgoi cn : dscn) {
-                                                                if(cn.getSttCho() == seatNumber) {
-                                                                    seatButton.setId(cn.getMaChoNgoi());
-                                                                }
-                                                            }
-                                                            seatButton.setMinSize(30, 30);
-                                                            // Kiểm tra trạng thái của ghế
-                                                            ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
-
-                                                            if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
-                                                                seatButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                            } else {
-                                                                seatButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                            }
-
-                                                            // Thêm nút vào GridPane (với col/2 để tạo khoảng trống giữa các khoang)
-                                                            gridPane.add(seatButton, col + (col / 2) + 1, row + 1);
-                                                            seatButton.setOnMouseClicked(event -> {
-                                                                if (seatButton.getStyle().contains("green")) {
-                                                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                                    alert.setTitle("Lỗi");
-                                                                    alert.setHeaderText(null);
-                                                                    alert.setContentText("Ghế đã được chọn");
-                                                                    alert.show();
-                                                                } else if (seatButton.getStyle().contains("red")) {
-                                                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                                    alert.setTitle("Lỗi");
-                                                                    alert.setHeaderText(null);
-                                                                    alert.setContentText("Ghế đã được đặt");
-                                                                    alert.show();
-                                                                } else {
-                                                                    btnChonChoNgoi.setDisable(false);
-                                                                    btnHuyChon.setDisable(false);
-                                                                    if (idBtnChosen != "") {
-                                                                        for (Tab t: tabToaTau.getTabs()) {
-                                                                            GridPane gp = (GridPane) t.getContent();
-                                                                            Button btn = (Button) gp.lookup("#" + idBtnChosen);
-                                                                            if (btn != null) {
-                                                                                btn.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                                                break;
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    idBtnChosen = seatButton.getId();
-                                                                    seatButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                                    lblGiaCN.setText(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(),seatButton.getId()).getGiaCho() + "");
-                                                                }
-                                                            });
-                                                        }
-                                                    }
-                                                    //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
-                                                    Label lblChuaChon = new Label("Chưa chọn");
-                                                    lblChuaChon.setAlignment(Pos.CENTER);
-                                                    lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                    lblChuaChon.setPadding(new Insets(5));
-                                                    lblChuaChon.setPrefSize(70, 30);
-                                                    Label lblDangXem = new Label("Đang xem");
-                                                    lblDangXem.setAlignment(Pos.CENTER);
-                                                    lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                    lblDangXem.setPadding(new Insets(5));
-                                                    lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    Label lblDaChon = new Label("Đã chọn");
-                                                    lblDaChon.setAlignment(Pos.CENTER);
-                                                    lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                                                    lblDaChon.setPadding(new Insets(5));
-                                                    lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    Label lblDaDat = new Label("Đã đặt");
-                                                    lblDaDat.setAlignment(Pos.CENTER);
-                                                    lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                    lblDaDat.setPadding(new Insets(5));
-                                                    lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    gridPane.add(lblChuaChon, 0, 7, 3, 1);
-                                                    gridPane.add(lblDangXem, 3, 7, 3, 1);
-                                                    gridPane.add(lblDaChon, 0, 8, 3, 1);
-                                                    gridPane.add(lblDaDat, 3, 8, 3, 1);
-                                                } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("TVIP")) {
-                                                    int[][] seatNumbers2 = {
-                                                            {2, 4, 6, 8, 10, 12, 14},
-                                                            {1, 3, 5, 7, 9, 11, 13}
-                                                    };
-
-                                                    // Ghế đã được đặt (màu đỏ) và ghế còn trống (màu trắng hoặc xanh)
-                                                    int[] bookedSeats = null;
-                                                    GridPane gridPane2 = new GridPane();
-                                                    tab.setContent(gridPane2);
-                                                    tabToaTau.getTabs().add(tab);
-                                                    gridPane2.setAlignment(Pos.CENTER);
-                                                    gridPane2.setVgap(5);
-                                                    gridPane2.setHgap(5);
-                                                    gridPane2.add(new Label("  Khoang 1"), 1, 0);
-                                                    gridPane2.add(new Label("  Khoang 2"), 2, 0);
-                                                    gridPane2.add(new Label("  Khoang 3"), 3, 0);
-                                                    gridPane2.add(new Label("  Khoang 4"), 4, 0);
-                                                    gridPane2.add(new Label("  Khoang 5"), 5, 0);
-                                                    gridPane2.add(new Label("  Khoang 6"), 6, 0);
-                                                    gridPane2.add(new Label("  Khoang 7"), 7, 0);
-                                                    // Số thứ tự ghế như hình (theo hàng từ T1 đến T2 và các khoang 1-4)
-                                                    for (int row = 0; row < 2; row++) {
-                                                        for (int col = 0; col < 7; col++) {
-                                                            int seatNumber = seatNumbers2[row][col];
-                                                            Button seatButton = new Button(String.valueOf(seatNumber));
-                                                            for (ChoNgoi cn : dscn) {
-                                                                if(cn.getSttCho() == seatNumber) {
-                                                                    seatButton.setId(cn.getMaChoNgoi());
-                                                                }
-                                                            }
-                                                            seatButton.setMinSize(30, 30); // Kích thước nút ghế
-                                                            // Kiểm tra trạng thái của ghế
-                                                            ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
-
-                                                            if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
-                                                                seatButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                            } else {
-                                                                seatButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                            }
-                                                            gridPane2.add(seatButton, col + 1, row + 1);
-                                                            seatButton.setOnMouseClicked(event -> {
-                                                                if (seatButton.getStyle().contains("green")) {
-                                                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                                    alert.setTitle("Lỗi");
-                                                                    alert.setHeaderText(null);
-                                                                    alert.setContentText("Ghế đã được chọn");
-                                                                    alert.show();
-                                                                } else if (seatButton.getStyle().contains("red")) {
-                                                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                                    alert.setTitle("Lỗi");
-                                                                    alert.setHeaderText(null);
-                                                                    alert.setContentText("Ghế đã được đặt");
-                                                                    alert.show();
-                                                                } else {
-                                                                    btnChonChoNgoi.setDisable(false);
-                                                                    btnHuyChon.setDisable(false);
-                                                                    if (idBtnChosen != "") {
-                                                                        for (Tab t: tabToaTau.getTabs()) {
-                                                                            GridPane gp = (GridPane) t.getContent();
-                                                                            Button btn = (Button) gp.lookup("#" + idBtnChosen);
-                                                                            if (btn != null) {
-                                                                                btn.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                                                break;
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    idBtnChosen = seatButton.getId();
-                                                                    seatButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                                    lblGiaCN.setText(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(),seatButton.getId()).getGiaCho() + "");
-                                                                }
-                                                            });
-                                                        }
-                                                    }
-                                                    //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
-                                                    Label lblChuaChon = new Label("Chưa chọn");
-                                                    lblChuaChon.setAlignment(Pos.CENTER);
-                                                    lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                    lblChuaChon.setPadding(new Insets(5));
-                                                    lblChuaChon.setPrefSize(70, 30);
-                                                    Label lblDangXem = new Label("Đang xem");
-                                                    lblDangXem.setAlignment(Pos.CENTER);
-                                                    lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                    lblDangXem.setPadding(new Insets(5));
-                                                    lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    Label lblDaChon = new Label("Đã chọn");
-                                                    lblDaChon.setAlignment(Pos.CENTER);
-                                                    lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                                                    lblDaChon.setPadding(new Insets(5));
-                                                    lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    Label lblDaDat = new Label("Đã đặt");
-                                                    lblDaDat.setAlignment(Pos.CENTER);
-                                                    lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                    lblDaDat.setPadding(new Insets(5));
-                                                    lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                                    gridPane2.add(lblChuaChon, 0, 7, 3, 1);
-                                                    gridPane2.add(lblDangXem, 3, 7, 3, 1);
-                                                    gridPane2.add(lblDaChon, 0, 8, 3, 1);
-                                                    gridPane2.add(lblDaDat, 3, 8, 3, 1);
-                                                }
-                                            }
-
-                                            if (tabTTVe.getTabs().isEmpty()) {
-                                                tabTTVe.getTabs().clear();
-                                                int slnl = Integer.parseInt(lblSLnl.getText());
-                                                int slnct = Integer.parseInt(lblSLnct.getText());
-                                                int slhssv = Integer.parseInt(lblSLhssv.getText());
-                                                int slte = Integer.parseInt(lblSLte.getText());
-                                                if (slnl > 0) {
-                                                    for (int i = 0; i < slnl; i++) {
-                                                        Tab tab = new Tab("Người lớn " + (i + 1));
-                                                        try {
-                                                            tab.setContent(FXMLLoader.load(TrangChu_GUI.class.getResource("thong-tin-ve.fxml")));
-                                                            ComboBox<String> cbLHK = (ComboBox)tab.getContent().lookup("#cbLoaiHK");
-                                                            cbLHK.getItems().add("Người lớn");
-                                                            cbLHK.getItems().add("Người cao tuổi");
-                                                            cbLHK.getItems().add("Học sinh, sinh viên");
-                                                            cbLHK.getItems().add("Trẻ em");
-                                                            cbLHK.setValue("Người lớn");
-                                                            Button btnXacNhanTT = (Button)tab.getContent().lookup("#btnXacNhanTT");
-                                                            btnXacNhanTT.setOnMouseClicked(e1 -> {
-                                                                for(Tab t : tabTTVe.getTabs()) {
-                                                                    TextField txtMaCN = (TextField) t.getContent().lookup("#txtMaCho");
-                                                                    TextField txtMaCNKH = (TextField) t.getContent().lookup("#txtMaChoKH");
-                                                                    if (!txtMaCN.getText().isEmpty() && txtMaCN.getText() != null) {
-                                                                        TextField txtTenHK = (TextField) t.getContent().lookup("#txtTenHK");
-                                                                        TextField txtSoCCCD = (TextField) t.getContent().lookup("#txtSoCCCD");
-                                                                        DatePicker dpNS = (DatePicker) t.getContent().lookup("#dpNgaySinh");
-                                                                        ComboBox<String> comboBox = (ComboBox<String>) t.getContent().lookup("#cbLoaiHK");
-                                                                        if (comboBox.getValue().equalsIgnoreCase("Trẻ em")) {
-                                                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtTenHK.requestFocus();
-                                                                            } else if (dpNS.getValue() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                dpNS.requestFocus();
-                                                                            }
-                                                                        } else if (comboBox.getValue().equalsIgnoreCase( "Người lớn") || comboBox.getValue().equalsIgnoreCase("Học sinh, sinh viên")) {
-                                                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtTenHK.requestFocus();
-                                                                            } else if (txtSoCCCD.getText().isEmpty() && txtSoCCCD.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtSoCCCD.requestFocus();
-                                                                            }
-                                                                        } else if (comboBox.getValue().equalsIgnoreCase( "Người cao tuổi")){
-                                                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtTenHK.requestFocus();
-                                                                            } else if (txtSoCCCD.getText().isEmpty() && txtSoCCCD.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtSoCCCD.requestFocus();
-                                                                            } else if (dpNS.getValue() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                dpNS.requestFocus();
-                                                                            }
-                                                                        }
-                                                                    } else {
-                                                                        tabTTVe.getSelectionModel().getSelectedItem();
-                                                                        txtMaCN.requestFocus();
-                                                                        if (khuHoi && (txtMaCNKH.getText().isEmpty() || txtMaCNKH.getText() == null)) {
-                                                                            tabTTVe.getSelectionModel().select(t);
-                                                                            txtMaCNKH.requestFocus();
-                                                                        }
-                                                                    }
-                                                                }
-                                                                acpKH.setVisible(true);
-                                                            });
-                                                            if (chkKhuHoi.isSelected()){
-                                                                AnchorPane acpKH = (AnchorPane) tab.getContent().lookup("#acpKH");
-                                                                acpKH.setVisible(true);
-                                                            }
-                                                        } catch (IOException ex) {
-                                                            throw new RuntimeException(ex);
-                                                        }
-                                                        tabTTVe.getTabs().add(tab);
-                                                    }
-                                                }
-                                                if (slnct > 0) {
-                                                    for (int i = 0; i < slnct; i++) {
-                                                        Tab tab = new Tab("Người cao tuổi " + (i + 1));
-                                                        try {
-                                                            tab.setContent(FXMLLoader.load(TrangChu_GUI.class.getResource("thong-tin-ve.fxml")));
-                                                            ComboBox<String> cbLHK = (ComboBox)tab.getContent().lookup("#cbLoaiHK");
-                                                            cbLHK.getItems().add("Người lớn");
-                                                            cbLHK.getItems().add("Người cao tuổi");
-                                                            cbLHK.getItems().add("Học sinh, sinh viên");
-                                                            cbLHK.getItems().add("Trẻ em");
-                                                            cbLHK.setValue("Người cao tuổi");
-
-                                                            DatePicker dpNgaySinh = (DatePicker)tab.getContent().lookup("#dpNgaySinh");
-                                                            dpNgaySinh.setDisable(false);
-                                                            Button btnXacNhanTT = (Button)tab.getContent().lookup("#btnXacNhanTT");
-                                                            btnXacNhanTT.setOnMouseClicked(e1 -> {
-                                                                for(Tab t : tabTTVe.getTabs()) {
-                                                                    TextField txtMaCN = (TextField) t.getContent().lookup("#txtMaCho");
-                                                                    TextField txtMaCNKH = (TextField) t.getContent().lookup("#txtMaChoKH");
-                                                                    if (!txtMaCN.getText().isEmpty() && txtMaCN.getText() != null) {
-                                                                        TextField txtTenHK = (TextField) t.getContent().lookup("#txtTenHK");
-                                                                        TextField txtSoCCCD = (TextField) t.getContent().lookup("#txtSoCCCD");
-                                                                        DatePicker dpNS = (DatePicker) t.getContent().lookup("#dpNgaySinh");
-                                                                        ComboBox<String> comboBox = (ComboBox<String>) t.getContent().lookup("#cbLoaiHK");
-                                                                        if (comboBox.getValue().equalsIgnoreCase("Trẻ em")) {
-                                                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtTenHK.requestFocus();
-                                                                            } else if (dpNS.getValue() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                dpNS.requestFocus();
-                                                                            }
-                                                                        } else if (comboBox.getValue().equalsIgnoreCase( "Người lớn") || comboBox.getValue().equalsIgnoreCase("Học sinh, sinh viên")) {
-                                                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtTenHK.requestFocus();
-                                                                            } else if (txtSoCCCD.getText().isEmpty() && txtSoCCCD.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtSoCCCD.requestFocus();
-                                                                            }
-                                                                        } else if (comboBox.getValue().equalsIgnoreCase( "Người cao tuổi")){
-                                                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtTenHK.requestFocus();
-                                                                            } else if (txtSoCCCD.getText().isEmpty() && txtSoCCCD.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtSoCCCD.requestFocus();
-                                                                            } else if (dpNS.getValue() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                dpNS.requestFocus();
-                                                                            }
-                                                                        }
-                                                                    } else {
-                                                                        tabTTVe.getSelectionModel().getSelectedItem();
-                                                                        txtMaCN.requestFocus();
-                                                                        if (khuHoi && (txtMaCNKH.getText().isEmpty() || txtMaCNKH.getText() == null)) {
-                                                                            tabTTVe.getSelectionModel().select(t);
-                                                                            txtMaCNKH.requestFocus();
-                                                                        }
-                                                                    }
-                                                                }
-                                                                acpKH.setVisible(true);
-                                                            });
-                                                            if (chkKhuHoi.isSelected()){
-                                                                AnchorPane acpKH = (AnchorPane) tab.getContent().lookup("#acpKH");
-                                                                acpKH.setVisible(true);
-                                                            }
-                                                        } catch (IOException ex) {
-                                                            throw new RuntimeException(ex);
-                                                        }
-                                                        tabTTVe.getTabs().add(tab);
-                                                    }
-                                                }
-                                                if (slhssv > 0) {
-                                                    for (int i = 0; i < slhssv; i++) {
-                                                        Tab tab = new Tab("HSSV " + (i + 1));
-                                                        try {
-                                                            tab.setContent(FXMLLoader.load(TrangChu_GUI.class.getResource("thong-tin-ve.fxml")));
-                                                            ComboBox<String> cbLHK = (ComboBox)tab.getContent().lookup("#cbLoaiHK");
-                                                            cbLHK.getItems().add("Người lớn");
-                                                            cbLHK.getItems().add("Người cao tuổi");
-                                                            cbLHK.getItems().add("Học sinh, sinh viên");
-                                                            cbLHK.getItems().add("Trẻ em");
-                                                            cbLHK.setValue("Học sinh, sinh viên");
-                                                            Button btnXacNhanTT = (Button)tab.getContent().lookup("#btnXacNhanTT");
-                                                            btnXacNhanTT.setOnMouseClicked(e1 -> {
-                                                                for(Tab t : tabTTVe.getTabs()) {
-                                                                    TextField txtMaCN = (TextField) t.getContent().lookup("#txtMaCho");
-                                                                    TextField txtMaCNKH = (TextField) t.getContent().lookup("#txtMaChoKH");
-                                                                    if (!txtMaCN.getText().isEmpty() && txtMaCN.getText() != null) {
-                                                                        TextField txtTenHK = (TextField) t.getContent().lookup("#txtTenHK");
-                                                                        TextField txtSoCCCD = (TextField) t.getContent().lookup("#txtSoCCCD");
-                                                                        DatePicker dpNS = (DatePicker) t.getContent().lookup("#dpNgaySinh");
-                                                                        ComboBox<String> comboBox = (ComboBox<String>) t.getContent().lookup("#cbLoaiHK");
-                                                                        if (comboBox.getValue().equalsIgnoreCase("Trẻ em")) {
-                                                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtTenHK.requestFocus();
-                                                                            } else if (dpNS.getValue() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                dpNS.requestFocus();
-                                                                            }
-                                                                        } else if (comboBox.getValue().equalsIgnoreCase( "Người lớn") || comboBox.getValue().equalsIgnoreCase("Học sinh, sinh viên")) {
-                                                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtTenHK.requestFocus();
-                                                                            } else if (txtSoCCCD.getText().isEmpty() && txtSoCCCD.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtSoCCCD.requestFocus();
-                                                                            }
-                                                                        } else if (comboBox.getValue().equalsIgnoreCase( "Người cao tuổi")){
-                                                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtTenHK.requestFocus();
-                                                                            } else if (txtSoCCCD.getText().isEmpty() && txtSoCCCD.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtSoCCCD.requestFocus();
-                                                                            } else if (dpNS.getValue() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                dpNS.requestFocus();
-                                                                            }
-                                                                        }
-                                                                    } else {
-                                                                        tabTTVe.getSelectionModel().getSelectedItem();
-                                                                        txtMaCN.requestFocus();
-                                                                        if (khuHoi && (txtMaCNKH.getText().isEmpty() || txtMaCNKH.getText() == null)) {
-                                                                            tabTTVe.getSelectionModel().select(t);
-                                                                            txtMaCNKH.requestFocus();
-                                                                        }
-                                                                    }
-                                                                }
-                                                                acpKH.setVisible(true);
-                                                            });                                                            if (chkKhuHoi.isSelected()){
-                                                                AnchorPane acpKH = (AnchorPane) tab.getContent().lookup("#acpKH");
-                                                                acpKH.setVisible(true);
-                                                            }
-                                                        } catch (IOException ex) {
-                                                            throw new RuntimeException(ex);
-                                                        }
-                                                        tabTTVe.getTabs().add(tab);
-                                                    }
-                                                }
-                                                if (slte > 0) {
-                                                    for (int i = 0; i < slte; i++) {
-                                                        Tab tab = new Tab("Trẻ em " + (i + 1));
-                                                        try {
-                                                            tab.setContent(FXMLLoader.load(TrangChu_GUI.class.getResource("thong-tin-ve.fxml")));
-                                                            ComboBox<String> cbLHK = (ComboBox)tab.getContent().lookup("#cbLoaiHK");
-                                                            cbLHK.getItems().add("Người lớn");
-                                                            cbLHK.getItems().add("Người cao tuổi");
-                                                            cbLHK.getItems().add("Học sinh, sinh viên");
-                                                            cbLHK.getItems().add("Trẻ em");
-                                                            cbLHK.setValue("Trẻ em");
-                                                            DatePicker dpNgaySinh = (DatePicker)tab.getContent().lookup("#dpNgaySinh");
-                                                            dpNgaySinh.setDisable(false);
-                                                            TextField txtSoCCCD = (TextField)tab.getContent().lookup("#txtSoCCCD");
-                                                            txtSoCCCD.setDisable(true);
-                                                            Button btnXacNhanTT = (Button)tab.getContent().lookup("#btnXacNhanTT");
-                                                            btnXacNhanTT.setOnMouseClicked(e1 -> {
-                                                                for(Tab t : tabTTVe.getTabs()) {
-                                                                    TextField txtMaCN = (TextField) t.getContent().lookup("#txtMaCho");
-                                                                    TextField txtMaCNKH = (TextField) t.getContent().lookup("#txtMaChoKH");
-                                                                    if (!txtMaCN.getText().isEmpty() && txtMaCN.getText() != null) {
-                                                                        TextField txtTenHK = (TextField) t.getContent().lookup("#txtTenHK");
-                                                                        TextField txtsoCCCD = (TextField) t.getContent().lookup("#txtSoCCCD");
-                                                                        DatePicker dpNS = (DatePicker) t.getContent().lookup("#dpNgaySinh");
-                                                                        ComboBox<String> comboBox = (ComboBox<String>) t.getContent().lookup("#cbLoaiHK");
-                                                                        if (comboBox.getValue().equalsIgnoreCase("Trẻ em")) {
-                                                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtTenHK.requestFocus();
-                                                                            } else if (dpNS.getValue() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                dpNS.requestFocus();
-                                                                            }
-                                                                        } else if (comboBox.getValue().equalsIgnoreCase( "Người lớn") || comboBox.getValue().equalsIgnoreCase("Học sinh, sinh viên")) {
-                                                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtTenHK.requestFocus();
-                                                                            } else if (txtsoCCCD.getText().isEmpty() && txtsoCCCD.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtsoCCCD.requestFocus();
-                                                                            }
-                                                                        } else if (comboBox.getValue().equalsIgnoreCase( "Người cao tuổi")){
-                                                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtTenHK.requestFocus();
-                                                                            } else if (txtsoCCCD.getText().isEmpty() && txtsoCCCD.getText() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                txtsoCCCD.requestFocus();
-                                                                            } else if (dpNS.getValue() == null) {
-                                                                                tabTTVe.getSelectionModel().select(t);
-                                                                                dpNS.requestFocus();
-                                                                            }
-                                                                        }
-                                                                    } else {
-                                                                        tabTTVe.getSelectionModel().getSelectedItem();
-                                                                        txtMaCN.requestFocus();
-                                                                        if (khuHoi && (txtMaCNKH.getText().isEmpty() || txtMaCNKH.getText() == null)) {
-                                                                            tabTTVe.getSelectionModel().select(t);
-                                                                            txtMaCNKH.requestFocus();
-                                                                        }
-                                                                    }
-                                                                }
-                                                                acpKH.setVisible(true);
-                                                            });
-                                                            if (chkKhuHoi.isSelected()){
-                                                                AnchorPane acpKH = (AnchorPane) tab.getContent().lookup("#acpKH");
-                                                                acpKH.setVisible(true);
-                                                            }
-                                                        } catch (IOException ex) {
-                                                            throw new RuntimeException(ex);
-                                                        }
-                                                        tabTTVe.getTabs().add(tab);
-                                                    }
-                                                }
-                                            }
-
-                                        });
-                                    }
-                                }
-                            };
-                            return cell;
-                        };
-                        colChon.setCellFactory(cellFoctory);
-                    }
-
-
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Lỗi");
+                String maGaDi = ga_dao.getGaTheoTenGa(cbGaDi.getValue()).getMaGa();
+                String maGaDen = ga_dao.getGaTheoTenGa(cbGaDen.getValue()).getMaGa();
+                ArrayList<LichTrinh> list = lt_dao.traCuuDSLichTrinh(maGaDi, maGaDen, dpNgayKH.getValue());
+                list.removeIf(l -> !l.getThoiGianKhoiHanh().isAfter(LocalDateTime.now()));
+                if (list.isEmpty()) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Thông báo");
                     alert.setHeaderText(null);
-                    alert.setContentText("Vui lòng chọn số lượng vé");
+                    alert.setContentText("Không tìm thấy chuyến tàu phù hợp");
                     alert.show();
-                    ttpLoaiVe.setExpanded(true);
-                    ttpLoaiVe.setCollapsible(true);
+                    cbGaDi.requestFocus();
+                } else {
+                    showTauTheoLT(list);
+                    if (rdBtnKH.isSelected()) {
+                        paneChonCD.setVisible(true);
+                    }
                 }
             }
+
         });
 
-        btnTangSLnl.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLnl.getText());
-            stt++;
-            lblSLnl.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLnl.setDisable(false);
-                btnGiamSLnl.setFill(Color.WHITE);
-                if (lblSLnct.getText().equals("0") && lblSLhssv.getText().equals("0") && lblSLte.getText().equals("0")) {
-                    btnTangSLte.setDisable(false);
-                    btnTangSLte.setFill(Color.BLACK);
+
+        btnChonFullToa.setOnMouseClicked(e -> {
+            LichTrinh lt = tbLT.getSelectionModel().getSelectedItem();
+            ArrayList<ChoNgoi> dscn = cn_dao.getDsChoNgoiTheoToa(chosedId);
+            dscn.sort(Comparator.comparing(ChoNgoi::getSttCho));
+            GridPane gridPane = (GridPane) paneToa.getCenter();
+            for (ChoNgoi cn : dscn) {
+                Button btn = (Button) gridPane.lookup("#" + cn.getMaChoNgoi());
+                if (!btn.getStyle().contains("red") && !btn.getStyle().contains("green")) {
+                    btn.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, MouseButton.PRIMARY, 0, false, false, false, false, false, false, false, false, false, false, null));
                 }
             }
+            Toa toa = toa_dao.getToaTheoID(chosedId);
+            if (!toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NC") && !toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NM")) {
+                btnChonKhoang.setDisable(true);
+            }
+            btnHuyChon.setDisable(false);
+            btnXoaAllCN.setDisable(false);
         });
 
-        btnGiamSLnl.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLnl.getText());
-            stt--;
-            lblSLnl.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLnl.setDisable(false);
-                btnGiamSLnl.setFill(Color.WHITE);
-
-            } else {
-                btnGiamSLnl.setDisable(true);
-                btnGiamSLnl.setFill(Color.GRAY);
-                if (lblSLnct.getText().equals("0") && lblSLhssv.getText().equals("0")) {
-                    btnTangSLte.setDisable(true);
-                    btnTangSLte.setFill(Color.GRAY);
-                    btnGiamSLte.setDisable(true);
-                    btnGiamSLte.setFill(Color.GRAY);
-                    lblSLte.setText("0");
+        cbKhoang.setItems(FXCollections.observableArrayList("Khoang 1", "Khoang 2", "Khoang 3", "Khoang 4", "Khoang 5", "Khoang 6", "Khoang 7"));
+        btnChonKhoang.setOnMouseClicked(e -> {
+            if (cbKhoang.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Lỗi");
+                alert.setHeaderText(null);
+                alert.setContentText("Vui lòng chọn khoang");
+                alert.show();
+                cbKhoang.requestFocus();
+                cbKhoang.show();
+                return;
+            }
+            int khoang = Integer.parseInt(cbKhoang.getValue().split(" ")[1]);
+            LichTrinh lt = tbLT.getSelectionModel().getSelectedItem();
+            ArrayList<ChoNgoi> dscn = cn_dao.getDsChoNgoiTheoToa(chosedId);
+            dscn.sort(Comparator.comparing(ChoNgoi::getSttCho));
+            //đổi màu ghế đã chọn
+            GridPane gridPane = (GridPane) paneToa.getCenter();
+            for (ChoNgoi cn : dscn) {
+                if (cn.getKhoang() == khoang) {
+                    Button btn = (Button) gridPane.lookup("#" + cn.getMaChoNgoi());
+                    if (!btn.getStyle().contains("red") && !btn.getStyle().contains("green")) {
+                        btn.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, MouseButton.PRIMARY, 0, false, false, false, false, false, false, false, false, false, false, null));
+                    }
                 }
             }
+
+            btnHuyChon.setDisable(false);
         });
 
-        btnTangSLnct.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLnct.getText());
-            stt++;
-            lblSLnct.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLnct.setDisable(false);
-                btnGiamSLnct.setFill(Color.WHITE);
-                if (lblSLnl.getText().equals("0") && lblSLhssv.getText().equals("0") && lblSLte.getText().equals("0")) {
-                    btnTangSLte.setDisable(false);
-                    btnTangSLte.setFill(Color.BLACK);
+        btnHuyChon.setOnMouseClicked(e -> {
+            GridPane gridPane = (GridPane) paneToa.getCenter();
+            for (Node node1 : gridPane.getChildren()) {
+                if (node1 instanceof Button && (!node1.getStyle().contains("red") && node1.getStyle().contains("green"))) {
+                    Button btn = (Button) node1;
+                    btn.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, MouseButton.PRIMARY, 0, false, false, false, false, false, false, false, false, false, false, null));
                 }
             }
+            Toa toa = toa_dao.getToaTheoID(chosedId);
+            if (!toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NC") && !toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NM")) {
+                btnChonKhoang.setDisable(false);
+            }
+            dsttcn = FXCollections.observableList(dsctlt);
+            tbTTCN.setItems(dsttcn);
+            btnChonFullToa.setDisable(false);
+            btnHuyChon.setDisable(true);
         });
 
-        btnGiamSLnct.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLnct.getText());
-            stt--;
-            lblSLnct.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLnct.setDisable(false);
-                btnGiamSLnct.setFill(Color.WHITE);
-            } else {
-                btnGiamSLnct.setDisable(true);
-                btnGiamSLnct.setFill(Color.GRAY);
-                if (lblSLnl.getText().equals("0") && lblSLhssv.getText().equals("0")) {
-                    btnTangSLte.setDisable(true);
-                    btnTangSLte.setFill(Color.GRAY);
-                    btnGiamSLte.setDisable(true);
-                    btnGiamSLte.setFill(Color.GRAY);
-                    lblSLte.setText("0");
+        btnChonCD.setOnMouseClicked(e -> {
+            btnChonCD.setDisable(true);
+            btnChonKH.setDisable(false);
+            String maGaDi = ga_dao.getGaTheoTenGa(cbGaDi.getValue()).getMaGa();
+            String maGaDen = ga_dao.getGaTheoTenGa(cbGaDen.getValue()).getMaGa();
+            ArrayList<LichTrinh> list = lt_dao.traCuuDSLichTrinh(maGaDi, maGaDen, dpNgayKH.getValue());
+            list.removeIf(l -> !l.getThoiGianKhoiHanh().isAfter(LocalDateTime.now()));
+            dslt = FXCollections.observableList(list);
+            tbLT.setItems(dslt);
+            showTauTheoLT(list);
+        });
+
+        btnChonKH.setOnMouseClicked(e -> {
+            btnChonCD.setDisable(false);
+            btnChonKH.setDisable(true);
+            String maGaDi = ga_dao.getGaTheoTenGa(cbGaDi.getValue()).getMaGa();
+            String maGaDen = ga_dao.getGaTheoTenGa(cbGaDen.getValue()).getMaGa();
+            ArrayList<LichTrinh> list = lt_dao.traCuuDSLichTrinh(maGaDen, maGaDi, dpNgayVe.getValue());
+            list.removeIf(l -> !l.getThoiGianKhoiHanh().isAfter(LocalDateTime.now()));
+            dslt = FXCollections.observableList(list);
+            tbLT.setItems(dslt);
+            showTauTheoLT(list);
+        });
+
+        btnXoaAllCN.setOnMouseClicked(e -> {
+            tbTTCN.getItems().clear();
+            dsctlt.clear();
+            dsctltkh.clear();
+            tbTTCN.refresh();
+            GridPane gridPane = (GridPane) paneToa.getCenter();
+            for (Node node1 : gridPane.getChildren()) {
+                if (node1 instanceof Button && !node1.getStyle().contains("red") && node1.getStyle().contains("green")) {
+                    Button btn = (Button) node1;
+                    btn.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, MouseButton.PRIMARY, 0, false, false, false, false, false, false, false, false, false, false, null));
                 }
             }
-        });
-
-        btnTangSLhssv.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLhssv.getText());
-            stt++;
-            lblSLhssv.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLhssv.setDisable(false);
-                btnGiamSLhssv.setFill(Color.WHITE);
-                if (lblSLnl.getText().equals("0") && lblSLnct.getText().equals("0") && lblSLte.getText().equals("0")) {
-                    btnTangSLte.setDisable(false);
-                    btnTangSLte.setFill(Color.BLACK);
-                }
+            Toa toa = toa_dao.getToaTheoID(chosedId);
+            if (!toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NC") && !toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NM")) {
+                btnChonKhoang.setDisable(false);
             }
-        });
-
-        btnGiamSLhssv.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLhssv.getText());
-            stt--;
-            lblSLhssv.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLhssv.setDisable(false);
-                btnGiamSLhssv.setFill(Color.WHITE);
-            } else {
-                btnGiamSLhssv.setDisable(true);
-                btnGiamSLhssv.setFill(Color.GRAY);
-                if (lblSLnl.getText().equals("0") && lblSLnct.getText().equals("0")) {
-                    btnTangSLte.setDisable(true);
-                    btnTangSLte.setFill(Color.GRAY);
-                    btnGiamSLte.setDisable(true);
-                    btnGiamSLte.setFill(Color.GRAY);
-                    lblSLte.setText("0");
-                }
-            }
-        });
-
-        btnTangSLte.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLte.getText());
-            stt++;
-            lblSLte.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLte.setDisable(false);
-                btnGiamSLte.setFill(Color.WHITE);
-            }
-        });
-
-        btnGiamSLte.setOnMouseClicked(e -> {
-            stt = Integer.parseInt(lblSLte.getText());
-            stt--;
-            lblSLte.setText(String.valueOf(stt));
-            if (stt > 0) {
-                btnGiamSLte.setDisable(false);
-                btnGiamSLte.setFill(Color.WHITE);
-            } else {
-                btnGiamSLte.setDisable(true);
-                btnGiamSLte.setFill(Color.GRAY);
-            }
+            btnChonFullToa.setDisable(false);
+            btnHuyChon.setDisable(true);
+            btnXoaAllCN.setDisable(true);
         });
 
         btnTaoHD.setOnMouseClicked(e -> {
@@ -1550,31 +571,14 @@ public class BanVeController implements Initializable {
                 }
             }
             if (hk_dao.getKhachHangTheoSDT(txtSDT.getText()) == null && hk_dao.getKHTheoCCCD(txtSoCCCD.getText()) == null) {
-                hk_dao.create(new KhachHang("temp",txtTenKH.getText(), txtSoCCCD.getText(), txtSDT.getText(), txtEmail.getText()));
+                hk_dao.create(new KhachHang("temp", txtTenKH.getText(), txtSoCCCD.getText(), txtSDT.getText(), txtEmail.getText()));
             }
-            getData.hk = hk_dao.getKhachHangTheoSDT(txtSDT.getText());
-            int i = 1;
-            ArrayList<Ve> dsve = new ArrayList<>();
-            for(Tab t : tabTTVe.getTabs()) {
-                TextField txtMaCho =(TextField) t.getContent().lookup("#txtMaCho");
-
-                TextField txtMaChoKH = (TextField) t.getContent().lookup("#txtMaChoKH");
-
-                TextField txtTenHK =(TextField) t.getContent().lookup("#txtTenHK");
-                TextField txtSoCCCD =(TextField) t.getContent().lookup("#txtSoCCCD");
-                String loaiHK = ((ComboBox<String>) t.getContent().lookup("#cbLoaiHK")).getValue();
-                DatePicker dpNgaySinh = (DatePicker) t.getContent().lookup("#dpNgaySinh");
-                Ve ve = new Ve("temp" + i++,getData.hk,ctlt_dao.getCTLTTheoCN(getData.lt.getMaLichTrinh(), txtMaCho.getText()), new LoaiVe_DAO().getLoaiVeTheoTen(loaiHK), txtTenHK.getText(), txtSoCCCD.getText(), dpNgaySinh.getValue(), "DaBan", false);
-                dsve.add(ve);
-                if (khuHoi) {;
-                    Ve veKH = new Ve("temp" + i++,getData.hk,ctlt_dao.getCTLTTheoCN(getData.ltkh.getMaLichTrinh(), txtMaChoKH.getText()), new LoaiVe_DAO().getLoaiVeTheoTen(loaiHK), txtTenHK.getText(), txtSoCCCD.getText(), dpNgaySinh.getValue(), "DaBan", true);
-                    dsve.add(veKH);
-                }
-            }
-            getData.dsve = dsve;
+            getData.kh = hk_dao.getKhachHangTheoSDT(txtSDT.getText());
+            getData.dsctlt = dsctlt;
+            getData.dsctltkh = dsctltkh;
             LocalDateTime now = LocalDateTime.now();
             now = now.minusNanos(now.getNano());
-            HoaDon hd = new HoaDon("temp", getData.nv, getData.hk, now, new KhuyenMai(null), false);
+            HoaDon hd = new HoaDon("temp", getData.nv, getData.kh, now, new KhuyenMai(null), false);
             if (hd_dao.createTempInvoice(hd)) {
                 //get hóa đơn vừa tạo
                 getData.hd = hd_dao.getHoaDonVuaTao();
@@ -1598,7 +602,7 @@ public class BanVeController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Xác nhận");
                     alert.setHeaderText(null);
-                    alert.setContentText("Bạn có chắc chắn muốn thoát?");
+                    alert.setContentText("Xác nhận thoát?");
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.OK) {
                         HoaDon hoaDon = hd_dao.getHoaDonVuaTao();
@@ -1612,19 +616,15 @@ public class BanVeController implements Initializable {
 
                 Button btnBack = (Button) acpHoaDon.lookup("#btnBackBanVe");
                 btnBack.setOnMouseClicked(e1 -> {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Xác nhận");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Bạn có chắc chắn muốn thoát?");
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.get() == ButtonType.OK) {
-                        HoaDon hoaDon = hd_dao.getHoaDonVuaTao();
-                        if (!hoaDon.isTrangThai() && hoaDon.getTongTien() == 0) {
-                            hd_dao.delete(hoaDon);
-                        }
-                        stgHoaDon.close();
-                        lamMoi();
-                    }
+                    HoaDon hoaDon = hd_dao.getHoaDonVuaTao();
+                    hd_dao.delete(hoaDon);
+                    getData.hd = null;
+                    getData.dsctlt = null;
+                    getData.dsctltkh = null;
+                    getData.kh = null;
+                    getData.dsve = null;
+                    getData.dscthd = null;
+                    stgHoaDon.close();
                 });
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -1652,1227 +652,582 @@ public class BanVeController implements Initializable {
             }
         });
 
-        btnLamMoiCN.setOnMouseClicked(e -> {
+        btnLamMoiTTKH.setOnMouseClicked(e -> {
             txtTenKH.setText("");
             txtSoCCCD.setText("");
             txtSDT.setText("");
             txtEmail.setText("");
         });
-
-        btnHuyChon.setOnMouseClicked(e -> {
-            if (!scr11.isVisible()) {
-                if (idBtnChosen != "") {
-                    Button btn = (Button) tabToaTau.getTabs().get(tabToaTau.getSelectionModel().getSelectedIndex()).getContent().lookup("#" + idBtnChosen);
-                    btn.setStyle(btn.getStyle() + "-fx-background-color: white; -fx-text-fill: black;");
-                    lblGiaCN.setText(null);
-                }
-                idBtnChosen = "";
-                btnChonChoNgoi.setDisable(true);
-                btnHuyChon.setDisable(true);
-            } else if (scr11.isVisible()) {
-                if (idBtnChonKH != "") {
-                    Button btn = (Button) tabToaTauKH.getTabs().get(tabToaTauKH.getSelectionModel().getSelectedIndex()).getContent().lookup("#" + idBtnChonKH);
-                    btn.setStyle(btn.getStyle() + "-fx-background-color: white; -fx-text-fill: black;");
-                    lblGiaCN.setText(null);
-                }
-                idBtnChonKH = "";
-                btnChonChoNgoi.setDisable(true);
-                btnHuyChon.setDisable(true);
-            }
-        });
-
-        btnChonChoNgoi.setOnMouseClicked(e -> {
-            if (idBtnChosen != "" || idBtnChonKH != "") {
-                TextField txtMaCho =(TextField) tabTTVe.getTabs().  get(tabTTVe.getSelectionModel().getSelectedIndex()).getContent().lookup("#txtMaCho");
-                TextField txtLoaiCho =(TextField) tabTTVe.getTabs().get(tabTTVe.getSelectionModel().getSelectedIndex()).getContent().lookup("#txtLoaiCho");
-                TextField txtSTTToa =(TextField) tabTTVe.getTabs().get(tabTTVe.getSelectionModel().getSelectedIndex()).getContent().lookup("#txtSTTToa");
-                TextField txtGia =(TextField) tabTTVe.getTabs().get(tabTTVe.getSelectionModel().getSelectedIndex()).getContent().lookup("#txtGia");
-
-                TextField txtMaCNKH = (TextField) tabTTVe.getTabs().get(tabTTVe.getSelectionModel().getSelectedIndex()).getContent().lookup("#txtMaChoKH");
-                TextField txtLoaiChoKH =(TextField) tabTTVe.getTabs().get(tabTTVe.getSelectionModel().getSelectedIndex()).getContent().lookup("#txtLoaiChoKH");
-                TextField txtSTTToaKH =(TextField) tabTTVe.getTabs().get(tabTTVe.getSelectionModel().getSelectedIndex()).getContent().lookup("#txtSTTToaKH");
-                TextField txtGiaKH =(TextField) tabTTVe.getTabs().get(tabTTVe.getSelectionModel().getSelectedIndex()).getContent().lookup("#txtGiaKH");
-
-                if (scr11.isVisible()) {
-                    Button btnKH = (Button) tabToaTauKH.getTabs().get(tabToaTauKH.getSelectionModel().getSelectedIndex()).getContent().lookup("#" + idBtnChonKH);
-                    if (txtMaCNKH.getText() == null || txtMaCNKH.getText().isEmpty()) {
-                        txtMaCNKH.setText(idBtnChonKH);
-                        txtLoaiChoKH.setText(tabToaTauKH.getSelectionModel().getSelectedItem().getText().split(" - ")[1]);
-                        txtSTTToaKH.setText(tabToaTauKH.getSelectionModel().getSelectedIndex() + 1 + "");
-                        txtGiaKH.setText(lblGiaCN.getText());
-                        btnKH.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                        lblGiaCN.setText(null);
-                        tabTTVe.getSelectionModel().selectNext();
-                    } else {
-                        Button btnOld = (Button) tabToaTauKH.getTabs().get(Integer.parseInt(txtSTTToaKH.getText()) - 1).getContent().lookup("#" + txtMaCNKH.getText());
-                        btnOld.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                        txtMaCNKH.setText(idBtnChonKH);
-                        txtLoaiChoKH.setText(tabToaTauKH.getSelectionModel().getSelectedItem().getText().split(" - ")[1]);
-                        txtSTTToaKH.setText(tabToaTauKH.getSelectionModel().getSelectedIndex() + 1 + "");
-                        txtGiaKH.setText(lblGiaCN.getText());
-                        btnKH.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                        lblGiaCN.setText(null);
-                        tabTTVe.getSelectionModel().selectNext();
-                    }
-                    idBtnChonKH = "";
-                    btnChonChoNgoi.setDisable(true);
-                    btnHuyChon.setDisable(true);
-                } else if (scr1.isVisible()){
-                    if (txtMaCho.getText() != null && !txtMaCho.getText().isEmpty()) {
-                        Button btn = (Button) tabToaTau.getTabs().get(tabToaTau.getSelectionModel().getSelectedIndex()).getContent().lookup("#" + idBtnChosen);
-                        Button btnOld = (Button) tabToaTau.getTabs().get(Integer.parseInt(txtSTTToa.getText()) - 1).getContent().lookup("#" + txtMaCho.getText());
-                        btnOld.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                        txtMaCho.setText(idBtnChosen);
-                        txtLoaiCho.setText(tabToaTau.getSelectionModel().getSelectedItem().getText().split(" - ")[1]);
-                        txtSTTToa.setText(tabToaTau.getSelectionModel().getSelectedIndex() + 1 + "");
-                        txtGia.setText(lblGiaCN.getText());
-                        btn.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                        lblGiaCN.setText(null);
-                        tabTTVe.getSelectionModel().selectNext();
-                    } else {
-                        Button btn = (Button) tabToaTau.getTabs().get(tabToaTau.getSelectionModel().getSelectedIndex()).getContent().lookup("#" + idBtnChosen);
-                        btn.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                        txtMaCho.setText(idBtnChosen);
-                        txtLoaiCho.setText(tabToaTau.getSelectionModel().getSelectedItem().getText().split(" - ")[1]);
-                        txtSTTToa.setText(tabToaTau.getSelectionModel().getSelectedIndex() + 1 + "");
-                        txtGia.setText(lblGiaCN.getText());
-                        lblGiaCN.setText(null);
-                        tabTTVe.getSelectionModel().selectNext();
-                    }
-                    idBtnChosen = "";
-                    btnChonChoNgoi.setDisable(true);
-                    btnHuyChon.setDisable(true);
-                }
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Lỗi");
-                alert.setHeaderText(null);
-                alert.setContentText("Vui lòng chọn ghế");
-                alert.show();
-            }
-            if (tabTTVe.getTabs().size() > 0 && tabTTVe.getSelectionModel().getSelectedIndex() == tabTTVe.getTabs().size() - 1){
-
-                Button btnXacNhanTT = (Button) tabTTVe.getSelectionModel().getSelectedItem().getContent().lookup("#btnXacNhanTT");
-                TextField txtMaCN = (TextField) tabTTVe.getSelectionModel().getSelectedItem().getContent().lookup("#txtMaCho");
-                if (txtMaCN.getText() != null && !txtMaCN.getText().isEmpty()) {
-                    if (khuHoi) {
-                        TextField txtMaCNKH = (TextField) tabTTVe.getSelectionModel().getSelectedItem().getContent().lookup("#txtMaChoKH");
-                        Button btnChuyenChonKH = (Button) tabTTVe.getSelectionModel().getSelectedItem().getContent().lookup("#btnChuyenChonKH");
-
-                        if (txtMaCNKH.getText() != null && !txtMaCNKH.getText().isEmpty()) {
-                            btnChuyenChonKH.setVisible(false);
-                            btnXacNhanTT.setVisible(true);
-                            btnXacNhanTT.setDisable(false);
-                            btnXacNhanTT.setOnMouseClicked(e1 -> {
-                                for (Tab t : tabTTVe.getTabs()) {
-                                    TextField txtMaCho = (TextField) t.getContent().lookup("#txtMaCho");
-                                    TextField txtMaChoKH = (TextField) t.getContent().lookup("#txtMaChoKH");
-                                    if (!txtMaCho.getText().isEmpty() && txtMaCho.getText() != null) {
-                                        TextField txtTenHK = (TextField) t.getContent().lookup("#txtTenHK");
-                                        TextField txtSoCCCD = (TextField) t.getContent().lookup("#txtSoCCCD");
-                                        DatePicker dpNS = (DatePicker) t.getContent().lookup("#dpNgaySinh");
-                                        ComboBox<String> comboBox = (ComboBox<String>) t.getContent().lookup("#cbLoaiHK");
-                                        if (comboBox.getValue().equalsIgnoreCase("Trẻ em")) {
-                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                tabTTVe.getSelectionModel().select(t);
-                                                txtTenHK.requestFocus();
-                                                return;
-                                            } else if (dpNS.getValue() == null) {
-                                                tabTTVe.getSelectionModel().select(t);
-                                                dpNS.requestFocus();
-                                                return;
-                                            }
-                                        } else if (comboBox.getValue().equalsIgnoreCase("Người lớn") || comboBox.getValue().equalsIgnoreCase("Học sinh, sinh viên")) {
-                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                tabTTVe.getSelectionModel().select(t);
-                                                txtTenHK.requestFocus();
-                                                return;
-                                            } else if (txtSoCCCD.getText().isEmpty() || txtSoCCCD.getText() == null) {
-                                                tabTTVe.getSelectionModel().select(t);
-                                                txtSoCCCD.requestFocus();
-                                                return;
-                                            }
-                                        } else if (comboBox.getValue().equalsIgnoreCase("Người cao tuổi")) {
-                                            if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                tabTTVe.getSelectionModel().select(t);
-                                                txtTenHK.requestFocus();
-                                                return;
-                                            } else if (txtSoCCCD.getText().isEmpty() || txtSoCCCD.getText() == null) {
-                                                tabTTVe.getSelectionModel().select(t);
-                                                txtSoCCCD.requestFocus();
-                                                return;
-                                            } else if (dpNS.getValue() == null) {
-                                                tabTTVe.getSelectionModel().select(t);
-                                                dpNS.requestFocus();
-                                                return;
-                                            }
-                                        }
-                                    } else {
-                                        tabTTVe.getSelectionModel().select(t);
-                                        txtMaCN.requestFocus();
-                                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                                        alert.setTitle("Lỗi");
-                                        alert.setHeaderText(null);
-                                        alert.setContentText("Vui lòng chọn ghế");
-                                        alert.showAndWait();
-                                        if (khuHoi && txtMaChoKH.getText().isEmpty()) {
-                                            tabTTVe.getSelectionModel().select(t);
-                                            txtMaCNKH.requestFocus();
-                                            return;
-                                        }
-                                    }
-                                }
-                                tabTTVe.getSelectionModel().selectFirst();
-                                acpKH.setVisible(true);
-                            });
-                            tabTTVe.getSelectionModel().selectFirst();
-
-                        } else {
-                            btnChuyenChonKH.setVisible(false);
-                        }
-                    } else {
-                        btnXacNhanTT.setVisible(true);
-                        btnXacNhanTT.setDisable(false);
-                        btnXacNhanTT.setOnMouseClicked(e1 -> {
-                            for (Tab t : tabTTVe.getTabs()) {
-                                TextField txtMaCho = (TextField) t.getContent().lookup("#txtMaCho");
-                                TextField txtMaCNKH = (TextField) t.getContent().lookup("#txtMaChoKH");
-                                if (!txtMaCho.getText().isEmpty() && txtMaCho.getText() != null) {
-                                    TextField txtTenHK = (TextField) t.getContent().lookup("#txtTenHK");
-                                    TextField txtSoCCCD = (TextField) t.getContent().lookup("#txtSoCCCD");
-                                    DatePicker dpNS = (DatePicker) t.getContent().lookup("#dpNgaySinh");
-                                    ComboBox<String> comboBox = (ComboBox<String>) t.getContent().lookup("#cbLoaiHK");
-                                    if (comboBox.getValue().equalsIgnoreCase("Trẻ em")) {
-                                        if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                            tabTTVe.getSelectionModel().select(t);
-                                            txtTenHK.requestFocus();
-                                            return;
-                                        } else if (dpNS.getValue() == null) {
-                                            tabTTVe.getSelectionModel().select(t);
-                                            dpNS.requestFocus();
-                                            return;
-                                        }
-                                    } else if (comboBox.getValue().equalsIgnoreCase("Người lớn") || comboBox.getValue().equalsIgnoreCase("Học sinh, sinh viên")) {
-                                        if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                            tabTTVe.getSelectionModel().select(t);
-                                            txtTenHK.requestFocus();
-                                            return;
-                                        } else if (txtSoCCCD.getText().isEmpty() || txtSoCCCD.getText() == null) {
-                                            tabTTVe.getSelectionModel().select(t);
-                                            txtSoCCCD.requestFocus();
-                                            return;
-                                        }
-                                    } else if (comboBox.getValue().equalsIgnoreCase("Người cao tuổi")) {
-                                        if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                            tabTTVe.getSelectionModel().select(t);
-                                            txtTenHK.requestFocus();
-                                            return;
-                                        } else if (txtSoCCCD.getText().isEmpty() || txtSoCCCD.getText() == null) {
-                                            tabTTVe.getSelectionModel().select(t);
-                                            txtSoCCCD.requestFocus();
-                                            return;
-                                        } else if (dpNS.getValue() == null) {
-                                            tabTTVe.getSelectionModel().select(t);
-                                            dpNS.requestFocus();
-                                            return;
-                                        }
-                                    }
-                                } else {
-                                    tabTTVe.getSelectionModel().select(t);
-                                    txtMaCN.requestFocus();
-                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                    alert.setTitle("Lỗi");
-                                    alert.setHeaderText(null);
-                                    alert.setContentText("Vui lòng chọn ghế");
-                                    alert.showAndWait();
-                                    if (khuHoi && txtMaCNKH.getText().isEmpty()) {
-                                        tabTTVe.getSelectionModel().select(t);
-                                        txtMaCNKH.requestFocus();
-                                        return;
-                                    }
-                                }
-                            }
-                            tabTTVe.getSelectionModel().selectFirst();
-                            acpKH.setVisible(true);
-                        });
-                        tabTTVe.getSelectionModel().selectFirst();
-                    }
-
-                }
-            }
-        });
-
-        btnChonCD.setOnMouseClicked(e -> {
-            btnChonCD.setDisable(true);
-            btnChonKH.setDisable(false);
-            scr11.setVisible(false);
-            scr1.setVisible(true);
-            tabTTVe.getSelectionModel().selectFirst();
-            tbTCTLTKH.setVisible(false);
-            tbTCTLT.setVisible(true);
-        });
-
-        btnChonKH.setOnMouseClicked(e -> {
-            btnChonKH.setDisable(true);
-            btnChonCD.setDisable(false);
-            scr11.setVisible(true);
-            scr1.setVisible(false);
-            tbTCTLT.setVisible(false);
-            tbTCTLTKH.setVisible(true);
-            tabTTVe.getSelectionModel().selectFirst();
-            String maGaDi = ga_dao.getGaTheoTenGa(cbGaDi.getValue()).getMaGa();
-            String maGaDen = ga_dao.getGaTheoTenGa(cbGaDen.getValue()).getMaGa();
-            ArrayList<LichTrinh> list = lt_dao.traCuuDSLichTrinh(maGaDen, maGaDi, dpNgayVe.getValue());
-            dsltkh = FXCollections.observableList(list);
-            if (dsltkh.size() > 0) {
-                tbTCTLTKH.setItems(dsltkh);
-                colSTTKH.setCellValueFactory(column -> new SimpleIntegerProperty(tbTCTLTKH.getItems().indexOf(column.getValue()) + 1).asObject());
-
-                colSoHieuTauKH.setCellValueFactory(param ->
-                        new SimpleStringProperty(param.getValue().getChuyenTau().getSoHieutau()));
-
-                colGaDiKH.setCellValueFactory(param ->
-                        new SimpleStringProperty(ga_dao.getGaTheoMaGa(param.getValue().getGaDi().getMaGa()).getTenGa()));
-
-                colGaDenKH.setCellValueFactory(param ->
-                        new SimpleStringProperty(ga_dao.getGaTheoMaGa(param.getValue().getGaDen().getMaGa()).getTenGa()));
-
-                colGioKHkh.setCellValueFactory(param -> {
-                    return new SimpleStringProperty(DateTimeFormatter.ofPattern("HH:mm").format(param.getValue().getThoiGianKhoiHanh()));
-                });
-                colTGDenKH.setCellValueFactory(param -> {
-                    return new SimpleStringProperty(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(param.getValue().getThoiGianDuKienDen()));
-                });
-
-                colSLTKH.setCellValueFactory(param -> {
-                    return new SimpleStringProperty(lt_dao.getSoLuongChoConTrong(param.getValue().getMaLichTrinh()) + "");
-                });
-                Callback<TableColumn<LichTrinh, String>, TableCell<LichTrinh, String>> cellFactory = (TableColumn<LichTrinh, String> param) -> {
-                    // make cell containing buttons
-                    final TableCell<LichTrinh, String> cell = new TableCell<LichTrinh, String>() {
-                        @Override
-                        public void updateItem(String item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (empty) {
-                                setGraphic(null);
-                                setText(null);
-
-                            } else {
-                                Button btnChonKH = new Button("Xem chi tiết");
-                                btnChonKH.setStyle("-fx-cursor: hand;-fx-background-color: #5098ff;-fx-text-fill: white;-fx-border-radius: 5px;");
-                                HBox manageBtn = new HBox(btnChonKH);
-                                btnChonKH.setId("btnChon");
-                                manageBtn.setStyle("-fx-alignment:center;");
-                                setGraphic(manageBtn);
-                                setText(null);
-                                btnChonKH.setOnAction(e -> {
-                                    //lấy thông tin lịch trình chọn xem
-
-                                    LichTrinh lt = tbTCTLTKH.getItems().get(getIndex());
-                                    getData.ltkh = lt;
-                                    if (tabTTVe.getTabs().size() > 0) {
-                                        for (Tab t : tabTTVe.getTabs()) {
-                                            TextField txtMaChoKH =(TextField) t.getContent().lookup("#txtMaChoKH");
-                                            TextField txtLoaiChoKH =(TextField) t.getContent().lookup("#txtLoaiChoKH");
-                                            TextField txtSTTToaKH =(TextField) t.getContent().lookup("#txtSTTToaKH");
-                                            TextField txtGiaKH =(TextField) t.getContent().lookup("#txtGiaKH");
-                                            txtMaChoKH.setText(null);
-                                            txtLoaiChoKH.setText(null);
-                                            txtSTTToaKH.setText(null);
-                                            txtGiaKH.setText(null);
-                                        }
-                                        tabTTVe.getSelectionModel().selectFirst();
-                                    }
-                                    ArrayList<ChiTietLichTrinh> dsctlt = ctlt_dao.getCtltTheoMaLichTrinh(lt.getMaLichTrinh());
-                                    if (dsctlt.isEmpty()) {
-                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                        alert.setTitle("Thông báo");
-                                        alert.setHeaderText(null);
-                                        alert.setContentText("Lịch trình rỗng");
-                                        alert.show();
-                                        return;
-                                    }
-                                    ArrayList<Toa> dstoa = toa_dao.getAllToaTheoChuyenTau(lt.getChuyenTau().getSoHieutau());
-                                    if (!acpToaTau.isVisible()) {
-                                        acpToaTau.setVisible(true);
-                                    }
-
-                                    scr1.setVisible(false);
-                                    scr11.setVisible(true);
-                                    tabToaTauKH.getTabs().clear();
-
-                                    for (Toa toa : dstoa) {
-                                        Tab tab = new Tab("Toa " + toa.getSoSTToa() + " - " + ltoa_dao.getLoaiToaTheoMa(toa.getLoaiToa().getMaLoaiToa()).getTenLoaiToa());
-                                        tab.setClosable(false);
-                                        ArrayList<ChoNgoi> dscn = cn_dao.getDsChoNgoiTheoToa(toa.getMaToa());
-                                        if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NC")){
-
-                                            GridPane gridPane1 = new GridPane();
-                                            tab.setContent(gridPane1);
-                                            tabToaTauKH.getTabs().add(tab);
-
-                                            gridPane1.setAlignment(Pos.CENTER);
-                                            gridPane1.setPadding(new Insets(10));
-                                            gridPane1.setVgap(5);
-                                            gridPane1.setHgap(5);
-                                            int seatNumbers1[][] = {
-                                                    {1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57, 64},
-                                                    {2, 7, 10, 15, 18, 23, 26, 31, 34, 39, 42, 47, 50, 55, 58, 63},
-                                                    {3, 6, 11, 14, 19, 22, 27, 30, 35, 38, 43, 46, 51, 54, 59, 62},
-                                                    {4, 5, 12, 13, 20, 21, 28, 29, 36, 37, 44, 45, 52, 53, 60, 61}
-                                            };
-
-                                            Pane pane = new Pane();
-                                            pane.setPrefHeight(60);
-                                            pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 2, 0, 2))));
-                                            Pane pane1 = new Pane();
-                                            pane1.setPrefHeight(60);
-                                            pane1.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 2, 0, 2))));
-                                            gridPane1.add(pane, 9, 0, 1, 2);
-                                            gridPane1.add(pane1, 9, 4, 1, 2);
-                                            // Tạo giao diện ghế
-                                            for (int row = 0; row < 4; row++) {
-                                                for (int col = 0; col < 16; col++) {
-                                                    int seatNumber = seatNumbers1[row][col];
-                                                    Button seatButton = new Button(String.valueOf(seatNumber));
-                                                    for (ChoNgoi cn : dscn) {
-                                                        if(cn.getSttCho() == seatNumber) {
-                                                            seatButton.setId(cn.getMaChoNgoi());
-                                                        }
-                                                    }
-                                                    seatButton.setMinSize(30, 30); // Kích thước nút ghế
-
-                                                    // Kiểm tra trạng thái của ghế
-                                                    ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
-
-                                                    if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
-                                                        seatButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                    } else {
-                                                        seatButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                    }
-                                                    // Thêm nút vào GridPane
-                                                    // Với row = 2 thêm lối đi ở giữa (tăng thêm 1 để tạo khoảng trống)
-                                                    gridPane1.add(seatButton, col + (col >= 8 ? 2 : 0), row > 1 ? row + 2 : row);
-                                                    seatButton.setOnMouseClicked(event -> {
-                                                        if (seatButton.getStyle().contains("green")) {
-                                                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                            alert.setTitle("Lỗi");
-                                                            alert.setHeaderText(null);
-                                                            alert.setContentText("Ghế đã được chọn");
-                                                            alert.show();
-                                                        } else if (seatButton.getStyle().contains("red")) {
-                                                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                            alert.setTitle("Lỗi");
-                                                            alert.setHeaderText(null);
-                                                            alert.setContentText("Ghế đã được đặt");
-                                                            alert.show();
-                                                        } else {
-                                                            btnChonChoNgoi.setDisable(false);
-                                                            btnHuyChon.setDisable(false);
-                                                            if (idBtnChonKH != "") {
-                                                                for (Tab t: tabToaTauKH.getTabs()) {
-                                                                    GridPane gp = (GridPane) t.getContent();
-                                                                    Button btn = (Button) gp.lookup("#" + idBtnChonKH);
-                                                                    if (btn != null) {
-                                                                        btn.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                                        break;
-                                                                    }
-                                                                }
-                                                            }
-                                                            idBtnChonKH = seatButton.getId();
-                                                            seatButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                            lblGiaCN.setText(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId()).getGiaCho() + "");
-                                                        }
-                                                    });
-                                                }
-                                            }
-                                            //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
-                                            Label lblChuaChon = new Label("Chưa chọn");
-                                            lblChuaChon.setAlignment(Pos.CENTER);
-                                            lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                            lblChuaChon.setPadding(new Insets(5));
-                                            lblChuaChon.setPrefSize(70, 30);
-                                            Label lblDangXem = new Label("Đang xem");
-                                            lblDangXem.setAlignment(Pos.CENTER);
-                                            lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                            lblDangXem.setPadding(new Insets(5));
-                                            lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            Label lblDaChon = new Label("Đã chọn");
-                                            lblDaChon.setAlignment(Pos.CENTER);
-                                            lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                                            lblDaChon.setPadding(new Insets(5));
-                                            lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            Label lblDaDat = new Label("Đã đặt");
-                                            lblDaDat.setAlignment(Pos.CENTER);
-                                            lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                            lblDaDat.setPadding(new Insets(5));
-                                            lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            gridPane1.add(lblChuaChon, 0, 7, 3, 1);
-                                            gridPane1.add(lblDangXem, 3, 7, 3, 1);
-                                            gridPane1.add(lblDaChon, 0, 8, 3, 1);
-                                            gridPane1.add(lblDaDat, 3, 8, 3, 1);
-                                        } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NM")) {
-                                            GridPane gridPane1 = new GridPane();
-                                            tab.setContent(gridPane1);
-                                            tabToaTauKH.getTabs().add(tab);
-
-                                            gridPane1.setAlignment(Pos.CENTER);
-                                            gridPane1.setPadding(new Insets(10));
-                                            gridPane1.setVgap(5);
-                                            gridPane1.setHgap(5);
-                                            int seatNumbers1[][] = {
-                                                    {1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57, 64},
-                                                    {2, 7, 10, 15, 18, 23, 26, 31, 34, 39, 42, 47, 50, 55, 58, 63},
-                                                    {3, 6, 11, 14, 19, 22, 27, 30, 35, 38, 43, 46, 51, 54, 59, 62},
-                                                    {4, 5, 12, 13, 20, 21, 28, 29, 36, 37, 44, 45, 52, 53, 60, 61}
-                                            };
-
-                                            // Ghế đã được đặt (màu đỏ) và ghế còn trống (màu trắng)
-
-                                            Pane pane = new Pane();
-                                            pane.setPrefHeight(60);
-                                            pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 2, 0, 2))));
-                                            Pane pane1 = new Pane();
-                                            pane1.setPrefHeight(60);
-                                            pane1.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 2, 0, 2))));
-                                            gridPane1.add(pane, 9, 0, 1, 2);
-                                            gridPane1.add(pane1, 9, 4, 1, 2);
-                                            // Tạo giao diện ghế
-                                            for (int row = 0; row < 4; row++) {
-                                                for (int col = 0; col < 16; col++) {
-                                                    int seatNumber = seatNumbers1[row][col];
-                                                    Button seatButton = new Button(String.valueOf(seatNumber));
-                                                    for (ChoNgoi cn : dscn) {
-                                                        if(cn.getSttCho() == seatNumber) {
-                                                            seatButton.setId(cn.getMaChoNgoi());
-                                                        }
-                                                    }
-                                                    seatButton.setMinSize(30, 30); // Kích thước nút ghế
-
-                                                    // Kiểm tra trạng thái của ghế
-                                                    ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
-
-                                                    if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
-                                                        seatButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                    } else {
-                                                        seatButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                    }
-
-                                                    // Thêm nút vào GridPane
-                                                    // Với row = 2 thêm lối đi ở giữa (tăng thêm 1 để tạo khoảng trống)
-                                                    gridPane1.add(seatButton, col + (col >= 8 ? 2 : 0), row > 1 ? row + 2 : row);
-                                                    seatButton.setOnMouseClicked(event -> {
-                                                        if (seatButton.getStyle().contains("green")) {
-                                                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                            alert.setTitle("Lỗi");
-                                                            alert.setHeaderText(null);
-                                                            alert.setContentText("Ghế đã được chọn");
-                                                            alert.show();
-                                                        } else if (seatButton.getStyle().contains("red")) {
-                                                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                            alert.setTitle("Lỗi");
-                                                            alert.setHeaderText(null);
-                                                            alert.setContentText("Ghế đã được đặt");
-                                                            alert.show();
-                                                        } else {
-                                                            btnChonChoNgoi.setDisable(false);
-                                                            btnHuyChon.setDisable(false);
-                                                            if (idBtnChonKH != "") {
-                                                                for (Tab t: tabToaTauKH.getTabs()) {
-                                                                    GridPane gp = (GridPane) t.getContent();
-                                                                    Button btn = (Button) gp.lookup("#" + idBtnChonKH);
-                                                                    if (btn != null) {
-                                                                        btn.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                                        break;
-                                                                    }
-                                                                }
-                                                            }
-                                                            idBtnChonKH = seatButton.getId();
-                                                            seatButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                            lblGiaCN.setText(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(),seatButton.getId()).getGiaCho() + "");
-                                                        }
-                                                    });
-                                                }
-                                            }
-                                            //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
-                                            Label lblChuaChon = new Label("Chưa chọn");
-                                            lblChuaChon.setAlignment(Pos.CENTER);
-                                            lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                            lblChuaChon.setPadding(new Insets(5));
-                                            lblChuaChon.setPrefSize(70, 30);
-                                            Label lblDangXem = new Label("Đang xem");
-                                            lblDangXem.setAlignment(Pos.CENTER);
-                                            lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                            lblDangXem.setPadding(new Insets(5));
-                                            lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            Label lblDaChon = new Label("Đã chọn");
-                                            lblDaChon.setAlignment(Pos.CENTER);
-                                            lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                                            lblDaChon.setPadding(new Insets(5));
-                                            lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            Label lblDaDat = new Label("Đã đặt");
-                                            lblDaDat.setAlignment(Pos.CENTER);
-                                            lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                            lblDaDat.setPadding(new Insets(5));
-                                            lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            gridPane1.add(lblChuaChon, 0, 7, 3, 1);
-                                            gridPane1.add(lblDangXem, 3, 7, 3, 1);
-                                            gridPane1.add(lblDaChon, 0, 8, 3, 1);
-                                            gridPane1.add(lblDaDat, 3, 8, 3, 1);
-                                        } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("GNK4")) {
-                                            int[][] seatNumbers2 = {
-                                                    {3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23, 24, 27, 28},
-                                                    {1, 2, 5, 6, 9, 10, 13, 14, 17, 18, 21, 22, 25, 26}
-                                            };
-
-                                            // Ghế đã được đặt (màu đỏ) và ghế còn trống (màu trắng hoặc xanh)
-
-                                            GridPane gridPane2 = new GridPane();
-                                            tab.setContent(gridPane2);
-                                            tabToaTauKH.getTabs().add(tab);
-                                            gridPane2.setAlignment(Pos.CENTER);
-                                            gridPane2.setVgap(5);
-                                            gridPane2.setHgap(5);
-                                            gridPane2.add(new Label("T2"), 0, 1);
-                                            gridPane2.add(new Label("T1"), 0, 2);
-                                            gridPane2.add(new Label("  Khoang 1"), 1, 0, 3, 1);
-                                            gridPane2.add(new Label("  Khoang 2"), 4, 0, 3, 1);
-                                            gridPane2.add(new Label("  Khoang 3"), 7, 0, 3, 1);
-                                            gridPane2.add(new Label("  Khoang 4"), 10, 0, 3, 1);
-                                            gridPane2.add(new Label("  Khoang 5"), 13, 0, 3, 1);
-                                            gridPane2.add(new Label("  Khoang 6"), 16, 0, 3, 1);
-                                            gridPane2.add(new Label("  Khoang 7"), 19, 0, 3, 1);
-                                            // Số thứ tự ghế như hình (theo hàng từ T1 đến T2 và các khoang 1-4)
-                                            for (int row = 0; row < 2; row++) {
-                                                for (int col = 0; col < 14; col++) {
-                                                    int seatNumber = seatNumbers2[row][col];
-                                                    Button seatButton = new Button(String.valueOf(seatNumber));
-                                                    for (ChoNgoi cn : dscn) {
-                                                        if(cn.getSttCho() == seatNumber) {
-                                                            seatButton.setId(cn.getMaChoNgoi());
-                                                        }
-                                                    }
-                                                    seatButton.setMinSize(30, 30);
-                                                    ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
-
-                                                    if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
-                                                        seatButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                    } else {
-                                                        seatButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                    }
-
-                                                    // Thêm nút vào GridPane (với col/2 để tạo khoảng trống giữa các khoang)
-                                                    gridPane2.add(seatButton, col + (col / 2) + 1, row + 1);
-                                                    seatButton.setOnMouseClicked(event -> {
-                                                        if (seatButton.getStyle().contains("green")) {
-                                                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                            alert.setTitle("Lỗi");
-                                                            alert.setHeaderText(null);
-                                                            alert.setContentText("Ghế đã được chọn");
-                                                            alert.show();
-                                                        } else if (seatButton.getStyle().contains("red")) {
-                                                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                            alert.setTitle("Lỗi");
-                                                            alert.setHeaderText(null);
-                                                            alert.setContentText("Ghế đã được đặt");
-                                                            alert.show();
-                                                        } else {
-                                                            btnChonChoNgoi.setDisable(false);
-                                                            btnHuyChon.setDisable(false);
-                                                            if (idBtnChonKH != "") {
-                                                                for (Tab t: tabToaTauKH.getTabs()) {
-                                                                    GridPane gp = (GridPane) t.getContent();
-                                                                    Button btn = (Button) gp.lookup("#" + idBtnChonKH);
-                                                                    if (btn != null) {
-                                                                        btn.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                                        break;
-                                                                    }
-                                                                }
-                                                            }
-                                                            idBtnChonKH = seatButton.getId();
-                                                            seatButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                            lblGiaCN.setText(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(),seatButton.getId()).getGiaCho() + "");
-                                                        }
-                                                    });
-                                                }
-                                            }
-                                            //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
-                                            Label lblChuaChon = new Label("Chưa chọn");
-                                            lblChuaChon.setAlignment(Pos.CENTER);
-                                            lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                            lblChuaChon.setPadding(new Insets(5));
-                                            lblChuaChon.setPrefSize(70, 30);
-                                            Label lblDangXem = new Label("Đang xem");
-                                            lblDangXem.setAlignment(Pos.CENTER);
-                                            lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                            lblDangXem.setPadding(new Insets(5));
-                                            lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            Label lblDaChon = new Label("Đã chọn");
-                                            lblDaChon.setAlignment(Pos.CENTER);
-                                            lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                                            lblDaChon.setPadding(new Insets(5));
-                                            lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            Label lblDaDat = new Label("Đã đặt");
-                                            lblDaDat.setAlignment(Pos.CENTER);
-                                            lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                            lblDaDat.setPadding(new Insets(5));
-                                            lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            gridPane2.add(lblChuaChon, 0, 7, 3, 1);
-                                            gridPane2.add(lblDangXem, 3, 7, 3, 1);
-                                            gridPane2.add(lblDaChon, 0, 8, 3, 1);
-                                            gridPane2.add(lblDaDat, 3, 8, 3, 1);
-                                        } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("GNK6")) {
-                                            GridPane gridPane = new GridPane();
-                                            tab.setContent(gridPane);
-                                            tabToaTauKH.getTabs().add(tab);
-                                            gridPane.setAlignment(Pos.CENTER);
-                                            gridPane.setVgap(5);
-                                            gridPane.setHgap(5);
-                                            gridPane.add(new Label("T3"), 0, 1);
-                                            gridPane.add(new Label("T2"), 0, 2);
-                                            gridPane.add(new Label("T1"), 0, 3);
-                                            gridPane.add(new Label("  Khoang 1"), 1, 0, 3, 1);
-                                            gridPane.add(new Label("  Khoang 2"), 4, 0, 3, 1);
-                                            gridPane.add(new Label("  Khoang 3"), 7, 0, 3, 1);
-                                            gridPane.add(new Label("  Khoang 4"), 10, 0, 3, 1);
-                                            gridPane.add(new Label("  Khoang 5"), 13, 0, 3, 1);
-                                            gridPane.add(new Label("  Khoang 6"), 16, 0, 3, 1);
-                                            gridPane.add(new Label("  Khoang 7"), 19, 0, 3, 1);
-                                            // Số thứ tự ghế như hình (theo hàng từ T1 đến T3 và các khoang 1-7)
-                                            int[][] seatNumbers = {
-                                                    {5, 6, 11, 12, 17, 18, 23, 24, 29, 30, 35, 36, 41, 42},
-                                                    {3, 4, 9, 10, 15, 16, 21, 22, 27, 28, 33, 34, 39, 40},
-                                                    {1, 2, 7, 8, 13, 14, 19, 20, 25, 26, 31, 32, 37, 38}
-                                            };
-
-                                            // Tạo giao diện
-                                            for (int row = 0; row < 3; row++) {
-                                                for (int col = 0; col < 14; col++) {
-                                                    int seatNumber = seatNumbers[row][col];
-                                                    Button seatButton = new Button(String.valueOf(seatNumber));
-                                                    for (ChoNgoi cn : dscn) {
-                                                        if(cn.getSttCho() == seatNumber) {
-                                                            seatButton.setId(cn.getMaChoNgoi());
-                                                        }
-                                                    }
-                                                    seatButton.setMinSize(30, 30);
-                                                    // Kiểm tra trạng thái của ghế
-                                                    ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
-
-                                                    if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
-                                                        seatButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                    } else {
-                                                        seatButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                    }
-
-                                                    // Thêm nút vào GridPane (với col/2 để tạo khoảng trống giữa các khoang)
-                                                    gridPane.add(seatButton, col + (col / 2) + 1, row + 1);
-                                                    seatButton.setOnMouseClicked(event -> {
-                                                        if (seatButton.getStyle().contains("green")) {
-                                                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                            alert.setTitle("Lỗi");
-                                                            alert.setHeaderText(null);
-                                                            alert.setContentText("Ghế đã được chọn");
-                                                            alert.show();
-                                                        } else if (seatButton.getStyle().contains("red")) {
-                                                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                            alert.setTitle("Lỗi");
-                                                            alert.setHeaderText(null);
-                                                            alert.setContentText("Ghế đã được đặt");
-                                                            alert.show();
-                                                        } else {
-                                                            btnChonChoNgoi.setDisable(false);
-                                                            btnHuyChon.setDisable(false);
-                                                            if (idBtnChonKH != "") {
-                                                                for (Tab t: tabToaTauKH.getTabs()) {
-                                                                    GridPane gp = (GridPane) t.getContent();
-                                                                    Button btn = (Button) gp.lookup("#" + idBtnChonKH);
-                                                                    if (btn != null) {
-                                                                        btn.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                                        break;
-                                                                    }
-                                                                }
-                                                            }
-                                                            idBtnChonKH = seatButton.getId();
-                                                            seatButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                            lblGiaCN.setText(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(),seatButton.getId()).getGiaCho() + "");
-                                                        }
-                                                    });
-                                                }
-                                            }
-                                            //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
-                                            Label lblChuaChon = new Label("Chưa chọn");
-                                            lblChuaChon.setAlignment(Pos.CENTER);
-                                            lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                            lblChuaChon.setPadding(new Insets(5));
-                                            lblChuaChon.setPrefSize(70, 30);
-                                            Label lblDangXem = new Label("Đang xem");
-                                            lblDangXem.setAlignment(Pos.CENTER);
-                                            lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                            lblDangXem.setPadding(new Insets(5));
-                                            lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            Label lblDaChon = new Label("Đã chọn");
-                                            lblDaChon.setAlignment(Pos.CENTER);
-                                            lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                                            lblDaChon.setPadding(new Insets(5));
-                                            lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            Label lblDaDat = new Label("Đã đặt");
-                                            lblDaDat.setAlignment(Pos.CENTER);
-                                            lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                            lblDaDat.setPadding(new Insets(5));
-                                            lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            gridPane.add(lblChuaChon, 0, 7, 3, 1);
-                                            gridPane.add(lblDangXem, 3, 7, 3, 1);
-                                            gridPane.add(lblDaChon, 0, 8, 3, 1);
-                                            gridPane.add(lblDaDat, 3, 8, 3, 1);
-                                        } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("TVIP")) {
-                                            int[][] seatNumbers2 = {
-                                                    {2, 4, 6, 8, 10, 12, 14},
-                                                    {1, 3, 5, 7, 9, 11, 13}
-                                            };
-
-                                            // Ghế đã được đặt (màu đỏ) và ghế còn trống (màu trắng hoặc xanh)
-                                            int[] bookedSeats = null;
-                                            GridPane gridPane2 = new GridPane();
-                                            tab.setContent(gridPane2);
-                                            tabToaTauKH.getTabs().add(tab);
-                                            gridPane2.setAlignment(Pos.CENTER);
-                                            gridPane2.setVgap(5);
-                                            gridPane2.setHgap(5);
-                                            gridPane2.add(new Label("  Khoang 1"), 1, 0);
-                                            gridPane2.add(new Label("  Khoang 2"), 2, 0);
-                                            gridPane2.add(new Label("  Khoang 3"), 3, 0);
-                                            gridPane2.add(new Label("  Khoang 4"), 4, 0);
-                                            gridPane2.add(new Label("  Khoang 5"), 5, 0);
-                                            gridPane2.add(new Label("  Khoang 6"), 6, 0);
-                                            gridPane2.add(new Label("  Khoang 7"), 7, 0);
-                                            // Số thứ tự ghế như hình (theo hàng từ T1 đến T2 và các khoang 1-4)
-                                            for (int row = 0; row < 2; row++) {
-                                                for (int col = 0; col < 7; col++) {
-                                                    int seatNumber = seatNumbers2[row][col];
-                                                    Button seatButton = new Button(String.valueOf(seatNumber));
-                                                    for (ChoNgoi cn : dscn) {
-                                                        if(cn.getSttCho() == seatNumber) {
-                                                            seatButton.setId(cn.getMaChoNgoi());
-                                                        }
-                                                    }
-                                                    seatButton.setMinSize(30, 30); // Kích thước nút ghế
-                                                    // Kiểm tra trạng thái của ghế
-                                                    ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
-
-                                                    if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
-                                                        seatButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                                    } else {
-                                                        seatButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                    }
-                                                    gridPane2.add(seatButton, col + 1, row + 1);
-                                                    seatButton.setOnMouseClicked(event -> {
-                                                        if (seatButton.getStyle().contains("green")) {
-                                                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                            alert.setTitle("Lỗi");
-                                                            alert.setHeaderText(null);
-                                                            alert.setContentText("Ghế đã được chọn");
-                                                            alert.show();
-                                                        } else if (seatButton.getStyle().contains("red")) {
-                                                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                                                            alert.setTitle("Lỗi");
-                                                            alert.setHeaderText(null);
-                                                            alert.setContentText("Ghế đã được đặt");
-                                                            alert.show();
-                                                        } else {
-                                                            btnChonChoNgoi.setDisable(false);
-                                                            btnHuyChon.setDisable(false);
-                                                            if (idBtnChonKH != "") {
-                                                                for (Tab t: tabToaTauKH.getTabs()) {
-                                                                    GridPane gp = (GridPane) t.getContent();
-                                                                    Button btn = (Button) gp.lookup("#" + idBtnChonKH);
-                                                                    if (btn != null) {
-                                                                        btn.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                                                        break;
-                                                                    }
-                                                                }
-                                                            }
-                                                            idBtnChonKH = seatButton.getId();
-                                                            seatButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                                            lblGiaCN.setText(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(),seatButton.getId()).getGiaCho() + "");
-                                                        }
-                                                    });
-                                                }
-                                            }
-                                            //Tạo chú thích chỗ ngồi chưa chọn, đã chọn, đã đặt
-                                            Label lblChuaChon = new Label("Chưa chọn");
-                                            lblChuaChon.setAlignment(Pos.CENTER);
-                                            lblChuaChon.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                                            lblChuaChon.setPadding(new Insets(5));
-                                            lblChuaChon.setPrefSize(70, 30);
-                                            Label lblDangXem = new Label("Đang xem");
-                                            lblDangXem.setAlignment(Pos.CENTER);
-                                            lblDangXem.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
-                                            lblDangXem.setPadding(new Insets(5));
-                                            lblDangXem.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            Label lblDaChon = new Label("Đã chọn");
-                                            lblDaChon.setAlignment(Pos.CENTER);
-                                            lblDaChon.setStyle("-fx-background-color: green; -fx-text-fill: white;");
-                                            lblDaChon.setPadding(new Insets(5));
-                                            lblDaChon.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            Label lblDaDat = new Label("Đã đặt");
-                                            lblDaDat.setAlignment(Pos.CENTER);
-                                            lblDaDat.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                                            lblDaDat.setPadding(new Insets(5));
-                                            lblDaDat.setPrefSize(lblChuaChon.getPrefWidth(), lblChuaChon.getPrefHeight());
-                                            gridPane2.add(lblChuaChon, 0, 7, 3, 1);
-                                            gridPane2.add(lblDangXem, 3, 7, 3, 1);
-                                            gridPane2.add(lblDaChon, 0, 8, 3, 1);
-                                            gridPane2.add(lblDaDat, 3, 8, 3, 1);
-                                        }
-                                    }
-
-                                    if (tabTTVe.getTabs().isEmpty()) {
-                                        tabTTVe.getTabs().clear();
-                                        int slnl = Integer.parseInt(lblSLnl.getText());
-                                        int slnct = Integer.parseInt(lblSLnct.getText());
-                                        int slhssv = Integer.parseInt(lblSLhssv.getText());
-                                        int slte = Integer.parseInt(lblSLte.getText());
-                                        if (slnl > 0) {
-                                            for (int i = 0; i < slnl; i++) {
-                                                Tab tab = new Tab("Người lớn " + (i + 1));
-                                                try {
-                                                    tab.setContent(FXMLLoader.load(TrangChu_GUI.class.getResource("thong-tin-ve.fxml")));
-                                                    ComboBox<String> cbLHK = (ComboBox)tab.getContent().lookup("#cbLoaiHK");
-                                                    cbLHK.getItems().add("Người lớn");
-                                                    cbLHK.getItems().add("Người cao tuổi");
-                                                    cbLHK.getItems().add("Học sinh, sinh viên");
-                                                    cbLHK.getItems().add("Trẻ em");
-                                                    cbLHK.setValue("Người lớn");
-                                                    Button btnXacNhanTT = (Button)tab.getContent().lookup("#btnXacNhanTT");
-                                                    btnXacNhanTT.setOnMouseClicked(e1 -> {
-                                                        for(Tab t : tabTTVe.getTabs()) {
-                                                            TextField txtMaCN = (TextField) t.getContent().lookup("#txtMaCho");
-                                                            TextField txtMaCNKH = (TextField) t.getContent().lookup("#txtMaChoKH");
-                                                            if (!txtMaCN.getText().isEmpty() && txtMaCN.getText() != null) {
-                                                                TextField txtTenHK = (TextField) t.getContent().lookup("#txtTenHK");
-                                                                TextField txtSoCCCD = (TextField) t.getContent().lookup("#txtSoCCCD");
-                                                                DatePicker dpNS = (DatePicker) t.getContent().lookup("#dpNgaySinh");
-                                                                ComboBox<String> comboBox = (ComboBox<String>) t.getContent().lookup("#cbLoaiHK");
-                                                                if (comboBox.getValue().equalsIgnoreCase("Trẻ em")) {
-                                                                    if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtTenHK.requestFocus();
-                                                                    } else if (dpNS.getValue() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        dpNS.requestFocus();
-                                                                    }
-                                                                } else if (comboBox.getValue().equalsIgnoreCase( "Người lớn") || comboBox.getValue().equalsIgnoreCase("Học sinh, sinh viên")) {
-                                                                    if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtTenHK.requestFocus();
-                                                                    } else if (txtSoCCCD.getText().isEmpty() && txtSoCCCD.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtSoCCCD.requestFocus();
-                                                                    }
-                                                                } else if (comboBox.getValue().equalsIgnoreCase( "Người cao tuổi")){
-                                                                    if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtTenHK.requestFocus();
-                                                                    } else if (txtSoCCCD.getText().isEmpty() && txtSoCCCD.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtSoCCCD.requestFocus();
-                                                                    } else if (dpNS.getValue() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        dpNS.requestFocus();
-                                                                    }
-                                                                }
-                                                            } else {
-                                                                tabTTVe.getSelectionModel().getSelectedItem();
-                                                                txtMaCN.requestFocus();
-                                                                if (khuHoi && (txtMaCNKH.getText().isEmpty() || txtMaCNKH.getText() == null)) {
-                                                                    tabTTVe.getSelectionModel().select(t);
-                                                                    txtMaCNKH.requestFocus();
-                                                                }
-                                                            }
-                                                        }
-                                                        acpKH.setVisible(true);
-                                                    });
-                                                    if (chkKhuHoi.isSelected()){
-                                                        AnchorPane acpKH = (AnchorPane) tab.getContent().lookup("#acpKH");
-                                                        acpKH.setVisible(true);
-                                                    }
-                                                } catch (IOException ex) {
-                                                    throw new RuntimeException(ex);
-                                                }
-                                                tabTTVe.getTabs().add(tab);
-                                            }
-                                        }
-                                        if (slnct > 0) {
-                                            for (int i = 0; i < slnct; i++) {
-                                                Tab tab = new Tab("Người cao tuổi " + (i + 1));
-                                                try {
-                                                    tab.setContent(FXMLLoader.load(TrangChu_GUI.class.getResource("thong-tin-ve.fxml")));
-                                                    ComboBox<String> cbLHK = (ComboBox)tab.getContent().lookup("#cbLoaiHK");
-                                                    cbLHK.getItems().add("Người lớn");
-                                                    cbLHK.getItems().add("Người cao tuổi");
-                                                    cbLHK.getItems().add("Học sinh, sinh viên");
-                                                    cbLHK.getItems().add("Trẻ em");
-                                                    cbLHK.setValue("Người cao tuổi");
-
-                                                    DatePicker dpNgaySinh = (DatePicker)tab.getContent().lookup("#dpNgaySinh");
-                                                    dpNgaySinh.setDisable(false);
-                                                    Button btnXacNhanTT = (Button)tab.getContent().lookup("#btnXacNhanTT");
-                                                    btnXacNhanTT.setOnMouseClicked(e1 -> {
-                                                        for(Tab t : tabTTVe.getTabs()) {
-                                                            TextField txtMaCN = (TextField) t.getContent().lookup("#txtMaCho");
-                                                            TextField txtMaCNKH = (TextField) t.getContent().lookup("#txtMaChoKH");
-                                                            if (!txtMaCN.getText().isEmpty() && txtMaCN.getText() != null) {
-                                                                TextField txtTenHK = (TextField) t.getContent().lookup("#txtTenHK");
-                                                                TextField txtSoCCCD = (TextField) t.getContent().lookup("#txtSoCCCD");
-                                                                DatePicker dpNS = (DatePicker) t.getContent().lookup("#dpNgaySinh");
-                                                                ComboBox<String> comboBox = (ComboBox<String>) t.getContent().lookup("#cbLoaiHK");
-                                                                if (comboBox.getValue().equalsIgnoreCase("Trẻ em")) {
-                                                                    if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtTenHK.requestFocus();
-                                                                    } else if (dpNS.getValue() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        dpNS.requestFocus();
-                                                                    }
-                                                                } else if (comboBox.getValue().equalsIgnoreCase( "Người lớn") || comboBox.getValue().equalsIgnoreCase("Học sinh, sinh viên")) {
-                                                                    if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtTenHK.requestFocus();
-                                                                    } else if (txtSoCCCD.getText().isEmpty() && txtSoCCCD.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtSoCCCD.requestFocus();
-                                                                    }
-                                                                } else if (comboBox.getValue().equalsIgnoreCase( "Người cao tuổi")){
-                                                                    if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtTenHK.requestFocus();
-                                                                    } else if (txtSoCCCD.getText().isEmpty() && txtSoCCCD.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtSoCCCD.requestFocus();
-                                                                    } else if (dpNS.getValue() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        dpNS.requestFocus();
-                                                                    }
-                                                                }
-                                                            } else {
-                                                                tabTTVe.getSelectionModel().getSelectedItem();
-                                                                txtMaCN.requestFocus();
-                                                                if (khuHoi && (txtMaCNKH.getText().isEmpty() || txtMaCNKH.getText() == null)) {
-                                                                    tabTTVe.getSelectionModel().select(t);
-                                                                    txtMaCNKH.requestFocus();
-                                                                }
-                                                            }
-                                                        }
-                                                        acpKH.setVisible(true);
-                                                    });
-                                                    if (chkKhuHoi.isSelected()){
-                                                        AnchorPane acpKH = (AnchorPane) tab.getContent().lookup("#acpKH");
-                                                        acpKH.setVisible(true);
-                                                    }
-                                                } catch (IOException ex) {
-                                                    throw new RuntimeException(ex);
-                                                }
-                                                tabTTVe.getTabs().add(tab);
-                                            }
-                                        }
-                                        if (slhssv > 0) {
-                                            for (int i = 0; i < slhssv; i++) {
-                                                Tab tab = new Tab("HSSV " + (i + 1));
-                                                try {
-                                                    tab.setContent(FXMLLoader.load(TrangChu_GUI.class.getResource("thong-tin-ve.fxml")));
-                                                    ComboBox<String> cbLHK = (ComboBox)tab.getContent().lookup("#cbLoaiHK");
-                                                    cbLHK.getItems().add("Người lớn");
-                                                    cbLHK.getItems().add("Người cao tuổi");
-                                                    cbLHK.getItems().add("Học sinh, sinh viên");
-                                                    cbLHK.getItems().add("Trẻ em");
-                                                    cbLHK.setValue("Học sinh, sinh viên");
-                                                    Button btnXacNhanTT = (Button)tab.getContent().lookup("#btnXacNhanTT");
-                                                    btnXacNhanTT.setOnMouseClicked(e1 -> {
-                                                        for(Tab t : tabTTVe.getTabs()) {
-                                                            TextField txtMaCN = (TextField) t.getContent().lookup("#txtMaCho");
-                                                            TextField txtMaCNKH = (TextField) t.getContent().lookup("#txtMaChoKH");
-                                                            if (!txtMaCN.getText().isEmpty() && txtMaCN.getText() != null) {
-                                                                TextField txtTenHK = (TextField) t.getContent().lookup("#txtTenHK");
-                                                                TextField txtSoCCCD = (TextField) t.getContent().lookup("#txtSoCCCD");
-                                                                DatePicker dpNS = (DatePicker) t.getContent().lookup("#dpNgaySinh");
-                                                                ComboBox<String> comboBox = (ComboBox<String>) t.getContent().lookup("#cbLoaiHK");
-                                                                if (comboBox.getValue().equalsIgnoreCase("Trẻ em")) {
-                                                                    if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtTenHK.requestFocus();
-                                                                    } else if (dpNS.getValue() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        dpNS.requestFocus();
-                                                                    }
-                                                                } else if (comboBox.getValue().equalsIgnoreCase( "Người lớn") || comboBox.getValue().equalsIgnoreCase("Học sinh, sinh viên")) {
-                                                                    if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtTenHK.requestFocus();
-                                                                    } else if (txtSoCCCD.getText().isEmpty() && txtSoCCCD.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtSoCCCD.requestFocus();
-                                                                    }
-                                                                } else if (comboBox.getValue().equalsIgnoreCase( "Người cao tuổi")){
-                                                                    if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtTenHK.requestFocus();
-                                                                    } else if (txtSoCCCD.getText().isEmpty() && txtSoCCCD.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtSoCCCD.requestFocus();
-                                                                    } else if (dpNS.getValue() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        dpNS.requestFocus();
-                                                                    }
-                                                                }
-                                                            } else {
-                                                                tabTTVe.getSelectionModel().getSelectedItem();
-                                                                txtMaCN.requestFocus();
-                                                                if (khuHoi && (txtMaCNKH.getText().isEmpty() || txtMaCNKH.getText() == null)) {
-                                                                    tabTTVe.getSelectionModel().select(t);
-                                                                    txtMaCNKH.requestFocus();
-                                                                }
-                                                            }
-                                                        }
-                                                        acpKH.setVisible(true);
-                                                    });                                                            if (chkKhuHoi.isSelected()){
-                                                        AnchorPane acpKH = (AnchorPane) tab.getContent().lookup("#acpKH");
-                                                        acpKH.setVisible(true);
-                                                    }
-                                                } catch (IOException ex) {
-                                                    throw new RuntimeException(ex);
-                                                }
-                                                tabTTVe.getTabs().add(tab);
-                                            }
-                                        }
-                                        if (slte > 0) {
-                                            for (int i = 0; i < slte; i++) {
-                                                Tab tab = new Tab("Trẻ em " + (i + 1));
-                                                try {
-                                                    tab.setContent(FXMLLoader.load(TrangChu_GUI.class.getResource("thong-tin-ve.fxml")));
-                                                    ComboBox<String> cbLHK = (ComboBox)tab.getContent().lookup("#cbLoaiHK");
-                                                    cbLHK.getItems().add("Người lớn");
-                                                    cbLHK.getItems().add("Người cao tuổi");
-                                                    cbLHK.getItems().add("Học sinh, sinh viên");
-                                                    cbLHK.getItems().add("Trẻ em");
-                                                    cbLHK.setValue("Trẻ em");
-                                                    DatePicker dpNgaySinh = (DatePicker)tab.getContent().lookup("#dpNgaySinh");
-                                                    dpNgaySinh.setDisable(false);
-                                                    TextField txtSoCCCD = (TextField)tab.getContent().lookup("#txtSoCCCD");
-                                                    txtSoCCCD.setDisable(true);
-                                                    Button btnXacNhanTT = (Button)tab.getContent().lookup("#btnXacNhanTT");
-                                                    btnXacNhanTT.setOnMouseClicked(e1 -> {
-                                                        for(Tab t : tabTTVe.getTabs()) {
-                                                            TextField txtMaCN = (TextField) t.getContent().lookup("#txtMaCho");
-                                                            TextField txtMaCNKH = (TextField) t.getContent().lookup("#txtMaChoKH");
-                                                            if (!txtMaCN.getText().isEmpty() && txtMaCN.getText() != null) {
-                                                                TextField txtTenHK = (TextField) t.getContent().lookup("#txtTenHK");
-                                                                TextField txtsoCCCD = (TextField) t.getContent().lookup("#txtSoCCCD");
-                                                                DatePicker dpNS = (DatePicker) t.getContent().lookup("#dpNgaySinh");
-                                                                ComboBox<String> comboBox = (ComboBox<String>) t.getContent().lookup("#cbLoaiHK");
-                                                                if (comboBox.getValue().equalsIgnoreCase("Trẻ em")) {
-                                                                    if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtTenHK.requestFocus();
-                                                                    } else if (dpNS.getValue() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        dpNS.requestFocus();
-                                                                    }
-                                                                } else if (comboBox.getValue().equalsIgnoreCase( "Người lớn") || comboBox.getValue().equalsIgnoreCase("Học sinh, sinh viên")) {
-                                                                    if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtTenHK.requestFocus();
-                                                                    } else if (txtsoCCCD.getText().isEmpty() && txtsoCCCD.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtsoCCCD.requestFocus();
-                                                                    }
-                                                                } else if (comboBox.getValue().equalsIgnoreCase( "Người cao tuổi")){
-                                                                    if (txtTenHK.getText().isEmpty() || txtTenHK.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtTenHK.requestFocus();
-                                                                    } else if (txtsoCCCD.getText().isEmpty() && txtsoCCCD.getText() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        txtsoCCCD.requestFocus();
-                                                                    } else if (dpNS.getValue() == null) {
-                                                                        tabTTVe.getSelectionModel().select(t);
-                                                                        dpNS.requestFocus();
-                                                                    }
-                                                                }
-                                                            } else {
-                                                                tabTTVe.getSelectionModel().getSelectedItem();
-                                                                txtMaCN.requestFocus();
-                                                                if (khuHoi && (txtMaCNKH.getText().isEmpty() || txtMaCNKH.getText() == null)) {
-                                                                    tabTTVe.getSelectionModel().select(t);
-                                                                    txtMaCNKH.requestFocus();
-                                                                }
-                                                            }
-                                                        }
-                                                        acpKH.setVisible(true);
-                                                    });
-                                                    if (chkKhuHoi.isSelected()){
-                                                        AnchorPane acpKH = (AnchorPane) tab.getContent().lookup("#acpKH");
-                                                        acpKH.setVisible(true);
-                                                    }
-                                                } catch (IOException ex) {
-                                                    throw new RuntimeException(ex);
-                                                }
-                                                tabTTVe.getTabs().add(tab);
-                                            }
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    };
-                    return cell;
-                };
-                colChonKH.setCellFactory(cellFactory);
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Lỗi");
-                alert.setHeaderText(null);
-                alert.setContentText("Không có lịch trình nào");
-                alert.showAndWait();
-                dpNgayVe.requestFocus();
-                dpNgayVe.show();
-            }
-        });
-
     }
 
     private void lamMoi() {
+        getData.hd = null;
+        getData.dsctlt = null;
+        getData.dsctltkh = null;
+        getData.kh = null;
+        getData.dsve = null;
+        getData.dscthd = null;
+        dsctlt.clear();
+        paneTau.getChildren().clear();
+        paneChonCD.setVisible(false);
+        btnChonCD.setDisable(true);
+        btnChonKH.setDisable(false);
+        btnXoaAllCN.setDisable(true);
+        showTauTheoLT(lt_dao.traCuuDSLichTrinhTheoNgay(LocalDate.of(2024, 12, 1)));
         cbGaDi.setValue(null);
         cbGaDi.requestFocus();
         cbGaDen.setValue(null);
         dpNgayKH.setValue(null);
         dpNgayVe.setDisable(true);
         dpNgayVe.setValue(null);
-        chkKhuHoi.setSelected(false);
-        khuHoi = false;
-        lblSLnl.setText("0");
-        lblSLnct.setText("0");
-        lblSLhssv.setText("0");
-        lblSLte.setText("0");
-        btnChonCD.setDisable(true);
-        btnChonKH.setDisable(true);
-        btnTangSLte.setDisable(true);
-        btnGiamSLte.setDisable(true);
-        btnGiamSLnct.setDisable(true);
-        btnGiamSLnl.setDisable(true);
-        btnGiamSLhssv.setDisable(true);
-        btnTangSLte.setFill(Color.GRAY);
-        btnGiamSLte.setFill(Color.GRAY);
-        btnGiamSLnct.setFill(Color.GRAY);
-        btnGiamSLnl.setFill(Color.GRAY);
-        btnGiamSLhssv.setFill(Color.GRAY);
-        tbTCTLT.setItems(null);
-        tbTCTLTKH.setItems(null);
-        tbTCTLTKH.setVisible(false);
-        acpToaTau.setVisible(false);
-        tabToaTau.getTabs().clear();
-        acpKH.setVisible(false);
-        scr1.setVisible(true);
-        scr11.setVisible(false);
-        tabTTVe.getTabs().clear();
+        rdBtnMC.setSelected(true);
+        tbTTCN.setItems(null);
+        txtTenKH.setText(null);
+        txtSoCCCD.setText(null);
+        txtSDT.setText(null);
+        txtEmail.setText(null);
+    }
+
+    private void showTauTheoLT(ArrayList<LichTrinh> list) {
+        dslt = FXCollections.observableList(list);
+        tbLT.setItems(dslt);
+        tbLT.refresh();
+        paneTau.getChildren().clear();
+
+        for (LichTrinh lt : list) {
+            FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("tau.fxml"));
+            try {
+                Pane pTau = loader.load();
+                Label lblSoHieuTau = (Label) pTau.lookup("#lblSoHieuTau");
+                Label lblTGKH = (Label) pTau.lookup("#lblTGKH");
+                Label lblTGDen = (Label) pTau.lookup("#lblTGDen");
+                ImageView imgTau = (ImageView) pTau.lookup("#imgTau");
+                imgTau.setId(lt.getMaLichTrinh());
+                lblSoHieuTau.setText(lt.getChuyenTau().getSoHieutau());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+                lblTGKH.setText(lt.getThoiGianKhoiHanh().format(formatter));
+                lblTGDen.setText(lt.getThoiGianDuKienDen().format(formatter));
+                imgTau.setOnMouseClicked(et -> {
+                    ColorAdjust colorAdjust = new ColorAdjust();
+                    colorAdjust.setContrast(0);
+                    imgTau.setEffect(colorAdjust);
+                    tbLT.getSelectionModel().select(lt);
+                    for (LichTrinh l : list) {
+                        if (!l.getMaLichTrinh().equals(imgTau.getId())) {
+                            ImageView imageView = (ImageView) paneTau.lookup("#" + l.getMaLichTrinh());
+                            ColorAdjust ca = new ColorAdjust();
+                            ca.setContrast(-1.0);
+                            imageView.setEffect(ca);
+                        }
+                    }
+                    showToaTheoLT(lt);
+                });
+                paneTau.getChildren().add(pTau);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            //thêm khoảng cách giữa 2 tàu
+            Pane pane = new Pane();
+            pane.setPrefHeight(10);
+            pane.setPrefWidth(10);
+            paneTau.getChildren().add(pane);
+        }
+        //chọn tàu đầu tiên
+        if (list.size() > 0) {
+            ImageView imageView = (ImageView) paneTau.lookup("#" + list.get(0).getMaLichTrinh());
+            imageView.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true, true, true, true, true, true, true, null));
+        }
+    }
+
+    private void showToaTheoLT(LichTrinh lt) {
+        chosedId = null;
+        grTrain.getChildren().clear();
+        ArrayList<Toa> dstoa = toa_dao.getAllToaTheoChuyenTau(lt.getChuyenTau().getSoHieutau());
+        if (!btnChonKH.isDisable()) {
+            Collections.reverse(dstoa);
+        } else {
+            ImageView imageView1 = new ImageView("file:src/main/resources/img/train1.png");
+            imageView1.setFitHeight(25);
+            imageView1.setFitWidth(50);
+            Label lbl = new Label(lt.getChuyenTau().getSoHieutau());
+            lbl.setLayoutX(15);
+            lbl.setLayoutY(30);
+            lbl.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 10));
+            Pane paneImg = new Pane();
+            paneImg.getChildren().add(imageView1);
+            paneImg.getChildren().add(lbl);
+            grTrain.getChildren().add(paneImg);
+        }
+        GridPane gridPane = new GridPane();
+        paneToa.setCenter(gridPane);
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setPadding(new Insets(10));
+        gridPane.setVgap(5);
+        gridPane.setHgap(5);
+
+        for (Toa toa : dstoa) {
+            Pane paneImg = new Pane();
+            paneImg.setMaxHeight(18);
+            paneImg.setPrefWidth(50);
+            paneImg.setStyle("-fx-background-color: skyblue;-fx-background-radius: 5;");
+            ImageView imageView = new ImageView("file:src/main/resources/img/trainCar.png");
+            imageView.setId(toa.getMaToa());
+            imageView.setFitHeight(25);
+            imageView.setFitWidth(50);
+
+            imageView.setOnMouseEntered(e -> {
+                if(!paneImg.getStyle().contains("lightgreen")) {
+                    paneImg.setStyle("-fx-background-color: #5098ff;-fx-background-radius: 5;");
+                }
+            });
+
+            imageView.setOnMouseExited(e -> {
+                if(!paneImg.getStyle().contains("lightgreen")) {
+                    paneImg.setStyle("-fx-background-color: skyblue;-fx-background-radius: 5;");
+                }
+            });
+
+            imageView.setOnMouseClicked(e -> {
+                lblToa.setText("Toa " + toa.getSoSTToa() + ": " + ltoa_dao.getLoaiToaTheoMa(toa.getLoaiToa().getMaLoaiToa()).getTenLoaiToa());
+                paneImg.setStyle("-fx-background-color: lightgreen;-fx-background-radius: 5;");
+                //đổi màu các imageView còn lại
+                if (chosedId != null) {
+                    ImageView imageView1 = (ImageView) grTrain.lookup("#" + chosedId);
+                    imageView1.getParent().setStyle("-fx-background-color: skyblue;-fx-background-radius: 5;");
+                }
+                chosedId = imageView.getId();
+                //enable btnChonKhoang khi không phải toa NC hay NM
+                if (!toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NC") && !toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NM")) {
+                    cbKhoang.setDisable(false);
+                    btnChonKhoang.setDisable(false);
+                } else {
+                    cbKhoang.setDisable(true);
+                    btnChonKhoang.setDisable(true);
+                }
+                gridPane.getChildren().clear();
+                ArrayList<ChoNgoi> dscn = cn_dao.getDsChoNgoiTheoToa(toa.getMaToa());
+                if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NC")){
+
+
+                    int seatNumbers[][] = {
+                            {1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57, 64},
+                            {2, 7, 10, 15, 18, 23, 26, 31, 34, 39, 42, 47, 50, 55, 58, 63},
+                            {3, 6, 11, 14, 19, 22, 27, 30, 35, 38, 43, 46, 51, 54, 59, 62},
+                            {4, 5, 12, 13, 20, 21, 28, 29, 36, 37, 44, 45, 52, 53, 60, 61}
+                    };
+
+                    Pane pane = new Pane();
+                    pane.setPrefHeight(60);
+                    pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 2, 0, 2))));
+                    Pane pane1 = new Pane();
+                    pane1.setPrefHeight(60);
+                    pane1.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 2, 0, 2))));
+                    gridPane.add(pane, 9, 0, 1, 2);
+                    gridPane.add(pane1, 9, 4, 1, 2);
+                    // Tạo giao diện ghế
+                    for (int row = 0; row < 4; row++) {
+                        for (int col = 0; col < 16; col++) {
+                            int seatNumber = seatNumbers[row][col];
+                            Button seatButton = new Button(String.valueOf(seatNumber));
+                            for (ChoNgoi cn : dscn) {
+                                if(cn.getSttCho() == seatNumber) {
+                                    seatButton.setId(cn.getMaChoNgoi());
+                                }
+                            }
+                            seatButton.setMinSize(30, 30); // Kích thước nút ghế
+
+                            // Kiểm tra trạng thái của ghế
+                            ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
+
+                            if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
+                                seatButton.setStyle(styleGheDaDat);
+                            } else {
+                                seatButton.setStyle(styleGheThuong);
+                            }
+                            if (col > 7) {
+                                seatButton.setStyle(seatButton.getStyle() + styleGhe2);
+                            } else {
+                                seatButton.setStyle(seatButton.getStyle() + styleGhe1);
+                            }
+                            // Với row = 2 thêm lối đi ở giữa (tăng thêm 1 để tạo khoảng trống)
+                            gridPane.add(seatButton, col + (col >= 8 ? 2 : 0), row > 1 ? row + 2 : row);
+
+                            //đổi màu seatbtn nếu đã có trong tbCTCN
+                            int finalCol = col;
+                            for (ChiTietLichTrinh ctlt : dsctlt) {
+                                if (ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId())) {
+                                    seatButton.setStyle(styleGheDaChon  + (finalCol > 7 ? styleGhe2 : styleGhe1));
+                                }
+                            }
+                            seatButton.setOnMouseClicked(event -> {
+                                if (seatButton.getStyle().contains("green")) {
+                                    seatButton.setStyle(styleGheThuong + (finalCol > 7 ? styleGhe2 : styleGhe1));
+                                    dsctlt.removeIf(ctlt -> ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId()));
+                                    dsctltkh.removeIf(ctlt -> ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId()));
+                                    dsttcn = FXCollections.observableList(dsctlt);
+                                    tbTTCN.setItems(dsttcn);
+                                } else if (seatButton.getStyle().contains("red")) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("Lỗi");
+                                    alert.setHeaderText(null);
+                                    alert.setContentText("Ghế đã được đặt");
+                                    alert.show();
+                                } else {
+                                    seatButton.setStyle(styleGheDaChon + (finalCol > 7 ? styleGhe2 : styleGhe1));
+                                    dsctlt.add(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId()));
+                                    if (btnChonKH.isDisable()) {
+                                        dsctltkh.add(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId()));
+                                    }
+                                    dsttcn = FXCollections.observableList(dsctlt);
+                                    tbTTCN.setItems(dsttcn);
+                                    tbTTCN.refresh();
+                                }
+                                if (!dsctlt.isEmpty()) {
+                                    btnXoaAllCN.setDisable(false);
+                                } else {
+                                    btnXoaAllCN.setDisable(true);
+                                }
+                            });
+                        }
+                    }
+
+                } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("NM")) {
+
+                    int seatNumbers[][] = {
+                            {1, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 48, 49, 56, 57, 64},
+                            {2, 7, 10, 15, 18, 23, 26, 31, 34, 39, 42, 47, 50, 55, 58, 63},
+                            {3, 6, 11, 14, 19, 22, 27, 30, 35, 38, 43, 46, 51, 54, 59, 62},
+                            {4, 5, 12, 13, 20, 21, 28, 29, 36, 37, 44, 45, 52, 53, 60, 61}
+                    };
+
+                    // Ghế đã được đặt (màu đỏ) và ghế còn trống (màu trắng)
+
+                    Pane pane = new Pane();
+                    pane.setPrefHeight(60);
+                    pane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 2, 0, 2))));
+                    Pane pane1 = new Pane();
+                    pane1.setPrefHeight(60);
+                    pane1.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 2, 0, 2))));
+                    gridPane.add(pane, 9, 0, 1, 2);
+                    gridPane.add(pane1, 9, 4, 1, 2);
+                    // Tạo giao diện ghế
+                    for (int row = 0; row < 4; row++) {
+                        for (int col = 0; col < 16; col++) {
+                            int seatNumber = seatNumbers[row][col];
+                            Button seatButton = new Button(String.valueOf(seatNumber));
+                            for (ChoNgoi cn : dscn) {
+                                if(cn.getSttCho() == seatNumber) {
+                                    seatButton.setId(cn.getMaChoNgoi());
+                                }
+                            }
+                            seatButton.setMinSize(30, 30); // Kích thước nút ghế
+
+                            // Kiểm tra trạng thái của ghế
+                            ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
+
+                            if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
+                                seatButton.setStyle(styleGheDaDat);
+                            } else {
+                                seatButton.setStyle(styleGheThuong);
+                            }
+                            if (col > 7) {
+                                seatButton.setStyle(seatButton.getStyle() + styleGhe2);
+                            } else {
+                                seatButton.setStyle(seatButton.getStyle() + styleGhe1);
+                            }
+
+                            // Với row = 2 thêm lối đi ở giữa (tăng thêm 1 để tạo khoảng trống)
+                            gridPane.add(seatButton, col + (col >= 8 ? 2 : 0), row > 1 ? row + 2 : row);
+
+                            int finalCol = col;
+                            for (ChiTietLichTrinh ctlt : dsctlt) {
+                                if (ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId())) {
+                                    seatButton.setStyle(styleGheDaChon + (finalCol > 7 ? styleGhe2 : styleGhe1));
+                                }
+                            }
+                            seatButton.setOnMouseClicked(event -> {
+                                if (seatButton.getStyle().contains("green")) {
+                                    seatButton.setStyle(styleGheThuong + (finalCol > 7 ? styleGhe2 : styleGhe1));
+                                    dsctlt.removeIf(ctlt -> ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId()));
+                                    dsctltkh.removeIf(ctlt -> ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId()));
+                                    dsttcn = FXCollections.observableList(dsctlt);
+                                    tbTTCN.setItems(dsttcn);
+                                } else if (seatButton.getStyle().contains("red")) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("Lỗi");
+                                    alert.setHeaderText(null);
+                                    alert.setContentText("Ghế đã được đặt");
+                                    alert.show();
+                                } else {
+                                    seatButton.setStyle(styleGheDaChon + (finalCol > 7 ? styleGhe2 : styleGhe1));
+                                    dsctlt.add(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId()));
+                                    if (btnChonKH.isDisable()) {
+                                        dsctltkh.add(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId()));
+                                    }
+                                    dsttcn = FXCollections.observableList(dsctlt);
+                                    tbTTCN.setItems(dsttcn);
+                                    tbTTCN.refresh();
+                                }
+                                if (!dsctlt.isEmpty()) {
+                                    btnXoaAllCN.setDisable(false);
+                                } else {
+                                    btnXoaAllCN.setDisable(true);
+                                }
+                            });
+                        }
+                    }
+                } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("GNK4")) {
+                    int[][] seatNumbers2 = {
+                            {3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23, 24, 27, 28},
+                            {1, 2, 5, 6, 9, 10, 13, 14, 17, 18, 21, 22, 25, 26}
+                    };
+
+                    // Ghế đã được đặt (màu đỏ) và ghế còn trống (màu trắng hoặc xanh)
+
+                    gridPane.add(new Label("T2"), 0, 1);
+                    gridPane.add(new Label("T1"), 0, 2);
+                    gridPane.add(new Label("  Khoang 1"), 1, 0, 3, 1);
+                    gridPane.add(new Label("  Khoang 2"), 4, 0, 3, 1);
+                    gridPane.add(new Label("  Khoang 3"), 7, 0, 3, 1);
+                    gridPane.add(new Label("  Khoang 4"), 10, 0, 3, 1);
+                    gridPane.add(new Label("  Khoang 5"), 13, 0, 3, 1);
+                    gridPane.add(new Label("  Khoang 6"), 16, 0, 3, 1);
+                    gridPane.add(new Label("  Khoang 7"), 19, 0, 3, 1);
+                    // Số thứ tự ghế như hình (theo hàng từ T1 đến T2 và các khoang 1-4)
+                    for (int row = 0; row < 2; row++) {
+                        for (int col = 0; col < 14; col++) {
+                            int seatNumber = seatNumbers2[row][col];
+                            Button seatButton = new Button(String.valueOf(seatNumber));
+                            for (ChoNgoi cn : dscn) {
+                                if(cn.getSttCho() == seatNumber) {
+                                    seatButton.setId(cn.getMaChoNgoi());
+                                }
+                            }
+                            seatButton.setMinSize(30, 30);
+                            ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
+
+                            if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
+                                seatButton.setStyle(styleGiuongDaDat);
+                            } else {
+                                seatButton.setStyle(styleGiuong);
+                            }
+
+                            // Thêm nút vào GridPane (với col/2 để tạo khoảng trống giữa các khoang)
+                            gridPane.add(seatButton, col + (col / 2) + 1, row + 1);
+
+                            for (ChiTietLichTrinh ctlt : dsctlt) {
+                                if (ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId())) {
+                                    seatButton.setStyle(styleGiuongDaChon);
+                                }
+                            }
+                            seatButton.setOnMouseClicked(event -> {
+                                if (seatButton.getStyle().contains("green")) {
+                                    seatButton.setStyle(styleGiuong);
+                                    dsctlt.removeIf(ctlt -> ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId()));
+                                    dsctltkh.removeIf(ctlt -> ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId()));
+                                    dsttcn = FXCollections.observableList(dsctlt);
+                                    tbTTCN.setItems(dsttcn);
+                                } else if (seatButton.getStyle().contains("red")) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("Lỗi");
+                                    alert.setHeaderText(null);
+                                    alert.setContentText("Ghế đã được đặt");
+                                    alert.show();
+                                } else {
+                                    seatButton.setStyle(styleGiuongDaChon);
+                                    dsctlt.add(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId()));
+                                    if (btnChonKH.isDisable()) {
+                                        dsctltkh.add(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId()));
+                                    }
+                                    dsttcn = FXCollections.observableList(dsctlt);
+                                    tbTTCN.setItems(dsttcn);
+                                    tbTTCN.refresh();
+                                }
+                                if (!dsctlt.isEmpty()) {
+                                    btnXoaAllCN.setDisable(false);
+                                } else {
+                                    btnXoaAllCN.setDisable(true);
+                                }
+                            });
+                        }
+                    }
+                } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("GNK6")) {
+
+                    gridPane.add(new Label("T3"), 0, 1);
+                    gridPane.add(new Label("T2"), 0, 2);
+                    gridPane.add(new Label("T1"), 0, 3);
+                    gridPane.add(new Label("  Khoang 1"), 1, 0, 3, 1);
+                    gridPane.add(new Label("  Khoang 2"), 4, 0, 3, 1);
+                    gridPane.add(new Label("  Khoang 3"), 7, 0, 3, 1);
+                    gridPane.add(new Label("  Khoang 4"), 10, 0, 3, 1);
+                    gridPane.add(new Label("  Khoang 5"), 13, 0, 3, 1);
+                    gridPane.add(new Label("  Khoang 6"), 16, 0, 3, 1);
+                    gridPane.add(new Label("  Khoang 7"), 19, 0, 3, 1);
+                    // Số thứ tự ghế như hình (theo hàng từ T1 đến T3 và các khoang 1-7)
+                    int[][] seatNumbers = {
+                            {5, 6, 11, 12, 17, 18, 23, 24, 29, 30, 35, 36, 41, 42},
+                            {3, 4, 9, 10, 15, 16, 21, 22, 27, 28, 33, 34, 39, 40},
+                            {1, 2, 7, 8, 13, 14, 19, 20, 25, 26, 31, 32, 37, 38}
+                    };
+
+                    // Tạo giao diện
+                    for (int row = 0; row < 3; row++) {
+                        for (int col = 0; col < 14; col++) {
+                            int seatNumber = seatNumbers[row][col];
+                            Button seatButton = new Button(String.valueOf(seatNumber));
+                            for (ChoNgoi cn : dscn) {
+                                if(cn.getSttCho() == seatNumber) {
+                                    seatButton.setId(cn.getMaChoNgoi());
+                                }
+                            }
+                            seatButton.setMinSize(30, 30);
+                            // Kiểm tra trạng thái của ghế
+                            ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
+
+                            if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
+                                seatButton.setStyle(styleGiuongDaDat);
+                            } else {
+                                seatButton.setStyle(styleGiuong);
+                            }
+
+                            // Thêm nút vào GridPane (với col/2 để tạo khoảng trống giữa các khoang)
+                            gridPane.add(seatButton, col + (col / 2) + 1, row + 1);
+
+                            for (ChiTietLichTrinh ctlt : dsctlt) {
+                                if (ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId())) {
+                                    seatButton.setStyle(styleGiuongDaChon);
+                                }
+                            }
+                            seatButton.setOnMouseClicked(event -> {
+                                if (seatButton.getStyle().contains("green")) {
+                                    seatButton.setStyle(styleGiuong);
+                                    dsctlt.removeIf(ctlt -> ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId()));
+                                    dsctltkh.removeIf(ctlt -> ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId()));
+                                    dsttcn = FXCollections.observableList(dsctlt);
+                                    tbTTCN.setItems(dsttcn);
+                                } else if (seatButton.getStyle().contains("red")) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("Lỗi");
+                                    alert.setHeaderText(null);
+                                    alert.setContentText("Ghế đã được đặt");
+                                    alert.show();
+                                } else {
+                                    seatButton.setStyle(styleGiuongDaChon);
+                                    dsctlt.add(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId()));
+                                    if (btnChonKH.isDisable()) {
+                                        dsctltkh.add(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId()));
+                                    }
+                                    dsttcn = FXCollections.observableList(dsctlt);
+                                    tbTTCN.setItems(dsttcn);
+                                    tbTTCN.refresh();
+                                }
+                                if (!dsctlt.isEmpty()) {
+                                    btnXoaAllCN.setDisable(false);
+                                } else {
+                                    btnXoaAllCN.setDisable(true);
+                                }
+                            });
+                        }
+                    }
+                } else if (toa.getLoaiToa().getMaLoaiToa().equalsIgnoreCase("TVIP")) {
+                    int[][] seatNumbers2 = {
+                            {2, 4, 6, 8, 10, 12, 14},
+                            {1, 3, 5, 7, 9, 11, 13}
+                    };
+
+                    // Ghế đã được đặt (màu đỏ) và ghế còn trống (màu trắng hoặc xanh)
+
+                    gridPane.add(new Label("  Khoang 1"), 1, 0);
+                    gridPane.add(new Label("  Khoang 2"), 2, 0);
+                    gridPane.add(new Label("  Khoang 3"), 3, 0);
+                    gridPane.add(new Label("  Khoang 4"), 4, 0);
+                    gridPane.add(new Label("  Khoang 5"), 5, 0);
+                    gridPane.add(new Label("  Khoang 6"), 6, 0);
+                    gridPane.add(new Label("  Khoang 7"), 7, 0);
+                    // Số thứ tự ghế như hình (theo hàng từ T1 đến T2 và các khoang 1-4)
+                    for (int row = 0; row < 2; row++) {
+                        for (int col = 0; col < 7; col++) {
+                            int seatNumber = seatNumbers2[row][col];
+                            Button seatButton = new Button(String.valueOf(seatNumber));
+                            for (ChoNgoi cn : dscn) {
+                                if(cn.getSttCho() == seatNumber) {
+                                    seatButton.setId(cn.getMaChoNgoi());
+                                }
+                            }
+                            seatButton.setMinSize(30, 30); // Kích thước nút ghế
+                            // Kiểm tra trạng thái của ghế
+                            ChoNgoi choNgoi = cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber);
+
+                            if (!ctlt_dao.getTrangThaiCN(lt.getMaLichTrinh(), choNgoi.getMaChoNgoi())) {
+                                seatButton.setStyle(styleGiuongDaDat);
+                            } else {
+                                seatButton.setStyle(styleGiuong);
+                            }
+                            gridPane.add(seatButton, col + 1, row + 1);
+
+                            for (ChiTietLichTrinh ctlt : dsctlt) {
+                                if (ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId())) {
+                                    seatButton.setStyle(styleGiuongDaChon);
+                                }
+                            }
+                            seatButton.setOnMouseClicked(event -> {
+                                if (seatButton.getStyle().contains("green")) {
+                                    seatButton.setStyle(styleGiuong);
+                                    dsctlt.removeIf(ctlt -> ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId()));
+                                    dsctltkh.removeIf(ctlt -> ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId()));
+                                    dsttcn = FXCollections.observableList(dsctlt);
+                                    tbTTCN.setItems(dsttcn);
+                                } else if (seatButton.getStyle().contains("red")) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("Lỗi");
+                                    alert.setHeaderText(null);
+                                    alert.setContentText("Ghế đã được đặt");
+                                    alert.show();
+                                } else {
+                                    seatButton.setStyle(styleGiuongDaChon);
+                                    dsctlt.add(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId()));
+                                    if (btnChonKH.isDisable()) {
+                                        dsctltkh.add(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId()));
+                                    }
+                                    dsttcn = FXCollections.observableList(dsctlt);
+                                    tbTTCN.setItems(dsttcn);
+                                    tbTTCN.refresh();
+                                }
+                                if (!dsctlt.isEmpty()) {
+                                    btnXoaAllCN.setDisable(false);
+                                } else {
+                                    btnXoaAllCN.setDisable(true);
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+            imageView.setCursor(Cursor.HAND);
+            paneImg.getChildren().add(imageView);
+            Label lbl = new Label(toa.getSoSTToa() + "");
+            lbl.setLayoutX(20);
+            lbl.setLayoutY(30);
+            lbl.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 10));
+            paneImg.getChildren().add(lbl);
+
+            grTrain.getChildren().add(paneImg);
+        }
+        if (!btnChonKH.isDisable()) {
+            ImageView imageView1 = new ImageView("file:src/main/resources/img/train.png");
+            imageView1.setFitHeight(25);
+            imageView1.setFitWidth(50);
+            Label lbl = new Label(lt.getChuyenTau().getSoHieutau());
+            lbl.setLayoutX(15);
+            lbl.setLayoutY(30);
+            lbl.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 10));
+            Pane paneImg = new Pane();
+            paneImg.getChildren().add(imageView1);
+            paneImg.getChildren().add(lbl);
+            grTrain.getChildren().add(paneImg);
+        }
+        //get toa có stt1
+        ImageView imageView = (ImageView) grTrain.lookup("#" + dstoa.stream().filter(toa -> toa.getSoSTToa() == 1).findFirst().get().getMaToa());
+        imageView.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true, true, true, true, true, true, true, null));
     }
 }
