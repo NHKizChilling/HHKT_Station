@@ -88,11 +88,8 @@ public class Ve_DAO {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
             PreparedStatement stm = null;
-            String sql = "Select * from Ve where MaKH = ? and MaSoCho = ? and MaLichTrinh = ? and TinhTrangVe = 'DaBan'";
+            String sql = "Select TOP 1 * from Ve where TinhTrangVe = 'DaBan' ORDER BY MaVe DESC";   // Lấy vé cuối cùng đã bán
             stm = con.prepareStatement(sql);
-            stm.setString(1, ve.getHanhKhach().getMaKH());
-            stm.setString(2, ve.getCtlt().getChoNgoi().getMaChoNgoi());
-            stm.setString(3, ve.getCtlt().getLichTrinh().getMaLichTrinh());
 
             ResultSet rs = stm.executeQuery();
 
@@ -128,7 +125,7 @@ public class Ve_DAO {
         try {
             String sql = "Insert into Ve(MaKH, MaSoCho, MaLichTrinh, MaLoaiVe, TenHK, SoCCCD, NgaySinh, TinhTrangVe, KhuHoi) values(?,?,?,?,?,?,?,?,?)";
             stm = con.prepareStatement(sql);
-            stm.setString(1, ve.getHanhKhach().getMaKH());
+            stm.setString(1, ve.getKhachHang().getMaKH());
             stm.setString(2, ve.getCtlt().getChoNgoi().getMaChoNgoi());
             stm.setString(3, ve.getCtlt().getLichTrinh().getMaLichTrinh());
             stm.setString(4, ve.getLoaiVe().getMaLoaiVe());
@@ -172,7 +169,7 @@ public class Ve_DAO {
             stm = con.prepareStatement("update Ve set MaLoaiVe = ?, MaKH = ?, MaSoCho = ?, MaLichTrinh = ?, TenHK =?, SoCCCD = ?, NgaySinh = ?, TinhTrangVe = ?, KhuHoi = ? where MaVe = ?");
 
             stm.setString(1, ve.getLoaiVe().getMaLoaiVe());
-            stm.setString(2, ve.getHanhKhach().getMaKH());
+            stm.setString(2, ve.getKhachHang().getMaKH());
             stm.setString(3, ve.getCtlt().getChoNgoi().getMaChoNgoi());
             stm.setString(4, ve.getCtlt().getLichTrinh().getMaLichTrinh());
             stm.setString(5, ve.getTenHanhKhach());
@@ -230,11 +227,10 @@ public class Ve_DAO {
 
     public ArrayList<Ve> getDSVeTheoMaKH(String maKH) {
         ArrayList<Ve> list = new ArrayList<>();
-
+        PreparedStatement stm = null;
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            PreparedStatement stm = null;
             String sql = "Select * from Ve where MaKH = ?";
             stm = con.prepareStatement(sql);
             stm.setString(1, maKH);

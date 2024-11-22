@@ -18,9 +18,11 @@ import java.util.ArrayList;
 public class getData {
     public static NhanVien nv;
     public static HoaDon hd;
-    public static KhachHang hk;
+    public static KhachHang kh;
     public static LichTrinh lt;
     public static LichTrinh ltkh;
     public static ArrayList<Ve> dsve;
+    public static ArrayList<ChiTietLichTrinh> dsctlt;
+    public static ArrayList<ChiTietLichTrinh> dsctltkh;
     public static ArrayList<ChiTietHoaDon> dscthd;
 }
