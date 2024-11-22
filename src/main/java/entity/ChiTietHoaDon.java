@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.Objects;
+
 public class ChiTietHoaDon {
     private HoaDon hoaDon;
     private Ve ve;
@@ -9,6 +11,9 @@ public class ChiTietHoaDon {
 
     public HoaDon getHoaDon() {
         return hoaDon;
+    }
+
+    public ChiTietHoaDon() {
     }
 
     public ChiTietHoaDon(HoaDon hoaDon, Ve ve) {
@@ -88,5 +93,17 @@ public class ChiTietHoaDon {
             }
         }
         this.giaGiam = Math.round(giaGiam/1000) * 1000;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ChiTietHoaDon that = (ChiTietHoaDon) o;
+        return Objects.equals(hoaDon, that.hoaDon) && Objects.equals(ve, that.ve);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hoaDon, ve);
     }
 }
