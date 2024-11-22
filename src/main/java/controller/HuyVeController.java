@@ -229,7 +229,7 @@ public class HuyVeController implements Initializable {
         tbl_thongTinVe.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 Ve ve = tbl_thongTinVe.getSelectionModel().getSelectedItem();
-                String maHKTmp = ve.getKhachHang().getMaKH();
+                String maHKTmp = ve.getHanhKhach().getMaKH();
                 KhachHang hk = khach_Hang_dao.getKhachHangTheoMaKH(maHKTmp);
                 txt_maHK.setText(hk.getMaKH());
                 txt_email.setText(hk.getEmail());
@@ -294,7 +294,7 @@ public class HuyVeController implements Initializable {
         ObservableList<Ve> data = FXCollections.observableArrayList(listVe);
         tbl_thongTinVe.setItems(data);
         col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));
-        col_maKH.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKhachHang().getMaKH()));
+        col_maKH.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getHanhKhach().getMaKH()));
         col_thongTinVe.setCellValueFactory(p -> {
             Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
             LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
