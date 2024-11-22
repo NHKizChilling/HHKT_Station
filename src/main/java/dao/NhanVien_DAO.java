@@ -42,7 +42,7 @@ public class NhanVien_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("insert into NhanVien values(?,?,?,?,?,?,?,?,?)");
+            stm = con.prepareStatement("insert into NhanVien(HoTenNV, SoCCCD, NgaySinh, GioiTinh, SDT, Email, ChucVu, TinhTrangCV) values(?,?,?,?,?,?,?,?)");
 
             stm.setString(1, nv.getMaNhanVien());
             stm.setString(2, nv.getTenNhanVien());
