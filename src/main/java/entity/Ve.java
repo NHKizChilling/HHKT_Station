@@ -23,7 +23,7 @@ public class Ve {
 
     public Ve(KhachHang khachHang, ChiTietLichTrinh ctlt, LoaiVe loaiVe, String tenHanhKhach,
               String soCCCD, LocalDate ngaySinh, String tinhTrangVe, boolean khuHoi) {
-        setHanhKhach(khachHang);
+        setKhachHang(khachHang);
         setCtlt(ctlt);
         setLoaiVe(loaiVe);
         setTenHanhKhach(tenHanhKhach);
@@ -70,11 +70,11 @@ public class Ve {
         this.loaiVe = loaiVe;
     }
 
-    public KhachHang getHanhKhach() {
+    public KhachHang getKhachHang() {
         return khachHang;
     }
 
-    public void setHanhKhach(KhachHang khachHang) {
+    public void setKhachHang(KhachHang khachHang) {
         this.khachHang = khachHang;
     }
 

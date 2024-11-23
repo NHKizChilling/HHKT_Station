@@ -195,7 +195,7 @@ public class NhanVienController implements Initializable {
             String maNV = "NV" + (Integer.parseInt(maNVcuoi.substring(2)) + 1);
 
             if (invalidInput(tenNV, cccd, dob, sdt, chucVu)) return;
-            NhanVien nv = new NhanVien(tenNV, cccd, dob, gioiTinh, sdt, email, chucVu, tinhTrangCV);
+            NhanVien nv = new NhanVien(maNV, tenNV, cccd, dob, gioiTinh, sdt, email, chucVu, tinhTrangCV);
             if (nhanVien_dao.create(nv)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Thành công");

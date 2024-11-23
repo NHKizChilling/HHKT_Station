@@ -342,7 +342,7 @@ public class KhachHangController implements Initializable {
         ObservableList<Ve> data = FXCollections.observableArrayList(list);
         tbl_thongTinVe.setItems(data);
         col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));
-        col_maKH.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getHanhKhach().getMaKH()));
+        col_maKH.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKhachHang().getMaKH()));
         col_thongTinVe.setCellValueFactory(p -> {
             Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
             LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
