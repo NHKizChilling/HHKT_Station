@@ -17,7 +17,7 @@ public class ThongKe_GUI extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("thong-ke-doanh-thu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("thong-ke.fxml"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
