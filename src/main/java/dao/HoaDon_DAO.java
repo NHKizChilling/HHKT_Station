@@ -248,6 +248,51 @@ public class HoaDon_DAO {
         return n > 0;
     }
 
+    public ArrayList<HoaDon> getDSHDTheoNam(String nam) {
+        ArrayList<HoaDon> list = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            PreparedStatement stm;
+            String sql = "Select * from HoaDon where YEAR(NgayLapHoaDon) = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, nam);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                HoaDon hoaDon = getInfo(rs);
+
+                list.add(hoaDon);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public ArrayList<HoaDon> getDSHDTheoThang(String nam, String thang) {
+        ArrayList<HoaDon> list = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            PreparedStatement stm;
+            String sql = "Select * from HoaDon where YEAR(NgayLapHoaDon) = ? and MONTH(NgayLapHoaDon) = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, nam);
+            stm.setString(2, thang);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                HoaDon hoaDon = getInfo(rs);
+
+                list.add(hoaDon);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public ArrayList<HoaDon> getDSHDTheoNgay(LocalDateTime ngayLap) {
         ArrayList<HoaDon> list = new ArrayList<>();
         try {

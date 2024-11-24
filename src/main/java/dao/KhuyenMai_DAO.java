@@ -17,7 +17,6 @@ public class KhuyenMai_DAO {
     }
 
     public void themKhuyenMai() {
-
     }
 
     public void suaKhuyenMai() {
@@ -65,6 +64,44 @@ public class KhuyenMai_DAO {
             e.printStackTrace();
         }
         return km;
+    }
+
+    public ArrayList<KhuyenMai> getKMTheoNgay(LocalDate ngay) {
+        ArrayList<KhuyenMai> list = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from KhuyenMai where ? between ngayApDung and ngayHetHan";
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setDate(1, java.sql.Date.valueOf(ngay));
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                KhuyenMai km = getInfo(rs);
+                list.add(km);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public ArrayList<KhuyenMai> getKMTheoTrangThai(boolean trangThai) {
+        ArrayList<KhuyenMai> list = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from KhuyenMai where trangThai = ?";
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setBoolean(1, trangThai);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                KhuyenMai km = getInfo(rs);
+                list.add(km);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public KhuyenMai getKMGiamCaoNhat() {
@@ -117,6 +154,7 @@ public class KhuyenMai_DAO {
             stm.setFloat(4, km.getMucKM());
             stm.setBoolean(5, km.isTrangThai());
             stm.setString(6, km.getMaKM());
+
             n = stm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

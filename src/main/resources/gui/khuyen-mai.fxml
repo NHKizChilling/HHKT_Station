@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1384.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.KhuyenMaiController">
+   <children>
+      <AnchorPane layoutX="16.0" layoutY="318.0" prefHeight="398.0" prefWidth="942.0" styleClass="shadow">
+         <children>
+            <TableView fx:id="tbl_khuyenMai" layoutY="-15.0" prefHeight="416.0" prefWidth="942.0" style="-fx-background-color: #fff; -fx-background-radius: 5; -fx-border-radius: 5;" stylesheets="@dashboardDesign.css">
+               <columns>
+                  <TableColumn fx:id="col_maKM" prefWidth="120.0" text="Mã khuyến mãi" />
+                  <TableColumn fx:id="col_moTa" prefWidth="285.0" text="Mô tả" />
+                  <TableColumn fx:id="col_mucGiam" minWidth="0.0" prefWidth="100.0" text="\% giảm" />
+                  <TableColumn fx:id="col_batDau" minWidth="3.0" prefWidth="150.0" text="Ngày bắt đầu" />
+                  <TableColumn fx:id="col_ketThuc" minWidth="2.0" prefWidth="150.0" text="Ngày kết thúc" />
+                  <TableColumn fx:id="col_trangThai" minWidth="3.0" prefWidth="135.0" text="Trạng thái" />
+               </columns>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <styleClass>
+                  <String fx:value="shadow" />
+                  <String fx:value="table-view" />
+               </styleClass>
+            </TableView>
+         </children>
+      </AnchorPane>
+      <Line endX="840.7999877929688" layoutX="116.0" layoutY="287.0" startX="-100.0" />
+      <Line endX="-87.79998779296875" endY="736.4000244140625" layoutX="1057.0" layoutY="12.0" startX="-87.79998779296875" startY="-6.799996852874756" />
+      <TextField fx:id="txt_searchMaKM" layoutX="237.0" layoutY="79.0" prefHeight="35.0" prefWidth="397.0" styleClass="shadow" stylesheets="@dashboardDesign.css">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextField>
+      <Button fx:id="btn_search" alignment="CENTER_RIGHT" layoutX="906.0" layoutY="233.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="51.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Tìm">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Label layoutX="384.0" layoutY="23.0" prefHeight="30.0" prefWidth="205.0" stylesheets="@dashboardDesign.css" text="TÌM KIẾM THÔNG TIN">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <styleClass>
+            <String fx:value="label-info" />
+            <String fx:value="shadow" />
+         </styleClass>
+      </Label>
+      <Pane layoutX="970.0" layoutY="23.0" prefHeight="710.0" prefWidth="397.0" style="-fx-background-color: #fff;" styleClass="shadow" stylesheets="@dashboardDesign.css">
+         <children>
+            <Label layoutX="152.0" layoutY="2.0" prefHeight="25.0" prefWidth="135.0" stylesheets="@dashboardDesign.css" text="THÔNG TIN">
+               <font>
+                  <Font name="Times New Roman Bold" size="20.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="label-info" />
+                  <String fx:value="shadow" />
+               </styleClass>
+            </Label>
+            <Label layoutX="23.0" layoutY="56.0" prefHeight="35.0" prefWidth="112.0" text="Mã khuyến mãi">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <TextField fx:id="txt_maKM" disable="true" layoutX="152.0" layoutY="56.0" prefHeight="35.0" prefWidth="228.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <Button fx:id="btn_clear" alignment="CENTER_RIGHT" layoutX="33.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="85.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Xóa trắng" textFill="#151515">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="btn_update" alignment="CENTER_RIGHT" layoutX="167.0" layoutY="660.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Cập nhật">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="btn_add" alignment="CENTER_RIGHT" layoutX="305.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="64.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Thêm">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <FontAwesomeIcon glyphName="PLUS_CIRCLE" layoutX="314.0" layoutY="682.0" />
+            <FontAwesomeIcon glyphName="EDIT" layoutX="174.0" layoutY="681.0" />
+            <FontAwesomeIcon glyphName="REMOVE" layoutX="40.0" layoutY="682.0" />
+            <Label layoutX="23.0" layoutY="113.0" prefHeight="35.0" prefWidth="78.0" text="Mức giảm">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cb_mucGiam" layoutX="152.0" layoutY="113.0" prefHeight="35.0" prefWidth="161.0" />
+            <DatePicker fx:id="dp_ngayBatDau" layoutX="152.0" layoutY="173.0" prefHeight="35.0" prefWidth="161.0" />
+            <Label layoutX="23.0" layoutY="180.0" text="Ngày bắt đầu">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="dp_ngayKetThuc" layoutX="152.0" layoutY="232.0" prefHeight="35.0" prefWidth="161.0" />
+            <Label layoutX="23.0" layoutY="239.0" text="Ngày kết thúc">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="23.0" layoutY="291.0" prefHeight="35.0" prefWidth="78.0" text="Trạng thái">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cb_trangThai" layoutX="152.0" layoutY="291.0" prefHeight="35.0" prefWidth="161.0" />
+            <Label layoutX="24.0" layoutY="347.0" prefHeight="35.0" prefWidth="51.0" text="Mô tả">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="txt_moTa" layoutX="152.0" layoutY="355.0" prefHeight="130.0" prefWidth="228.0" />
+         </children>
+      </Pane>
+      <Button fx:id="btn_reset" alignment="CENTER_RIGHT" layoutX="821.0" layoutY="233.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Làm mới">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <FontAwesomeIcon disable="true" glyphName="SEARCH" layoutX="912.0" layoutY="255.0" />
+      <FontAwesomeIcon glyphName="REFRESH" layoutX="828.0" layoutY="254.0" />
+      <DatePicker fx:id="dp_searchNgayBatDau" layoutX="237.0" layoutY="162.0" prefHeight="35.0" prefWidth="186.0" />
+      <Label layoutX="52.0" layoutY="83.0" text="Mã khuyến mãi:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="52.0" layoutY="166.0" text="Ngày áp dụng:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="486.0" layoutY="162.0" prefHeight="35.0" prefWidth="85.0" text="Trạng thái:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cb_searchTrangThai" layoutX="671.0" layoutY="162.0" prefHeight="35.0" prefWidth="186.0" />
+   </children>
+</AnchorPane>
