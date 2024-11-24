@@ -191,7 +191,7 @@ public class TrangChuController implements Initializable {
     @FXML
     protected void onBtnTKClick() {
         try {
-            FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("thong-ke.fxml"));
+            FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("thong-ke-doanh-thu.fxml"));
             double width = paneMain.getWidth();
             double height = paneMain.getHeight();
             paneMain.getChildren().clear();

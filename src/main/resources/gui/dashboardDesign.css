@@ -178,3 +178,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-border-radius:4px;
     -fx-padding:0px 0px 0px 8px;
 }
+
+.text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #cccccc transparent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+
+.text-field:hover {
+    -fx-border-color: transparent transparent #00aaff transparent; /* Màu xanh khi hover */
+}
+
+.pane {
+    -fx-background-color: #f0f0f0;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
