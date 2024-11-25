@@ -29,6 +29,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /*
@@ -333,7 +334,7 @@ public class HoaDonController implements Initializable {
                 hd.tinhTongGiamGia(dscthd);
                 tongTien = hd.getTongTien();
                 tongGiamGia = hd.getTongGiamGia();
-                txtThanhTien.setText(df.format(Math.round(tongTien / 1000) * 1000));
+                //txtThanhTien.setText(df.format(Math.round(tongTien / 1000) * 1000));
                 goiYGia();
             }
         });
@@ -422,6 +423,10 @@ public class HoaDonController implements Initializable {
             }
         });
 
+        txtTienKH.setOnAction(e -> {
+            goiYGia();
+        });
+
         btnInHD.setOnAction(event -> {
             PrintPDF printPDF = new PrintPDF();
             try {
@@ -477,24 +482,17 @@ public class HoaDonController implements Initializable {
 
     private void goiYGia() {
         if (!txtThanhTien.getText().isEmpty() && txtTienKH.getText() != null) {
-            double t = tongTien/1000;
-            t = Math.round(t);
-            btnGia1.setText(t * 1000 + "");
-            if (t % 10 < 5) {
-                btnGia2.setText((t + 5) * 1000 + "");
-            } else {
-                btnGia2.setText((t + 10) * 1000 + "");
-            }
-            if (t % 10 < 5) {
-                btnGia3.setText((t + 10) * 1000 + "");
-            } else {
-                btnGia3.setText((t + 15) * 1000 + "");
-            }
-            if (t % 10 < 5) {
-                btnGia4.setText((t + 15) * 1000 + "");
-            } else {
-                btnGia4.setText((t + 20) * 1000 + "");
-            }
+            // gợi ý giá như sau:
+            // btn1: gợi ý đúng giá thành tiền
+            // btn2: gợi ý giá dựa vào số được nhập trong txtTienKH * 10000
+            // btn3: gợi ý giá dựa vào số được nhập trong txtTienKH * 100000
+            // btn4: gợi ý giá dựa vào số được nhập trong txtTienKH * 1000000
+            int tienKH = Integer.parseInt(txtTienKH.getText());
+            NumberFormat df = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+            btnGia1.setText(df.format(Math.round(tongTien / 1000) * 1000));
+            btnGia2.setText(df.format(tienKH * 10000L));
+            btnGia3.setText(df.format(tienKH * 100000L));
+            btnGia4.setText(df.format(tienKH * 1000000L));
         }
     }
 
