@@ -84,6 +84,25 @@ public class KhuyenMai_DAO {
         return km;
     }
 
+    public ArrayList<KhuyenMai> getKMTheoNgay(LocalDate ngay) {
+        ArrayList<KhuyenMai> list = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from KhuyenMai where ? between ngayApDung and ngayHetHan";
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setDate(1, java.sql.Date.valueOf(ngay));
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                KhuyenMai km = getInfo(rs);
+                list.add(km);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public boolean themKhuyenMai(KhuyenMai km) {
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
