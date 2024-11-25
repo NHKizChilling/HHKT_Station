@@ -115,7 +115,7 @@ public class HuyVeController implements Initializable {
 
     // Gọi DAO
     private Ve_DAO ve_dao;
-    private HanhKhach_DAO hanhKhach_dao;
+    private KhachHang_DAO hanhKhach_dao;
     private CT_HoaDon_DAO ct_hoaDon_dao;
     private HoaDon_DAO hoaDon_dao;
     private LichTrinh_DAO lichTrinh_dao;
@@ -217,8 +217,8 @@ public class HuyVeController implements Initializable {
             } else {
                 renderTable(listVe);
                 lbl_thongBao.setText("");
-                HanhKhach kh = hanhKhach_dao.getHanhKhachTheoMa(hoaDon.getHanhKhach().getMaHanhKhach());
-                txt_tenNguoiDat.setText(kh.getTenHanhKhach());
+                KhachHang kh = hanhKhach_dao.getKhachHangTheoMaKH(hoaDon.getKhachHang().getMaKH());
+                txt_tenNguoiDat.setText(kh.getTenKH());
                 txt_email.setText(kh.getEmail());
                 txt_sdt.setText(kh.getSdt());
                 txt_cccd.setText(kh.getSoCCCD());
@@ -360,8 +360,8 @@ public class HuyVeController implements Initializable {
 
         // col thông tin hành khách chứa TenHK, cccd, sdt
         col_thongTinHK.setCellValueFactory(p -> {
-            HanhKhach kh = hanhKhach_dao.getHanhKhachTheoMa(p.getValue().getHanhKhach().getMaHanhKhach());
-            return new SimpleStringProperty(kh.getTenHanhKhach() + " \n " + "CCCD/CMND: " + kh.getSoCCCD() + " \n " + "SĐT: " + kh.getSdt());
+            KhachHang kh = hanhKhach_dao.getKhachHangTheoMaKH(p.getValue().getKhachHang().getMaKH());
+            return new SimpleStringProperty(kh.getTenKH() + " \n " + "CCCD/CMND: " + kh.getSoCCCD() + " \n " + "SĐT: " + kh.getSdt());
         });
 
         col_thongTinVe.setCellValueFactory(p -> {
@@ -409,7 +409,7 @@ public class HuyVeController implements Initializable {
 
     private void initDAO() {
         ve_dao = new Ve_DAO();
-        hanhKhach_dao = new HanhKhach_DAO();
+        hanhKhach_dao = new KhachHang_DAO();
         loaiVe_dao = new LoaiVe_DAO();
         ct_hoaDon_dao = new CT_HoaDon_DAO();
         hoaDon_dao = new HoaDon_DAO();
