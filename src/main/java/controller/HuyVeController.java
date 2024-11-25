@@ -1,38 +1,39 @@
 package controller;
 
+import com.github.sarxos.webcam.Webcam;
+import com.google.zxing.*;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
 import dao.*;
 import entity.*;
-<<<<<<< Updated upstream
-=======
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
->>>>>>> Stashed changes
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-<<<<<<< Updated upstream
-=======
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
->>>>>>> Stashed changes
 
+import java.awt.image.BufferedImage;
 import java.net.URL;
-<<<<<<< Updated upstream
-=======
 import java.text.NumberFormat;
->>>>>>> Stashed changes
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class HuyVeController implements Initializable {
 
@@ -50,58 +51,29 @@ public class HuyVeController implements Initializable {
     private Button btn_search;
 
     @FXML
-<<<<<<< Updated upstream
-=======
     private Button btnQuetMaVe;
 
     // Table thông tin vé
     @FXML
->>>>>>> Stashed changes
     private TableView<Ve> tbl_thongTinVe;
 
     @FXML
     private TableColumn<Ve, String> col_maVe;
 
     @FXML
-<<<<<<< Updated upstream
-    private TableColumn<Ve, String> col_maHK;
-=======
     private TableColumn<Ve, String> col_thongTinHK;
->>>>>>> Stashed changes
 
     @FXML
     private TableColumn<Ve, String> col_tinhTrangVe;
 
     @FXML
-<<<<<<< Updated upstream
-    private TableColumn<Ve, String> col_khuHoi;
-
-    @FXML
-    private TableColumn<Ve, String> col_maSoCho;
-
-    @FXML
-    private TableColumn<Ve, String> col_maLichTrinh;
-
-    @FXML
-    private TableColumn<Ve, LocalDate> col_dob;
-=======
     private TableColumn<Ve, String> col_thongTinVe;
 
     @FXML
     private TableColumn<Ve, String> col_giaVe;
->>>>>>> Stashed changes
 
     @FXML
     private TableColumn<Ve, Boolean> col_chonVe;
-
-<<<<<<< Updated upstream
-    @FXML
-    private TableColumn<Ve, String> col_cccd;
-
-    @FXML
-    private Button btn_huyVe;
-=======
->>>>>>> Stashed changes
 
     // Box Thông tin người đặt vé
     @FXML
@@ -154,21 +126,9 @@ public class HuyVeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-<<<<<<< Updated upstream
-        ve_dao = new Ve_DAO();
-        hanhKhach_dao = new HanhKhach_DAO();
-        ct_hoaDon_dao = new CT_HoaDon_DAO();
-        hoaDon_dao = new HoaDon_DAO();
-        lichTrinh_dao = new LichTrinh_DAO();
-=======
->>>>>>> Stashed changes
 
         initDAO();
 
-<<<<<<< Updated upstream
-        cb_search.getItems().addAll("Mã hành khách", "Số CCCD", "Số điện thoại");
-
-=======
         ArrayList<Ve> selectedVe = new ArrayList<>();
 
         cb_search.getItems().addAll("Mã hóa đơn", "Mã vé");
@@ -227,7 +187,6 @@ public class HuyVeController implements Initializable {
 
         });
 
->>>>>>> Stashed changes
         btn_search.setOnAction(e -> {
             String key = txt_search.getText();
             if (key.isBlank()) {
@@ -253,22 +212,17 @@ public class HuyVeController implements Initializable {
                     }
                 }
             }
-<<<<<<< Updated upstream
-            ArrayList<Ve> listVe = ve_dao.getDSVeTheoMaHK(search);
-            renderTable(listVe);
-=======
             if (listVe.isEmpty()) {
                 lbl_thongBao.setText("Không tìm thấy vé hoặc hóa đơn");
             } else {
                 renderTable(listVe);
                 lbl_thongBao.setText("");
-                KhachHang kh = khach_Hang_dao.getKhachHangTheoMaKH(hoaDon.getKhachHang().getMaKH());
-                txt_tenNguoiDat.setText(kh.getTenKH());
+                HanhKhach kh = hanhKhach_dao.getHanhKhachTheoMa(hoaDon.getHanhKhach().getMaHanhKhach());
+                txt_tenNguoiDat.setText(kh.getTenHanhKhach());
                 txt_email.setText(kh.getEmail());
                 txt_sdt.setText(kh.getSdt());
                 txt_cccd.setText(kh.getSoCCCD());
             }
->>>>>>> Stashed changes
         });
 
         btn_lamMoi.setOnAction(e -> {
@@ -285,18 +239,6 @@ public class HuyVeController implements Initializable {
             lbl_thongBao.setText("");
         });
 
-<<<<<<< Updated upstream
-        tbl_thongTinVe.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                Ve ve = tbl_thongTinVe.getSelectionModel().getSelectedItem();
-                String maHKTmp = ve.getHanhKhach().getMaHanhKhach();
-                HanhKhach hk = hanhKhach_dao.getHanhKhachTheoMa(maHKTmp);
-                txt_maHK.setText(hk.getMaHanhKhach());
-                txt_email.setText(hk.getEmail());
-                txt_sdt.setText(hk.getSdt());
-                txt_cccd.setText(hk.getSoCCCD());
-                txt_tenHK.setText(hk.getTenHanhKhach());
-=======
         // Thêm các vé đã được chọn trong checkbox vào selectedVe
         tbl_thongTinVe.setRowFactory(tv -> {
             TableRow<Ve> row = new TableRow<>();
@@ -309,7 +251,6 @@ public class HuyVeController implements Initializable {
             });
             return row;
         });
->>>>>>> Stashed changes
 
         btn_yeuCau.setOnAction(e -> {
             if (selectedVe.isEmpty()) { // Nếu không chọn vé nào
@@ -363,35 +304,8 @@ public class HuyVeController implements Initializable {
             // Tính tổng tiền vé và lệ phí
             for (Ve ve : dsVeHuy) { // Duyệt qua danh sách vé cần hủy đã lọc các vé đã đổi ra
                 ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
-<<<<<<< Updated upstream
-                HoaDon hd = hoaDon_dao.getHoaDonTheoMa(ctHoaDon.getHoaDon().getMaHoaDon());
-
-                // lấy giá vé
-                txt_giaVe.setText(String.valueOf(ctHoaDon.getGiaVe()));
-
-                LocalDateTime ngayLap = hd.getNgayLapHoaDon();
-                // ngày theo format dd/MM/yyyy HH:mm
-                txt_ngayLap.setText(ngayLap.getDayOfMonth() + "/" + ngayLap.getMonthValue() + "/" + ngayLap.getYear() + " " + ngayLap.getHour() + ":" + ngayLap.getMinute());
-
-                LichTrinh lt = lichTrinh_dao.getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
-                txt_gaDi.setText(lt.getGaDi().getTenGa());
-                txt_gaDen.setText(lt.getGaDen().getTenGa());
-
-                LocalDateTime tgKhoiHanh = lt.getThoiGianKhoiHanh();
-                LocalDateTime now = LocalDateTime.now();
-
-                // nếu trả trước 4h thì hủy được, chiết khấu là 20%
-                if (tgKhoiHanh.isAfter(now) && tgKhoiHanh.plusHours(4).isAfter(now)) {
-                    txt_chietKhau.setText("20%");
-                    txt_hoanTien.setText(String.valueOf(ctHoaDon.getGiaVe() * 0.8));
-                    isHuy = true;
-                } else {
-                    label_thongBao.setText("Vé không thể hủy");
-                }
-=======
                 tongTienVe += ctHoaDon.getGiaVe();
                 tongLePhi += ctHoaDon.getGiaVe() * phanTram;
->>>>>>> Stashed changes
             }
 
             for (Ve ve : dsVeDaDoi) {
@@ -409,31 +323,10 @@ public class HuyVeController implements Initializable {
             btn_xacNhan.setDisable(false);
         });
 
-<<<<<<< Updated upstream
-        btn_huyVe.setOnAction(e -> {
-            if (isHuy) {
-                Ve ve = tbl_thongTinVe.getSelectionModel().getSelectedItem();
-                if (ve != null) {
-                    boolean result = ve_dao.updateTinhTrangVe(ve.getMaVe(), "Đã hủy");
-                    if (result) {
-                        label_thongBao.setText("Hủy vé thành công");
-                        isHuy = false;
-                    } else {
-                        label_thongBao.setText("Hủy vé thất bại");
-                    }
-                } else {
-                    label_thongBao.setText("Vui lòng chọn vé cần hủy");
-                }
-            } else if (txt_maHK.getText().isEmpty()) {
-                label_thongBao.setText("Vui lòng chọn vé cần hủy");
-            } else {
-                label_thongBao.setText("Vé không thể hủy");
-=======
         btn_xacNhan.setOnAction(e -> {
             if (selectedVe.isEmpty()) {
                 lbl_thongBao.setText("Vui lòng chọn vé cần hủy");
                 return;
->>>>>>> Stashed changes
             }
             lbl_thongBao.setText("");
             for (Ve ve : selectedVe) {
@@ -464,21 +357,11 @@ public class HuyVeController implements Initializable {
         ObservableList<Ve> list = FXCollections.observableArrayList(listVe);
         tbl_thongTinVe.setItems(list);
         col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));
-<<<<<<< Updated upstream
-        col_maHK.setCellValueFactory(new PropertyValueFactory<>("maHK"));
-        col_maSoCho.setCellValueFactory(new PropertyValueFactory<>("maSoCho"));
-        col_maLichTrinh.setCellValueFactory(new PropertyValueFactory<>("maLT"));
-        col_tinhTrangVe.setCellValueFactory(new PropertyValueFactory<>("tinhTrangVe"));
-        col_khuHoi.setCellValueFactory(new PropertyValueFactory<>("khuHoi"));
-        col_dob.setCellValueFactory(new PropertyValueFactory<>("ngaySinh"));
-        col_tenHK.setCellValueFactory(new PropertyValueFactory<>("tenHK"));
-        col_cccd.setCellValueFactory(new PropertyValueFactory<>("soCCCD"));
-=======
 
         // col thông tin hành khách chứa TenHK, cccd, sdt
         col_thongTinHK.setCellValueFactory(p -> {
-            KhachHang kh = khach_Hang_dao.getKhachHangTheoMaKH(p.getValue().getHanhKhach().getMaKH());
-            return new SimpleStringProperty(kh.getTenKH() + " \n " + "CCCD/CMND: " + kh.getSoCCCD() + " \n " + "SĐT: " + kh.getSdt());
+            HanhKhach kh = hanhKhach_dao.getHanhKhachTheoMa(p.getValue().getHanhKhach().getMaHanhKhach());
+            return new SimpleStringProperty(kh.getTenHanhKhach() + " \n " + "CCCD/CMND: " + kh.getSoCCCD() + " \n " + "SĐT: " + kh.getSdt());
         });
 
         col_thongTinVe.setCellValueFactory(p -> {
@@ -522,12 +405,11 @@ public class HuyVeController implements Initializable {
             // Không tìm thấy mã vạch trong ảnh
             return null;
         }
->>>>>>> Stashed changes
     }
 
     private void initDAO() {
         ve_dao = new Ve_DAO();
-        khach_Hang_dao = new KhachHang_DAO();
+        hanhKhach_dao = new HanhKhach_DAO();
         loaiVe_dao = new LoaiVe_DAO();
         ct_hoaDon_dao = new CT_HoaDon_DAO();
         hoaDon_dao = new HoaDon_DAO();

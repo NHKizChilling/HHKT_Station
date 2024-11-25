@@ -55,8 +55,6 @@ public class LichTrinh_DAO {
         return lichTrinh;
     }
 
-<<<<<<< Updated upstream
-=======
     public ArrayList<LichTrinh> getDSLichTrinhTheoTrangThai(boolean trangThai) {
         ArrayList<LichTrinh> dslt = new ArrayList<>();
         PreparedStatement stm = null;
@@ -98,7 +96,6 @@ public class LichTrinh_DAO {
         return dslt;
     }
 
->>>>>>> Stashed changes
     public ArrayList<LichTrinh> traCuuDSLichTrinh(String MaGaDi, String MaGaDen, LocalDate ngayDi) {
         ArrayList<LichTrinh> dslt = new ArrayList<>();
         PreparedStatement stm = null;
