@@ -20,6 +20,15 @@ public class LichTrinh {
         setMaLichTrinh(maLichTrinh);
     }
 
+    public LichTrinh(ChuyenTau chuyenTau, Ga gaDi, Ga gaDen, LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
+        this.chuyenTau = chuyenTau;
+        this.gaDi = gaDi;
+        this.gaDen = gaDen;
+        this.thoiGianKhoiHanh = thoiGianKhoiHanh;
+        this.thoiGianDuKienDen = thoiGianDuKienDen;
+        this.tinhTrang = tinhTrang;
+    }
+
     public LichTrinh(String maLichTrinh, ChuyenTau chuyenTau, Ga gaDi, Ga gaDen, LocalDateTime thoiGianKhoiHanh, LocalDateTime thoiGianDuKienDen, boolean tinhTrang) {
         setMaLichTrinh(maLichTrinh);
         setChuyenTau(chuyenTau);
@@ -48,6 +57,9 @@ public class LichTrinh {
 
     public void setMaLichTrinh(String maLichTrinh) {
         if (maLichTrinh == null || maLichTrinh.isBlank()) {
+            throw new IllegalArgumentException("Mã lịch trình không hợp lệ");
+        }
+        if (!maLichTrinh.matches("^LT[0-9A-Z]{3,4}\\d{6}[A-Z]{4,6}$")) {
             throw new IllegalArgumentException("Mã lịch trình không hợp lệ");
         }
         this.maLichTrinh = maLichTrinh;

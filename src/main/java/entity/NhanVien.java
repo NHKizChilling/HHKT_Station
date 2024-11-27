@@ -84,9 +84,9 @@ public class NhanVien {
         if (tenNhanVien == null || tenNhanVien.isBlank()) {
             throw new IllegalArgumentException("Tên nhân viên không được để trống");
         }
-//        if (!tenNhanVien.matches("^[A-Z][a-z]+(\s[A-Z][a-z]+)*$")) {
-//            throw new IllegalArgumentException("Tên nhân viên không hợp lệ");
-//        }
+        if (!tenNhanVien.matches("^[A-Z][a-zàáảãạâấầẩẫậêếềểễệôốồổỗộơớờởỡợõưũữíìĩịýỳỹỷ]+(\\s[A-Z][a-zàáảãạâấầẩẫậêếềểễệôốồổỗộơớờởỡợõũưữíìĩịýỳỹỷ]+)*$")){
+            throw new IllegalArgumentException("Tên nhân viên không hợp lệ");
+        }
         this.tenNhanVien = tenNhanVien;
     }
 
@@ -146,12 +146,9 @@ public class NhanVien {
             this.email = "";
             return;
         }
-//        else {
-//            if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
-//                throw new IllegalArgumentException("Email không hợp lệ");
-//            }
-//            this.email = email;
-//        }
+        if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+            throw new IllegalArgumentException("Email không hợp lệ");
+        }
         this.email = email;
     }
     public String getTinhTrangCV() {
@@ -163,9 +160,9 @@ public class NhanVien {
             throw new IllegalArgumentException("Tình trạng công việc không được để trống");
         }
         // gồm 3 trạng thái: "Đang làm việc", "Đã nghỉ việc", "Tạm nghỉ"
-//        if (!tinhTrangCV.equals("Đang làm việc") && !tinhTrangCV.equals("Đã nghỉ việc") && !tinhTrangCV.equals("Tạm nghỉ")) {
-//            throw new IllegalArgumentException("Tình trạng công việc không hợp lệ");
-//        }
+        if (!tinhTrangCV.equals("Đang làm") && !tinhTrangCV.equals("Đã nghỉ") && !tinhTrangCV.equals("Tạm nghỉ")) {
+            throw new IllegalArgumentException("Tình trạng công việc không hợp lệ");
+        }
         this.tinhTrangCV = tinhTrangCV;
     }
 

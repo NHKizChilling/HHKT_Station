@@ -43,23 +43,21 @@ public class ChuyenTau_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from ChuyenTau where SoHieutau = ?";
+            String sql = "SELECT * FROM ChuyenTau WHERE SoHieuTau = ?";
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setString(1, soHieuTau);
+            stm.setString(1, soHieuTau); // Thiết lập tham số
 
-            ResultSet rs = stm.executeQuery(sql);
+            ResultSet rs = stm.executeQuery(); // Không truyền lại SQL
 
             if (rs.next()) {
-                LoaiTau loaiTau = new LoaiTau(rs.getString(2));
-
+                LoaiTau loaiTau = new LoaiTau(rs.getString(2)); // Giả định LoaiTau chỉ có 1 tham số
                 chuyenTau = new ChuyenTau(soHieuTau, loaiTau);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // In lỗi
         }
         return chuyenTau;
     }
-
 
     public boolean create(ChuyenTau chuyenTau) {
         ConnectDB.getInstance();

@@ -120,6 +120,26 @@ public class LichTrinh_DAO {
         return dslt;
     }
 
+    public ArrayList<LichTrinh> traCuuDSLichTrinhSauNgayHienTai() {
+        ArrayList<LichTrinh> dslt = new ArrayList<>();
+        PreparedStatement stm = null;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from LichTrinh where ThoiGianKhoiHanh > ?";
+            stm = con.prepareStatement(sql);
+            stm.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                LichTrinh lt = getInfo(rs);
+                dslt.add(lt);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dslt;
+    }
+
     public ArrayList<LichTrinh> traCuuDSLichTrinhTheoNgay(LocalDate ngayDi) {
         ArrayList<LichTrinh> dslt = new ArrayList<>();
         PreparedStatement stm = null;
@@ -197,6 +217,29 @@ public class LichTrinh_DAO {
         return n > 0;
     }
 
+    public boolean update(LichTrinh lichTrinh) {
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        int n = 0;
+        PreparedStatement stm = null;
+        try {
+            String sql = "update LichTrinh set SoHieuTau = ?, MaGaDi = ?, MaGaDen = ?, ThoiGianKhoiHanh = ?, ThoiGianDuKienDen = ?, TrangThai = ? where MaLichTrinh = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, lichTrinh.getChuyenTau().getSoHieutau());
+            stm.setString(2, lichTrinh.getGaDi().getMaGa());
+            stm.setString(3, lichTrinh.getGaDen().getMaGa());
+            stm.setTimestamp(4, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianKhoiHanh()));
+            stm.setTimestamp(5, java.sql.Timestamp.valueOf(lichTrinh.getThoiGianDuKienDen()));
+            stm.setBoolean(6, lichTrinh.isTinhTrang());
+            stm.setString(7, lichTrinh.getMaLichTrinh());
+
+            n = stm.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
+    }
+
     public boolean updateInfo(LichTrinh lichTrinh) {
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
@@ -223,8 +266,8 @@ public class LichTrinh_DAO {
     public boolean create(LichTrinh lichTrinh) {
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
+        PreparedStatement stm = null;
         int n = 0;
-        PreparedStatement stm;
         try {
             String sql = "insert into LichTrinh values(?,?,?,?,?,?,?)";
             stm = con.prepareStatement(sql);
