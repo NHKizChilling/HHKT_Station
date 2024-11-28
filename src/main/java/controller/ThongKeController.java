@@ -262,15 +262,16 @@ public class ThongKeController implements Initializable {
     }
 
     private void renderChart(String year) {
-        double tongDoanhThu = 0;
-        int tongVeBan = 0;
+        double tongDoanhThu = 100;
+        int tongVeBan = 100;
 
         // Lấy danh sách hóa đơn theo năm
         ArrayList<HoaDon> listHoaDon = hoaDon_dao.getDSHDTheoNam(year);
         // Lặp qua từng hóa đơn để lấy chi tiết hóa đơn
         for (HoaDon hoaDon : listHoaDon) {
             // Lấy chi tiết hóa đơn theo mã hóa đơn
-            for (ChiTietHoaDon cthd : ctHoaDon_dao.getCT_HoaDon(hoaDon.getMaHoaDon())) {
+            String maHoaDon = hoaDon.getMaHoaDon();
+            for (ChiTietHoaDon cthd : ctHoaDon_dao.getCT_HoaDon(maHoaDon)) {
                 // Tính tổng vé bán
                 Ve ve = ve_dao.getVeTheoID(cthd.getVe().getMaVe());
                 if (ve.getTinhTrangVe().equals("DaBan") || ve.getTinhTrangVe().equals("DaDoi")) {
@@ -279,10 +280,10 @@ public class ThongKeController implements Initializable {
             }
             // Tính tổng doanh thu
             tongDoanhThu += hoaDon.getTongTien();
-
-            lbl_tongDoanhThu.setText(String.format("%,.2f", tongDoanhThu) + " VNĐ");
-            lbl_tongVeBan.setText(tongVeBan + " Vé");
         }
+
+        lbl_tongDoanhThu.setText(String.format("%,.2f", tongDoanhThu) + " VNĐ");
+        lbl_tongVeBan.setText(tongVeBan + " Vé");
 
         // tạo BarChart với cột X là tháng, cột Y là doanh thu
         XYChart.Series<String, Number> set = new XYChart.Series<>();

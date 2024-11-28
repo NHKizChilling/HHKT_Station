@@ -376,17 +376,16 @@ public class TrangChuController implements Initializable {
 
     @FXML
     protected void onBtnTKClick() {
+        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("tab-thong-ke.fxml"));
+        double width = paneMain.getWidth();
+        double height = paneMain.getHeight();
+        paneMain.getChildren().clear();
         try {
-            FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("thong-ke.fxml"));
-            double width = paneMain.getWidth();
-            double height = paneMain.getHeight();
-            paneMain.getChildren().clear();
             paneMain.getChildren().add(loader.load());
-            paneMain.setPrefSize(width, height);
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        paneMain.setPrefSize(width, height);
     }
 
     @FXML

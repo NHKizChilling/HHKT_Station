@@ -179,7 +179,6 @@ public class ThongKeNVController implements Initializable {
             String tenGaDen = ga_dao.getGaTheoMaGa(maGaDen).getTenGa();
             // thêm tên chuyến tàu vào map với value là 0
             mapChuyenTau.put(tenGaDen, 0);
-
             for (ChiTietLichTrinh ctlt : dsCTLT) {
                 if (ctlt.isTrangThai()) {
                     mapChuyenTau.put(tenGaDen, mapChuyenTau.get(tenGaDen) + 1);
