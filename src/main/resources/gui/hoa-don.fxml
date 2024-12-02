@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="988.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HoaDonController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="988.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HoaDonController">
    <children>
       <BorderPane prefHeight="700.0" prefWidth="988.0">
          <center>
@@ -23,7 +23,7 @@
                <top>
                   <AnchorPane fx:id="acpTTHD" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="988.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
                      <children>
-                        <Label layoutX="435.0" text="HÓA ĐƠN">
+                        <Label layoutX="390.0" layoutY="6.0" text="HÓA ĐƠN BÁN VÉ">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -126,15 +126,15 @@
                   </AnchorPane>
                </top>
                <bottom>
-                  <AnchorPane prefHeight="178.0" prefWidth="988.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="988.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
                      <children>
-                        <Label layoutX="14.0" layoutY="42.0" text="Thành tiền                                :">
+                        <Label layoutX="14.0" layoutY="44.0" text="Thành tiền                                :">
                            <font>
                               <Font name="Times New Roman" size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtThanhTien" disable="true" layoutX="15.0" layoutY="63.0" prefHeight="36.0" prefWidth="190.0" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-width: 0 0 2 0;" />
-                        <Line endX="855.0" layoutX="117.0" layoutY="14.0" startX="-100.0" />
+                        <TextField fx:id="txtThanhTien" disable="true" layoutX="15.0" layoutY="65.0" prefHeight="36.0" prefWidth="190.0" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-width: 0 0 2 0;" />
+                        <Line endX="855.0" layoutX="116.0" layoutY="20.0" startX="-100.0" />
                         <Label layoutX="423.0" layoutY="42.0" text="Tiền khách đưa:">
                            <font>
                               <Font name="Times New Roman" size="18.0" />
@@ -144,28 +144,28 @@
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor></TextField>
-                        <Button fx:id="btnGia4" layoutX="873.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="1000000">
+                        <Button fx:id="btnGia4" layoutX="873.0" layoutY="86.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="1000000">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <font>
                               <Font name="Times New Roman" size="12.0" />
                            </font></Button>
-                        <Button fx:id="btnGia3" cache="true" layoutX="765.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="500000">
+                        <Button fx:id="btnGia3" cache="true" layoutX="765.0" layoutY="86.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="500000">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <font>
                               <Font name="Times New Roman" size="12.0" />
                            </font></Button>
-                        <Button fx:id="btnGia2" layoutX="873.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="200000">
+                        <Button fx:id="btnGia2" layoutX="873.0" layoutY="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="200000">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <font>
                               <Font name="Times New Roman" size="12.0" />
                            </font></Button>
-                        <Button fx:id="btnGia1" layoutX="765.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="100000">
+                        <Button fx:id="btnGia1" layoutX="765.0" layoutY="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="100000">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -178,12 +178,12 @@
                            </font>
                         </Label>
                         <TextField fx:id="txtTienTra" disable="true" layoutX="556.0" layoutY="72.0" prefHeight="36.0" prefWidth="190.0" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-width: 0 0 2 0;" />
-                        <Label layoutX="17.0" text="* Thành tiền vé đã bao gồm phí bảo hiểm ( 2.000 đ)">
+                        <Label layoutX="16.0" layoutY="6.0" text="* Thành tiền vé đã bao gồm phí bảo hiểm ( 2.000 đ)">
                            <font>
                               <Font name="Times New Roman Italic" size="12.0" />
                            </font>
                         </Label>
-                        <Label layoutX="94.0" layoutY="46.0" text="(đã bao gồm thuế GTGT (10%)">
+                        <Label layoutX="94.0" layoutY="48.0" text="(đã bao gồm thuế GTGT (10%)">
                            <font>
                               <Font name="Times New Roman Italic" size="11.0" />
                            </font>
@@ -228,11 +228,11 @@
                   </AnchorPane>
                </bottom>
                <center>
-                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="988.0" style="-fx-background-color: #fff; -fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="988.0" style="-fx-background-color: #fff; -fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
                      <children>
-                        <BorderPane prefHeight="302.0" prefWidth="986.0" style="-fx-background-color: #fff;">
+                        <BorderPane prefHeight="200.0" prefWidth="986.0" style="-fx-background-color: #fff;">
                            <center>
-                              <TableView fx:id="tbCTHD" prefHeight="260.0" prefWidth="986.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css">
+                              <TableView fx:id="tbCTHD" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="986.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css">
                                 <columns>
                                   <TableColumn fx:id="colSTT" prefWidth="42.39999461174011" text="STT" />
                                   <TableColumn fx:id="colTTVe" prefWidth="237.60001754760742" text="Thông tin vé" />
@@ -250,11 +250,27 @@
                            <top>
                               <AnchorPane style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Line endX="887.9999389648438" layoutY="12.5" startX="-100.0" />
+                                    <Line endX="985.0" layoutY="12.5" startX="-100.0" />
                                     <Label layoutX="12.5" prefHeight="27.0" prefWidth="160.0" style="-fx-background-color: #fff; -fx-font-family: Times New Roman; -fx-font-size: 18; -fx-font-weight: bold;" text="  Chi tiết hóa đơn  " />
                                  </children>
                               </AnchorPane>
                            </top>
+                           <bottom>
+                              <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="986.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <ComboBox fx:id="cbKM" layoutX="124.0" layoutY="4.0" prefHeight="21.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" visibleRowCount="5">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ComboBox>
+                                    <Label layoutX="36.0" layoutY="7.0" text="Khuyến mãi">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </bottom>
                         </BorderPane>
                      </children>
                   </AnchorPane>

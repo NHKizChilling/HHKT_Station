@@ -303,7 +303,7 @@
       </AnchorPane>
       <AnchorPane fx:id="acpTTVe" layoutX="902.0" prefHeight="755.0" prefWidth="485.0" style="-fx-background-color: #5098ff; -fx-border-radius: 10; -fx-border-color: #333; -fx-border-width: 0 0 0 3;">
          <children>
-            <AnchorPane fx:id="acpTTKH" layoutY="455.0" prefHeight="300.0" prefWidth="485.0">
+            <AnchorPane fx:id="acpTTKH" disable="true" layoutY="455.0" prefHeight="300.0" prefWidth="485.0">
                <children>
                   <Label layoutX="14.0" layoutY="8.0" text="Thông tin khách hàng mua vé" textFill="#483f3f">
                      <font>

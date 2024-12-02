@@ -127,6 +127,9 @@ public class HoaDonController implements Initializable {
     @FXML
     private Button btnGia4;
 
+    @FXML
+    private ComboBox<String> cbKM;
+
 
     private LichTrinh_DAO lt_dao = new LichTrinh_DAO();
     private ChoNgoi_DAO cn_dao = new ChoNgoi_DAO();
@@ -136,7 +139,6 @@ public class HoaDonController implements Initializable {
     private ArrayList<Ve> dsve;
     private ArrayList<ChiTietHoaDon> dscthd;
     private double tongTien = 0;
-    private double tongGiamGia = 0;
     private ArrayList<KhuyenMai> dsKM;
     private KhuyenMai_DAO km_dao = new KhuyenMai_DAO();
     private ArrayList<ChiTietLichTrinh> dsctlt;
@@ -145,12 +147,19 @@ public class HoaDonController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        dsKM = km_dao.getAllKM();
+        dsKM = km_dao.getKMHienCo();
+        if (!dsKM.isEmpty()) {
+            dsKM.forEach(km -> cbKM.getItems().add(km.getMoTa()));
+        } else {
+            cbKM.setPromptText("Không có khuyến mãi");
+            cbKM.setDisable(true);
+        }
         NumberFormat df = DecimalFormat.getCurrencyInstance();
         NhanVien nhanVien = getData.nv;
         HoaDon hd = getData.hd;
         KhuyenMai km = km_dao.getKMGiamCaoNhat();
         hd.setKhuyenMai(km);
+        cbKM.setValue(km.getMoTa());
         txtMaNV.setText(nhanVien.getMaNhanVien());
         txtTenNV.setText(nhanVien.getTenNhanVien());
         txtMaHD.setText(getData.hd.getMaHoaDon());
@@ -221,7 +230,6 @@ public class HoaDonController implements Initializable {
             hd.tinhTongTien(dscthd);
             hd.tinhTongGiamGia(dscthd);
             tongTien = hd.getTongTien();
-            tongGiamGia = hd.getTongGiamGia();
             txtThanhTien.setText(df.format(Math.round(tongTien / 1000) * 1000));
             goiYGia();
             chonGiaGoiY(df);
@@ -328,11 +336,10 @@ public class HoaDonController implements Initializable {
                 btnHoanTat.setDisable(true);
                 btnLamMoi.setDisable(true);
                 acpTTHD.getChildren().remove(paneCTVe);
-                acpTTHD.setPrefHeight(80);
+                acpTTHD.setPrefHeight(70);
                 hd.tinhTongTien(dscthd);
                 hd.tinhTongGiamGia(dscthd);
                 tongTien = hd.getTongTien();
-                tongGiamGia = hd.getTongGiamGia();
                 txtThanhTien.setText(df.format(Math.round(tongTien / 1000) * 1000));
                 goiYGia();
             }
@@ -341,6 +348,14 @@ public class HoaDonController implements Initializable {
 
         chonGiaGoiY(df);
 
+        cbKM.setOnAction(e -> {
+            hd.setKhuyenMai(dsKM.get(cbKM.getSelectionModel().getSelectedIndex()));
+            hd.tinhTongTien(dscthd);
+            hd.tinhTongGiamGia(dscthd);
+            tongTien = hd.getTongTien();
+            txtThanhTien.setText(df.format(Math.round(tongTien / 1000) * 1000));
+            goiYGia();
+        });
 
         btnLuuTamHD.setOnAction(event -> {
             ArrayList<HoaDon> temp_invoices = new HoaDon_DAO().getDSHDLuuTam().stream().filter(h -> !h.getNgayLapHoaDon().plusMinutes(15).isAfter(LocalDateTime.now())).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
@@ -576,6 +591,7 @@ public class HoaDonController implements Initializable {
         dpNgaySinh.setValue(null);
         cbLoaiVe.setValue(null);
         cbLoaiVe.setPromptText("Chọn loại vé");
+
         txtTenHK.requestFocus();
     }
 }
