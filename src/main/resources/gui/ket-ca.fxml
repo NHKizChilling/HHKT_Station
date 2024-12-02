@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="725.0" prefWidth="1002.0" style="-fx-background-radius: 20 20 20 20;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.KetCa">
+<AnchorPane prefHeight="725.0" prefWidth="1002.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.KetCaController">
    <children>
       <BorderPane prefHeight="700.0" prefWidth="1000.0" style="-fx-border-radius: 10 10 10 10;">
          <top>
@@ -20,7 +19,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="112.0" layoutY="59.0" text="*">
+                  <Label fx:id="lbl_gioMoCa" layoutX="112.0" layoutY="59.0" text="*">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -30,7 +29,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="397.0" layoutY="59.0" text="*">
+                  <Label fx:id="lbl_tenNV" layoutX="397.0" layoutY="59.0" text="*">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -47,7 +46,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="756.0" layoutY="22.0" text="*" textFill="#008be8">
+                        <Label fx:id="lbl_tienDauCa" layoutX="756.0" layoutY="22.0" text="*" textFill="#008be8">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -56,14 +55,9 @@
                   </AnchorPane>
                   <Pane layoutY="-1.0" prefHeight="49.0" prefWidth="1002.0" style="-fx-background-color: #2E67F8; -fx-background-radius: 5 5 5 5;">
                      <children>
-                        <Label layoutX="14.0" layoutY="10.0" text="Đóng ca làm việc:" textFill="#fffefe">
+                        <Label layoutX="14.0" layoutY="10.0" text="Đóng ca làm việc" textFill="#fffefe">
                            <font>
                               <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="178.0" layoutY="10.0" text="*" textFill="#fffefe">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
                      </children>
@@ -86,7 +80,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="756.0" layoutY="-1.0" text="*" textFill="#008be8">
+                        <Label fx:id="lbl_tienCuoiCa" layoutX="756.0" layoutY="-1.0" text="*" textFill="#008be8">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -101,7 +95,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="45.0" layoutY="71.0" prefHeight="25.0" prefWidth="217.0">
+                        <TextField fx:id="txt_tienMatThu" layoutX="45.0" layoutY="71.0" prefHeight="25.0" prefWidth="217.0">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -111,7 +105,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="373.0" layoutY="71.0" prefHeight="25.0" prefWidth="217.0">
+                        <TextField fx:id="txt_tienChenhLech" layoutX="373.0" layoutY="71.0" prefHeight="25.0" prefWidth="217.0">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -121,23 +115,28 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="675.0" layoutY="71.0" prefHeight="25.0" prefWidth="217.0" promptText="Nhập ghi chú">
+                        <TextField fx:id="txt_ghiChu" layoutX="675.0" layoutY="71.0" prefHeight="25.0" prefWidth="217.0" promptText="Nhập ghi chú">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </TextField>
                      </children>
                   </AnchorPane>
-                  <Button layoutX="615.0" layoutY="165.0" mnemonicParsing="false" style="-fx-background-radius: 10 10 10 10;" text="Đóng ca" textFill="#4e5eeb" textOverrun="WORD_ELLIPSIS">
+                  <Button fx:id="btn_dongCa" layoutX="615.0" layoutY="165.0" mnemonicParsing="false" style="-fx-background-radius: 10 10 10 10;" text="Đóng ca" textFill="#4e5eeb" textOverrun="WORD_ELLIPSIS">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button layoutX="725.0" layoutY="165.0" mnemonicParsing="false" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #2E67F8;" text="Đóng ca và in phiếu bàn giao" textFill="#fcfcfc">
+                  <Button fx:id="btn_inPhieu" layoutX="725.0" layoutY="165.0" mnemonicParsing="false" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #2E67F8;" text="Đóng ca và in phiếu bàn giao" textFill="#fcfcfc">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
+                  <Label fx:id="lbl_thongBao" layoutX="20.0" layoutY="171.0" text="Label" textFill="RED">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </bottom>
@@ -156,7 +155,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="756.0" layoutY="8.0" text="*" textFill="#008be8">
+                        <Label fx:id="lbl_tienTrongCa" layoutX="756.0" layoutY="8.0" text="*" textFill="#008be8">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -168,7 +167,7 @@
                                     <Font name="System Bold Italic" size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="75.0" layoutY="2.0" text="*">
+                              <Label fx:id="lbl_soVeBan" layoutX="75.0" layoutY="2.0" text="*">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -183,7 +182,7 @@
                                     <Font name="System Bold Italic" size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="75.0" layoutY="66.0" text="*">
+                              <Label fx:id="lbl_soVeHuy" layoutX="75.0" layoutY="66.0" text="*">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -198,7 +197,7 @@
                                     <Font name="System Bold Italic" size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="75.0" layoutY="130.0" text="*">
+                              <Label fx:id="lbl_soVeDoi" layoutX="75.0" layoutY="130.0" text="*">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -213,22 +212,22 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="100.0" layoutY="34.0" text="*">
+                              <Label fx:id="lbl_tienBanVe" layoutX="100.0" layoutY="34.0" text="*">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="100.0" layoutY="98.0" text="*">
+                              <Label fx:id="lbl_tienTraVe" layoutX="100.0" layoutY="98.0" text="*">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="100.0" layoutY="162.0" text="*">
+                              <Label fx:id="lbl_tienTraVeDoi" layoutX="100.0" layoutY="162.0" text="*">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="100.0" layoutY="196.0" text="*">
+                              <Label fx:id="lbl_tienThuVeDoi" layoutX="100.0" layoutY="196.0" text="*">
                                  <font>
                                     <Font size="16.0" />
                                  </font>

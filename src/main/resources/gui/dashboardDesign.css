@@ -93,14 +93,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-font-family:"Arial";
 }
 
-.textfield{
+.text-field{
     -fx-background-color:linear-gradient(to bottom, #efefef, #eee);
     -fx-border-color:linear-gradient(to bottom right, #272b3f, #256b51);
     -fx-border-width:.8px;
     -fx-font-family:"Tahoma";
     -fx-border-radius:4px;
 }
-.textfield:focused{
+.text-field:focused{
     -fx-border-width:1.8px;
     -fx-background-color:#fff;
 }
@@ -177,4 +177,47 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-border-color:linear-gradient(to bottom right, #272b3f, #256b51);
     -fx-border-radius:4px;
     -fx-padding:0px 0px 0px 8px;
+}
+
+.pane {
+    -fx-background-color: #f3f3f3;
+    -fx-border-color: #000;
+    -fx-border-width: 0.4px 0.4px 0.2px 0.4px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.tbl_col{
+    -fx-alignment:CENTER;
+    -fx-font-size: 14px;
+}
+
+.txt_info {
+    -fx-background-color: #f3f3f3;
+    -fx-border-color: #000;
+    -fx-border-width: 0.4px 0.4px 0.2px 0.4px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-font-size: 14px;
+}
+
+.btn_yeuCau{
+    -fx-background-color: #219a6a;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #fff;
+    -fx-font-size: 18px;
+    -fx-font-family: "Arial";
+    -fx-cursor: hand;
+}
+
+.btn_xacNhan{
+    -fx-background-color: #5f99f3;
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-family: "Arial";
+    -fx-cursor: hand;
+    -fx-border-radius: 10px;
+    -fx-border-color: #000;
+    -fx-border-width: 2px;
 }

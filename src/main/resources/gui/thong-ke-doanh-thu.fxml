@@ -15,11 +15,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1024.0" style="-fx-background-color: #ffffff;" styleClass="parent" stylesheets="@thongKe.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ThongKeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1384.0" style="-fx-background-color: #ffffff;" styleClass="parent" stylesheets="@thongKe.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ThongKeController">
    <center>
       <AnchorPane prefHeight="175.0" prefWidth="250.0" style="-fx-background-color: #f3f3f3;" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutX="50.0" prefHeight="250.0" prefWidth="850.0" styleClass="pane" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0">
+            <VBox layoutX="50.0" prefHeight="249.0" prefWidth="1304.0" styleClass="pane" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0">
                <children>
                   <HBox>
                      <children>
@@ -28,7 +28,7 @@
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                            </padding>
                            <font>
-                              <Font name="Calibri Bold" size="16.0" />
+                              <Font name="Calibri Bold" size="24.0" />
                            </font>
                         </Label>
                         <Separator orientation="VERTICAL">
@@ -38,28 +38,28 @@
                         </Separator>
                         <Label layoutX="10.0" layoutY="10.0" text="Thống kê theo" textFill="#4c4c4e">
                            <padding>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="20.0" />
                            </padding>
                            <font>
-                              <Font name="Calibri Bold" size="16.0" />
+                              <Font name="Calibri Bold" size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cb_thongKe" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <ComboBox fx:id="cb_thongKe" prefHeight="30.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                            </HBox.margin>
                         </ComboBox>
-                        <ComboBox fx:id="cb_nam" layoutX="247.0" layoutY="25.0" prefHeight="25.0" prefWidth="100.0" promptText="Năm">
+                        <ComboBox fx:id="cb_nam" layoutX="247.0" layoutY="25.0" prefHeight="30.0" prefWidth="100.0" promptText="Năm">
                            <HBox.margin>
-                              <Insets bottom="15.0" left="65.0" right="15.0" top="15.0" />
+                              <Insets bottom="15.0" left="350.0" right="15.0" top="15.0" />
                            </HBox.margin>
                         </ComboBox>
-                        <ComboBox fx:id="cb_thang" layoutX="412.0" layoutY="10.0" prefHeight="25.0" prefWidth="100.0" promptText="Tháng">
+                        <ComboBox fx:id="cb_thang" layoutX="412.0" layoutY="10.0" prefHeight="30.0" prefWidth="100.0" promptText="Tháng">
                            <HBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                            </HBox.margin>
                         </ComboBox>
-                        <ComboBox fx:id="cb_ngay" layoutX="562.0" layoutY="10.0" prefWidth="100.0" promptText="Ngày">
+                        <ComboBox fx:id="cb_ngay" layoutX="562.0" layoutY="10.0" prefHeight="30.0" prefWidth="100.0" promptText="Ngày">
                            <HBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                            </HBox.margin>
@@ -76,47 +76,43 @@
                            </font>
                         </Button>
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets bottom="30.0" top="10.0" />
                      </VBox.margin>
                      <children>
-                        <VBox>
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" styleClass="banVe_card">
                            <children>
-                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="200.0" styleClass="banVe_card">
-                                 <VBox.margin>
-                                    <Insets left="15.0" />
-                                 </VBox.margin>
-                                 <children>
-                                    <Label layoutX="10.0" layoutY="14.0" text="Tổng số vé đã bán" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="14.0">
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Calibri Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="lbl_soVeBan" layoutX="34.0" layoutY="63.0" text="100 Vé" textFill="WHITE">
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Calibri Bold" size="36.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
+                              <Label layoutX="10.0" layoutY="14.0" text="Tổng số vé đã bán" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="14.0">
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Calibri Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbl_soVeBan" layoutX="34.0" layoutY="63.0" text="100 Vé" textFill="WHITE">
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Calibri Bold" size="36.0" />
+                                 </font>
+                              </Label>
                            </children>
-                        </VBox>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="200.0" styleClass="huyVe_card">
+                        </AnchorPane>
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" styleClass="huyVe_card">
                            <children>
                               <Label layoutX="14.0" layoutY="14.0" text="Tổng số vé đã trả" textFill="WHITE" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
                                  <padding>
                                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                  </padding>
                                  <font>
-                                    <Font name="Calibri Bold" size="20.0" />
+                                    <Font name="Calibri Bold" size="24.0" />
                                  </font>
                               </Label>
                               <Label fx:id="lbl_soVeTra" layoutX="34.0" layoutY="63.0" text="100 Vé" textFill="WHITE">
@@ -129,17 +125,17 @@
                               </Label>
                            </children>
                            <HBox.margin>
-                              <Insets left="15.0" />
+                              <Insets left="50.0" />
                            </HBox.margin>
                         </AnchorPane>
-                        <AnchorPane layoutX="295.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="200.0" styleClass="doiVe_card">
+                        <AnchorPane layoutX="295.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" styleClass="doiVe_card">
                            <children>
                               <Label layoutX="12.0" layoutY="14.0" text="Tổng số vé đã đổi" textFill="#4c4c4c" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0">
                                  <padding>
                                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                  </padding>
                                  <font>
-                                    <Font name="Calibri Bold" size="20.0" />
+                                    <Font name="Calibri Bold" size="24.0" />
                                  </font>
                               </Label>
                               <Label fx:id="lbl_soVeDoi" layoutX="34.0" layoutY="63.0" text="100 Vé" textFill="#4c4c4c">
@@ -152,17 +148,17 @@
                               </Label>
                            </children>
                            <HBox.margin>
-                              <Insets left="15.0" />
+                              <Insets left="50.0" />
                            </HBox.margin>
                         </AnchorPane>
                         <Separator orientation="VERTICAL" prefHeight="200.0">
                            <HBox.margin>
-                              <Insets left="15.0" right="15.0" />
+                              <Insets left="50.0" right="15.0" />
                            </HBox.margin>
                         </Separator>
                         <VBox prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <padding>
-                              <Insets top="15.0" />
+                              <Insets left="50.0" top="15.0" />
                            </padding>
                            <children>
                               <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
@@ -172,48 +168,54 @@
                                           <FontAwesomeIcon fill="#2b49b3" glyphName="SORT_DOWN" selectionEnd="0" size="1.3em" textAlignment="CENTER" />
                                        </graphic>
                                        <font>
-                                          <Font name="System Bold" size="20.0" />
+                                          <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </VBox>
-                              <Label fx:id="lbl_doanhThu" alignment="CENTER" contentDisplay="CENTER" text="XXX,XXX,XXX,XXX" VBox.vgrow="ALWAYS">
+                              <Label fx:id="lbl_doanhThu" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="XXX,XXX,XXX,XXX" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
-                                    <Insets bottom="15.0" left="35.0" right="15.0" top="15.0" />
+                                    <Insets top="10.0" />
                                  </VBox.margin>
                                  <font>
-                                    <Font name="Calibri" size="26.0" />
+                                    <Font name="Calibri" size="36.0" />
                                  </font>
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
                               </Label>
                               <Label alignment="BOTTOM_RIGHT" contentDisplay="CENTER" layoutX="25.0" layoutY="70.0" text="VNĐ">
                                  <font>
-                                    <Font size="24.0" />
+                                    <Font size="36.0" />
                                  </font>
                                  <padding>
-                                    <Insets left="200.0" />
+                                    <Insets left="300.0" />
                                  </padding>
                                  <VBox.margin>
-                                    <Insets top="15.0" />
+                                    <Insets />
                                  </VBox.margin>
                               </Label>
                            </children>
                         </VBox>
                      </children>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
                   </HBox>
                </children>
             </VBox>
             <AnchorPane layoutX="31.0" layoutY="267.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="270.0">
                <children>
-                  <Label text="Tóm tắt năm" textFill="#4c4c4e" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+                  <Label layoutX="14.0" layoutY="35.0" text="Tóm tắt năm" textFill="#4c4c4e" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="35.0">
                      <font>
-                        <Font name="Calibri Bold" size="16.0" />
+                        <Font name="Calibri Bold" size="24.0" />
                      </font>
                   </Label>
-                  <VBox layoutX="14.0" layoutY="63.0" prefHeight="200.0" prefWidth="235.0" styleClass="doanhThu_panel">
+                  <VBox layoutX="14.0" layoutY="63.0" styleClass="doanhThu_panel" AnchorPane.topAnchor="100.0">
                      <children>
                         <Label text="Doanh thu cả năm" textFill="#4dcaa2">
                            <font>
-                              <Font name="Calibri Bold" size="18.0" />
+                              <Font name="Calibri Bold" size="24.0" />
                            </font>
                            <padding>
                               <Insets bottom="5.0" left="20.0" right="20.0" top="20.0" />
@@ -221,7 +223,7 @@
                         </Label>
                         <Label fx:id="lbl_tongDoanhThu" text="XXX,XXX,XXX VNĐ" textFill="#323232">
                            <font>
-                              <Font name="Calibri Bold" size="20.0" />
+                              <Font name="Calibri Bold" size="36.0" />
                            </font>
                            <VBox.margin>
                               <Insets left="20.0" />
@@ -237,7 +239,7 @@
                         </Separator>
                         <Label layoutX="11.0" layoutY="11.0" text="Tổng số vé đã bán cả năm" textFill="#1a3384">
                            <font>
-                              <Font name="Calibri Bold" size="18.0" />
+                              <Font name="Calibri Bold" size="24.0" />
                            </font>
                            <padding>
                               <Insets bottom="5.0" left="20.0" right="20.0" top="20.0" />
@@ -245,32 +247,44 @@
                         </Label>
                         <Label fx:id="lbl_tongVeBan" layoutX="31.0" layoutY="58.0" text="X,XXX Vé" textFill="#323232">
                            <font>
-                              <Font name="Calibri Bold" size="20.0" />
+                              <Font name="Calibri Bold" size="36.0" />
                            </font>
                            <VBox.margin>
                               <Insets left="20.0" />
                            </VBox.margin>
+                           <padding>
+                              <Insets bottom="20.0" />
+                           </padding>
                         </Label>
                      </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
                   </VBox>
-                  <VBox layoutX="260.0" layoutY="18.0" prefHeight="286.0" prefWidth="667.0">
+                  <VBox layoutX="260.0" layoutY="18.0" prefHeight="350.0" prefWidth="1000.0" styleClass="pane1" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="50.0">
                      <children>
                         <Label fx:id="lbl_taoBaoCao" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" text="Tạo báo cáo" textFill="#2b49b3">
                            <font>
                               <Font name="Calibri Bold" size="15.0" />
                            </font>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
                         </Label>
-                        <BarChart fx:id="barChart_doanhThu" prefHeight="248.0" prefWidth="667.0">
+                        <BarChart fx:id="barChart_doanhThu" prefHeight="340.0" prefWidth="667.0">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>
                           <yAxis>
                             <NumberAxis side="LEFT" />
                           </yAxis>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </BarChart>
                      </children>
                   </VBox>
-                  <ComboBox fx:id="cb_sumNam" layoutX="101.0" layoutY="11.0" prefWidth="100.0" promptText="Năm" AnchorPane.leftAnchor="120.0" />
+                  <ComboBox fx:id="cb_sumNam" layoutX="159.0" layoutY="34.0" prefHeight="30.0" prefWidth="100.0" promptText="Năm" visibleRowCount="5" AnchorPane.leftAnchor="159.0" />
                </children>
             </AnchorPane>
          </children>
