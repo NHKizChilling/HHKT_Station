@@ -269,6 +269,13 @@ public class QLyHoaDonController implements Initializable {
                     btnThanhToan.setDisable(true);
                 }
             }
+            tbCTHD.getItems().clear();
+            txtMaVe.clear();
+            txtTenHK.clear();
+            txtGiaVe.clear();
+            txtGiaGiam.clear();
+            txtThanhTienVe.clear();
+            btnInLaiVe.setDisable(true);
         });
 
         txtTimKiem.setOnKeyReleased(event -> {
@@ -298,6 +305,7 @@ public class QLyHoaDonController implements Initializable {
             if (txtTimKiem.getText() == null || txtTimKiem.getText().isEmpty())  {
                 lamMoi();
                 listHD = hoaDon_dao.getDSHDTheoNgay(LocalDateTime.now());
+                listHD.removeIf(hd -> !hd.isTrangThai());
                 tbhd.getItems().clear();
                 tbhd.getItems().addAll(listHD);
             }
@@ -405,6 +413,9 @@ public class QLyHoaDonController implements Initializable {
         btnThanhToan.setDisable(true);
         btnInLaiVe.setDisable(true);
         txtTimKiem.requestFocus();
+        radioAllHD.setDisable(true);
+        radioHDLuuTam.setDisable(false);
+        radioHDTrongNgay.setDisable(false);
     }
 
     @FXML

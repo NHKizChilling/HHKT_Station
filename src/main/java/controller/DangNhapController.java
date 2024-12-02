@@ -6,6 +6,7 @@
 package controller;
 
 import connectdb.ConnectDB;
+import dao.KhuyenMai_DAO;
 import dao.LichTrinh_DAO;
 import dao.NhanVien_DAO;
 import dao.TaiKhoan_DAO;
@@ -104,6 +105,8 @@ public class DangNhapController {
 
                         getData.nv = new NhanVien_DAO().getNhanVien(manv);
                         new LichTrinh_DAO().updateTrangThaiCT(false);
+                        new KhuyenMai_DAO().kichHoatKhuyenMai();
+                        new KhuyenMai_DAO().khoaKhuyenMai();
 //                        Stage stg = new Stage();
 //                        FXMLLoader fxmlLoader1 = new FXMLLoader(TrangChu_GUI.class.getResource("loader.fxml"));
 //                        Scene scene1 = new Scene(fxmlLoader1.load());

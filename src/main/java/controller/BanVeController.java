@@ -85,6 +85,9 @@ public class BanVeController implements Initializable {
     private Pane paneChonCD;
 
     @FXML
+    private AnchorPane acpTTKH;
+
+    @FXML
     private JFXButton btnLamMoi;
 
     @FXML
@@ -455,6 +458,11 @@ public class BanVeController implements Initializable {
             tbTTCN.setItems(dsttcn);
             btnChonFullToa.setDisable(false);
             btnHuyChon.setDisable(true);
+            if (!dsctlt.isEmpty()) {
+                acpTTKH.setDisable(false);
+            } else {
+                acpTTKH.setDisable(true);
+            }
         });
 
         btnChonCD.setOnMouseClicked(e -> {
@@ -500,6 +508,7 @@ public class BanVeController implements Initializable {
             btnChonFullToa.setDisable(false);
             btnHuyChon.setDisable(true);
             btnXoaAllCN.setDisable(true);
+            acpTTKH.setDisable(true);
         });
 
         btnTaoHD.setOnMouseClicked(e -> {
@@ -670,6 +679,7 @@ public class BanVeController implements Initializable {
         dsctlt.clear();
         paneTau.getChildren().clear();
         paneChonCD.setVisible(false);
+        acpTTKH.setDisable(true);
         btnChonCD.setDisable(true);
         btnChonKH.setDisable(false);
         btnXoaAllCN.setDisable(true);
@@ -884,8 +894,10 @@ public class BanVeController implements Initializable {
                                 }
                                 if (!dsctlt.isEmpty()) {
                                     btnXoaAllCN.setDisable(false);
+                                    acpTTKH.setDisable(false);
                                 } else {
                                     btnXoaAllCN.setDisable(true);
+                                    acpTTKH.setDisable(true);
                                 }
                             });
                         }
@@ -970,8 +982,10 @@ public class BanVeController implements Initializable {
                                 }
                                 if (!dsctlt.isEmpty()) {
                                     btnXoaAllCN.setDisable(false);
+                                    acpTTKH.setDisable(false);
                                 } else {
                                     btnXoaAllCN.setDisable(true);
+                                    acpTTKH.setDisable(true);
                                 }
                             });
                         }
@@ -1045,8 +1059,10 @@ public class BanVeController implements Initializable {
                                 }
                                 if (!dsctlt.isEmpty()) {
                                     btnXoaAllCN.setDisable(false);
+                                    acpTTKH.setDisable(false);
                                 } else {
                                     btnXoaAllCN.setDisable(true);
+                                    acpTTKH.setDisable(true);
                                 }
                             });
                         }
@@ -1123,8 +1139,10 @@ public class BanVeController implements Initializable {
                                 }
                                 if (!dsctlt.isEmpty()) {
                                     btnXoaAllCN.setDisable(false);
+                                    acpTTKH.setDisable(false);
                                 } else {
                                     btnXoaAllCN.setDisable(true);
+                                    acpTTKH.setDisable(true);
                                 }
                             });
                         }
@@ -1195,8 +1213,10 @@ public class BanVeController implements Initializable {
                                 }
                                 if (!dsctlt.isEmpty()) {
                                     btnXoaAllCN.setDisable(false);
+                                    acpTTKH.setDisable(false);
                                 } else {
                                     btnXoaAllCN.setDisable(true);
+                                    acpTTKH.setDisable(true);
                                 }
                             });
                         }

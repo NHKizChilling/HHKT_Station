@@ -4,10 +4,7 @@ import connectdb.ConnectDB;
 import entity.KhuyenMai;
 import entity.NhanVien;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -47,6 +44,24 @@ public class KhuyenMai_DAO {
         return list;
     }
 
+    public ArrayList<KhuyenMai> getKMHienCo() {
+        ArrayList<KhuyenMai> list = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select * from KhuyenMai where TrangThai = 1";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                KhuyenMai km = getInfo(rs);
+                list.add(km);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public KhuyenMai getKMTheoMa(String maKM) {
         KhuyenMai km = null;
         PreparedStatement stm = null;
@@ -54,7 +69,7 @@ public class KhuyenMai_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from KhuyenMai where maKM = ?";
+            String sql = "Select * from KhuyenMai where MaKM = ?";
             stm = con.prepareStatement(sql);
             stm.setString(1, maKM);
             ResultSet rs = stm.executeQuery();
@@ -72,7 +87,7 @@ public class KhuyenMai_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select TOP 1 * from KhuyenMai order by mucKM DESC";
+            String sql = "Select TOP 1 * from KhuyenMai order by MucKM DESC";
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
@@ -129,7 +144,7 @@ public class KhuyenMai_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update KhuyenMai set moTa = ?, ngayApDung = ?, ngayHetHan = ?, mucKM = ?, trangThai = ? where maKM = ?");
+            stm = con.prepareStatement("update KhuyenMai set MoTa = ?, NgayApDung = ?, NgayHetHan = ?, MucKM = ?, TrangThai = ? where MaKM = ?");
             stm.setString(1, km.getMoTa());
             stm.setDate(2, java.sql.Date.valueOf(km.getNgayApDung()));
             stm.setDate(3, java.sql.Date.valueOf(km.getNgayHetHan()));
@@ -149,8 +164,38 @@ public class KhuyenMai_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("delete from KhuyenMai where maKM = ?");
+            stm = con.prepareStatement("delete from KhuyenMai where MaKM = ?");
             stm.setString(1, maKM);
+            n = stm.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
+    }
+
+    public boolean kichHoatKhuyenMai() {
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        PreparedStatement stm = null;
+        int n = 0;
+        try {
+            stm = con.prepareStatement("update KhuyenMai set TrangThai = 1 where NgayApDung = ? and TrangThai = 0");
+            stm.setDate(1, Date.valueOf(LocalDate.now()));
+            n = stm.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return n > 0;
+    }
+
+    public boolean khoaKhuyenMai() {
+        ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        PreparedStatement stm = null;
+        int n = 0;
+        try {
+            stm = con.prepareStatement("update KhuyenMai set TrangThai = 0 where NgayHetHan = ? and TrangThai = 1");
+            stm.setDate(1, Date.valueOf(LocalDate.now()));
             n = stm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -164,7 +209,7 @@ public class KhuyenMai_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update KhuyenMai set trangThai = ? where maKM = ?");
+            stm = con.prepareStatement("update KhuyenMai set TrangThai = ? where MaKM = ?");
             stm.setBoolean(1, trangThai);
             stm.setString(2, maKM);
             n = stm.executeUpdate();
