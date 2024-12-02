@@ -332,6 +332,7 @@ public class HuyVeController implements Initializable {
             for (Ve ve : selectedVe) {
                 ve.setTinhTrangVe("DaDoi");
                 ve_dao.update(ve);
+                // TODO: tạo hóa đơn hủy vé
             }
             lbl_thongBao2.setText("Hủy vé thành công");
             txt_search.clear();
@@ -353,7 +354,6 @@ public class HuyVeController implements Initializable {
     }
 
     public void renderTable(ArrayList<Ve> listVe) {
-        // TODO
         ObservableList<Ve> list = FXCollections.observableArrayList(listVe);
         tbl_thongTinVe.setItems(list);
         col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));

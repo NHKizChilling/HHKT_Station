@@ -102,6 +102,27 @@ public class HoaDon_DAO {
         return list;
     }
 
+    public ArrayList<HoaDon> getHoaDonTheoNV(String maNV) {
+        ArrayList<HoaDon> list = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            PreparedStatement stm = null;
+            String sql = "Select * from HoaDon where MaNV = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, maNV);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                HoaDon hoaDon = getInfo(rs);
+                list.add(hoaDon);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public HoaDon getHoaDonVuaTao() {
         HoaDon hoaDon = null;
         try {

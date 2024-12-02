@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -15,116 +13,30 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HuyVeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1386.0" style="-fx-background-color: #ffffff;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HuyVeController">
    <left>
-      <AnchorPane prefHeight="200.0" prefWidth="850.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="806.0" prefWidth="973.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox layoutX="106.0" layoutY="14.0" prefHeight="114.0" prefWidth="638.0" styleClass="pane" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="25.0">
-               <children>
-                  <Label alignment="TOP_LEFT" prefHeight="35.0" prefWidth="161.0" text="TÌM KIẾM VÉ">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
-                  <ComboBox fx:id="cb_search" prefHeight="28.0" prefWidth="94.0" promptText="Tìm theo" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <HBox.margin>
-                        <Insets left="-130.0" top="50.0" />
-                     </HBox.margin>
-                  </ComboBox>
-                  <TextField fx:id="txt_search" prefHeight="27.0" prefWidth="209.0" styleClass="shadow" stylesheets="@dashboardDesign.css">
-                     <cursor>
-                        <Cursor fx:constant="TEXT" />
-                     </cursor>
-                     <HBox.margin>
-                        <Insets left="10.0" top="50.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <Button fx:id="btn_lamMoi" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Làm mới">
-                     <font>
-                        <Font name="Times New Roman Bold" size="16.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <graphic>
-                        <FontAwesomeIcon disable="true" glyphName="REFRESH">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </FontAwesomeIcon>
-                     </graphic>
-                     <HBox.margin>
-                        <Insets left="10.0" top="50.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btn_search" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Tìm kiếm">
-                     <font>
-                        <Font name="Times New Roman Bold" size="16.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <graphic>
-                        <FontAwesomeIcon disable="true" glyphName="SEARCH">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </FontAwesomeIcon>
-                     </graphic>
-                     <HBox.margin>
-                        <Insets left="10.0" top="50.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btnQuetMaVe" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Quét mã">
-                     <font>
-                        <Font name="Times New Roman Bold" size="16.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <graphic>
-                        <FontAwesomeIcon disable="true" glyphName="BARCODE">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </FontAwesomeIcon>
-                     </graphic>
-                     <HBox.margin>
-                        <Insets left="-120.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
             <Separator layoutX="798.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0" />
-            <AnchorPane layoutX="20.0" layoutY="138.0" prefHeight="440.0" prefWidth="815.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="140.0">
+            <AnchorPane layoutX="16.0" layoutY="189.0" prefHeight="572.0" prefWidth="800.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="189.0">
                <children>
-                  <ScrollPane prefHeight="240.0" prefWidth="813.0" AnchorPane.topAnchor="10.0">
+                  <ScrollPane layoutX="44.0" layoutY="84.0" prefHeight="240.0" prefWidth="850.0" AnchorPane.topAnchor="84.0">
                      <content>
-                        <TableView fx:id="tbl_thongTinVe" prefHeight="240.0" prefWidth="812.0" stylesheets="@dashboardDesign.css">
+                        <TableView fx:id="tbl_thongTinVe" prefHeight="240.0" prefWidth="850.0" stylesheets="@dashboardDesign.css">
                            <columns>
-                              <TableColumn fx:id="col_maVe" prefWidth="100.0" text="Mã vé" />
-                              <TableColumn fx:id="col_thongTinHK" prefWidth="175.0" text="Thông tin hành khách" />
-                              <TableColumn fx:id="col_thongTinVe" prefWidth="175.0" text="Thông tin vé" />
-                              <TableColumn fx:id="col_tinhTrangVe" prefWidth="150.0" text="Thông tin vé trả" />
-                              <TableColumn fx:id="col_giaVe" prefWidth="110.0" text="Thành tiền (VNĐ)" />
-                              <TableColumn fx:id="col_chonVe" prefWidth="100.0" text="Chọn vé trả" />
+                              <TableColumn fx:id="col_maVe" prefWidth="100.0" styleClass="tbl_col" text="Mã vé" />
+                              <TableColumn fx:id="col_thongTinHK" prefWidth="175.0" styleClass="tbl_col" text="Thông tin hành khách" />
+                              <TableColumn fx:id="col_thongTinVe" prefWidth="175.0" styleClass="tbl_col" text="Thông tin vé" />
+                              <TableColumn fx:id="col_tinhTrangVe" prefWidth="150.0" styleClass="tbl_col" text="Thông tin vé trả" />
+                              <TableColumn fx:id="col_giaVe" prefWidth="130.0" styleClass="tbl_col" text="Thành tiền (VNĐ)" />
+                              <TableColumn fx:id="col_chonVe" prefWidth="110.0" styleClass="tbl_col" text="Chọn vé trả" />
                            </columns>
                         </TableView>
                      </content>
                   </ScrollPane>
-                  <AnchorPane layoutY="240.0" prefHeight="200.0" prefWidth="815.0" styleClass="pane" AnchorPane.topAnchor="260.0">
+                  <AnchorPane layoutX="59.0" layoutY="347.0" prefHeight="200.0" prefWidth="815.0" styleClass="pane" AnchorPane.topAnchor="347.0">
                      <children>
                         <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="7.0" prefHeight="35.0" text="Thông tin người đặt vé">
                            <font>
@@ -136,26 +48,26 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txt_tenNguoiDat" disable="true" layoutX="158.0" layoutY="58.0" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="55.0" />
+                        <TextField fx:id="txt_tenNguoiDat" disable="true" layoutX="158.0" layoutY="58.0" prefHeight="30.0" prefWidth="200.0" styleClass="txt_info" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="55.0" />
                         <Label layoutX="38.0" layoutY="118.0" text="CCCD/CMND:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="110.0">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txt_email" disable="true" layoutX="456.0" layoutY="116.0" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="105.0" />
-                        <Label layoutX="350.0" layoutY="68.0" text="Số điện thoại:" AnchorPane.topAnchor="60.0">
+                        <TextField fx:id="txt_email" disable="true" layoutX="530.0" layoutY="113.0" prefHeight="30.0" prefWidth="200.0" styleClass="txt_info" AnchorPane.leftAnchor="525.0" AnchorPane.topAnchor="105.0" />
+                        <Label layoutX="407.0" layoutY="63.0" text="Số điện thoại:" AnchorPane.topAnchor="60.0">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label layoutX="350.0" layoutY="137.0" text="Email:" AnchorPane.topAnchor="110.0">
+                        <Label layoutX="407.0" layoutY="115.0" text="Email:" AnchorPane.topAnchor="110.0">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txt_sdt" disable="true" layoutX="538.0" layoutY="58.0" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="55.0" />
-                        <TextField fx:id="txt_cccd" disable="true" layoutX="158.0" layoutY="118.0" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="105.0" />
-                        <Button fx:id="btn_yeuCau" layoutX="710.0" layoutY="160.0" mnemonicParsing="false" text="Xác nhận">
+                        <TextField fx:id="txt_sdt" disable="true" layoutX="525.0" layoutY="60.0" prefHeight="30.0" prefWidth="200.0" styleClass="txt_info" AnchorPane.leftAnchor="525.0" AnchorPane.topAnchor="55.0" />
+                        <TextField fx:id="txt_cccd" disable="true" layoutX="158.0" layoutY="118.0" prefHeight="30.0" prefWidth="200.0" styleClass="txt_info" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="105.0" />
+                        <Button fx:id="btn_yeuCau" layoutX="710.0" layoutY="160.0" mnemonicParsing="false" styleClass="btn_yeuCau" text="Xác nhận">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -172,11 +84,75 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
+            <AnchorPane layoutX="76.0" layoutY="49.0" prefHeight="200.0" prefWidth="815.0" styleClass="pane" AnchorPane.topAnchor="49.0">
+               <children>
+                  <ComboBox fx:id="cb_search" layoutX="146.0" layoutY="94.0" prefHeight="30.0" prefWidth="110.0" promptText="Tìm theo" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ComboBox>
+                  <TextField fx:id="txt_search" layoutX="279.0" layoutY="94.0" prefHeight="30.0" prefWidth="250.0" styleClass="txt_info" stylesheets="@dashboardDesign.css">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </TextField>
+                  <Button fx:id="btn_lamMoi" alignment="CENTER_RIGHT" layoutX="637.0" layoutY="155.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Làm mới">
+                     <font>
+                        <Font name="Times New Roman Bold" size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <FontAwesomeIcon disable="true" glyphName="REFRESH">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIcon>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btn_search" alignment="CENTER_RIGHT" layoutX="510.0" layoutY="155.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Tìm kiếm">
+                     <font>
+                        <Font name="Times New Roman Bold" size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <FontAwesomeIcon disable="true" glyphName="SEARCH">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIcon>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnQuetMaVe" alignment="CENTER_RIGHT" layoutX="637.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Quét mã">
+                     <font>
+                        <Font name="Times New Roman Bold" size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <FontAwesomeIcon disable="true" glyphName="BARCODE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIcon>
+                     </graphic>
+                  </Button>
+                  <Label layoutX="279.0" layoutY="17.0" text="TÌM KIẾM VÉ">
+                     <font>
+                        <Font name="System Bold" size="35.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </left>
    <right>
-      <AnchorPane prefHeight="200.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="755.0" prefWidth="424.0" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="35.0" text="Trả vé">
                <font>
@@ -185,36 +161,36 @@
             </Label>
             <Label layoutX="14.0" layoutY="46.0" text="Tổng vé trả:" AnchorPane.topAnchor="75.0">
                <font>
-                  <Font size="16.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txt_tongVeTra" disable="true" layoutX="117.0" layoutY="43.0" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="70.0" />
+            <TextField fx:id="txt_tongVeTra" disable="true" layoutX="117.0" layoutY="43.0" prefWidth="250.0" styleClass="txt_info" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="75.0" />
             <Label layoutX="14.0" layoutY="89.0" text="Tổng tiền vé:" AnchorPane.topAnchor="150.0">
                <font>
-                  <Font size="16.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txt_tongTienVe" disable="true" layoutX="117.0" layoutY="86.0" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="145.0" />
+            <TextField fx:id="txt_tongTienVe" disable="true" layoutX="117.0" layoutY="86.0" prefWidth="250.0" styleClass="txt_info" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="150.0" />
             <Label layoutX="14.0" layoutY="135.0" text="Tổng lệ phí:" AnchorPane.topAnchor="225.0">
                <font>
-                  <Font size="16.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txt_tongLePhi" disable="true" layoutX="117.0" layoutY="132.0" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="220.0" />
+            <TextField fx:id="txt_tongLePhi" disable="true" layoutX="117.0" layoutY="132.0" prefWidth="250.0" styleClass="txt_info" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="225.0" />
             <Label layoutX="14.0" layoutY="177.0" text="Tổng tiền trả:" AnchorPane.topAnchor="300.0">
                <font>
-                  <Font size="16.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txt_tongTienTra" disable="true" layoutX="117.0" layoutY="174.0" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="295.0" />
-            <Button fx:id="btn_xacNhan" disable="true" layoutX="149.0" layoutY="556.0" mnemonicParsing="false" prefHeight="35.0" text="Hủy vé và in phiếu hủy">
+            <TextField fx:id="txt_tongTienTra" disable="true" layoutX="117.0" layoutY="174.0" prefWidth="250.0" styleClass="txt_info" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="300.0" />
+            <Button fx:id="btn_xacNhan" disable="true" layoutX="188.0" layoutY="687.0" mnemonicParsing="false" prefHeight="35.0" styleClass="btn_xacNhan" text="Hủy vé và in phiếu hủy">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Label fx:id="lbl_thongBao2" layoutX="14.0" layoutY="352.0" prefHeight="25.0" prefWidth="8.0" textFill="RED" AnchorPane.topAnchor="375.0">
+            <Label fx:id="lbl_thongBao2" layoutX="14.0" layoutY="352.0" prefHeight="25.0" prefWidth="8.0" textFill="RED" AnchorPane.topAnchor="350.0">
                <font>
-                  <Font name="System Bold Italic" size="16.0" />
+                  <Font name="System Bold Italic" size="18.0" />
                </font>
             </Label>
          </children>
