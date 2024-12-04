@@ -413,6 +413,7 @@ public class TrangChuController implements Initializable {
             controller.setThongTin(nv, LocalDateTime.now());
 
             tienDauCa = controller.getTienDauCa();
+            gioMoCa = controller.getGioBatDau();
         } catch (IOException e) {
             e.printStackTrace();
         }
