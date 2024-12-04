@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 /*
@@ -272,6 +273,55 @@ public class PrintPDF {
         }
 
     }
+
+    public void inKetCa(NhanVien nv, LocalDateTime gioBatDau, LocalDateTime gioKetThuc, double tienDauCa,
+                        double tongTien, double tienBanVe, double tienTraVe, double tienTraVeDoi, double tienThuVeDoi, String ghiChu)
+                        throws IOException, DocumentException {
+    String filename = "KetCa_" + nv.getMaNhanVien() + "_" + gioKetThuc.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".pdf";
+
+    // Create a new document
+    Document document = new Document(PageSize.A4);
+    PdfWriter.getInstance(document, new FileOutputStream("src/main/resources/pdf/" + filename));
+    BaseFont bf = BaseFont.createFont("src/main/resources/pdf/00182-UTM-Times.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+    // Open the document
+    document.open();
+
+    // Add title
+    Font titleFont = new Font(bf, 14, Font.BOLD);
+    Paragraph title = new Paragraph("BÁO CÁO KẾT CA", titleFont);
+    title.setAlignment(Element.ALIGN_CENTER);
+    document.add(title);
+
+    // Add shift information
+    Font regularFont = new Font(bf, 12, Font.NORMAL);
+    document.add(new Paragraph("Nhân viên: " + nv.getTenNhanVien(), regularFont));
+    document.add(new Paragraph("Mã nhân viên: " + nv.getMaNhanVien(), regularFont));
+    document.add(new Paragraph("Giờ bắt đầu ca: " + gioBatDau.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")), regularFont));
+    document.add(new Paragraph("Giờ kết thúc ca: " + gioKetThuc.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")), regularFont));
+    document.add(new Paragraph("Tiền đầu ca: " + new DecimalFormat("#,### VNĐ").format(tienDauCa), regularFont));
+    document.add(new Paragraph("Tổng tiền: " + new DecimalFormat("#,### VNĐ").format(tongTien), regularFont));
+
+    // Add a line separator
+    document.add(new Paragraph("------------------------------------------------------------"));
+
+    // Add summary of sales
+    document.add(new Paragraph("Tổng kết doanh thu:", regularFont));
+    document.add(new Paragraph("Tổng tiền bán vé: " + new DecimalFormat("#,### VNĐ").format(tienBanVe), regularFont));
+    document.add(new Paragraph("Tổng tiền trả vé: " + new DecimalFormat("#,### VNĐ").format(tienTraVe), regularFont));
+    document.add(new Paragraph("Tổng tiền trả vé đổi: " + new DecimalFormat("#,### VNĐ").format(tienTraVeDoi), regularFont));
+    document.add(new Paragraph("Tổng tiền thu vé đổi: " + new DecimalFormat("#,### VNĐ").format(tienThuVeDoi), regularFont));
+
+    // add note
+    document.add(new Paragraph("Ghi chú: " + ghiChu, regularFont));
+    // Close the document
+    try {
+        document.close();
+        Desktop.getDesktop().open(new File("src/main/resources/pdf/" + filename));
+    } catch (Exception e) {
+        System.out.println("Tạo báo cáo kết ca thất bại!");
+    }
+}
 
     private static void addTableHeader(PdfPTable table, Font font, String... headers) {
         for (String header : headers) {

@@ -71,7 +71,19 @@ public class MoCaController implements Initializable {
         lbl_gioBatDau.setText(now.getDayOfMonth() + "/" + now.getMonthValue() + "/" + now.getYear() + " " + now.getHour() + ":" + now.getMinute());
     }
 
-    public Double getTienDauCa() {
+    public double getTienDauCa() {
         return tienDauCa;
+    }
+
+    public NhanVien getNv() {
+        return nv;
+    }
+
+    public LocalDateTime getGioBatDau() {
+        return LocalDateTime.now();
+    }
+
+    public String getGhiChu() {
+        return txt_ghiChu.getText();
     }
 }

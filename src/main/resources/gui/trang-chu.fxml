@@ -16,7 +16,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<VBox fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1540.0" snapToPixel="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TrangChuController">
+<VBox fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1540.0" snapToPixel="false" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TrangChuController">
    <children>
       <BorderPane prefHeight="795.0" prefWidth="1540.0">
          <left>
@@ -174,7 +174,7 @@
                         <Font name="Times New Roman Bold" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="685.0" onAction="#dangXuat" prefHeight="40.0" prefWidth="158.0" ripplerFill="#ff4f4f" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 10;" text="Đăng xuất">
+                  <JFXButton fx:id="btn_ketCa" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="685.0" onAction="#showKetCaPopup" prefHeight="40.0" prefWidth="158.0" ripplerFill="#ff4f4f" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 10;" text="Kết ca">
                      <font>
                         <Font name="Times New Roman Bold" size="20.0" />
                      </font>

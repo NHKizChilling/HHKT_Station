@@ -156,8 +156,9 @@ public class HDDoiTraVeController implements Initializable {
 
         ChiTietHoaDon cthd_old = cthd_dao.getCT_HoaDonTheoMaVe(ve_doi.getMaVe());
         hd.tinhTongGiamGia(new ArrayList<>(List.of(cthd)));
+        KhuyenMai km = km_dao.getKMTheoMa(hd.getKhuyenMai().getMaKM());
         double gia = cthd.getGiaVe() - cthd_old.getGiaVe();
-        tongTien = (gia > 0 ? gia * (1 - hd.getKhuyenMai().getMucKM()) : gia) + 10000;
+        tongTien = (gia > 0 ? gia * (1 - km.getMucKM()) : gia) + 10000;
         double giamGia = gia > 0 ? gia * hd.getKhuyenMai().getMucKM() : 0 + cthd.getGiaGiam();
         if (tongTien <= 0) {
             txtTienKH.setText("0");
@@ -253,9 +254,28 @@ public class HDDoiTraVeController implements Initializable {
                 printPDF.inHoaDon(getData.hd);
                 ArrayList<Ve> list = getData.dsve;
                 printPDF.inVe(list);
+
+                // TODO: tạo hóa đơn để lưu vào database
+
             } catch (IOException | DocumentException e) {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    private void goiYGia() {
+        if (!txtThanhTien.getText().isEmpty() && txtTienKH.getText() != null) {
+            // gợi ý giá như sau:
+            // btn1: gợi ý đúng giá thành tiền
+            // btn2: gợi ý giá dựa vào số được nhập trong txtTienKH * 10000
+            // btn3: gợi ý giá dựa vào số được nhập trong txtTienKH * 100000
+            // btn4: gợi ý giá dựa vào số được nhập trong txtTienKH * 1000000
+            int tienKH = Integer.parseInt(txtTienKH.getText());
+            NumberFormat df = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+            btnGia1.setText(df.format(Math.round(tongTien / 1000) * 1000));
+            btnGia2.setText(df.format(tienKH * 10000L));
+            btnGia3.setText(df.format(tienKH * 100000L));
+            btnGia4.setText(df.format(tienKH * 1000000L));
+        }
     }
 }

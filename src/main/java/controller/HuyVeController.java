@@ -7,7 +7,6 @@ import com.google.zxing.common.HybridBinarizer;
 import dao.*;
 import entity.*;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,7 +25,6 @@ import javafx.util.Callback;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.text.NumberFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -119,10 +116,10 @@ public class HuyVeController implements Initializable {
     private CT_HoaDon_DAO ct_hoaDon_dao;
     private HoaDon_DAO hoaDon_dao;
     private LichTrinh_DAO lichTrinh_dao;
-    private CT_LichTrinh_DAO ct_lichTrinh_dao;
     private LoaiVe_DAO loaiVe_dao;
     private HoaDon hoaDon;
 
+    //private ArrayList<Ve> selectedVe;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -244,7 +241,9 @@ public class HuyVeController implements Initializable {
             TableRow<Ve> row = new TableRow<>();
             row.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
                 if (isNowSelected) {
-                    selectedVe.add(row.getItem());
+                    String maVe = row.getItem().getMaVe();
+                    Ve ve = ve_dao.getVeTheoID(maVe);
+                    selectedVe.add(ve);
                 } else {
                     selectedVe.remove(row.getItem());
                 }
@@ -262,7 +261,7 @@ public class HuyVeController implements Initializable {
             ArrayList<Ve> dsVeDaDoi = new ArrayList<>(); // Danh sách vé đã đổi
 
             // Lấy thời gian khởi hành của lịch trình
-            LichTrinh lt = lichTrinh_dao.getLichTrinhTheoID(selectedVe.get(0).getCtlt().getLichTrinh().getMaLichTrinh());
+            LichTrinh lt = lichTrinh_dao.getLichTrinhTheoID(selectedVe.getFirst().getCtlt().getLichTrinh().getMaLichTrinh());
             LocalDateTime thoiGianKhoiHanh = lt.getThoiGianKhoiHanh();
 
             // Kiểm tra điều kiện hủy vé
@@ -298,8 +297,8 @@ public class HuyVeController implements Initializable {
                             LocalDateTime.now().plusHours(24).isAfter(thoiGianKhoiHanh)) ? 0.3 : 0.2;
 
             lbl_thongBao.setText("");
-            int tongTienVe = 0;
-            int tongLePhi = 0;
+            double tongTienVe = 0;
+            double tongLePhi = 0;
 
             // Tính tổng tiền vé và lệ phí
             for (Ve ve : dsVeHuy) { // Duyệt qua danh sách vé cần hủy đã lọc các vé đã đổi ra
@@ -314,7 +313,7 @@ public class HuyVeController implements Initializable {
                 tongLePhi += ctHoaDon.getGiaVe() * 0.3;
             }
 
-            NumberFormat currencyVN = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+            NumberFormat currencyVN = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));
 
             txt_tongVeTra.setText(String.valueOf(dsVeHuy.size()));
             txt_tongTienVe.setText(currencyVN.format(tongTienVe));
@@ -329,11 +328,11 @@ public class HuyVeController implements Initializable {
                 return;
             }
             lbl_thongBao.setText("");
-            for (Ve ve : selectedVe) {
-                ve.setTinhTrangVe("DaDoi");
-                ve_dao.update(ve);
-                // TODO: tạo hóa đơn hủy vé
-            }
+//            for (Ve ve : selectedVe) {
+//                ve.setTinhTrangVe("DaDoi");
+//                ve_dao.update(ve);
+//                // TODO: tạo hóa đơn hủy vé
+//            }
             lbl_thongBao2.setText("Hủy vé thành công");
             txt_search.clear();
             tbl_thongTinVe.getItems().clear();
@@ -348,7 +347,7 @@ public class HuyVeController implements Initializable {
             selectedVe.clear();
             btn_xacNhan.setDisable(true);
 
-            // TODO: in phiếu hủy vé
+            // TODO: vào HDDoiTraController để tạo hóa đơn đổi vé
         });
 
     }
@@ -394,7 +393,7 @@ public class HuyVeController implements Initializable {
 
         // Chỉ định định dạng mã vạch là Code 128, EAN-13, UPC-A hoặc QR Code
         Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
-        hints.put(DecodeHintType.POSSIBLE_FORMATS, Arrays.asList(
+        hints.put(DecodeHintType.POSSIBLE_FORMATS, List.of(
                 BarcodeFormat.CODE_128
         ));
 
@@ -414,7 +413,6 @@ public class HuyVeController implements Initializable {
         ct_hoaDon_dao = new CT_HoaDon_DAO();
         hoaDon_dao = new HoaDon_DAO();
         lichTrinh_dao = new LichTrinh_DAO();
-        ct_lichTrinh_dao = new CT_LichTrinh_DAO();
     }
 
 
@@ -423,7 +421,7 @@ public class HuyVeController implements Initializable {
      * This class implements the Callback interface to provide a custom TableCell
      * for a TableColumn of type Ve with Boolean values.
      */
-    public class CheckBoxCellFactory implements Callback<TableColumn<Ve, Boolean>, TableCell<Ve, Boolean>> {
+    public static class CheckBoxCellFactory implements Callback<TableColumn<Ve, Boolean>, TableCell<Ve, Boolean>> {
 
         /**
          * Creates a new TableCell containing a CheckBox for each cell in the column.
@@ -433,7 +431,7 @@ public class HuyVeController implements Initializable {
          */
         @Override
         public TableCell<Ve, Boolean> call(TableColumn<Ve, Boolean> param) {
-            return new TableCell<Ve, Boolean>() {
+            return new TableCell<>() {
                 private final CheckBox checkBox = new CheckBox();
 
                 /**
@@ -451,8 +449,25 @@ public class HuyVeController implements Initializable {
                         setGraphic(checkBox);
                         checkBox.setSelected(item != null && item);
                         checkBox.setOnAction(e -> {
-                            Ve ve = getTableView().getItems().get(getIndex());
-                            // Handle checkbox state change
+                            if (checkBox.isSelected()) {
+                                getTableView().getSelectionModel().select(getIndex());
+                                String maVe = getTableView().getItems().get(getIndex()).getMaVe();
+                                Ve ve = new Ve_DAO().getVeTheoID(maVe);
+                                if (ve.getTinhTrangVe().equals("DaHuy")) {
+                                    checkBox.setSelected(false);
+                                    getTableView().getSelectionModel().clearSelection(getIndex());
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setHeaderText(null);
+                                    alert.setTitle("Hủy vé");
+                                    alert.setContentText("Vé đã được hủy");
+                                    alert.showAndWait();
+                                } else {
+                                    getTableView().getSelectionModel().select(getIndex());
+                                }
+                            } else {
+                                getTableView().getSelectionModel().clearSelection(getIndex());
+                            }
+
                         });
                     }
                 }

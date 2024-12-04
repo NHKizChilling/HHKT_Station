@@ -12,6 +12,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import entity.NhanVien;
 import entity.Ve;
 import gui.TrangChu_GUI;
 import javafx.animation.KeyFrame;
@@ -19,12 +20,15 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.awt.*;
@@ -99,6 +103,10 @@ public class TrangChuController implements Initializable {
 
     @FXML
     private FontAwesomeIcon iconTK;
+
+    private NhanVien nv;
+    private LocalDateTime gioMoCa;
+    private double tienDauCa;
 
 
     private Ve_DAO ve_dao = new Ve_DAO();
@@ -386,6 +394,48 @@ public class TrangChuController implements Initializable {
             throw new RuntimeException(e);
         }
         paneMain.setPrefSize(width, height);
+    }
+
+    @FXML
+    protected void showMoCaPopup() {
+        try {
+            FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("mo-ca.fxml"));
+            AnchorPane page = loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Mở Ca");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(paneMain.getScene().getWindow());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
+
+            MoCaController controller = loader.getController();
+            controller.setThongTin(nv, LocalDateTime.now());
+
+            tienDauCa = controller.getTienDauCa();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void showKetCaPopup() {
+        try {
+            FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("ket-ca.fxml"));
+            AnchorPane page = loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Kết Ca");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(paneMain.getScene().getWindow());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
+
+            KetCaController controller = loader.getController();
+            controller.setInfo(nv, gioMoCa, tienDauCa);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
