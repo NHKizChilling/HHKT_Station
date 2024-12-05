@@ -57,17 +57,14 @@ import javafx.stage.Stage;
  * version: 1.0
  */
 public class BanVeController implements Initializable {
-    private LichTrinh_DAO lt_dao = new LichTrinh_DAO();
-    private CT_LichTrinh_DAO ctlt_dao = new CT_LichTrinh_DAO();
-    private Ga_DAO ga_dao = new Ga_DAO();
-    private KhachHang_DAO hk_dao = new KhachHang_DAO();
-    private Ve_DAO ve_dao = new Ve_DAO();
-    private HoaDon_DAO hd_dao = new HoaDon_DAO();
-    private ChuyenTau_DAO ct_dao = new ChuyenTau_DAO();
-    private Toa_DAO toa_dao = new Toa_DAO();
-    private LoaiToa_DAO ltoa_dao = new LoaiToa_DAO();
-    private LoaiVe_DAO lv_dao = new LoaiVe_DAO();
-    private ChoNgoi_DAO cn_dao = new ChoNgoi_DAO();
+    private final LichTrinh_DAO lt_dao = new LichTrinh_DAO();
+    private final CT_LichTrinh_DAO ctlt_dao = new CT_LichTrinh_DAO();
+    private final Ga_DAO ga_dao = new Ga_DAO();
+    private final KhachHang_DAO hk_dao = new KhachHang_DAO();
+    private final HoaDon_DAO hd_dao = new HoaDon_DAO();
+    private final Toa_DAO toa_dao = new Toa_DAO();
+    private final LoaiToa_DAO ltoa_dao = new LoaiToa_DAO();
+    private final ChoNgoi_DAO cn_dao = new ChoNgoi_DAO();
 
     private final String styleGheThuong = "-fx-background-color: white; -fx-text-fill: black;-fx-border-color: black;";
     private final String styleGheDaChon = "-fx-background-color: green; -fx-text-fill: white;-fx-border-color: black;";
@@ -236,16 +233,12 @@ public class BanVeController implements Initializable {
                 if (btn != null) {
                     btn.setStyle(btn.getStyle() + "-fx-background-color: white; -fx-text-fill: black;");
                 }
-                if (!dsctlt.isEmpty()) {
-                    btnXoaAllCN.setDisable(false);
-                } else {
-                    btnXoaAllCN.setDisable(true);
-                }
+                btnXoaAllCN.setDisable(dsctlt.isEmpty());
             });
             return new SimpleObjectProperty<>(icon);
         });
 
-        ArrayList<LichTrinh> temp = lt_dao.traCuuDSLichTrinhTheoNgay(LocalDate.of(2024, 12, 1));
+        ArrayList<LichTrinh> temp = lt_dao.traCuuDSLichTrinhTheoNgay(LocalDate.of(2024, 12, 13));
         showTauTheoLT(temp);
         tbLT.setItems(FXCollections.observableList(temp));
 
@@ -300,7 +293,7 @@ public class BanVeController implements Initializable {
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
                 LocalDate today = LocalDate.now();
-                setDisable(empty || date.compareTo(today) < 0);
+                setDisable(empty || date.isBefore(today));
             }
         });
 
@@ -310,7 +303,7 @@ public class BanVeController implements Initializable {
                 super.updateItem(date, empty);
                 if (dpNgayKH.getValue() != null) {
                     LocalDate today = dpNgayKH.getValue();
-                    setDisable(empty || date.compareTo(today) < 0);
+                    setDisable(empty || date.isBefore(today));
                 }
             }
         });
@@ -445,8 +438,7 @@ public class BanVeController implements Initializable {
         btnHuyChon.setOnMouseClicked(e -> {
             GridPane gridPane = (GridPane) paneToa.getCenter();
             for (Node node1 : gridPane.getChildren()) {
-                if (node1 instanceof Button && (!node1.getStyle().contains("red") && node1.getStyle().contains("green"))) {
-                    Button btn = (Button) node1;
+                if (node1 instanceof Button btn && (!node1.getStyle().contains("red") && node1.getStyle().contains("green"))) {
                     btn.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, MouseButton.PRIMARY, 0, false, false, false, false, false, false, false, false, false, false, null));
                 }
             }
@@ -458,11 +450,7 @@ public class BanVeController implements Initializable {
             tbTTCN.setItems(dsttcn);
             btnChonFullToa.setDisable(false);
             btnHuyChon.setDisable(true);
-            if (!dsctlt.isEmpty()) {
-                acpTTKH.setDisable(false);
-            } else {
-                acpTTKH.setDisable(true);
-            }
+            acpTTKH.setDisable(dsctlt.isEmpty());
         });
 
         btnChonCD.setOnMouseClicked(e -> {
@@ -496,8 +484,7 @@ public class BanVeController implements Initializable {
             tbTTCN.refresh();
             GridPane gridPane = (GridPane) paneToa.getCenter();
             for (Node node1 : gridPane.getChildren()) {
-                if (node1 instanceof Button && !node1.getStyle().contains("red") && node1.getStyle().contains("green")) {
-                    Button btn = (Button) node1;
+                if (node1 instanceof Button btn && !node1.getStyle().contains("red") && node1.getStyle().contains("green")) {
                     btn.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, MouseButton.PRIMARY, 0, false, false, false, false, false, false, false, false, false, false, null));
                 }
             }
@@ -600,7 +587,7 @@ public class BanVeController implements Initializable {
                 return;
             }
             try {
-                AnchorPane acpHoaDon = FXMLLoader.load(TrangChu_GUI.class.getResource("hoa-don.fxml"));
+                AnchorPane acpHoaDon = FXMLLoader.load(Objects.requireNonNull(TrangChu_GUI.class.getResource("hoa-don.fxml")));
                 Stage stgHoaDon = new Stage();
                 stgHoaDon.setTitle("Thanh toán");
                 stgHoaDon.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
@@ -613,13 +600,15 @@ public class BanVeController implements Initializable {
                     alert.setHeaderText(null);
                     alert.setContentText("Xác nhận thoát?");
                     Optional<ButtonType> result = alert.showAndWait();
-                    if (result.get() == ButtonType.OK) {
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
                         HoaDon hoaDon = hd_dao.getHoaDonVuaTao();
                         if (!hoaDon.isTrangThai() && hoaDon.getTongTien() == 0) {
                             hd_dao.delete(hoaDon);
                         }
                         stgHoaDon.close();
                         lamMoi();
+                    } else {
+                        e1.consume();
                     }
                 });
 
@@ -677,13 +666,14 @@ public class BanVeController implements Initializable {
         getData.dsve = null;
         getData.dscthd = null;
         dsctlt.clear();
+        dsctltkh.clear();
         paneTau.getChildren().clear();
         paneChonCD.setVisible(false);
         acpTTKH.setDisable(true);
         btnChonCD.setDisable(true);
         btnChonKH.setDisable(false);
         btnXoaAllCN.setDisable(true);
-        showTauTheoLT(lt_dao.traCuuDSLichTrinhTheoNgay(LocalDate.of(2024, 12, 1)));
+        showTauTheoLT(lt_dao.traCuuDSLichTrinhTheoNgay(LocalDate.of(2024, 12, 13)));
         cbGaDi.setValue(null);
         cbGaDi.requestFocus();
         cbGaDen.setValue(null);
@@ -743,8 +733,8 @@ public class BanVeController implements Initializable {
             paneTau.getChildren().add(pane);
         }
         //chọn tàu đầu tiên
-        if (list.size() > 0) {
-            ImageView imageView = (ImageView) paneTau.lookup("#" + list.get(0).getMaLichTrinh());
+        if (!list.isEmpty()) {
+            ImageView imageView = (ImageView) paneTau.lookup("#" + list.getFirst().getMaLichTrinh());
             imageView.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true, true, true, true, true, true, true, null));
         }
     }
@@ -839,6 +829,7 @@ public class BanVeController implements Initializable {
                         for (int col = 0; col < 16; col++) {
                             int seatNumber = seatNumbers[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
                                     seatButton.setId(cn.getMaChoNgoi());
@@ -927,6 +918,7 @@ public class BanVeController implements Initializable {
                         for (int col = 0; col < 16; col++) {
                             int seatNumber = seatNumbers[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
                                     seatButton.setId(cn.getMaChoNgoi());
@@ -1012,6 +1004,7 @@ public class BanVeController implements Initializable {
                         for (int col = 0; col < 14; col++) {
                             int seatNumber = seatNumbers2[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
                                     seatButton.setId(cn.getMaChoNgoi());
@@ -1091,6 +1084,7 @@ public class BanVeController implements Initializable {
                         for (int col = 0; col < 14; col++) {
                             int seatNumber = seatNumbers[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
                                     seatButton.setId(cn.getMaChoNgoi());
@@ -1167,6 +1161,7 @@ public class BanVeController implements Initializable {
                         for (int col = 0; col < 7; col++) {
                             int seatNumber = seatNumbers2[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
                                     seatButton.setId(cn.getMaChoNgoi());

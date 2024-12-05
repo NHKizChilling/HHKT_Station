@@ -410,7 +410,7 @@ public class LichTrinhController implements Initializable {
                 }
                 txt_maLichTrinh.setText(maLichTrinh);
                 LocalDateTime thoiGianDen = tinhTGDen();
-                LichTrinh lichTrinh = new LichTrinh(maLichTrinh, chuyenTau_DAO.getChuyenTauTheoID(soHieuTau), ga_DAO.getGaTheoTenGa(gaDi), ga_DAO.getGaTheoTenGa(gaDen), LocalDateTime.of(ngayKH, LocalTime.of(gio, phut)), thoiGianDen, trangThai.equals("Hoạt động") ? true : false);
+                LichTrinh lichTrinh = new LichTrinh("temp", chuyenTau_DAO.getChuyenTauTheoID(soHieuTau), ga_DAO.getGaTheoTenGa(gaDi), ga_DAO.getGaTheoTenGa(gaDen), LocalDateTime.of(ngayKH, LocalTime.of(gio, phut)), thoiGianDen, trangThai.equals("Hoạt động") ? true : false);
                 if (lichTrinh_DAO.create(lichTrinh)) {
                     ct_LichTrinh_DAO.addChiTietLichTrinh(maLichTrinh);
                     list.add(lichTrinh);
@@ -503,28 +503,27 @@ public class LichTrinhController implements Initializable {
     }
 
     protected LocalDateTime tinhTGDen() {
-//        double khoangCach = ga_DAO.KhoangCach(ga_DAO.getGaTheoTenGa(cb_infoGaDen.getValue()).getMaGa());
-//        if (khoangCach == 0) {
-//            khoangCach = ga_DAO.KhoangCach(ga_DAO.getGaTheoTenGa(cb_infoGaDi.getValue()).getMaGa());
-//        }
-//        double vanToc = cb_soHieuTau.getValue().startsWith("SE") ? 76.58 : 60;
-//        double thoiGianPhut = (khoangCach / vanToc) * 60;
-//
-//        LocalDateTime thoiGianDen = LocalDateTime.of(
-//                datePicker_tgKhoiHanh.getValue(),
-//                LocalTime.of(Integer.parseInt(infoGioDi.getText()), Integer.parseInt(infoPhutDi.getText()))
-//        ).plusMinutes((long) thoiGianPhut);
-//
-//        if (thoiGianDen.getHour() >= 24) {
-//            thoiGianDen = thoiGianDen.plusDays(1);
-//        }
-//
-//        datePicker_tgDKDen.setValue(thoiGianDen.toLocalDate());
-//        infoGioDen.setText(String.valueOf(thoiGianDen.getHour()));
-//        infoPhutDen.setText(String.valueOf(thoiGianDen.getMinute()));
-//
-//        return thoiGianDen;
-        return null;
+        double khoangCach = ga_DAO.KhoangCach(ga_DAO.getGaTheoTenGa(cb_infoGaDen.getValue()).getMaGa());
+        if (khoangCach == 0) {
+            khoangCach = ga_DAO.KhoangCach(ga_DAO.getGaTheoTenGa(cb_infoGaDi.getValue()).getMaGa());
+        }
+        double vanToc = cb_soHieuTau.getValue().startsWith("SE") ? 76.58 : 60;
+        double thoiGianPhut = (khoangCach / vanToc) * 60;
+
+        LocalDateTime thoiGianDen = LocalDateTime.of(
+                datePicker_tgKhoiHanh.getValue(),
+                LocalTime.of(Integer.parseInt(infoGioDi.getText()), Integer.parseInt(infoPhutDi.getText()))
+        ).plusMinutes((long) thoiGianPhut);
+
+        if (thoiGianDen.getHour() >= 24) {
+            thoiGianDen = thoiGianDen.plusDays(1);
+        }
+
+        datePicker_tgDKDen.setValue(thoiGianDen.toLocalDate());
+        infoGioDen.setText(String.valueOf(thoiGianDen.getHour()));
+        infoPhutDen.setText(String.valueOf(thoiGianDen.getMinute()));
+
+        return thoiGianDen;
     }
 
 

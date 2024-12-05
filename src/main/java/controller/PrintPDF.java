@@ -38,7 +38,7 @@ public class PrintPDF {
 
         // Tạo một document
         Document document = new Document(new Rectangle(250, 550));
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("src/main/resources/pdf/" + "dsve.pdf"));
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("src/main/resources/pdf/" + "dsve-" + getData.hd.getMaHoaDon() + ".pdf"));
         document.addLanguage("vi");
         document.open();
         //Cho phép viết tiếng Việt không lỗi mất chữ có dấu
@@ -142,9 +142,9 @@ public class PrintPDF {
             p13.add(new Chunk(new DecimalFormat("#,### VNĐ").format(new CT_HoaDon_DAO().getCT_HoaDonTheoMaVe(ve.getMaVe()).getGiaVe()), fontContentB));
 
             document.add(p13);
-            String text = "";
+            StringBuilder text = new StringBuilder();
             for (int i = 0; i < document.getPageSize().getWidth()/10; i++) {
-                text += "-";
+                text.append("-");
             }
             Paragraph p14 = new Paragraph(text + "\nHotline: 1900 1000\n" +
                     "Website: www.vetau.com.vn", fontContent);
@@ -160,7 +160,7 @@ public class PrintPDF {
 
         try {
             document.close();
-            Desktop.getDesktop().open(new File("src/main/resources/pdf/" + "dsve.pdf"));
+            Desktop.getDesktop().open(new File("src/main/resources/pdf/" + "dsve-" + getData.hd.getMaHoaDon() + ".pdf"));
         }catch (Exception e){
             System.out.println("Tạo vé thất bại!");
         }
@@ -236,8 +236,18 @@ public class PrintPDF {
             tong += cthd.getGiaVe() - 2000;
         }
         // Add ticket row 2
-        addTableRow(table, regularFont, dem + 1 + "", "", "Phí bảo hiểm hành khách", "Người", dem + "", "2.000", df.format(dem * 2000), "KCT", df.format(dem * 2000));
+        addTableRow(table, regularFont, dem + 1 + "", "", "Phí bảo hiểm hành khách", "Người", dem + "", "2.000", df.format(dem * 2000L), "KCT", df.format(dem * 2000L));
 
+        if (hoaDon.getKhuyenMai().getMaKM() != null) {
+            PdfPCell kmCell = new PdfPCell(new Phrase("Khuyến mãi: " + hoaDon.getKhuyenMai().getMoTa(), boldFont));
+            kmCell.setColspan(6);
+            kmCell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(kmCell);
+            table.addCell(new PdfPCell(new Phrase(df.format(tong * hoaDon.getKhuyenMai().getMucKM()), regularFont)));
+            table.addCell(new PdfPCell(new Phrase("KCT", regularFont)));
+            table.addCell(new PdfPCell(new Phrase(df.format(tong * hoaDon.getKhuyenMai().getMucKM()), regularFont)));
+            tong = tong * (1 - hoaDon.getKhuyenMai().getMucKM());
+        }
         PdfPCell totalCellPerTaxType = new PdfPCell(new Phrase("Tổng cộng: ", boldFont));
         totalCellPerTaxType.setColspan(6);
         totalCellPerTaxType.setRowspan(2);
@@ -247,9 +257,9 @@ public class PrintPDF {
         table.addCell(new PdfPCell(new Phrase("10%", regularFont)));
         table.addCell(new PdfPCell(new Phrase(df.format(tong * 1.1), regularFont)));
 
-        table.addCell(new PdfPCell(new Phrase(df.format(2000 * dem), regularFont)));
+        table.addCell(new PdfPCell(new Phrase(df.format(2000L * dem), regularFont)));
         table.addCell(new PdfPCell(new Phrase("KCT", regularFont)));
-        table.addCell(new PdfPCell(new Phrase(df.format(2000 * dem), regularFont)));
+        table.addCell(new PdfPCell(new Phrase(df.format(2000L * dem), regularFont)));
         // Add total row
         PdfPCell totalCell = new PdfPCell(new Phrase("Tổng cộng theo từng loại thuế suất: ", boldFont));
         totalCell.setColspan(6);

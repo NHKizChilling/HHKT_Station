@@ -227,15 +227,16 @@ public class HoaDon_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update HoaDon set MaNV = ?, MaKH = ?, NgayLapHoaDon = ?, TongTien = ?, TongGiamGia = ?, TrangThai = ? where MaHD = ?");
+            stm = con.prepareStatement("update HoaDon set MaNV = ?, MaKH = ?, NgayLapHoaDon = ?, MaKM = ?,TongTien = ?, TongGiamGia = ?, TrangThai = ? where MaHD = ?");
 
             stm.setString(1, hoaDon.getNhanVien().getMaNhanVien());
             stm.setString(2, hoaDon.getKhachHang().getMaKH());
             stm.setTimestamp(3, java.sql.Timestamp.valueOf(hoaDon.getNgayLapHoaDon()));
-            stm.setDouble(4, hoaDon.getTongTien());
-            stm.setDouble(5, hoaDon.getTongGiamGia());
-            stm.setBoolean(6, hoaDon.isTrangThai());
-            stm.setString(7, hoaDon.getMaHoaDon());
+            stm.setString(4, hoaDon.getKhuyenMai().getMaKM());
+            stm.setDouble(5, hoaDon.getTongTien());
+            stm.setDouble(6, hoaDon.getTongGiamGia());
+            stm.setBoolean(7, hoaDon.isTrangThai());
+            stm.setString(8, hoaDon.getMaHoaDon());
 
             n = stm.executeUpdate();
         } catch (Exception e) {

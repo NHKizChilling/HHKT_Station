@@ -48,10 +48,11 @@ public class HoaDon {
         double tongKM = 0;
 
         for (ChiTietHoaDon chiTietHoaDon : dsChiTietHoaDon) {
-            tongTien += (chiTietHoaDon.getGiaVe() - 2000 ) * 1.1;
+            tongTien += (chiTietHoaDon.getGiaVe() - 2000 );
             tongKM += (chiTietHoaDon.getGiaVe() - 2000) * khuyenMai.getMucKM();
         }
         tongTien -= tongKM;
+        tongTien *= 1.1;
         tongTien += phiDichVu;
         this.tongTien = tongTien;
     }

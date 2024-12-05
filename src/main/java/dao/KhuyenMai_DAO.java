@@ -194,7 +194,7 @@ public class KhuyenMai_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update KhuyenMai set TrangThai = 0 where NgayHetHan = ? and TrangThai = 1");
+            stm = con.prepareStatement("update KhuyenMai set TrangThai = 0 where NgayHetHan < ? and TrangThai = 1");
             stm.setDate(1, Date.valueOf(LocalDate.now()));
             n = stm.executeUpdate();
         } catch (Exception e) {
