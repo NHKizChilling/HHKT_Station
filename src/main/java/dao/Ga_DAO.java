@@ -161,5 +161,23 @@ public class Ga_DAO {
         }
         return ga;
     }
-}
+
+    public double KhoangCach(String maGa){
+        double khoangCach = 0;
+        try {
+            ConnectDB.getInstance();
+            Connection con = ConnectDB.getConnection();
+            String sql = "Select KhoangCach from Ga where MaGa = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, maGa);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                khoangCach = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return khoangCach;
+    }
+}   
 

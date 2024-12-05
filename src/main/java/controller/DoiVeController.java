@@ -36,9 +36,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+
+import javax.swing.text.NumberFormatter;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -255,7 +258,10 @@ public class DoiVeController implements Initializable {
                     listVe.add(ve);
                 }
             } else if (cb_search.getValue().equalsIgnoreCase("Mã hóa đơn")) {
-                listVe = ve_dao.getDSVeTheoMaKH(search);
+                ArrayList<Ve> finalListVe = listVe;
+                cthd_dao.getCT_HoaDon(search).forEach(cthd -> {
+                    finalListVe.add(ve_dao.getVeTheoID(cthd.getVe().getMaVe()));
+                });
             }
             if (listVe.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -336,6 +342,14 @@ public class DoiVeController implements Initializable {
             }
 
             ArrayList<LichTrinh> listLT = lichTrinh_dao.traCuuDSLichTrinh(maGaDi, maGaDen, dp_ngayKhoiHanh.getValue());
+            if (listLT.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Thông báo");
+                alert.setHeaderText(null);
+                alert.setContentText("Không tìm thấy chuyến tàu");
+                alert.show();
+                return;
+            }
             showTauTheoLT(listLT);
         });
 
@@ -390,7 +404,7 @@ public class DoiVeController implements Initializable {
                     alert.setHeaderText(null);
                     alert.setContentText("Xác nhận thoát?");
                     Optional<ButtonType> result = alert.showAndWait();
-                    if (result.get() == ButtonType.OK) {
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
                         HoaDon hoaDon = hd_dao.getHoaDonVuaTao();
                         if (!hoaDon.isTrangThai() && hoaDon.getTongTien() == 0) {
                             hd_dao.delete(hoaDon);
@@ -417,6 +431,7 @@ public class DoiVeController implements Initializable {
             }
         });
 
+        lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
     }
 
     public void renderTableVe(ArrayList<Ve> listVe) {
@@ -492,8 +507,8 @@ public class DoiVeController implements Initializable {
         tbl_thongTinVe.getItems().clear();
         paneTau.getChildren().clear();
         grTrain.getChildren().clear();
-        lblToa.setText("");
-        lblGia.setText("Giá: ");
+        lblToa.setText("Toa");
+        lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
         label_thongBao.setText("");
         paneToa.getChildren().clear();
         cb_gaDi.setValue(null);
@@ -613,6 +628,7 @@ public class DoiVeController implements Initializable {
                         for (int col = 0; col < 16; col++) {
                             int seatNumber = seatNumbers[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
                                     seatButton.setId(cn.getMaChoNgoi());
@@ -643,6 +659,7 @@ public class DoiVeController implements Initializable {
                                 if (seatButton.getStyle().contains("green")) {
                                     seatButton.setStyle(styleGheThuong + (finalCol > 7 ? styleGhe2 : styleGhe1));
                                     ctlt = null;
+                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
                                     btn_doiVe.setDisable(true);
                                 } else if (seatButton.getStyle().contains("red")) {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -659,6 +676,7 @@ public class DoiVeController implements Initializable {
                                     }
                                     seatButton.setStyle(styleGheDaChon + (finalCol > 7 ? styleGhe2 : styleGhe1));
                                     ctlt = ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId());
+                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(ctlt.getGiaCho()));
                                     btn_doiVe.setDisable(false);
                                 }
                             });
@@ -689,6 +707,7 @@ public class DoiVeController implements Initializable {
                         for (int col = 0; col < 16; col++) {
                             int seatNumber = seatNumbers[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
                                     seatButton.setId(cn.getMaChoNgoi());
@@ -723,6 +742,7 @@ public class DoiVeController implements Initializable {
                                 if (seatButton.getStyle().contains("green")) {
                                     seatButton.setStyle(styleGheThuong + (finalCol > 7 ? styleGhe2 : styleGhe1));
                                     ctlt = null;
+                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
                                     btn_doiVe.setDisable(true);
                                 } else if (seatButton.getStyle().contains("red")) {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -739,6 +759,7 @@ public class DoiVeController implements Initializable {
                                     }
                                     seatButton.setStyle(styleGheDaChon + (finalCol > 7 ? styleGhe2 : styleGhe1));
                                     ctlt = ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId());
+                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(ctlt.getGiaCho()));
                                     btn_doiVe.setDisable(false);
                                 }
                             });
@@ -766,6 +787,7 @@ public class DoiVeController implements Initializable {
                         for (int col = 0; col < 14; col++) {
                             int seatNumber = seatNumbers2[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
                                     seatButton.setId(cn.getMaChoNgoi());
@@ -790,6 +812,7 @@ public class DoiVeController implements Initializable {
                                 if (seatButton.getStyle().contains("green")) {
                                     seatButton.setStyle(styleGiuong);
                                     ctlt = null;
+                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
                                     btn_doiVe.setDisable(true);
                                 } else if (seatButton.getStyle().contains("red")) {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -806,6 +829,7 @@ public class DoiVeController implements Initializable {
                                     }
                                     seatButton.setStyle(styleGiuongDaChon);
                                     ctlt = ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId());
+                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(ctlt.getGiaCho()));
                                     btn_doiVe.setDisable(false);
                                 }
                             });
@@ -835,6 +859,7 @@ public class DoiVeController implements Initializable {
                         for (int col = 0; col < 14; col++) {
                             int seatNumber = seatNumbers[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
                                     seatButton.setId(cn.getMaChoNgoi());
@@ -860,6 +885,7 @@ public class DoiVeController implements Initializable {
                                 if (seatButton.getStyle().contains("green")) {
                                     seatButton.setStyle(styleGiuong);
                                     ctlt = null;
+                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
                                     btn_doiVe.setDisable(true);
                                 } else if (seatButton.getStyle().contains("red")) {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -876,6 +902,7 @@ public class DoiVeController implements Initializable {
                                     }
                                     seatButton.setStyle(styleGiuongDaChon);
                                     ctlt = ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId());
+                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(ctlt.getGiaCho()));
                                     btn_doiVe.setDisable(false);
                                 }
                             });
@@ -901,6 +928,7 @@ public class DoiVeController implements Initializable {
                         for (int col = 0; col < 7; col++) {
                             int seatNumber = seatNumbers2[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
                                     seatButton.setId(cn.getMaChoNgoi());
@@ -925,6 +953,7 @@ public class DoiVeController implements Initializable {
                                 if (seatButton.getStyle().contains("green")) {
                                     seatButton.setStyle(styleGiuong);
                                     ctlt = null;
+                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
                                     btn_doiVe.setDisable(true);
                                 } else if (seatButton.getStyle().contains("red")) {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -941,6 +970,7 @@ public class DoiVeController implements Initializable {
                                     }
                                     seatButton.setStyle(styleGiuongDaChon);
                                     ctlt = ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId());
+                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(ctlt.getGiaCho()));
                                     btn_doiVe.setDisable(false);
                                 }
                             });

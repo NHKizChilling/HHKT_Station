@@ -148,7 +148,7 @@
                         <Font name="Times New Roman Italic" size="15.0" />
                      </font>
                   </Label>
-                  <Pane layoutX="20.0" layoutY="20.0" prefHeight="18.0" prefWidth="50.0" style="-fx-background-color: skyblue; -fx-background-radius: 5;">
+                  <Pane layoutX="14.0" layoutY="20.0" prefHeight="18.0" prefWidth="50.0" style="-fx-background-color: skyblue; -fx-background-radius: 5;">
                      <children>
                         <ImageView fitHeight="25.0" fitWidth="50.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -157,12 +157,12 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Label layoutX="77.0" layoutY="20.0" text="Toa còn vé">
+                  <Label layoutX="70.0" layoutY="20.0" text="Toa còn chỗ">
                      <font>
                         <Font name="Times New Roman Italic" size="15.0" />
                      </font>
                   </Label>
-                  <Pane layoutX="155.0" layoutY="20.0" prefHeight="18.0" prefWidth="50.0" style="-fx-background-color: red; -fx-background-radius: 5;">
+                  <Pane layoutX="179.0" layoutY="20.0" prefHeight="18.0" prefWidth="50.0" style="-fx-background-color: red; -fx-background-radius: 5;">
                      <children>
                         <ImageView fitHeight="25.0" fitWidth="50.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -171,12 +171,12 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Label layoutX="212.0" layoutY="20.0" text="Toa hết vé">
+                  <Label layoutX="236.0" layoutY="20.0" text="Toa hết chỗ">
                      <font>
                         <Font name="Times New Roman Italic" size="15.0" />
                      </font>
                   </Label>
-                  <Pane layoutX="306.0" layoutY="20.0" prefHeight="18.0" prefWidth="50.0" style="-fx-background-color: lightgreen; -fx-background-radius: 5;">
+                  <Pane layoutX="336.0" layoutY="20.0" prefHeight="18.0" prefWidth="50.0" style="-fx-background-color: lightgreen; -fx-background-radius: 5;">
                      <children>
                         <ImageView fitHeight="25.0" fitWidth="50.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -185,7 +185,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Label layoutX="363.0" layoutY="20.0" text="Toa đang chọn">
+                  <Label layoutX="393.0" layoutY="20.0" text="Toa đang chọn">
                      <font>
                         <Font name="Times New Roman Italic" size="15.0" />
                      </font>

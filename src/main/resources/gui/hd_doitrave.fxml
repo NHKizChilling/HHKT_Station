@@ -127,7 +127,7 @@
                                     <TableColumn fx:id="colTTVe" prefWidth="237.60001754760742" text="Thông tin vé" />
                                     <TableColumn fx:id="colLoaiCho" prefWidth="136.79998779296875" text="Loại chỗ" />
                                     <TableColumn fx:id="colLoaiVe" prefWidth="139.20001220703125" text="Loại vé" />
-                                    <TableColumn fx:id="colGiaVe" prefWidth="137.60003662109375" text="Giá vé" />
+                                    <TableColumn fx:id="colGiaVe" prefWidth="137.60003662109375" text="Giá chỗ" />
                                     <TableColumn fx:id="colGiaGiam" prefWidth="127.20001220703125" text="Giảm giá" />
                                     <TableColumn fx:id="colThanhTien" prefWidth="160.0" text="Thành tiền" />
                                  </columns>
