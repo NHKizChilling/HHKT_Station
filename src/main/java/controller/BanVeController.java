@@ -217,7 +217,7 @@ public class BanVeController implements Initializable {
             LoaiToa lt = ltoa_dao.getLoaiToaTheoMa(toa.getLoaiToa().getMaLoaiToa());
             return new SimpleStringProperty("Chỗ " + cn.getSttCho() + " " + lt.getTenLoaiToa());
         });
-        colGiaCho.setCellValueFactory(cellData -> new SimpleStringProperty(DecimalFormat.getCurrencyInstance().format(cellData.getValue().getGiaCho())));
+        colGiaCho.setCellValueFactory(cellData -> new SimpleStringProperty(DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN")).format(cellData.getValue().getGiaCho())));
         colXoaCN.setCellValueFactory(cellData -> {
             FontAwesomeIcon icon = new FontAwesomeIcon();
             icon.setIcon(FontAwesomeIcons.TRASH);

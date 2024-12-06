@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /*
@@ -155,7 +156,7 @@ public class HoaDonController implements Initializable {
             cbKM.setPromptText("Không có khuyến mãi");
             cbKM.setDisable(true);
         }
-        NumberFormat df = DecimalFormat.getCurrencyInstance();
+        NumberFormat df = DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN"));
         NhanVien nhanVien = getData.nv;
         HoaDon hd = getData.hd;
         KhuyenMai km = km_dao.getKMGiamCaoNhat();
