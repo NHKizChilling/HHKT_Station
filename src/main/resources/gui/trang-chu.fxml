@@ -16,7 +16,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<VBox fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1540.0" snapToPixel="false" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TrangChuController">
+<VBox fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1540.0" snapToPixel="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TrangChuController">
    <children>
       <BorderPane prefHeight="795.0" prefWidth="1540.0">
          <left>
@@ -30,28 +30,23 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <FontAwesomeIcon fx:id="icDangXuat" fontSmoothingType="LCD" glyphName="SIGN_OUT" layoutX="106.0" layoutY="719.0" onMouseClicked="#dangXuat" size="3em" viewOrder="1.0">
-                     <fill>
-                        <LinearGradient endX="1.0" endY="1.0">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color red="0.8736842274665833" green="0.2232748568058014" blue="0.2232748568058014" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.9157894849777222" green="0.5053800940513611" blue="0.5053800940513611" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </fill>
+                  <FontAwesomeIcon fill="#e1e127" fontSmoothingType="LCD" glyphName="TICKET" layoutX="20.0" layoutY="203.0" viewOrder="-1.0">
+                     <font>
+                        <Font name="Times New Roman" size="12.0" />
+                     </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
-                  <FontAwesomeIcon fill="#e1e127" fontSmoothingType="LCD" glyphName="TICKET" layoutX="20.0" layoutY="203.0" viewOrder="-1.0">
+                  <FontAwesomeIcon fx:id="iconDown" disable="true" fill="WHITE" fontSmoothingType="LCD" glyphName="ANGLE_DOWN" layoutX="126.0" layoutY="208.0" selectionEnd="1" selectionStart="0" size="2em" viewOrder="-1.0">
+                     <font>
+                        <Font name="Times New Roman" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontAwesomeIcon>
+                  <FontAwesomeIcon fx:id="iconHD" fill="BLUE" fontSmoothingType="LCD" glyphName="LAPTOP" layoutX="19.0" layoutY="252.0" viewOrder="-1.0">
                      <font>
                         <Font name="Times New Roman" size="12.0" />
                      </font>
@@ -83,7 +78,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
-                  <FontAwesomeIcon fx:id="iconTK" fill="#bc6a38" fontSmoothingType="LCD" glyphName="AREA_CHART" layoutX="17.0" layoutY="452.0" text="" viewOrder="-1.0">
+                  <FontAwesomeIcon fx:id="iconKM" fill="WHITE" fontSmoothingType="LCD" glyphName="GIFT" layoutX="19.0" layoutY="452.0" viewOrder="-1.0">
                      <font>
                         <Font name="Times New Roman" size="12.0" />
                      </font>
@@ -91,7 +86,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
-                  <FontAwesomeIcon fx:id="iconHelp" fill="WHITE" fontSmoothingType="LCD" glyphName="QUESTION_CIRCLE" layoutX="21.0" layoutY="502.0" viewOrder="-1.0">
+                  <FontAwesomeIcon fx:id="iconTK" fill="#bc6a38" fontSmoothingType="LCD" glyphName="AREA_CHART" layoutX="17.0" layoutY="502.0" text="" viewOrder="-1.0">
                      <font>
                         <Font name="Times New Roman" size="12.0" />
                      </font>
@@ -99,7 +94,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
-                  <FontAwesomeIcon fx:id="iconHD" fill="BLUE" fontSmoothingType="LCD" glyphName="LAPTOP" layoutX="19.0" layoutY="252.0" viewOrder="-1.0">
+                  <FontAwesomeIcon fx:id="iconHelp" fill="WHITE" fontSmoothingType="LCD" glyphName="QUESTION_CIRCLE" layoutX="21.0" layoutY="552.0" viewOrder="-1.0">
                      <font>
                         <Font name="Times New Roman" size="12.0" />
                      </font>
@@ -107,27 +102,19 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
-                  <FontAwesomeIcon fx:id="iconDown" disable="true" fill="WHITE" fontSmoothingType="LCD" glyphName="ANGLE_DOWN" layoutX="126.0" layoutY="208.0" selectionEnd="1" selectionStart="0" size="2em" viewOrder="-1.0">
-                     <font>
-                        <Font name="Times New Roman" size="12.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </FontAwesomeIcon>
-                  <AnchorPane fx:id="acpVe" layoutY="215.0" prefHeight="90.0" prefWidth="155.0" style="-fx-background-color: #4098ff;" visible="false">
+                  <AnchorPane fx:id="acpVe" layoutY="215.0" prefHeight="90.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to right, #4098ff, #5098ff);" visible="false">
                      <children>
-                        <JFXButton fx:id="btnBanVeGUI" alignment="CENTER" buttonType="RAISED" onAction="#showBanVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Bán vé">
+                        <JFXButton fx:id="btnBanVeGUI" alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#showBanVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Bán vé">
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="btnDoiVeGUI" alignment="CENTER" buttonType="RAISED" layoutY="30.0" onAction="#showDoiVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Đổi vé">
+                        <JFXButton fx:id="btnDoiVeGUI" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="30.0" onAction="#showDoiVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Đổi vé">
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="btnHuyVeGUI" alignment="CENTER" buttonType="RAISED" layoutY="60.0" onAction="#showHuyVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Hủy vé">
+                        <JFXButton fx:id="btnHuyVeGUI" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="60.0" onAction="#showHuyVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Hủy vé">
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font>
@@ -159,21 +146,74 @@
                         <Font name="Times New Roman Bold" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnFBCTK" alignment="CENTER" buttonType="RAISED" layoutX="2.0" layoutY="430.0" onAction="#onBtnTKClick" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Thống kê" textFill="WHITE">
+                  <JFXButton fx:id="btnFKM" alignment="CENTER" buttonType="RAISED" layoutX="2.0" layoutY="430.0" onAction="#showKhuyenMaiGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Khuyến mãi" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman Bold" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnUM" alignment="CENTER" buttonType="RAISED" layoutX="2.0" layoutY="480.0" onAction="#openUserManual" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Hỗ trợ" textFill="WHITE">
+                  <JFXButton fx:id="btnFBCTK" alignment="CENTER" buttonType="RAISED" layoutX="2.0" layoutY="480.0" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Thống kê" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman Bold" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btn_ketCa" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="685.0" onAction="#showKetCaPopup" prefHeight="40.0" prefWidth="158.0" ripplerFill="#ff4f4f" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 10;" text="Kết ca">
+                  <JFXButton fx:id="btnUM" alignment="CENTER" buttonType="RAISED" layoutX="2.0" layoutY="530.0" onAction="#openUserManual" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Hỗ trợ" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman Bold" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btn_ketCa" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="701.0" onAction="#showKetCaPopup" prefHeight="40.0" prefWidth="158.0" ripplerFill="#ff4f4f" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 10;" text="Kết ca">
                      <font>
                         <Font name="Times New Roman Bold" size="20.0" />
                      </font>
                   </JFXButton>
+                  <FontAwesomeIcon fx:id="icDangXuat" fontSmoothingType="LCD" glyphName="SIGN_OUT" layoutX="106.0" layoutY="735.0" onMouseClicked="#dangXuat" size="3em" viewOrder="1.0">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.8736842274665833" green="0.2232748568058014" blue="0.2232748568058014" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.9157894849777222" green="0.5053800940513611" blue="0.5053800940513611" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontAwesomeIcon>
+                  <AnchorPane fx:id="acpTK" layoutX="2.0" layoutY="515.0" prefHeight="90.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to right, #4098ff, #5098ff);" visible="false">
+                     <children>
+                        <JFXButton fx:id="btnTKDoanhThu" alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#showTKDoanhThuGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Doanh thu">
+                           <font>
+                              <Font name="Arial" size="12.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnTKVe" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="30.0" onAction="#showTKVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Số lượng vé">
+                           <font>
+                              <Font name="Arial" size="12.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnTKNV" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="60.0" onAction="#showTKNhanVienGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Nhân viên">
+                           <font>
+                              <Font name="Arial" size="12.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+                  <FontAwesomeIcon fx:id="iconDownTK" disable="true" fill="WHITE" fontSmoothingType="LCD" glyphName="ANGLE_DOWN" layoutX="126.0" layoutY="507.0" selectionEnd="1" selectionStart="0" size="2em" viewOrder="-1.0">
+                     <font>
+                        <Font name="Times New Roman" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontAwesomeIcon>
                </children>
                <styleClass>
                   <String fx:value="shadow" />

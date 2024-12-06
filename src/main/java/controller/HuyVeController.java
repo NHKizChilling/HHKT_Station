@@ -7,6 +7,7 @@ import com.google.zxing.common.HybridBinarizer;
 import dao.*;
 import entity.*;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,6 +26,7 @@ import javafx.util.Callback;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -70,7 +72,7 @@ public class HuyVeController implements Initializable {
     private TableColumn<Ve, String> col_giaVe;
 
     @FXML
-    private TableColumn<Ve, Boolean> col_chonVe;
+    private TableColumn<Ve, CheckBox> col_chonVe;
 
     // Box Thông tin người đặt vé
     @FXML
@@ -119,14 +121,13 @@ public class HuyVeController implements Initializable {
     private LoaiVe_DAO loaiVe_dao;
     private HoaDon hoaDon;
 
-    //private ArrayList<Ve> selectedVe;
+    private ArrayList<Ve> selectedVe = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         initDAO();
 
-        ArrayList<Ve> selectedVe = new ArrayList<>();
 
         cb_search.getItems().addAll("Mã hóa đơn", "Mã vé");
         cb_search.setValue("Mã vé");
@@ -236,19 +237,66 @@ public class HuyVeController implements Initializable {
             lbl_thongBao.setText("");
         });
 
-        // Thêm các vé đã được chọn trong checkbox vào selectedVe
-        tbl_thongTinVe.setRowFactory(tv -> {
-            TableRow<Ve> row = new TableRow<>();
-            row.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
-                if (isNowSelected) {
-                    String maVe = row.getItem().getMaVe();
-                    Ve ve = ve_dao.getVeTheoID(maVe);
-                    selectedVe.add(ve);
+        tbl_thongTinVe.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));
+
+        col_thongTinHK.setCellValueFactory(p -> {
+            String tenHK = p.getValue().getTenHanhKhach();
+            String cccd = p.getValue().getSoCCCD();
+            LocalDate ngaySinh = p.getValue().getNgaySinh();
+            String s = "";
+            s = Objects.requireNonNullElse(tenHK, "");
+            if (cccd != null) {
+                s += "\n" + cccd;
+            }
+            if (ngaySinh != null) {
+                s += "\n" + DateTimeFormatter.ofPattern("dd - MM - yyyy").format(ngaySinh);
+            }
+
+            return new SimpleStringProperty(s);
+        });
+
+        col_thongTinVe.setCellValueFactory(p -> {
+            Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
+            LoaiVe lv = loaiVe_dao.getLoaiVeTheoMa(ve.getLoaiVe().getMaLoaiVe());
+            LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            return new SimpleStringProperty(lt.getChuyenTau().getSoHieutau() + " - " + lt.getGaDi().getMaGa() + " - " + lt.getGaDen().getMaGa() + "\n" +
+                    lt.getThoiGianKhoiHanh().format(formatter) + "\n" +
+                    lv.getTenLoaiVe());
+        });
+
+        col_tinhTrangVe.setCellValueFactory(new PropertyValueFactory<>("tinhTrangVe"));
+
+        col_giaVe.setCellValueFactory(p -> {
+            ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(p.getValue().getMaVe());
+            return new SimpleStringProperty(String.valueOf(ctHoaDon.getGiaVe()));
+        });
+
+        col_chonVe.setCellValueFactory(cellData -> {
+            CheckBox checkBox = new CheckBox();
+            Ve ve = cellData.getValue();
+            checkBox.setOnAction(e -> {
+                if (checkBox.isSelected()) {
+
+                    if (ve.getTinhTrangVe().equals("DaHuy")) {
+                        checkBox.setSelected(false);
+                        tbl_thongTinVe.getSelectionModel().clearSelection(tbl_thongTinVe.getItems().indexOf(ve));
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Hủy vé");
+                        alert.setContentText("Vé đã được hủy");
+                        alert.showAndWait();
+                    } else {
+                        tbl_thongTinVe.getSelectionModel().select(tbl_thongTinVe.getItems().indexOf(ve));
+                        selectedVe.add(ve);
+                    }
                 } else {
-                    selectedVe.remove(row.getItem());
+                    tbl_thongTinVe.getSelectionModel().clearSelection(tbl_thongTinVe.getItems().indexOf(tbl_thongTinVe.getSelectionModel().getSelectedItem()));
+                    selectedVe.remove(ve);
                 }
             });
-            return row;
+            return new SimpleObjectProperty<>(checkBox);
         });
 
         btn_yeuCau.setOnAction(e -> {
@@ -299,7 +347,6 @@ public class HuyVeController implements Initializable {
             lbl_thongBao.setText("");
             double tongTienVe = 0;
             double tongLePhi = 0;
-
             // Tính tổng tiền vé và lệ phí
             for (Ve ve : dsVeHuy) { // Duyệt qua danh sách vé cần hủy đã lọc các vé đã đổi ra
                 ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
@@ -355,33 +402,6 @@ public class HuyVeController implements Initializable {
     public void renderTable(ArrayList<Ve> listVe) {
         ObservableList<Ve> list = FXCollections.observableArrayList(listVe);
         tbl_thongTinVe.setItems(list);
-        col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));
-
-        // col thông tin hành khách chứa TenHK, cccd, sdt
-        col_thongTinHK.setCellValueFactory(p -> {
-            KhachHang kh = hanhKhach_dao.getKhachHangTheoMaKH(p.getValue().getKhachHang().getMaKH());
-            return new SimpleStringProperty(kh.getTenKH() + " \n " + "CCCD/CMND: " + kh.getSoCCCD() + " \n " + "SĐT: " + kh.getSdt());
-        });
-
-        col_thongTinVe.setCellValueFactory(p -> {
-            Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
-            LoaiVe lv = loaiVe_dao.getLoaiVeTheoMa(ve.getLoaiVe().getMaLoaiVe());
-            LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-            return new SimpleStringProperty("Ga đi: " + new Ga_DAO().getGaTheoMaGa(lt.getGaDi().getMaGa()).getTenGa() + " \n " +
-                    "Ga đến: " + new Ga_DAO().getGaTheoMaGa(lt.getGaDen().getMaGa()).getTenGa() + " \n " +
-                    "Thời gian khởi hành: " + lt.getThoiGianKhoiHanh().format(formatter) + " \n " +
-                    lv.getTenLoaiVe());
-        });
-
-        col_tinhTrangVe.setCellValueFactory(new PropertyValueFactory<>("tinhTrangVe"));
-
-        col_giaVe.setCellValueFactory(p -> {
-            ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(p.getValue().getMaVe());
-            return new SimpleStringProperty(String.valueOf(ctHoaDon.getGiaVe()));
-        });
-
-        col_chonVe.setCellFactory(new CheckBoxCellFactory());
     }
 
 
@@ -415,31 +435,13 @@ public class HuyVeController implements Initializable {
         lichTrinh_dao = new LichTrinh_DAO();
     }
 
-
-    /**
-     * A custom cell factory for creating table cells with checkboxes.
-     * This class implements the Callback interface to provide a custom TableCell
-     * for a TableColumn of type Ve with Boolean values.
-     */
     public static class CheckBoxCellFactory implements Callback<TableColumn<Ve, Boolean>, TableCell<Ve, Boolean>> {
 
-        /**
-         * Creates a new TableCell containing a CheckBox for each cell in the column.
-         *
-         * @param param the TableColumn for which this cell factory is being called
-         * @return a TableCell containing a CheckBox
-         */
         @Override
         public TableCell<Ve, Boolean> call(TableColumn<Ve, Boolean> param) {
             return new TableCell<>() {
                 private final CheckBox checkBox = new CheckBox();
 
-                /**
-                 * Updates the item in the cell. This method is called whenever the item in the cell changes.
-                 *
-                 * @param item  the new item for the cell
-                 * @param empty whether or not this cell represents data from the list. If it is empty, then it does not
-                 */
                 @Override
                 protected void updateItem(Boolean item, boolean empty) {
                     super.updateItem(item, empty);

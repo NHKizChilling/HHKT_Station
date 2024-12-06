@@ -230,7 +230,7 @@ public class ThongKeController implements Initializable {
             // nếu type = 1 thì lấy danh sách hóa đơn theo ngày
             case 1 -> listHoaDon = hoaDon_dao.getDSHDTheoNgay(date);
             // nếu type = 2 thì lấy danh sách hóa đơn theo tháng
-            case 2 -> listHoaDon = hoaDon_dao.getDSHDTheoThang(String.valueOf(date.getMonthValue()), String.valueOf(date.getYear()));
+            case 2 -> listHoaDon = hoaDon_dao.getDSHDTheoThang(date.getMonthValue(), date.getYear());
             // nếu type = 3 thì lấy danh sách hóa đơn theo năm
             case 3 -> listHoaDon = hoaDon_dao.getDSHDTheoNam(String.valueOf(date.getYear()));
         }
@@ -258,12 +258,12 @@ public class ThongKeController implements Initializable {
         lbl_soVeDoi.setText(soVeDoi + " Vé");
 
         // format tiền
-        lbl_doanhThu.setText(String.format("%,.2f", doanhThu) + " VNĐ");
+        lbl_doanhThu.setText(String.format("%,.0f", doanhThu) + " VNĐ");
     }
 
     private void renderChart(String year) {
-        double tongDoanhThu = 100;
-        int tongVeBan = 100;
+        double tongDoanhThu = 0;
+        int tongVeBan = 0;
 
         // Lấy danh sách hóa đơn theo năm
         ArrayList<HoaDon> listHoaDon = hoaDon_dao.getDSHDTheoNam(year);
@@ -282,7 +282,7 @@ public class ThongKeController implements Initializable {
             tongDoanhThu += hoaDon.getTongTien();
         }
 
-        lbl_tongDoanhThu.setText(String.format("%,.2f", tongDoanhThu) + " VNĐ");
+        lbl_tongDoanhThu.setText(String.format("%,.0f", tongDoanhThu) + " VNĐ");
         lbl_tongVeBan.setText(tongVeBan + " Vé");
 
         // tạo BarChart với cột X là tháng, cột Y là doanh thu

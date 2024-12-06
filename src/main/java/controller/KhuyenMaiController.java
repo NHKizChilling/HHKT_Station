@@ -26,9 +26,6 @@ public class KhuyenMaiController implements Initializable, Serializable {
     @FXML
     private DatePicker dp_searchNgayBatDau;
 
-//    @FXML
-//    private DatePicker dp_searchNgayKetThuc;
-
     @FXML
     private ComboBox<String> cb_searchTrangThai;
 
@@ -63,7 +60,7 @@ public class KhuyenMaiController implements Initializable, Serializable {
     private TextField txt_maKM;
 
     @FXML
-    private TextField txt_moTa;
+    private TextArea txt_moTa;
 
     @FXML
     private ComboBox<String> cb_mucGiam;
@@ -97,8 +94,8 @@ public class KhuyenMaiController implements Initializable, Serializable {
         cb_searchTrangThai.getItems().addAll("Tất cả", "Đang hoạt động", "Ngưng hoạt động");
         cb_searchTrangThai.setValue("Tất cả");
         cb_mucGiam.getItems().addAll("5", "10", "15", "20", "25", "30", "35", "40", "45", "50");
-        cb_trangThai.getItems().addAll("Đang hoạt động", "Ngưng hoạt động");
-        cb_trangThai.setValue("Đang hoạt động");
+        cb_trangThai.getItems().addAll("Đang áp dụng", "Ngưng áp dụng", "Chưa áp dụng");
+        cb_trangThai.setValue("Đang áp dụng");
         renderTable(list);
 
 
@@ -110,7 +107,7 @@ public class KhuyenMaiController implements Initializable, Serializable {
 
             ArrayList<KhuyenMai> newList = new ArrayList<>();
             KhuyenMai km;
-            boolean boolTrangThai = !trangThai.equals("Ngưng hoạt động");
+            boolean boolTrangThai = !trangThai.equals("Ngưng áp dụng");
 
             if (maKM.isEmpty() && trangThai.equals("Tất cả") && ngayApDung == null) {
                 renderTable(list);
@@ -152,7 +149,7 @@ public class KhuyenMaiController implements Initializable, Serializable {
             cb_mucGiam.setValue(null);
             dp_ngayBatDau.setValue(null);
             dp_ngayKetThuc.setValue(null);
-            cb_trangThai.setValue("Đang hoạt động");
+            cb_trangThai.setValue("Đang áp dụng");
         });
 
         btn_add.setOnAction(e -> {
@@ -161,7 +158,7 @@ public class KhuyenMaiController implements Initializable, Serializable {
             float mucGiam = Float.parseFloat(cb_mucGiam.getValue());
             LocalDate ngayBatDau = dp_ngayBatDau.getValue();
             LocalDate ngayKetThuc = dp_ngayKetThuc.getValue();
-            boolean trangThai = cb_trangThai.getValue().equals("Đang hoạt động");
+            boolean trangThai = cb_trangThai.getValue().equals("Đang áp dụng");
 
             KhuyenMai km = new KhuyenMai(maKM, moTa, ngayBatDau, ngayKetThuc, mucGiam, trangThai);
             khuyenMai_dao.themKhuyenMai(km);
@@ -174,7 +171,7 @@ public class KhuyenMaiController implements Initializable, Serializable {
             float mucGiam = Float.parseFloat(cb_mucGiam.getValue());
             LocalDate ngayBatDau = dp_ngayBatDau.getValue();
             LocalDate ngayKetThuc = dp_ngayKetThuc.getValue();
-            boolean trangThai = cb_trangThai.getValue().equals("Đang hoạt động");
+            boolean trangThai = cb_trangThai.getValue().equals("Đang áp dụng");
 
             KhuyenMai km = new KhuyenMai(maKM, moTa, ngayBatDau, ngayKetThuc, mucGiam, trangThai);
             khuyenMai_dao.suaKhuyenMai(km);
@@ -185,10 +182,10 @@ public class KhuyenMaiController implements Initializable, Serializable {
             if (newSelection != null) {
                 txt_maKM.setText(newSelection.getMaKM());
                 txt_moTa.setText(newSelection.getMoTa());
-                cb_mucGiam.setValue(String.valueOf(newSelection.getMucKM()));
+                cb_mucGiam.setValue(String.valueOf(newSelection.getMucKM() * 100));
                 dp_ngayBatDau.setValue(newSelection.getNgayApDung());
                 dp_ngayKetThuc.setValue(newSelection.getNgayHetHan());
-                cb_trangThai.setValue(newSelection.isTrangThai() ? "Đang hoạt động" : "Ngưng hoạt động");
+                cb_trangThai.setValue(newSelection.isTrangThai() ? "Đang áp dụng" : newSelection.getNgayApDung().isBefore(LocalDate.now()) ? "Chưa áp dụng" : "Ngưng áp dụng");
             }
         });
     }
@@ -201,9 +198,9 @@ public class KhuyenMaiController implements Initializable, Serializable {
         tbl_khuyenMai.setItems(data);
         col_maKM.setCellValueFactory(new PropertyValueFactory<>("maKM"));
         col_moTa.setCellValueFactory(new PropertyValueFactory<>("moTa"));
-        col_mucGiam.setCellValueFactory(new PropertyValueFactory<>("mucKM"));
+        col_mucGiam.setCellValueFactory(param -> new SimpleStringProperty(String.valueOf(param.getValue().getMucKM() * 100)));
         col_batDau.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getNgayApDung().format(formatter)));
         col_ketThuc.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getNgayHetHan().format(formatter)));
-        col_trangThai.setCellValueFactory(new PropertyValueFactory<>("trangThai"));
+        col_trangThai.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().isTrangThai() ? "Đang áp dụng" : param.getValue().getNgayApDung().isBefore(LocalDate.now()) ? "Chưa áp dụng" : "Ngưng áp dụng"));
     }
 }

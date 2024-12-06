@@ -292,7 +292,7 @@ public class HoaDon_DAO {
         return list;
     }
 
-    public ArrayList<HoaDon> getDSHDTheoThang(String nam, String thang) {
+    public ArrayList<HoaDon> getDSHDTheoThang(int thang, int nam) {
         ArrayList<HoaDon> list = new ArrayList<>();
         try {
             ConnectDB.getInstance();
@@ -300,8 +300,8 @@ public class HoaDon_DAO {
             PreparedStatement stm;
             String sql = "Select * from HoaDon where YEAR(NgayLapHoaDon) = ? and MONTH(NgayLapHoaDon) = ?";
             stm = con.prepareStatement(sql);
-            stm.setString(1, nam);
-            stm.setString(2, thang);
+            stm.setInt(1, nam);
+            stm.setInt(2, thang);
 
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {

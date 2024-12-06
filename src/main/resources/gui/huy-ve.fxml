@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -15,27 +14,23 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1386.0" style="-fx-background-color: #ffffff;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HuyVeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1386.0" style="-fx-background-color: #ffffff;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HuyVeController">
    <left>
       <AnchorPane prefHeight="806.0" prefWidth="973.0" BorderPane.alignment="CENTER">
          <children>
             <Separator layoutX="798.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0" />
             <AnchorPane layoutX="16.0" layoutY="189.0" prefHeight="572.0" prefWidth="800.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="189.0">
                <children>
-                  <ScrollPane layoutX="44.0" layoutY="84.0" prefHeight="240.0" prefWidth="850.0" AnchorPane.topAnchor="84.0">
-                     <content>
-                        <TableView fx:id="tbl_thongTinVe" prefHeight="240.0" prefWidth="850.0" stylesheets="@dashboardDesign.css">
-                           <columns>
-                              <TableColumn fx:id="col_maVe" prefWidth="100.0" styleClass="tbl_col" text="Mã vé" />
-                              <TableColumn fx:id="col_thongTinHK" prefWidth="175.0" styleClass="tbl_col" text="Thông tin hành khách" />
-                              <TableColumn fx:id="col_thongTinVe" prefWidth="175.0" styleClass="tbl_col" text="Thông tin vé" />
-                              <TableColumn fx:id="col_tinhTrangVe" prefWidth="150.0" styleClass="tbl_col" text="Thông tin vé trả" />
-                              <TableColumn fx:id="col_giaVe" prefWidth="130.0" styleClass="tbl_col" text="Thành tiền (VNĐ)" />
-                              <TableColumn fx:id="col_chonVe" prefWidth="110.0" styleClass="tbl_col" text="Chọn vé trả" />
-                           </columns>
-                        </TableView>
-                     </content>
-                  </ScrollPane>
+                  <TableView fx:id="tbl_thongTinVe" layoutX="47.0" layoutY="80.0" prefHeight="240.0" prefWidth="845.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css">
+                     <columns>
+                        <TableColumn fx:id="col_maVe" prefWidth="100.0" styleClass="tbl_col" text="Mã vé" />
+                        <TableColumn fx:id="col_thongTinHK" prefWidth="175.0" style="-fx-alignment: center;" styleClass="tbl_col" text="Thông tin hành khách" />
+                        <TableColumn fx:id="col_thongTinVe" prefWidth="175.0" styleClass="tbl_col" text="Thông tin vé" />
+                        <TableColumn fx:id="col_tinhTrangVe" prefWidth="150.0" styleClass="tbl_col" text="Thông tin vé trả" />
+                        <TableColumn fx:id="col_giaVe" prefWidth="130.0" styleClass="tbl_col" text="Thành tiền (VNĐ)" />
+                        <TableColumn fx:id="col_chonVe" prefWidth="110.0" styleClass="tbl_col" text="Chọn vé trả" />
+                     </columns>
+                  </TableView>
                   <AnchorPane layoutX="59.0" layoutY="347.0" prefHeight="200.0" prefWidth="815.0" styleClass="pane" AnchorPane.topAnchor="347.0">
                      <children>
                         <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="7.0" prefHeight="35.0" text="Thông tin người đặt vé">

@@ -123,7 +123,7 @@ public class ThongKeNVController implements Initializable {
 
         //Tự động thêm năm vào combobox
         int currentYear = LocalDate.now().getYear();
-        int lastYear = Integer.parseInt(cb_nam.getItems().get(cb_nam.getItems().size() - 1));
+        int lastYear = Integer.parseInt(cb_nam.getItems().getLast());
         for (int i = lastYear + 1; i <= currentYear; i++) {
             cb_nam.getItems().add(String.valueOf(i));
         }
@@ -132,11 +132,11 @@ public class ThongKeNVController implements Initializable {
     private void renderNhanVien(LocalDate date, int type) { //type: 1: thống kê theo tháng, 2: thống kê theo năm
         ArrayList<NhanVien> listNhanVien = nhanVien_dao.getDSNhanVien();
         int soNv = listNhanVien.size();
-        lbl_soNv.setText(String.valueOf(soNv) + " nhân viên");
+        lbl_soNv.setText(soNv + " nhân viên");
 
-        ArrayList<HoaDon> listHoaDon = new ArrayList<>();
+        ArrayList<HoaDon> listHoaDon;
         if (type == 1) { //1: thống kê theo tháng
-            listHoaDon = hoaDon_dao.getDSHDTheoThang(String.valueOf(date.getMonthValue()), String.valueOf(date.getYear()));
+            listHoaDon = hoaDon_dao.getDSHDTheoThang(date.getMonthValue(), date.getYear());
         } else { //2: thống kê theo năm
             listHoaDon = hoaDon_dao.getDSHDTheoNam(String.valueOf(date.getYear()));
         }
