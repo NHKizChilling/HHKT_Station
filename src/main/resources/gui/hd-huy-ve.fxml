@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: #fff;" stylesheets="@thongKe.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HDHuyVeController">
+   <top>
+      <AnchorPane fx:id="acpTTHD" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="988.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="384.0" prefHeight="38.0" prefWidth="220.0" styleClass="label-info" stylesheets="@dashboardDesign.css" text="HÓA ĐƠN TRẢ VÉ">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="74.0" text="Tên người hủy vé:">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_ten" layoutX="155.0" layoutY="68.0" AnchorPane.leftAnchor="155.0" />
+            <Label layoutX="349.0" layoutY="74.0" text="CCCD/CMND:">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_cccd" layoutX="468.0" layoutY="68.0" />
+            <Label layoutX="675.0" layoutY="75.0" text="Số điện thoại:">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_sdt" layoutX="782.0" layoutY="68.0" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="350.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="1.0" prefWidth="988.0" style="-fx-background-color: #fff;">
+               <children>
+                  <Line endX="1016.5" layoutY="12.5" startX="-100.0" />
+                  <Label layoutX="13.0" prefHeight="27.0" style="-fx-background-color: #fff; -fx-font-family: Times New Roman; -fx-font-size: 18; -fx-font-weight: bold;" text="Danh sách các vé chọn trả">
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding></Label>
+               </children>
+            </AnchorPane>
+            <VBox layoutX="14.0" layoutY="30.0" prefHeight="302.0" prefWidth="1004.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
+               <children>
+                  <ScrollPane prefHeight="321.0" prefWidth="1004.0">
+                     <content>
+                        <TableView fx:id="tbl_dsVe" prefHeight="317.0" prefWidth="1000.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css">
+                           <columns>
+                              <TableColumn fx:id="col_stt" prefWidth="50.0" text="STT" />
+                              <TableColumn fx:id="col_hoTen" prefWidth="250.0" text="Họ và tên" />
+                              <TableColumn fx:id="col_thongTinVe" prefWidth="250.0" text="Thông tin vé" />
+                              <TableColumn fx:id="col_tienVe" prefWidth="150.0" text="Tiền vé (VNĐ)" />
+                              <TableColumn fx:id="col_lePhi" prefWidth="150.0" text="Lệ phí trả vé" />
+                              <TableColumn fx:id="col_tienTra" prefWidth="150.0" text="Tiền trả " />
+                           </columns>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+   <bottom>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="1010.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lbl_tongLePhi" layoutX="14.0" layoutY="28.0" text="Tổng lệ phí:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="90.0">
+               <font>
+                  <Font name="Times New Roman" size="18.0" />
+               </font>
+            </Label>
+            <Line endX="891.5" layoutX="117.0" layoutY="14.0" startX="-100.0" />
+            <Label fx:id="lbl_tongTienVe" layoutX="426.0" layoutY="34.0" text="Tổng tiền vé:" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="30.0">
+               <font>
+                  <Font name="Times New Roman" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbl_tongTienTra" layoutX="426.0" layoutY="89.0" text="Tổng tiền trả:" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="90.0">
+               <font>
+                  <Font name="Times New Roman" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="17.0" text="* Thành tiền vé đã bao gồm phí bảo hiểm ( 2.000 đ)">
+               <font>
+                  <Font name="Times New Roman Italic" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="btn_backTraVe" alignment="CENTER_RIGHT" layoutX="30.0" layoutY="157.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-radius: 15; -fx-view-order: 0;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Quay lại" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="157.0">
+               <font>
+                  <Font name="Times New Roman Bold" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <FontAwesomeIcon glyphName="ARROW_LEFT" />
+               </graphic>
+            </Button>
+            <JFXButton fx:id="btn_xacNhan" buttonType="RAISED" layoutX="819.0" layoutY="149.0" prefHeight="40.0" ripplerFill="GREEN" style="-fx-background-color: lightgreen; -fx-border-radius: 5; -fx-background-radius: 5;" text="Xác nhận và in hóa đơn">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <FontAwesomeIcon disable="true" glyphName="PRINT" />
+               </graphic>
+            </JFXButton>
+            <Label fx:id="lbl_tongSoVe" layoutX="17.0" layoutY="89.0" text="Tổng số vé:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
+               <font>
+                  <Font name="Times New Roman" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>
