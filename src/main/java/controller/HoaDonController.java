@@ -9,27 +9,23 @@ import com.itextpdf.text.DocumentException;
 import com.jfoenix.controls.JFXButton;
 import dao.*;
 import entity.*;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 /*
@@ -64,6 +60,9 @@ public class HoaDonController implements Initializable {
 
     @FXML
     private AnchorPane acpTTHD;
+
+    @FXML
+    private AnchorPane acpThanhToan;
 
     @FXML
     private AnchorPane paneCTVe;
@@ -128,30 +127,42 @@ public class HoaDonController implements Initializable {
     @FXML
     private Button btnGia4;
 
+    @FXML
+    private ComboBox<String> cbKM;
 
-    private LichTrinh_DAO lt_dao = new LichTrinh_DAO();
-    private ChoNgoi_DAO cn_dao = new ChoNgoi_DAO();
-    private Toa_DAO toa_dao = new Toa_DAO();
-    private LoaiToa_DAO ltoa_dao = new LoaiToa_DAO();
-    private LoaiVe_DAO loaiVe_dao = new LoaiVe_DAO();
+
+    private final LichTrinh_DAO lt_dao = new LichTrinh_DAO();
+    private final ChoNgoi_DAO cn_dao = new ChoNgoi_DAO();
+    private final Toa_DAO toa_dao = new Toa_DAO();
+    private final LoaiToa_DAO ltoa_dao = new LoaiToa_DAO();
+    private final LoaiVe_DAO loaiVe_dao = new LoaiVe_DAO();
+    private final Ve_DAO ve_dao = new Ve_DAO();
     private ArrayList<Ve> dsve;
     private ArrayList<ChiTietHoaDon> dscthd;
     private double tongTien = 0;
-    private double tongGiamGia = 0;
     private ArrayList<KhuyenMai> dsKM;
-    private KhuyenMai_DAO km_dao = new KhuyenMai_DAO();
+    private final KhuyenMai_DAO km_dao = new KhuyenMai_DAO();
     private ArrayList<ChiTietLichTrinh> dsctlt;
     private ArrayList<ChiTietLichTrinh> dsctltkh;
     private int i = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        dsKM = km_dao.getAllKM();
+        dsKM = km_dao.getKMHienCo();
+        if (!dsKM.isEmpty()) {
+            dsKM.forEach(km -> cbKM.getItems().add(km.getMoTa()));
+        } else {
+            cbKM.setPromptText("Không có khuyến mãi");
+            cbKM.setDisable(true);
+        }
         NumberFormat df = DecimalFormat.getCurrencyInstance();
         NhanVien nhanVien = getData.nv;
         HoaDon hd = getData.hd;
         KhuyenMai km = km_dao.getKMGiamCaoNhat();
-        hd.setKhuyenMai(km);
+        if (km != null) {
+            hd.setKhuyenMai(km);
+            cbKM.setValue(km.getMoTa());
+        }
         txtMaNV.setText(nhanVien.getMaNhanVien());
         txtTenNV.setText(nhanVien.getTenNhanVien());
         txtMaHD.setText(getData.hd.getMaHoaDon());
@@ -182,15 +193,11 @@ public class HoaDonController implements Initializable {
             return new SimpleStringProperty(ve.getLoaiVe().getTenLoaiVe());
         });
 
-        colGiaVe.setCellValueFactory(param -> {
-            return new SimpleStringProperty(df.format(param.getValue().getVe().getCtlt().getGiaCho()));
-        });
+        colGiaVe.setCellValueFactory(param -> new SimpleStringProperty(df.format(param.getValue().getVe().getCtlt().getGiaCho())));
 
         colGiaGiam.setCellValueFactory(param -> new SimpleStringProperty(df.format(param.getValue().getGiaGiam())));
 
-        colThanhTien.setCellValueFactory(param -> {
-            return new SimpleStringProperty(df.format(param.getValue().getGiaVe()));
-        });
+        colThanhTien.setCellValueFactory(param -> new SimpleStringProperty(df.format(param.getValue().getGiaVe())));
 
         btnLamMoi.setOnAction(e -> {
             txtTenHK.clear();
@@ -201,18 +208,26 @@ public class HoaDonController implements Initializable {
         cbLoaiVe.getItems().addAll(loaiVe_dao.getAllLoaiVe().stream().map(LoaiVe::getTenLoaiVe).toList());
         //enable dpNgaySinh khi chọn loại vé Người cao tuổi hoặc Trẻ em
         cbLoaiVe.setOnAction(e -> {
-            if (cbLoaiVe.getValue().equals("Người cao tuổi") || cbLoaiVe.getValue().equals("Trẻ em")) {
-                dpNgaySinh.setDisable(false);
-                if (cbLoaiVe.getValue().equals("Trẻ em")) {
-                    txtSoCCCD.setDisable(true);
+            if (cbLoaiVe.getValue() != null) {
+                if (cbLoaiVe.getValue().equals("Người cao tuổi") || cbLoaiVe.getValue().equals("Trẻ em")) {
+                    dpNgaySinh.setDisable(false);
+                    txtSoCCCD.setDisable(cbLoaiVe.getValue().equals("Trẻ em"));
+                    txtSoCCCD.clear();
                 } else {
+                    dpNgaySinh.setDisable(true);
+                    dpNgaySinh.setValue(null);
                     txtSoCCCD.setDisable(false);
                 }
-            } else {
-                dpNgaySinh.setDisable(true);
-                txtSoCCCD.setDisable(false);
             }
         });
+        dpNgaySinh.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.isAfter(LocalDate.now()) || date.isBefore(LocalDate.now().minusYears(14)));
+            }
+        });
+
         if (getData.dscthd != null && getData.dsve != null) {
             dscthd = getData.dscthd;
             dsve = getData.dsve;
@@ -222,10 +237,10 @@ public class HoaDonController implements Initializable {
             hd.tinhTongTien(dscthd);
             hd.tinhTongGiamGia(dscthd);
             tongTien = hd.getTongTien();
-            tongGiamGia = hd.getTongGiamGia();
             txtThanhTien.setText(df.format(Math.round(tongTien / 1000) * 1000));
             goiYGia();
             chonGiaGoiY(df);
+            acpThanhToan.setDisable(false);
             btnThanhToan.setOnAction(event -> {
                 if (txtTienKH.getText().isEmpty() || txtTienKH.getText() == null) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -277,15 +292,13 @@ public class HoaDonController implements Initializable {
                     alert.setTitle("Thông báo");
                     alert.setHeaderText("In hóa đơn thành công");
                     alert.show();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (DocumentException e) {
+                } catch (IOException | DocumentException e) {
                     throw new RuntimeException(e);
                 }
             });
             return;
         }
-        cbLoaiVe.setValue(cbLoaiVe.getItems().get(0));
+        cbLoaiVe.setValue(cbLoaiVe.getItems().getFirst());
         dsctlt = getData.dsctlt;
         dsctltkh = getData.dsctltkh;
         dsctlt.removeAll(dsctltkh);
@@ -307,45 +320,92 @@ public class HoaDonController implements Initializable {
             if (!checkTTVe()) {
                 return;
             }
-            i += 1;
-            if (dsctlt.size() >= i) {
-                Ve ve = new Ve("temp" + i, getData.kh, dsctlt.get(i - 1), loaiVe_dao.getLoaiVeTheoTen(cbLoaiVe.getValue()), txtTenHK.getText(), txtSoCCCD.getText(), dpNgaySinh.getValue(), "DaBan", false);
-                dsve.add(ve);
-                ChiTietHoaDon cthd = new ChiTietHoaDon(hd, ve);
-                dscthd.add(cthd);
-            }
-            if (dsctltkh.size() >= i) {
-                Ve vekh = new Ve("tempkh" + i, getData.kh, dsctltkh.get(i - 1), loaiVe_dao.getLoaiVeTheoTen(cbLoaiVe.getValue()), txtTenHK.getText(), txtSoCCCD.getText(), dpNgaySinh.getValue(), "DaBan", true);
-                dsve.add(vekh);
-                ChiTietHoaDon cthdkh = new ChiTietHoaDon(hd, vekh);
-                dscthd.add(cthdkh);
-            }
-            tbCTHD.setItems(FXCollections.observableArrayList(dscthd));
-            if (i < dsctlt.size()) {
+            if (tbCTHD.getSelectionModel().isEmpty()) {
+                i += 1;
+                if (dsctlt.size() >= i) {
+                    Ve ve = new Ve("temp" + i, getData.kh, dsctlt.get(i - 1), loaiVe_dao.getLoaiVeTheoTen(cbLoaiVe.getValue()), txtTenHK.getText(), txtSoCCCD.getText(), dpNgaySinh.getValue(), "DaBan", false);
+                    dsve.add(ve);
+                    ChiTietHoaDon cthd = new ChiTietHoaDon(hd, ve);
+                    dscthd.add(cthd);
+                }
+                if (dsctltkh.size() >= i) {
+                    Ve vekh = new Ve("tempkh" + i, getData.kh, dsctltkh.get(i - 1), loaiVe_dao.getLoaiVeTheoTen(cbLoaiVe.getValue()), txtTenHK.getText(), txtSoCCCD.getText(), dpNgaySinh.getValue(), "DaBan", true);
+                    dsve.add(vekh);
+                    ChiTietHoaDon cthdkh = new ChiTietHoaDon(hd, vekh);
+                    dscthd.add(cthdkh);
+                }
+                if (i < dsctlt.size()) {
+                    nhapLaiTTVe();
+                    showTTVe(formatter, i);
+                    btnHoanTat.fireEvent(e1);
+                } else {
+
+                    if (dsve.stream().allMatch(ve -> ve.getLoaiVe().getTenLoaiVe().equals("Trẻ em"))) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Lỗi");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Trẻ em cần có người lớn đi cùng");
+                        alert.showAndWait();
+                        dsve.removeLast();
+                        dscthd.removeLast();
+                        //xóa vé và cthd vé khứ hồi nếu có
+                        if (dsctltkh.size() >= i) {
+                            dsve.removeLast();
+                            dscthd.removeLast();
+                        }
+                        i--;
+                        return;
+                    } else {
+                        btnHoanTat.setDisable(true);
+                        btnLamMoi.setDisable(true);
+                        acpTTHD.getChildren().remove(paneCTVe);
+                        acpTTHD.setPrefHeight(70);
+                        acpThanhToan.setDisable(false);
+                        hd.tinhTongTien(dscthd);
+                        hd.tinhTongGiamGia(dscthd);
+                        tongTien = hd.getTongTien();
+                        txtThanhTien.setText(df.format(Math.round(tongTien / 1000) * 1000));
+                        goiYGia();
+                    }
+                }
+            } else {
+                for(int k : tbCTHD.getSelectionModel().getSelectedIndices()) {
+                    Ve ve = dsve.get(k);
+                    ChiTietHoaDon cthd = dscthd.get(k);
+                    ve.setLoaiVe(loaiVe_dao.getLoaiVeTheoTen(cbLoaiVe.getValue()));
+                    ve.setTenHanhKhach(txtTenHK.getText());
+                    ve.setSoCCCD(txtSoCCCD.getText());
+                    ve.setNgaySinh(dpNgaySinh.getValue());
+                    dsve.set(k, ve);
+                    cthd.setVe(ve);
+                    cthd.tinhGiaVe();
+                    cthd.tinhGiaGiam();
+                    dscthd.set(k, cthd);
+                }
                 nhapLaiTTVe();
                 showTTVe(formatter, i);
                 btnHoanTat.fireEvent(e1);
-            } else {
-                btnHoanTat.setDisable(true);
-                btnLamMoi.setDisable(true);
-                acpTTHD.getChildren().remove(paneCTVe);
-                acpTTHD.setPrefHeight(80);
-                hd.tinhTongTien(dscthd);
-                hd.tinhTongGiamGia(dscthd);
-                tongTien = hd.getTongTien();
-                tongGiamGia = hd.getTongGiamGia();
-                //txtThanhTien.setText(df.format(Math.round(tongTien / 1000) * 1000));
-                goiYGia();
             }
+            tbCTHD.setItems(FXCollections.observableArrayList(dscthd));
+            tbCTHD.refresh();
+            tbCTHD.getSelectionModel().clearSelection();
         });
 
 
         chonGiaGoiY(df);
 
+        cbKM.setOnAction(e -> {
+            hd.setKhuyenMai(dsKM.get(cbKM.getSelectionModel().getSelectedIndex()));
+            hd.tinhTongTien(dscthd);
+            hd.tinhTongGiamGia(dscthd);
+            tongTien = hd.getTongTien();
+            txtThanhTien.setText(df.format(Math.round(tongTien / 1000) * 1000));
+            goiYGia();
+        });
 
         btnLuuTamHD.setOnAction(event -> {
             ArrayList<HoaDon> temp_invoices = new HoaDon_DAO().getDSHDLuuTam().stream().filter(h -> !h.getNgayLapHoaDon().plusMinutes(15).isAfter(LocalDateTime.now())).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
-            temp_invoices = temp_invoices.stream().filter(h -> !(new CT_HoaDon_DAO().getCT_HoaDon(h.getMaHoaDon()).size() == 0)).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+            temp_invoices = temp_invoices.stream().filter(h -> !(new CT_HoaDon_DAO().getCT_HoaDon(h.getMaHoaDon()).isEmpty())).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
             if (temp_invoices.size() >= 5) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
@@ -379,6 +439,44 @@ public class HoaDonController implements Initializable {
                 alert.showAndWait();
                 getData.dsve = list;
                 getData.dscthd = listcthd_new;
+            }
+        });
+
+        tbCTHD.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        tbCTHD.setOnMouseClicked(e -> {
+            if(paneCTVe.isVisible() && !tbCTHD.getSelectionModel().isEmpty()) {
+                int s = tbCTHD.getSelectionModel().getSelectedIndex();
+                Ve ve = dsve.get(s);
+                cbLoaiVe.setValue(ve.getLoaiVe().getTenLoaiVe());
+                if (!txtTenHK.isDisable()) {
+                    txtTenHK.setText(ve.getTenHanhKhach());
+                } else {
+                    txtTenHK.clear();
+                }
+                if (!txtSoCCCD.isDisable()) {
+                    txtSoCCCD.setText(ve.getSoCCCD());
+                } else {
+                    txtSoCCCD.clear();
+                }
+                if (!dpNgaySinh.isDisable()) {
+                    dpNgaySinh.setValue(ve.getNgaySinh());
+                } else {
+                    dpNgaySinh.setValue(null);
+                }
+                btnHoanTat.setDisable(false);
+                btnLamMoi.setDisable(false);
+                int index;
+
+                if (!ve.isKhuHoi()) {
+                    index = dsctlt.indexOf(ve.getCtlt());
+                    if (!dsctltkh.isEmpty() && index < dsctltkh.size()) {
+                        tbCTHD.getSelectionModel().select(s + 1);
+                    }
+                } else {
+                    index = dsctltkh.indexOf(ve.getCtlt());
+                    tbCTHD.getSelectionModel().select(s - 1);
+                }
+                showTTVe(formatter, index);
             }
         });
 
@@ -423,10 +521,6 @@ public class HoaDonController implements Initializable {
             }
         });
 
-        txtTienKH.setOnAction(e -> {
-            goiYGia();
-        });
-
         btnInHD.setOnAction(event -> {
             PrintPDF printPDF = new PrintPDF();
             try {
@@ -437,9 +531,7 @@ public class HoaDonController implements Initializable {
                 alert.setTitle("Thông báo");
                 alert.setHeaderText("In hóa đơn thành công");
                 alert.show();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (DocumentException e) {
+            } catch (IOException | DocumentException e) {
                 throw new RuntimeException(e);
             }
         });
@@ -482,17 +574,24 @@ public class HoaDonController implements Initializable {
 
     private void goiYGia() {
         if (!txtThanhTien.getText().isEmpty() && txtTienKH.getText() != null) {
-            // gợi ý giá như sau:
-            // btn1: gợi ý đúng giá thành tiền
-            // btn2: gợi ý giá dựa vào số được nhập trong txtTienKH * 10000
-            // btn3: gợi ý giá dựa vào số được nhập trong txtTienKH * 100000
-            // btn4: gợi ý giá dựa vào số được nhập trong txtTienKH * 1000000
-            int tienKH = Integer.parseInt(txtTienKH.getText());
-            NumberFormat df = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-            btnGia1.setText(df.format(Math.round(tongTien / 1000) * 1000));
-            btnGia2.setText(df.format(tienKH * 10000L));
-            btnGia3.setText(df.format(tienKH * 100000L));
-            btnGia4.setText(df.format(tienKH * 1000000L));
+            double t = tongTien/1000;
+            t = Math.round(t);
+            btnGia1.setText(t * 1000 + "");
+            if (t % 10 < 5) {
+                btnGia2.setText((t + 5) * 1000 + "");
+            } else {
+                btnGia2.setText((t + 10) * 1000 + "");
+            }
+            if (t % 10 < 5) {
+                btnGia3.setText((t + 10) * 1000 + "");
+            } else {
+                btnGia3.setText((t + 15) * 1000 + "");
+            }
+            if (t % 10 < 5) {
+                btnGia4.setText((t + 15) * 1000 + "");
+            } else {
+                btnGia4.setText((t + 20) * 1000 + "");
+            }
         }
     }
 
@@ -505,20 +604,22 @@ public class HoaDonController implements Initializable {
             LoaiToa lttoa = ltoa_dao.getLoaiToaTheoMa(toa.getLoaiToa().getMaLoaiToa());
             lblTTCN.setText("Vé đi: " + lt.getChuyenTau().getSoHieutau()+ " - " + new Ga_DAO().getGaTheoMaGa(lt.getGaDi().getMaGa()).getTenGa() + " - " + new Ga_DAO().getGaTheoMaGa(lt.getGaDen().getMaGa()).getTenGa() + " - Chỗ " + cn.getSttCho() + " " + lttoa.getTenLoaiToa() + "\n" + formatter.format(lt.getThoiGianKhoiHanh()) + " - " + formatter.format(lt.getThoiGianDuKienDen()));
         }
-        if (!dsctltkh.isEmpty()) {
+        if (!dsctltkh.isEmpty() && i < dsctltkh.size()) {
             ChiTietLichTrinh ctltkh = dsctltkh.get(i);
             LichTrinh ltkh = lt_dao.getLichTrinhTheoID(ctltkh.getLichTrinh().getMaLichTrinh());
             ChoNgoi cnkh = cn_dao.getChoNgoiTheoMa(ctltkh.getChoNgoi().getMaChoNgoi());
             Toa toakh = toa_dao.getToaTheoID(cnkh.getToa().getMaToa());
             LoaiToa lttoakh = ltoa_dao.getLoaiToaTheoMa(toakh.getLoaiToa().getMaLoaiToa());
-            lblTTCNKH.setText("Vé về: " + ltkh.getChuyenTau().getSoHieutau() + " - " + new Ga_DAO().getGaTheoMaGa(ltkh.getGaDen().getMaGa()).getTenGa() + " - " + new Ga_DAO().getGaTheoMaGa(ltkh.getGaDi().getMaGa()).getTenGa() + " - Chỗ " + cnkh.getSttCho() + " " + lttoakh.getTenLoaiToa() + "\n" + formatter.format(ltkh.getThoiGianKhoiHanh()) + " - " + formatter.format(ltkh.getThoiGianDuKienDen()));
+            lblTTCNKH.setText("Vé về: " + ltkh.getChuyenTau().getSoHieutau() + " - " + new Ga_DAO().getGaTheoMaGa(ltkh.getGaDi().getMaGa()).getTenGa() + " - " + new Ga_DAO().getGaTheoMaGa(ltkh.getGaDen().getMaGa()).getTenGa() + " - Chỗ " + cnkh.getSttCho() + " " + lttoakh.getTenLoaiToa() + "\n" + formatter.format(ltkh.getThoiGianKhoiHanh()) + " - " + formatter.format(ltkh.getThoiGianDuKienDen()));
+        } else {
+            lblTTCNKH.setText("");
         }
     }
 
     public boolean checkTTVe() {
         if (cbLoaiVe.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Lỗi");
+            alert.setTitle("Thông báo");
             alert.setHeaderText(null);
             alert.setContentText("Vui lòng chọn loại vé");
             alert.show();
@@ -527,7 +628,7 @@ public class HoaDonController implements Initializable {
         }
         if (txtTenHK.getText() == null || txtTenHK.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Lỗi");
+            alert.setTitle("Thông báo");
             alert.setHeaderText(null);
             alert.setContentText("Nhập thông tin hành khách");
             alert.show();
@@ -537,7 +638,7 @@ public class HoaDonController implements Initializable {
         if (!txtSoCCCD.isDisable()) {
             if (txtSoCCCD.getText() == null || txtSoCCCD.getText().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Lỗi");
+                alert.setTitle("Thông báo");
                 alert.setHeaderText(null);
                 alert.setContentText("Vui lòng nhập số CCCD");
                 alert.show();
@@ -546,7 +647,7 @@ public class HoaDonController implements Initializable {
             } else {
                 if (!txtSoCCCD.getText().matches("^0[0-9]{11}$")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Lỗi");
+                    alert.setTitle("Thông báo");
                     alert.setHeaderText(null);
                     alert.setContentText("Số CCCD chỉ chứa 12 chữ số");
                     alert.show();
@@ -557,12 +658,22 @@ public class HoaDonController implements Initializable {
         }
         if (!dpNgaySinh.isDisable() && dpNgaySinh.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Lỗi");
+            alert.setTitle("Thông báo");
             alert.setHeaderText(null);
             alert.setContentText("Vui lòng chọn ngày sinh");
             alert.show();
             dpNgaySinh.requestFocus();
             return false;
+        } else {
+            if (!dpNgaySinh.isDisable() && dpNgaySinh.getValue().isBefore(LocalDate.now().minusYears(14))) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Thông báo");
+                alert.setHeaderText(null);
+                alert.setContentText("Trẻ em phải dưới 14 tuổi");
+                alert.show();
+                dpNgaySinh.requestFocus();
+                return false;
+            }
         }
 
         return true;
@@ -572,8 +683,9 @@ public class HoaDonController implements Initializable {
         txtTenHK.clear();
         txtSoCCCD.clear();
         dpNgaySinh.setValue(null);
-        cbLoaiVe.setValue(null);
+        cbLoaiVe.setValue(cbLoaiVe.getItems().getFirst());
         cbLoaiVe.setPromptText("Chọn loại vé");
+
         txtTenHK.requestFocus();
     }
 }
