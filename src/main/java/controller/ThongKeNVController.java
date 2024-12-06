@@ -48,7 +48,7 @@ public class ThongKeNVController implements Initializable {
     private Label lbl_taoBaoCaoChuyenTau;
 
     @FXML
-    private ScatterChart<?, ?> scatter_chuyenTau;
+    private BarChart<String, Number> barChart_chuyenTau;
 
     private NhanVien_DAO nhanVien_dao;
     private HoaDon_DAO hoaDon_dao;
@@ -121,9 +121,10 @@ public class ThongKeNVController implements Initializable {
         cb_thang.setValue(String.valueOf(date.getMonthValue()));
         cb_nam.setValue(String.valueOf(date.getYear()));
 
-        //Tự động thêm năm vào combobox
+        // Tự động thêm năm vào combobox
         int currentYear = LocalDate.now().getYear();
-        int lastYear = Integer.parseInt(cb_nam.getItems().getLast());
+        String lastYearStr = cb_nam.getItems().isEmpty() ? "0" : cb_nam.getItems().get(cb_nam.getItems().size() - 1);
+        int lastYear = Integer.parseInt(lastYearStr);
         for (int i = lastYear + 1; i <= currentYear; i++) {
             cb_nam.getItems().add(String.valueOf(i));
         }
@@ -131,17 +132,17 @@ public class ThongKeNVController implements Initializable {
 
     private void renderNhanVien(LocalDate date, int type) { //type: 1: thống kê theo tháng, 2: thống kê theo năm
         ArrayList<NhanVien> listNhanVien = nhanVien_dao.getDSNhanVien();
-        int soNv = listNhanVien.size();
-        lbl_soNv.setText(soNv + " nhân viên");
+        lbl_soNv.setText(listNhanVien.size() + " nhân viên");
 
-        ArrayList<HoaDon> listHoaDon;
-        if (type == 1) { //1: thống kê theo tháng
-            listHoaDon = hoaDon_dao.getDSHDTheoThang(date.getMonthValue(), date.getYear());
-        } else { //2: thống kê theo năm
-            listHoaDon = hoaDon_dao.getDSHDTheoNam(String.valueOf(date.getYear()));
+        ArrayList<HoaDon> listHoaDon = (type == 1)
+                ? hoaDon_dao.getDSHDTheoThang(date.getMonthValue(), date.getYear())
+                : hoaDon_dao.getDSHDTheoNam(String.valueOf(date.getYear()));
+
+        // nếu ds hóa đơn rỗng null thì return
+        if (listHoaDon == null || listHoaDon.isEmpty()) {
+            return;
         }
 
-        // Lưu Tên nhân viên và doanh thu vào HashMap
         HashMap<String, Double> mapNV = new HashMap<>();
         for (HoaDon hoaDon : listHoaDon) {
             String tenNhanVien = hoaDon.getNhanVien().getTenNhanVien();
@@ -149,12 +150,9 @@ public class ThongKeNVController implements Initializable {
             mapNV.put(tenNhanVien, mapNV.getOrDefault(tenNhanVien, 0.0) + doanhThu);
         }
 
-        // Sắp xếp theo doanh thu giảm dần bằng biểu thức lambda
-        mapNV.entrySet().stream().sorted((k1, k2) -> -k1.getValue().compareTo(k2.getValue()));
-
-        // Hiển thị top 5 nhân viên lên biểu đồ BarChart
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         mapNV.entrySet().stream()
+                .filter(entry -> entry.getKey() != null && entry.getValue() != null)
                 .sorted((k1, k2) -> -k1.getValue().compareTo(k2.getValue()))
                 .limit(5)
                 .forEach(entry -> series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue())));
@@ -167,33 +165,36 @@ public class ThongKeNVController implements Initializable {
     }
 
     private void renderChuyenTau() { //type: 1: thống kê theo tháng, 2: thống kê theo năm
-        ArrayList<LichTrinh> dsLichTrinh = lichTrinh_dao.getDSLichTrinhTheoTrangThai(true);
-        lbl_soChuyenTau.setText(dsLichTrinh.size() + " chuyến tàu");
+        ArrayList<LichTrinh> listLichTrinh = lichTrinh_dao.getDSLichTrinhTheoTrangThai(true);
+        int soChuyenTau = listLichTrinh.size();
+        lbl_soChuyenTau.setText(soChuyenTau + " chuyến tàu");
 
-        //Lưu những điểm đến và số lần đi qua vào HashMap
+
+        ArrayList<Ve> dsVe = new ArrayList<>(ve_dao.getVeTheoTinhTrang("DaBan"));
+        dsVe.addAll(ve_dao.getVeTheoTinhTrang("DaDoi"));
+
         HashMap<String, Integer> mapChuyenTau = new HashMap<>();
-        for (LichTrinh lichTrinh : dsLichTrinh) {
-            ArrayList<ChiTietLichTrinh> dsCTLT = ct_lichTrinh_dao.getCtltTheoMaLichTrinh(lichTrinh.getMaLichTrinh());
-            String maLichTrinh = lichTrinh.getMaLichTrinh();
-            String maGaDen = lichTrinh.getGaDen().getMaGa();
-            String tenGaDen = ga_dao.getGaTheoMaGa(maGaDen).getTenGa();
-            // thêm tên chuyến tàu vào map với value là 0
-            mapChuyenTau.put(tenGaDen, 0);
-            for (ChiTietLichTrinh ctlt : dsCTLT) {
-                if (ctlt.isTrangThai()) {
-                    mapChuyenTau.put(tenGaDen, mapChuyenTau.get(tenGaDen) + 1);
-                }
-            }
+
+        for (Ve ve : dsVe) {
+            String maLichTrinh = ve.getCtlt().getLichTrinh().getMaLichTrinh();
+            LichTrinh lichTrinh = lichTrinh_dao.getLichTrinhTheoID(maLichTrinh);
+            Ga diemDen = ga_dao.getGaTheoMaGa(lichTrinh.getGaDen().getMaGa());
+            String tenGaDen = diemDen.getTenGa();
+            mapChuyenTau.put(tenGaDen, mapChuyenTau.getOrDefault(tenGaDen, 0) + 1);
         }
 
-        // Hiển thị số lần đi qua của các chuyến tàu lên biểu đồ ScatterChart
-        XYChart.Series series = new XYChart.Series();
-        mapChuyenTau.forEach((k, v) -> series.getData().add(new XYChart.Data(k, v)));
+        // Hiển thị số chuyến tàu lên biểu đồ BarChart
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        mapChuyenTau.forEach((key, value) -> {
+            if (key != null && value != null) {
+                series.getData().add(new XYChart.Data<>(key, value));
+            }
+        });
 
-        scatter_chuyenTau.getData().clear();
-        scatter_chuyenTau.getData().add(series);
-        scatter_chuyenTau.setTitle("Xu hướng điểm đến của hành khách");
-        scatter_chuyenTau.getXAxis().setLabel("Điểm đến");
-        scatter_chuyenTau.getYAxis().setLabel("Số lần tới");
+        barChart_chuyenTau.getData().clear();
+        barChart_chuyenTau.getData().add(series);
+        barChart_chuyenTau.setTitle("Số chuyến tàu đến các ga");
+        barChart_chuyenTau.getXAxis().setLabel("Điểm đến");
+        barChart_chuyenTau.getYAxis().setLabel("Xu hướng mua vé");
     }
 }
