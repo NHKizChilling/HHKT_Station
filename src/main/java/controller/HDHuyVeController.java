@@ -145,10 +145,18 @@ public class HDHuyVeController implements Initializable {
                             ChiTietHoaDon ctHoaDonCu = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
                             ctHoaDon.setGiaVe(0 - ctHoaDonCu.getGiaVe()); // giá vé = giá vé cũ
                             ctHoaDon.setGiaGiam(0 - mapLePhi.get(ve.getMaVe())); // giảm giá = lệ phí
-                            ct_hoaDon_dao.create(ctHoaDon);
+                            if (ct_hoaDon_dao.create(ctHoaDon)) {
+                                ve.setTinhTrangVe("DaHuy");
+                                ve_dao.update(ve);
+                            } else {
+                                // thông báo
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("Lỗi");
+                                alert.setHeaderText("Không thể cập nhật chi tiết hóa đơn");
+                                alert.showAndWait();
+                                return;
+                            }
 
-                            ve.setTinhTrangVe("DaHuy");
-                            ve_dao.update(ve);
                         }
                     } catch (IOException | DocumentException e) {
                         throw new RuntimeException(e);
