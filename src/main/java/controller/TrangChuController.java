@@ -19,10 +19,13 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.awt.*;
@@ -34,10 +37,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
 
 /*
  * @description:
@@ -520,16 +521,29 @@ public class TrangChuController implements Initializable {
 
     @FXML
     protected void showKetCaPopup() {
-        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("ket-ca.fxml"));
-        double width = paneMain.getWidth();
-        double height = paneMain.getHeight();
-        paneMain.getChildren().clear();
+        AnchorPane ketCaPane = null;
         try {
-            paneMain.getChildren().add(loader.load());
+            ketCaPane = FXMLLoader.load(Objects.requireNonNull(TrangChu_GUI.class.getResource("ket-ca.fxml")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        paneMain.setPrefSize(width, height);
+        Stage ketCaStage = new Stage();
+            ketCaStage.setTitle("Kết ca");
+            ketCaStage.setScene(new Scene(ketCaPane));
+            ketCaStage.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
+            ketCaStage.show();
+            ketCaStage.setOnCloseRequest(e1 -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Xác nhận");
+                alert.setHeaderText(null);
+                alert.setContentText("Xác nhận thoát?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    ketCaStage.close();
+                } else {
+                    e1.consume();
+                }
+            });
     }
 
     private void chooseFeatureButton(Button btnChosed) {

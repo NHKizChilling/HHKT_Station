@@ -36,12 +36,23 @@ public class MoCaController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        nv = getData.nv;
+
+        setThongTin(nv, LocalDateTime.now());
+
         btn_moCa.setOnAction(event -> {
             if (txt_tienDauCa.getText().isEmpty()) {
                 System.out.println("Vui lòng nhập tiền đầu ca");
                 return;
             }
             tienDauCa = Double.parseDouble(txt_tienDauCa.getText());
+
+            getData.tienDauCa = tienDauCa;
+            getData.gioMoCa = LocalDateTime.now();
+            getData.ghiChu = txt_ghiChu.getText();
+
+            // đóng cửa sổ
+            ((Button) event.getSource()).getScene().getWindow().hide();
         });
 
         btn_dangXuat.setOnAction(event -> {
@@ -65,25 +76,7 @@ public class MoCaController implements Initializable {
     }
 
     public void setThongTin(NhanVien nv, LocalDateTime gioBatDau) {
-        this.nv = nv;
         txt_tenNV.setText(nv.getTenNhanVien());
-        LocalDateTime now = LocalDateTime.now();
-        lbl_gioBatDau.setText(now.getDayOfMonth() + "/" + now.getMonthValue() + "/" + now.getYear() + " " + now.getHour() + ":" + now.getMinute());
-    }
-
-    public double getTienDauCa() {
-        return tienDauCa;
-    }
-
-    public NhanVien getNv() {
-        return nv;
-    }
-
-    public LocalDateTime getGioBatDau() {
-        return LocalDateTime.now();
-    }
-
-    public String getGhiChu() {
-        return txt_ghiChu.getText();
+        lbl_gioBatDau.setText(gioBatDau.getDayOfMonth() + "/" + gioBatDau.getMonthValue() + "/" + gioBatDau.getYear() + " " + gioBatDau.getHour() + ":" + gioBatDau.getMinute());
     }
 }

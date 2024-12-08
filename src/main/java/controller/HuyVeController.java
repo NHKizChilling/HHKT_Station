@@ -6,6 +6,7 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import dao.*;
 import entity.*;
+import gui.TrangChu_GUI;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,15 +14,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.awt.image.BufferedImage;
 import java.net.URL;
@@ -121,8 +124,8 @@ public class HuyVeController implements Initializable {
     private LoaiVe_DAO loaiVe_dao;
     private HoaDon hoaDon;
 
-    private ArrayList<Ve> selectedVe = new ArrayList<>();
-
+    private final ArrayList<Ve> selectedVe = new ArrayList<>();
+    private final HashMap<String, Double> mapLePhi = new HashMap<>(); // Lưu lệ phí của từng vé
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -195,6 +198,11 @@ public class HuyVeController implements Initializable {
             if (cb_search.getValue().equals("Mã vé")) {
                 Ve ve = ve_dao.getVeTheoID(key);
                 ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(key);
+                if (ctHoaDon == null) {
+                    txt_search.clear();
+                    txt_search.setPromptText("Mã vé không tồn tại");
+                    return;
+                }
                 hoaDon = hoaDon_dao.getHoaDonTheoMa(ctHoaDon.getHoaDon().getMaHoaDon());
                 if (ve != null) {
                     listVe.add(ve);
@@ -202,7 +210,6 @@ public class HuyVeController implements Initializable {
             } else {
                 hoaDon = hoaDon_dao.getHoaDonTheoMa(key);
                 if (hoaDon != null) {
-                    //listVe = ve_dao.getVeTheoID(hoaDon.getMaHoaDon());
                     ArrayList<ChiTietHoaDon> listCTHD = ct_hoaDon_dao.getCT_HoaDon(hoaDon.getMaHoaDon());
                     for (ChiTietHoaDon ct : listCTHD) {
                         Ve ve = ve_dao.getVeTheoID(ct.getVe().getMaVe());
@@ -211,7 +218,8 @@ public class HuyVeController implements Initializable {
                 }
             }
             if (listVe.isEmpty()) {
-                lbl_thongBao.setText("Không tìm thấy vé hoặc hóa đơn");
+                txt_search.clear();
+                txt_search.promptTextProperty().setValue("Mã hóa đơn không tồn tại");
             } else {
                 renderTable(listVe);
                 lbl_thongBao.setText("");
@@ -244,7 +252,7 @@ public class HuyVeController implements Initializable {
             String tenHK = p.getValue().getTenHanhKhach();
             String cccd = p.getValue().getSoCCCD();
             LocalDate ngaySinh = p.getValue().getNgaySinh();
-            String s = "";
+            String s;
             s = Objects.requireNonNullElse(tenHK, "");
             if (cccd != null) {
                 s += "\n" + cccd;
@@ -347,17 +355,22 @@ public class HuyVeController implements Initializable {
             lbl_thongBao.setText("");
             double tongTienVe = 0;
             double tongLePhi = 0;
+
             // Tính tổng tiền vé và lệ phí
             for (Ve ve : dsVeHuy) { // Duyệt qua danh sách vé cần hủy đã lọc các vé đã đổi ra
                 ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
                 tongTienVe += ctHoaDon.getGiaVe();
-                tongLePhi += ctHoaDon.getGiaVe() * phanTram;
+                double lePhi = ctHoaDon.getGiaVe() * phanTram;
+                tongLePhi += lePhi;
+                mapLePhi.put(ve.getMaVe(), lePhi);
             }
 
             for (Ve ve : dsVeDaDoi) {
                 ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
                 tongTienVe += ctHoaDon.getGiaVe();
-                tongLePhi += ctHoaDon.getGiaVe() * 0.3;
+                double lePhi = ctHoaDon.getGiaVe() * 0.3;
+                tongLePhi += lePhi;
+                mapLePhi.put(ve.getMaVe(), lePhi);
             }
 
             NumberFormat currencyVN = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));
@@ -374,12 +387,18 @@ public class HuyVeController implements Initializable {
                 lbl_thongBao.setText("Vui lòng chọn vé cần hủy");
                 return;
             }
+            getData.dsve = selectedVe;
+            getData.mapLePhi = mapLePhi;
+
+            for (Ve ve: getData.dsve) {
+                System.out.println(ve.getMaVe());
+            }
+
+            for (Map.Entry<String, Double> entry : mapLePhi.entrySet()) {
+                System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
+            }
+
             lbl_thongBao.setText("");
-//            for (Ve ve : selectedVe) {
-//                ve.setTinhTrangVe("DaDoi");
-//                ve_dao.update(ve);
-//                // TODO: tạo hóa đơn hủy vé
-//            }
             lbl_thongBao2.setText("Hủy vé thành công");
             txt_search.clear();
             tbl_thongTinVe.getItems().clear();
@@ -391,10 +410,34 @@ public class HuyVeController implements Initializable {
             txt_tongTienTra.clear();
             txt_tongTienVe.clear();
             txt_tongVeTra.clear();
-            selectedVe.clear();
             btn_xacNhan.setDisable(true);
 
-            // TODO: vào HDDoiTraController để tạo hóa đơn đổi vé
+            try {
+                BorderPane hdHuyVePane = FXMLLoader.load(Objects.requireNonNull(TrangChu_GUI.class.getResource("hd-huy-ve.fxml")));                Stage hdHuyVeStage = new Stage();
+                hdHuyVeStage.setTitle("Hóa đơn hủy vé");
+                hdHuyVeStage.setScene(new Scene(hdHuyVePane));
+                hdHuyVeStage.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
+                hdHuyVeStage.show();
+                hdHuyVeStage.setOnCloseRequest(e1 -> {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Xác nhận");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Xác nhận thoát?");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                        HoaDon hoaDon = hoaDon_dao.getHoaDonVuaTao();
+                        if (!hoaDon.isTrangThai() && hoaDon.getTongTien() == 0) {
+                            hoaDon_dao.delete(hoaDon);
+                        }
+                        hdHuyVeStage.close();
+                        lamMoi();
+                    } else {
+                        e1.consume();
+                    }
+                });
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         });
 
     }
@@ -402,6 +445,61 @@ public class HuyVeController implements Initializable {
     public void renderTable(ArrayList<Ve> listVe) {
         ObservableList<Ve> list = FXCollections.observableArrayList(listVe);
         tbl_thongTinVe.setItems(list);
+        col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));
+
+        // col thông tin hành khách chứa TenHK, cccd, sdt
+        col_thongTinHK.setCellValueFactory(p -> {
+            KhachHang kh = hanhKhach_dao.getKhachHangTheoMaKH(p.getValue().getKhachHang().getMaKH());
+            return new SimpleStringProperty(kh.getTenKH() + " \n" + "CCCD/CMND: \n" + kh.getSoCCCD() + " \n" + "SĐT: " + kh.getSdt());
+        });
+
+        col_thongTinVe.setCellValueFactory(p -> {
+            Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
+            LoaiVe lv = loaiVe_dao.getLoaiVeTheoMa(ve.getLoaiVe().getMaLoaiVe());
+            LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            return new SimpleStringProperty(new Ga_DAO().getGaTheoMaGa(lt.getGaDi().getMaGa()).getTenGa() + " - " +
+                    new Ga_DAO().getGaTheoMaGa(lt.getGaDen().getMaGa()).getTenGa() + " \n" +
+                    "Giờ khởi hành: \n" + lt.getThoiGianKhoiHanh().format(formatter) + " \n" +
+                    lv.getTenLoaiVe());
+        });
+
+        Map<String, String> map = new HashMap<>();
+        map.put("DaHuy", "Đã hủy");
+        map.put("DaDoi", "Đã đổi");
+        map.put("DaBan", "Đã bán");
+
+        col_tinhTrangVe.setCellValueFactory(p -> new SimpleStringProperty(map.get(p.getValue().getTinhTrangVe())));
+
+        col_giaVe.setCellValueFactory(p -> {
+            ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(p.getValue().getMaVe());
+            return new SimpleStringProperty(String.valueOf(ctHoaDon.getGiaVe()));
+        });
+
+        col_chonVe.setCellValueFactory(cellData -> {
+            CheckBox checkBox = new CheckBox();
+            Ve ve = cellData.getValue();
+            checkBox.setOnAction(e -> {
+                if (checkBox.isSelected()) {
+                    if (ve.getTinhTrangVe().equals("DaHuy")) {
+                        checkBox.setSelected(false);
+                        tbl_thongTinVe.getSelectionModel().clearSelection(tbl_thongTinVe.getItems().indexOf(ve));
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Hủy vé");
+                        alert.setContentText("Vé đã được hủy");
+                        alert.showAndWait();
+                    } else {
+                        tbl_thongTinVe.getSelectionModel().select(tbl_thongTinVe.getItems().indexOf(ve));
+                        selectedVe.add(ve);
+                    }
+                } else {
+                    tbl_thongTinVe.getSelectionModel().clearSelection(tbl_thongTinVe.getItems().indexOf(tbl_thongTinVe.getSelectionModel().getSelectedItem()));
+                    selectedVe.remove(ve);
+                }
+            });
+            return new SimpleObjectProperty<>(checkBox);
+        });
     }
 
 
@@ -435,45 +533,20 @@ public class HuyVeController implements Initializable {
         lichTrinh_dao = new LichTrinh_DAO();
     }
 
-    public static class CheckBoxCellFactory implements Callback<TableColumn<Ve, Boolean>, TableCell<Ve, Boolean>> {
+    private void lamMoi() {
+        txt_search.clear();
+        tbl_thongTinVe.getItems().clear();
+        txt_cccd.clear();
+        txt_email.clear();
+        txt_sdt.clear();
+        txt_tenNguoiDat.clear();
+        txt_tongLePhi.clear();
+        txt_tongTienTra.clear();
+        txt_tongTienVe.clear();
+        txt_tongVeTra.clear();
+        lbl_thongBao.setText("");
 
-        @Override
-        public TableCell<Ve, Boolean> call(TableColumn<Ve, Boolean> param) {
-            return new TableCell<>() {
-                private final CheckBox checkBox = new CheckBox();
-
-                @Override
-                protected void updateItem(Boolean item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        setGraphic(checkBox);
-                        checkBox.setSelected(item != null && item);
-                        checkBox.setOnAction(e -> {
-                            if (checkBox.isSelected()) {
-                                getTableView().getSelectionModel().select(getIndex());
-                                String maVe = getTableView().getItems().get(getIndex()).getMaVe();
-                                Ve ve = new Ve_DAO().getVeTheoID(maVe);
-                                if (ve.getTinhTrangVe().equals("DaHuy")) {
-                                    checkBox.setSelected(false);
-                                    getTableView().getSelectionModel().clearSelection(getIndex());
-                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                    alert.setHeaderText(null);
-                                    alert.setTitle("Hủy vé");
-                                    alert.setContentText("Vé đã được hủy");
-                                    alert.showAndWait();
-                                } else {
-                                    getTableView().getSelectionModel().select(getIndex());
-                                }
-                            } else {
-                                getTableView().getSelectionModel().clearSelection(getIndex());
-                            }
-
-                        });
-                    }
-                }
-            };
-        }
+        getData.dsve = null;
+        getData.mapLePhi = null;
     }
 }

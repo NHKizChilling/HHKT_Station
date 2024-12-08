@@ -333,6 +333,111 @@ public class PrintPDF {
     }
 }
 
+    public void inHDHuy(HoaDon hoaDon) throws IOException, DocumentException {
+        String filename = hoaDon.getMaHoaDon() + ".pdf";
+
+        // Create a new document
+        Document document = new Document(PageSize.A4);
+        PdfWriter.getInstance(document, new FileOutputStream("src/main/resources/pdf/" + filename));
+        BaseFont bf = BaseFont.createFont("src/main/resources/pdf/00182-UTM-Times.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+        // Open the document
+        document.open();
+        //Add logo
+        com.itextpdf.text.Image img = com.itextpdf.text.Image.getInstance("src/main/resources/img/logo.png");
+        img.setAlignment(Element.ALIGN_LEFT);
+        img.scaleAbsolute(50, 50);
+        document.add(img);
+        //Add no invoice left side
+        Paragraph noInvoice = new Paragraph("Số: " + hoaDon.getMaHoaDon(), new Font(bf, 10, Font.BOLD));
+        noInvoice.setAlignment(Element.ALIGN_RIGHT);
+        document.add(noInvoice);
+        // Define fonts
+        Font boldFont = new Font(bf, 10, Font.BOLD);
+        Font regularFont = new Font(bf, 10, Font.NORMAL);
+        Font smallFont = new Font(bf, 8, Font.NORMAL);
+        Paragraph title = new Paragraph("HÓA ĐƠN GIÁ TRỊ GIA TĂNG", new Font(bf, 12, Font.BOLD));
+        title.setAlignment(Element.ALIGN_CENTER);
+        document.add(title);
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        document.add(new Paragraph(" "));
+        Paragraph date = new Paragraph("Ngày " + hoaDon.getNgayLapHoaDon().getDayOfMonth() + " tháng " + hoaDon.getNgayLapHoaDon().getMonthValue() + " năm " + hoaDon.getNgayLapHoaDon().getYear(), regularFont);
+        date.setAlignment(Element.ALIGN_RIGHT);
+        document.add(date);
+        // Add company details
+        Paragraph companyInfo = new Paragraph("Đơn vị bán hàng: CÔNG TY CỔ PHẦN VẬN TẢI ĐƯỜNG SẮT HHKT", boldFont);
+        companyInfo.setAlignment(Element.ALIGN_LEFT);
+        document.add(companyInfo);
+
+        // Add company additional info (MST, address, phone, etc.)
+        document.add(new Paragraph("MST: 0000000                       Điện thoại: 19000000", regularFont));
+        document.add(new Paragraph("Địa chỉ: Số 12A Nguyễn Văn Bảo, Phường 4, Quận Gò Vấp, Thành phố Hồ Chí Minh, Việt Nam", regularFont));
+        document.add(new Paragraph(" "));
+        // Add buyer info
+        KhachHang kh = new KhachHang_DAO().getKhachHangTheoMaKH(hoaDon.getKhachHang().getMaKH());
+
+        document.add(new Paragraph("\nHọ tên người hủy vé: " + kh.getTenKH(), boldFont));
+        document.add(new Paragraph("Số điện thoại: " + kh.getSoCCCD(), regularFont));
+        document.add(new Paragraph("Số CCCD/CMND: " + kh.getSdt(), regularFont));
+        document.add(new Paragraph("Thời gian hủy vé: " + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now()), regularFont));
+        document.add(new Paragraph(" "));
+
+        // Staff info
+        NhanVien nv = getData.nv;
+        document.add(new Paragraph("\nNhân viên lập hóa đơn: " + nv.getTenNhanVien() + "\n", boldFont));
+
+        // Create table for ticket details
+        PdfPTable table = new PdfPTable(9);
+        table.setWidthPercentage(100);
+        //Căn giữa tiêu đề bảng
+        table.setWidths(new int[]{5, 15, 25, 10, 5, 10, 10, 10, 10});
+
+        // Add headers
+        addTableHeader(table, boldFont, "STT", "Mã vé", "Tên hành khách", "Thông tin vé", "Tiền vé(VNĐ)", "Lệ phí trả vé", "Tiền trả");
+        // Add ticket row 1
+        ArrayList<ChiTietHoaDon> dscthd = new CT_HoaDon_DAO().getCT_HoaDon(hoaDon.getMaHoaDon());
+        int count = 0;
+        double tongTienVe = 0;
+        double tongLePhi = 0;
+        double tongTienTra = 0;
+
+        for (ChiTietHoaDon cthd : dscthd) {
+            Ve ve = new Ve_DAO().getVeTheoID(cthd.getVe().getMaVe());
+            LoaiVe loaiVe = new LoaiVe_DAO().getLoaiVeTheoMa(ve.getLoaiVe().getMaLoaiVe());
+            LichTrinh lt = new LichTrinh_DAO().getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
+            ChiTietLichTrinh ctlt = new CT_LichTrinh_DAO().getCTLTTheoCN(ve.getCtlt().getLichTrinh().getMaLichTrinh(), ve.getCtlt().getChoNgoi().getMaChoNgoi());
+            ChoNgoi choNgoi = new ChoNgoi_DAO().getChoNgoiTheoMa(ve.getCtlt().getChoNgoi().getMaChoNgoi());
+            Ga gaDi = new Ga_DAO().getGaTheoMaGa(lt.getGaDi().getMaGa());
+            Ga gaDen = new Ga_DAO().getGaTheoMaGa(lt.getGaDen().getMaGa());
+
+
+            addTableRow(table, regularFont, ++count + "", cthd.getVe().getMaVe(), kh.getTenKH(),
+                        gaDi.getTenGa() + "-" + gaDen.getTenGa() + "\n" + dtf.format(lt.getThoiGianKhoiHanh()) +
+                        "\nLoại vé: " + loaiVe.getTenLoaiVe(), new DecimalFormat("#,###").format(cthd.getGiaVe()),
+                        new DecimalFormat("#,###").format(cthd.getGiaGiam()), new DecimalFormat("#,###").format(cthd.getGiaVe() + cthd.getGiaGiam()));
+            tongTienVe += ctlt.getGiaCho();
+            tongLePhi += cthd.getGiaGiam();
+            tongTienTra += cthd.getGiaVe();
+        }
+
+        // Add table to document
+        document.add(table);
+
+        document.add(new Paragraph("Tổng số vé: " + count + "vé", regularFont));
+        document.add(new Paragraph("\nTổng tiền vé: " + new DecimalFormat("#,###").format(tongTienVe) + "VNĐ", regularFont));
+        document.add(new Paragraph("\nTổng lệ phí: " + new DecimalFormat("#,###").format(tongLePhi) + "VNĐ", regularFont));
+        document.add(new Paragraph("\nTổng tiền trả: " + new DecimalFormat("#,###").format(tongTienTra) + "VNĐ", regularFont));
+
+        // Close the document
+        try {
+            document.close();
+            Desktop.getDesktop().open(new File("src/main/resources/pdf/" + filename));
+        } catch (Exception e) {
+            System.out.println("Tạo hóa đơn thất bại!");
+        }
+    }
+
     private static void addTableHeader(PdfPTable table, Font font, String... headers) {
         for (String header : headers) {
             PdfPCell cell = new PdfPCell(new Phrase(header, font));

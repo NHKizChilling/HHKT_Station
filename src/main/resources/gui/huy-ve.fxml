@@ -14,23 +14,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1386.0" style="-fx-background-color: #ffffff;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HuyVeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1386.0" style="-fx-background-color: #ffffff;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HuyVeController">
    <left>
       <AnchorPane prefHeight="806.0" prefWidth="973.0" BorderPane.alignment="CENTER">
          <children>
             <Separator layoutX="798.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0" />
             <AnchorPane layoutX="16.0" layoutY="189.0" prefHeight="572.0" prefWidth="800.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="189.0">
                <children>
-                  <TableView fx:id="tbl_thongTinVe" layoutX="47.0" layoutY="80.0" prefHeight="240.0" prefWidth="845.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css">
-                     <columns>
-                        <TableColumn fx:id="col_maVe" prefWidth="100.0" styleClass="tbl_col" text="Mã vé" />
-                        <TableColumn fx:id="col_thongTinHK" prefWidth="175.0" style="-fx-alignment: center;" styleClass="tbl_col" text="Thông tin hành khách" />
-                        <TableColumn fx:id="col_thongTinVe" prefWidth="175.0" styleClass="tbl_col" text="Thông tin vé" />
-                        <TableColumn fx:id="col_tinhTrangVe" prefWidth="150.0" styleClass="tbl_col" text="Thông tin vé trả" />
-                        <TableColumn fx:id="col_giaVe" prefWidth="130.0" styleClass="tbl_col" text="Thành tiền (VNĐ)" />
-                        <TableColumn fx:id="col_chonVe" prefWidth="110.0" styleClass="tbl_col" text="Chọn vé trả" />
-                     </columns>
-                  </TableView>
                   <AnchorPane layoutX="59.0" layoutY="347.0" prefHeight="200.0" prefWidth="815.0" styleClass="pane" AnchorPane.topAnchor="347.0">
                      <children>
                         <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="7.0" prefHeight="35.0" text="Thông tin người đặt vé">
@@ -77,21 +67,31 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </AnchorPane>
+                  <TableView fx:id="tbl_thongTinVe" layoutX="11.0" layoutY="32.0" prefHeight="265.0" prefWidth="915.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="225.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
+                     <columns>
+                        <TableColumn fx:id="col_maVe" prefWidth="135.0" styleClass="tbl_col" text="Mã vé" />
+                        <TableColumn fx:id="col_thongTinHK" prefWidth="220.0" style="-fx-alignment: center;" styleClass="tbl_col" text="Thông tin hành khách" />
+                        <TableColumn fx:id="col_thongTinVe" prefWidth="220.0" styleClass="tbl_col" text="Thông tin vé" />
+                        <TableColumn fx:id="col_tinhTrangVe" prefWidth="120.0" styleClass="tbl_col" text="Thông tin vé trả" />
+                        <TableColumn fx:id="col_giaVe" prefWidth="130.0" styleClass="tbl_col" text="Thành tiền (VNĐ)" />
+                        <TableColumn fx:id="col_chonVe" prefWidth="90.0" styleClass="tbl_col" text="Chọn vé trả" />
+                     </columns>
+                  </TableView>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="76.0" layoutY="49.0" prefHeight="200.0" prefWidth="815.0" styleClass="pane" AnchorPane.topAnchor="49.0">
+            <AnchorPane layoutX="76.0" layoutY="49.0" prefHeight="149.0" prefWidth="815.0" styleClass="pane" AnchorPane.topAnchor="49.0">
                <children>
-                  <ComboBox fx:id="cb_search" layoutX="146.0" layoutY="94.0" prefHeight="30.0" prefWidth="110.0" promptText="Tìm theo" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
+                  <ComboBox fx:id="cb_search" layoutX="88.0" layoutY="94.0" prefHeight="30.0" prefWidth="110.0" promptText="Tìm theo" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ComboBox>
-                  <TextField fx:id="txt_search" layoutX="279.0" layoutY="94.0" prefHeight="30.0" prefWidth="250.0" styleClass="txt_info" stylesheets="@dashboardDesign.css">
+                  <TextField fx:id="txt_search" layoutX="221.0" layoutY="94.0" prefHeight="30.0" prefWidth="250.0" styleClass="txt_info" stylesheets="@dashboardDesign.css">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <Button fx:id="btn_lamMoi" alignment="CENTER_RIGHT" layoutX="637.0" layoutY="155.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Làm mới">
+                  <Button fx:id="btn_lamMoi" alignment="CENTER_RIGHT" layoutX="608.0" layoutY="94.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Làm mới">
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
@@ -106,7 +106,7 @@
                         </FontAwesomeIcon>
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_search" alignment="CENTER_RIGHT" layoutX="510.0" layoutY="155.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Tìm kiếm">
+                  <Button fx:id="btn_search" alignment="CENTER_RIGHT" layoutX="481.0" layoutY="94.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Tìm kiếm">
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>
@@ -121,7 +121,7 @@
                         </FontAwesomeIcon>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnQuetMaVe" alignment="CENTER_RIGHT" layoutX="637.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Quét mã">
+                  <Button fx:id="btnQuetMaVe" alignment="CENTER_RIGHT" layoutX="608.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Quét mã">
                      <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                      </font>

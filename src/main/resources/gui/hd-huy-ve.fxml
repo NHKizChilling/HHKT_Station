@@ -25,24 +25,24 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="74.0" text="Tên người hủy vé:">
+            <Label layoutX="14.0" layoutY="74.0" text="CCCD/CMND:">
                <font>
                   <Font name="Times New Roman Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txt_ten" layoutX="155.0" layoutY="68.0" AnchorPane.leftAnchor="155.0" />
-            <Label layoutX="349.0" layoutY="74.0" text="CCCD/CMND:">
+            <TextField fx:id="txt_cccd" layoutX="133.0" layoutY="68.0" AnchorPane.leftAnchor="133.0" />
+            <Label layoutX="349.0" layoutY="74.0" text="Số điện thoại:">
                <font>
                   <Font name="Times New Roman Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txt_cccd" layoutX="468.0" layoutY="68.0" />
-            <Label layoutX="675.0" layoutY="75.0" text="Số điện thoại:">
+            <TextField fx:id="txt_sdt" layoutX="456.0" layoutY="68.0" />
+            <Label layoutX="675.0" layoutY="75.0" text="Họ và tên:">
                <font>
                   <Font name="Times New Roman Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txt_sdt" layoutX="782.0" layoutY="68.0" />
+            <TextField fx:id="txt_ten" layoutX="755.0" layoutY="68.0" />
          </children>
       </AnchorPane>
    </top>
@@ -64,12 +64,12 @@
                      <content>
                         <TableView fx:id="tbl_dsVe" prefHeight="317.0" prefWidth="1000.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css">
                            <columns>
-                              <TableColumn fx:id="col_stt" prefWidth="50.0" text="STT" />
-                              <TableColumn fx:id="col_hoTen" prefWidth="250.0" text="Họ và tên" />
-                              <TableColumn fx:id="col_thongTinVe" prefWidth="250.0" text="Thông tin vé" />
-                              <TableColumn fx:id="col_tienVe" prefWidth="150.0" text="Tiền vé (VNĐ)" />
-                              <TableColumn fx:id="col_lePhi" prefWidth="150.0" text="Lệ phí trả vé" />
-                              <TableColumn fx:id="col_tienTra" prefWidth="150.0" text="Tiền trả " />
+                              <TableColumn fx:id="col_stt" prefWidth="50.0" styleClass="tbl_col" text="STT" />
+                              <TableColumn fx:id="col_hoTen" prefWidth="250.0" styleClass="tbl_col" text="Họ và tên" />
+                              <TableColumn fx:id="col_thongTinVe" prefWidth="250.0" styleClass="tbl_col" text="Thông tin vé" />
+                              <TableColumn fx:id="col_tienVe" prefWidth="150.0" styleClass="tbl_col" text="Tiền vé (VNĐ)" />
+                              <TableColumn fx:id="col_lePhi" prefWidth="150.0" styleClass="tbl_col" text="Lệ phí trả vé" />
+                              <TableColumn fx:id="col_tienTra" prefWidth="150.0" styleClass="tbl_col" text="Tiền trả " />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />

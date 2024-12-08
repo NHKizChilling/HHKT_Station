@@ -111,6 +111,7 @@ public class KetCaController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initDAO();
+        setInfo();
 
         btn_dongCa.setOnAction(event -> {
             if (txt_tienMatThu.getText().isEmpty()) {
@@ -150,10 +151,10 @@ public class KetCaController implements Initializable {
         });
     }
 
-    public void setInfo(NhanVien nv, LocalDateTime gioBatDau, Double tienDauCa) {
-        this.nv = nv;
-        this.gioBatDau = gioBatDau;
-        this.tienDauCa = tienDauCa;
+    public void setInfo() {
+        nv = getData.nv;
+        gioBatDau = getData.gioMoCa;
+        tienDauCa = getData.tienDauCa;
 
         renderDauCa();
         renderTrongCa();

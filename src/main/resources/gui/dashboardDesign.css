@@ -188,7 +188,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .tbl_col{
-    -fx-alignment:CENTER;
+    -fx-alignment: CENTER-LEFT;
     -fx-font-size: 14px;
 }
 

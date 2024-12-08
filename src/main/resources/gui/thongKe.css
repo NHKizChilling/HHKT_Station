@@ -63,3 +63,8 @@
     -fx-font-size: 14px;
     -fx-border-color: transparent transparent #C1C1C1 transparent;
 }
+
+.tbl_col{
+    -fx-alignment: CENTER-LEFT;
+    -fx-font-size: 14px;
+}

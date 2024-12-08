@@ -67,6 +67,14 @@ public class HoaDon {
         this.tongGiamGia = tongGiamGia + tongKM;
     }
 
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
+    }
+
+    public void setTongGiamGia(double tongGiamGia) {
+        this.tongGiamGia = tongGiamGia;
+    }
+
     public boolean isTrangThai() {
         return TrangThai;
     }
