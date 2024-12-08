@@ -105,12 +105,12 @@ public class HDHuyVeController implements Initializable {
                 String sdt = txt_sdt.getText();
 
                 KhachHang kh = khachHang_dao.getKHTheoCCCD(cccd);
-                if (kh == null) {
-                    // thông báo
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Người hủy vé phải là người mua vé hoặc là chủ vé");
-                    return;
-                }
+//                if (kh == null) {
+//                    // thông báo
+//                    Alert alert = new Alert(Alert.AlertType.ERROR);
+//                    alert.setTitle("Người hủy vé phải là người mua vé hoặc là chủ vé");
+//                    return;
+//                }
 
                 HoaDon hoaDon = new HoaDon();
                 hoaDon.setKhachHang(kh);
