@@ -528,22 +528,22 @@ public class TrangChuController implements Initializable {
             throw new RuntimeException(e);
         }
         Stage ketCaStage = new Stage();
-            ketCaStage.setTitle("Kết ca");
-            ketCaStage.setScene(new Scene(ketCaPane));
-            ketCaStage.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
-            ketCaStage.show();
-            ketCaStage.setOnCloseRequest(e1 -> {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Xác nhận");
-                alert.setHeaderText(null);
-                alert.setContentText("Xác nhận thoát?");
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    ketCaStage.close();
-                } else {
-                    e1.consume();
-                }
-            });
+        ketCaStage.setTitle("Kết ca");
+        ketCaStage.setScene(new Scene(ketCaPane));
+        ketCaStage.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
+        ketCaStage.show();
+        ketCaStage.setOnCloseRequest(e1 -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Xác nhận");
+            alert.setHeaderText(null);
+            alert.setContentText("Xác nhận thoát?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                ketCaStage.close();
+            } else {
+                e1.consume();
+            }
+        });
     }
 
     private void chooseFeatureButton(Button btnChosed) {

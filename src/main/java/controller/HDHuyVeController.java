@@ -129,19 +129,6 @@ public class HDHuyVeController implements Initializable {
                     return;
                 }
 
-                for (Ve ve : listVe) {
-                    ChiTietHoaDon ctHoaDon = new ChiTietHoaDon();
-                    ctHoaDon.setHoaDon(getData.hd);
-                    ctHoaDon.setVe(ve);
-                    ChiTietHoaDon ctHoaDonCu = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
-                    ctHoaDon.setGiaVe(0 - ctHoaDonCu.getGiaVe()); // giá vé = giá vé cũ
-                    ctHoaDon.setGiaGiam(0 - mapLePhi.get(ve.getMaVe())); // giảm giá = lệ phí
-                    ct_hoaDon_dao.create(ctHoaDon);
-
-                    ve.setTinhTrangVe("DaHuy");
-                    ve_dao.update(ve);
-                }
-
                 hoaDon = getData.hd;
                 hoaDon.setTrangThai(true);
                 hoaDon.setTongTien(0 - tongTienTra);
@@ -151,6 +138,18 @@ public class HDHuyVeController implements Initializable {
                 if (hoaDon_dao.update(hoaDon)) {
                     try {
                         printPDF.inHDHuy(hoaDon);
+                        for (Ve ve : listVe) {
+                            ChiTietHoaDon ctHoaDon = new ChiTietHoaDon();
+                            ctHoaDon.setHoaDon(getData.hd);
+                            ctHoaDon.setVe(ve);
+                            ChiTietHoaDon ctHoaDonCu = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
+                            ctHoaDon.setGiaVe(0 - ctHoaDonCu.getGiaVe()); // giá vé = giá vé cũ
+                            ctHoaDon.setGiaGiam(0 - mapLePhi.get(ve.getMaVe())); // giảm giá = lệ phí
+                            ct_hoaDon_dao.create(ctHoaDon);
+
+                            ve.setTinhTrangVe("DaHuy");
+                            ve_dao.update(ve);
+                        }
                     } catch (IOException | DocumentException e) {
                         throw new RuntimeException(e);
                     }
