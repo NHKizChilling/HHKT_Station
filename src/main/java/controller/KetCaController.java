@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -285,10 +286,11 @@ public class KetCaController implements Initializable {
 
         // Mở cửa sổ Mở Ca
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("mo-ca.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/mo-ca.fxml"));
             AnchorPane page = loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Mở Ca");
+            dialogStage.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(stage);
             Scene scene = new Scene(page);

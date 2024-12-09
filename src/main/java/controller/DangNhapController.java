@@ -117,11 +117,18 @@ public class DangNhapController {
 //                        TrangChu_GUI.stage.close();
 //                        stg.show();
 
-                        FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("trang-chu.fxml"));
+//                        FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("trang-chu.fxml"));
+//                        Scene scene = new Scene(fxmlLoader.load());
+//                        TrangChu_GUI.stage.setScene(scene);
+//                        TrangChu_GUI.stage.show();
+//                        TrangChu_GUI.stage.centerOnScreen();
+
+                        FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("mo-ca.fxml"));
+                        Stage stage = new Stage();
                         Scene scene = new Scene(fxmlLoader.load());
-                        TrangChu_GUI.stage.setScene(scene);
-                        TrangChu_GUI.stage.show();
-                        TrangChu_GUI.stage.centerOnScreen();
+                        stage.setScene(scene);
+                        stage.initStyle(StageStyle.UNDECORATED);
+                        stage.show();
 //                        Timeline timeline = new Timeline(
 //                                new KeyFrame(Duration.seconds(0.5),
 //                                        e -> {

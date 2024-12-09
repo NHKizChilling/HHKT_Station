@@ -46,7 +46,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lbl_tienDauCa" layoutX="756.0" layoutY="22.0" text="*" textFill="#008be8">
+                        <Label fx:id="lbl_tienDauCa" layoutX="755.0" layoutY="25.0" text="*" textFill="#008be8">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -80,7 +80,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lbl_tienCuoiCa" layoutX="756.0" layoutY="-1.0" text="*" textFill="#008be8">
+                        <Label fx:id="lbl_tienCuoiCa" layoutX="755.0" layoutY="2.0" text="*" textFill="#008be8">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -155,7 +155,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lbl_tienTrongCa" layoutX="756.0" layoutY="8.0" text="*" textFill="#008be8">
+                        <Label fx:id="lbl_tienTrongCa" layoutX="755.0" layoutY="11.0" text="*" textFill="#008be8">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -212,7 +212,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lbl_tienBanVe" layoutX="100.0" layoutY="34.0" text="*">
+                              <Label fx:id="lbl_tienBanVe" layoutX="97.0" layoutY="34.0" text="*">
                                  <font>
                                     <Font size="16.0" />
                                  </font>

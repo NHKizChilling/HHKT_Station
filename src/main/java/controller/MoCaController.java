@@ -2,10 +2,15 @@ package controller;
 
 import connectdb.ConnectDB;
 import entity.NhanVien;
+import gui.TrangChu_GUI;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
@@ -51,8 +56,20 @@ public class MoCaController implements Initializable {
             getData.gioMoCa = LocalDateTime.now();
             getData.ghiChu = txt_ghiChu.getText();
 
-            // đóng cửa sổ
-            ((Button) event.getSource()).getScene().getWindow().hide();
+            FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("trang-chu.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            TrangChu_GUI.stage.setScene(scene);
+            TrangChu_GUI.stage.show();
+            TrangChu_GUI.stage.centerOnScreen();
+
+            // Đóng cửa sổ hiện tại
+            Stage currentStage = (Stage) btn_moCa.getScene().getWindow();
+            currentStage.close();
         });
 
         btn_dangXuat.setOnAction(event -> {
