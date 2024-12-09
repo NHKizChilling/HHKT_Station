@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -146,6 +145,8 @@ public class HoaDonController implements Initializable {
     private ArrayList<ChiTietLichTrinh> dsctlt;
     private ArrayList<ChiTietLichTrinh> dsctltkh;
     private int i = 0;
+    private NumberFormat df = DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN"));
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -156,7 +157,6 @@ public class HoaDonController implements Initializable {
             cbKM.setPromptText("Không có khuyến mãi");
             cbKM.setDisable(true);
         }
-        NumberFormat df = DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN"));
         NhanVien nhanVien = getData.nv;
         HoaDon hd = getData.hd;
         KhuyenMai km = km_dao.getKMGiamCaoNhat();
@@ -240,7 +240,7 @@ public class HoaDonController implements Initializable {
             tongTien = hd.getTongTien();
             txtThanhTien.setText(df.format(Math.round(tongTien / 1000) * 1000));
             goiYGia();
-            chonGiaGoiY(df);
+            //chonGiaGoiY(df);
             acpThanhToan.setDisable(false);
             btnThanhToan.setOnAction(event -> {
                 if (txtTienKH.getText().isEmpty() || txtTienKH.getText() == null) {
@@ -392,12 +392,10 @@ public class HoaDonController implements Initializable {
             tbCTHD.getSelectionModel().clearSelection();
         });
 
-        txtTienKH.setOnKeyTyped(e -> {
-            goiYGia();
-        });
+        txtTienKH.setOnKeyTyped(e -> goiYGia());
 
 
-        chonGiaGoiY(df);
+        //chonGiaGoiY(df);
 
         cbKM.setOnAction(e -> {
             hd.setKhuyenMai(dsKM.get(cbKM.getSelectionModel().getSelectedIndex()));
@@ -540,69 +538,51 @@ public class HoaDonController implements Initializable {
                 throw new RuntimeException(e);
             }
         });
-    }
 
-    private void chonGiaGoiY(NumberFormat df) {
         btnGia1.setOnAction(event -> {
             txtTienKH.setText(btnGia1.getText());
-            try {
-                txtTienTra.setText(Double.parseDouble(txtTienKH.getText()) - df.parse(txtThanhTien.getText()).doubleValue() + "");
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        btnGia2.setOnAction(event -> {
-            txtTienKH.setText(btnGia2.getText());
-            try {
-                txtTienTra.setText(Double.parseDouble(txtTienKH.getText()) - df.parse(txtThanhTien.getText()).doubleValue() + "");
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        btnGia3.setOnAction(event -> {
-            txtTienKH.setText(btnGia3.getText());
-            try {
-                txtTienTra.setText(Double.parseDouble(txtTienKH.getText()) - df.parse(txtThanhTien.getText()).doubleValue() + "");
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        btnGia4.setOnAction(event -> {
-            txtTienKH.setText(btnGia4.getText());
-            try {
-                txtTienTra.setText(Double.parseDouble(txtTienKH.getText()) - df.parse(txtThanhTien.getText()).doubleValue() + "");
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
+            double tienKHTra = parseCurrency(txtTienKH.getText());
+            double thanhTien = parseCurrency(txtThanhTien.getText());
+            txtTienTra.setText(df.format(tienKHTra - thanhTien));
         });
 
-        txtTienKH.setOnKeyTyped(e -> {
-            goiYGiaKhiNhap();
+        btnGia2.setOnAction(event -> {
+            txtTienKH.setText(btnGia2.getText());
+            double tienKHTra = parseCurrency(txtTienKH.getText());
+            double thanhTien = parseCurrency(txtThanhTien.getText());
+            txtTienTra.setText(df.format(tienKHTra - thanhTien));
         });
+
+        btnGia3.setOnAction(event -> {
+            txtTienKH.setText(btnGia3.getText());
+            double tienKHTra = parseCurrency(txtTienKH.getText());
+            double thanhTien = parseCurrency(txtThanhTien.getText());
+            txtTienTra.setText(df.format(tienKHTra - thanhTien));
+        });
+
+        btnGia4.setOnAction(event -> {
+            txtTienKH.setText(btnGia4.getText());
+            double tienKHTra = parseCurrency(txtTienKH.getText());
+            double thanhTien = parseCurrency(txtThanhTien.getText());
+            txtTienTra.setText(df.format(tienKHTra - thanhTien));
+        });
+
+        txtTienKH.setOnKeyTyped(e -> goiYGiaKhiNhap());
+    }
+
+    private double parseCurrency(String text) {
+        return Double.parseDouble(text.replaceAll("[^\\d]", ""));
     }
 
     private void goiYGia() {
-        if (!txtThanhTien.getText().isEmpty() && txtTienKH.getText() != null) {
-            double t = tongTien/1000;
-            t = Math.round(t);
-            btnGia1.setText(t * 1000 + "");
-            if (t % 10 < 5) {
-                btnGia2.setText((t + 5) * 1000 + "");
-            } else {
-                btnGia2.setText((t + 10) * 1000 + "");
-            }
-            if (t % 10 < 5) {
-                btnGia3.setText((t + 10) * 1000 + "");
-            } else {
-                btnGia3.setText((t + 15) * 1000 + "");
-            }
-            if (t % 10 < 5) {
-                btnGia4.setText((t + 15) * 1000 + "");
-            } else {
-                btnGia4.setText((t + 20) * 1000 + "");
-            }
-        }
+    if (!txtThanhTien.getText().isEmpty() && txtTienKH.getText() != null) {
+        int t = (int) Math.round(tongTien / 1000.0);
+        btnGia1.setText(df.format(t * 1000L));
+        btnGia2.setText(df.format((t + (t % 10 < 5 ? 5 : 10)) * 1000L));
+        btnGia3.setText(df.format((t + (t % 10 < 5 ? 10 : 15)) * 1000L));
+        btnGia4.setText(df.format((t + (t % 10 < 5 ? 15 : 20)) * 1000L));
     }
+}
 
     private void goiYGiaKhiNhap() {
             if (!txtThanhTien.getText().isEmpty() && txtTienKH.getText() != null) {
@@ -611,8 +591,8 @@ public class HoaDonController implements Initializable {
                 // btn2: gợi ý giá dựa vào số được nhập trong txtTienKH * 10000
                 // btn3: gợi ý giá dựa vào số được nhập trong txtTienKH * 100000
                 // btn4: gợi ý giá dựa vào số được nhập trong txtTienKH * 1000000
-                int tienKH = Integer.parseInt(txtTienKH.getText());
-                NumberFormat df = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+                int tienKH = Integer.parseInt(txtTienKH.getText().replaceAll("[^\\d]", ""));
+                NumberFormat df = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));
                 btnGia1.setText(df.format(Math.round(tongTien / 1000) * 1000));
                 btnGia2.setText(df.format(Math.max(tienKH * 10000L, Math.ceil(tongTien / 10000) * 10000)));
                 btnGia3.setText(df.format(Math.max(tienKH * 100000L, Math.ceil(tongTien / 100000) * 100000)));
@@ -651,7 +631,7 @@ public class HoaDonController implements Initializable {
             cbLoaiVe.requestFocus();
             return false;
         }
-        if (txtTenHK.getText() == null || txtTenHK.getText().isEmpty()) {
+        if (txtTenHK.getText() == null || txtTenHK.getText().trim().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Thông báo");
             alert.setHeaderText(null);

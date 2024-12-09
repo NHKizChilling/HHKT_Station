@@ -418,7 +418,9 @@ public class DoiVeController implements Initializable {
                 Button btnBack = (Button) pane.lookup("#btnBackBanVe");
                 btnBack.setOnMouseClicked(e1 -> {
                     HoaDon hoaDon = hd_dao.getHoaDonVuaTao();
-                    hd_dao.delete(hoaDon);
+                    if (!hoaDon.isTrangThai()) {
+                        hd_dao.delete(hoaDon);
+                    }
                     getData.hd = null;
                     getData.dsctlt = null;
                     getData.dsctltkh = null;
@@ -453,7 +455,18 @@ public class DoiVeController implements Initializable {
             ChoNgoi cn = new ChoNgoi_DAO().getChoNgoiTheoMa(ve.getCtlt().getChoNgoi().getMaChoNgoi());
             return new SimpleStringProperty(new LoaiToa_DAO().getLoaiToaTheoMa(new Toa_DAO().getToaTheoID(cn.getToa().getMaToa()).getLoaiToa().getMaLoaiToa()).getTenLoaiToa());
         });
-        col_tinhTrangVe.setCellValueFactory(new PropertyValueFactory<>("tinhTrangVe"));
+
+        Map<String, String> mapTinhTrangVe = new HashMap<>();
+        mapTinhTrangVe.put("DaBan", "Đã bán");
+        mapTinhTrangVe.put("DaHuy", "Đã hủy");
+        mapTinhTrangVe.put("DaDoi", "Đã đổi");
+
+        col_tinhTrangVe.setCellValueFactory(p -> {
+            Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
+            return new SimpleStringProperty(mapTinhTrangVe.get(ve.getTinhTrangVe()));
+        });
+
+
         col_loaiVe.setCellValueFactory(p -> {
             Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
             return new SimpleStringProperty(new LoaiVe_DAO().getLoaiVeTheoMa(ve.getLoaiVe().getMaLoaiVe()).getTenLoaiVe());

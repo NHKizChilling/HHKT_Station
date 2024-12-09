@@ -16,7 +16,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<VBox fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1540.0" snapToPixel="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TrangChuController">
+<VBox fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1540.0" snapToPixel="false" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TrangChuController">
    <children>
       <BorderPane prefHeight="795.0" prefWidth="1540.0">
          <left>
@@ -187,19 +187,14 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
-                  <AnchorPane fx:id="acpTK" layoutX="2.0" layoutY="515.0" prefHeight="90.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to right, #4098ff, #5098ff);" visible="false">
+                  <AnchorPane fx:id="acpTK" layoutX="2.0" layoutY="515.0" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: linear-gradient(to right, #4098ff, #5098ff);" visible="false">
                      <children>
                         <JFXButton fx:id="btnTKDoanhThu" alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#showTKDoanhThuGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Doanh thu">
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="btnTKVe" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="30.0" onAction="#showTKVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Số lượng vé">
-                           <font>
-                              <Font name="Arial" size="12.0" />
-                           </font>
-                        </JFXButton>
-                        <JFXButton fx:id="btnTKNV" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="60.0" onAction="#showTKNhanVienGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Nhân viên">
+                        <JFXButton fx:id="btnTKNV" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="30.0" onAction="#showTKNhanVienGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Khác">
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font>

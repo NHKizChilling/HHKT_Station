@@ -19,9 +19,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 /*
  * @description:
  * @author: Hiep Nguyen
@@ -221,7 +223,7 @@ public class PrintPDF {
         // Add headers
         addTableHeader(table, boldFont, "STT", "Mã vé", "Tên dịch vụ", "ĐVT", "Số lượng", "Đơn giá", "Thành tiền chưa có thuế", "Thuế GTGT", "TT có thuế");
         ArrayList<ChiTietHoaDon> dscthd = new CT_HoaDon_DAO().getCT_HoaDon(hoaDon.getMaHoaDon());
-        DecimalFormat df = new DecimalFormat("#,### đ");
+        NumberFormat df = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));;
         // Add ticket row 1
         int dem = 0;
         double tong = 0;
@@ -295,6 +297,8 @@ public class PrintPDF {
                         double tongTien, double tienBanVe, double tienTraVe, double tienTraVeDoi, double tienThuVeDoi, String ghiChu)
                         throws IOException, DocumentException {
     String filename = "KetCa_" + nv.getMaNhanVien() + "_" + gioKetThuc.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".pdf";
+    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));
+
 
     // Create a new document
     Document document = new Document(PageSize.A4);
@@ -306,37 +310,39 @@ public class PrintPDF {
 
     // Add title
     Font titleFont = new Font(bf, 14, Font.BOLD);
-    Paragraph title = new Paragraph("BÁO CÁO KẾT CA", titleFont);
+    Paragraph title = new Paragraph("BÁO CÁO CA LÀM", titleFont);
     title.setAlignment(Element.ALIGN_CENTER);
     document.add(title);
 
     // Add shift information
     Font regularFont = new Font(bf, 12, Font.NORMAL);
+    document.add(new Paragraph("BẮT ĐẦU CA", regularFont));
     document.add(new Paragraph("Nhân viên: " + nv.getTenNhanVien(), regularFont));
     document.add(new Paragraph("Mã nhân viên: " + nv.getMaNhanVien(), regularFont));
     document.add(new Paragraph("Giờ bắt đầu ca: " + gioBatDau.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")), regularFont));
-    document.add(new Paragraph("Giờ kết thúc ca: " + gioKetThuc.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")), regularFont));
-    document.add(new Paragraph("Tiền đầu ca: " + new DecimalFormat("#,### VNĐ").format(tienDauCa), regularFont));
-    document.add(new Paragraph("Tổng tiền: " + new DecimalFormat("#,### VNĐ").format(tongTien), regularFont));
+    document.add(new Paragraph("Tiền đầu ca: " + currencyVN.format(tienDauCa), regularFont));
+    document.add(new Paragraph("Ghi chú đầu ca: " + getData.ghiChu, regularFont));
 
     // Add a line separator
     document.add(new Paragraph("------------------------------------------------------------"));
 
     // Add summary of sales
+    document.add(new Paragraph("CUỐI CA", regularFont));
+    document.add(new Paragraph("Giờ kết thúc ca: " + gioKetThuc.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")), regularFont));
     document.add(new Paragraph("Tổng kết doanh thu:", regularFont));
-    document.add(new Paragraph("Tổng tiền bán vé: " + new DecimalFormat("#,### VNĐ").format(tienBanVe), regularFont));
-    document.add(new Paragraph("Tổng tiền trả vé: " + new DecimalFormat("#,### VNĐ").format(tienTraVe), regularFont));
-    document.add(new Paragraph("Tổng tiền trả vé đổi: " + new DecimalFormat("#,### VNĐ").format(tienTraVeDoi), regularFont));
-    document.add(new Paragraph("Tổng tiền thu vé đổi: " + new DecimalFormat("#,### VNĐ").format(tienThuVeDoi), regularFont));
-
+    document.add(new Paragraph("Tổng tiền bán vé: " + currencyVN.format(tienBanVe), regularFont));
+    document.add(new Paragraph("Tổng tiền trả vé: " + currencyVN.format(tienTraVe), regularFont));
+    document.add(new Paragraph("Tổng tiền trả vé đổi: " + currencyVN.format(tienTraVeDoi), regularFont));
+    document.add(new Paragraph("Tổng tiền thu vé đổi: " + currencyVN.format(tienThuVeDoi), regularFont));
+    document.add(new Paragraph("Tổng tiền cuối ca: " + currencyVN.format(tongTien), regularFont));
     // add note
-    document.add(new Paragraph("Ghi chú: " + ghiChu, regularFont));
+    document.add(new Paragraph("Ghi chú cuối ca: " + ghiChu, regularFont));
     // Close the document
     try {
         document.close();
         Desktop.getDesktop().open(new File("src/main/resources/pdf/" + filename));
     } catch (Exception e) {
-        System.out.println("Tạo báo cáo kết ca thất bại!");
+        throw new RuntimeException("Tạo báo cáo kết ca thất bại!");
     }
 }
 
@@ -367,7 +373,7 @@ public class PrintPDF {
         title.setAlignment(Element.ALIGN_CENTER);
         document.add(title);
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         document.add(new Paragraph(" "));
         Paragraph date = new Paragraph("Ngày " + hoaDon.getNgayLapHoaDon().getDayOfMonth() + " tháng " + hoaDon.getNgayLapHoaDon().getMonthValue() + " năm " + hoaDon.getNgayLapHoaDon().getYear(), regularFont);
         date.setAlignment(Element.ALIGN_RIGHT);
@@ -388,12 +394,13 @@ public class PrintPDF {
         document.add(new Paragraph("Số điện thoại: " + kh.getSoCCCD(), regularFont));
         document.add(new Paragraph("Số CCCD/CMND: " + kh.getSdt(), regularFont));
         document.add(new Paragraph("Thời gian hủy vé: " + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now()), regularFont));
-        document.add(new Paragraph(" "));
 
         // Staff info
         NhanVien nv = getData.nv;
         document.add(new Paragraph("\nNhân viên lập hóa đơn: " + nv.getTenNhanVien(), boldFont));
 
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("DANH SÁCH VÉ HỦY", boldFont));
         document.add(new Paragraph(" "));
 
 
@@ -401,7 +408,7 @@ public class PrintPDF {
         PdfPTable table = new PdfPTable(7);
         table.setWidthPercentage(100);
         //Căn giữa tiêu đề bảng
-        table.setWidths(new int[]{5, 15, 25, 25, 10, 10, 10});
+        table.setWidths(new int[]{5, 15, 20, 30, 10, 10, 10});
 
         // Add headers
         addTableHeader(table, boldFont, "STT", "Mã vé", "Tên hành khách", "Thông tin vé", "Tiền vé(VNĐ)", "Lệ phí trả vé", "Tiền trả");
@@ -421,16 +428,20 @@ public class PrintPDF {
             Ga gaDi = new Ga_DAO().getGaTheoMaGa(lt.getGaDi().getMaGa());
             Ga gaDen = new Ga_DAO().getGaTheoMaGa(lt.getGaDen().getMaGa());
 
+            double tienVe = Math.round(cthd.getGiaVe() * -1);
+            double lePhi = Math.round(cthd.getGiaGiam());
+            double tienTra = Math.round(cthd.getGiaVe() * -1 - cthd.getGiaGiam());
+
 
             addTableRow(table, regularFont, ++count + "", cthd.getVe().getMaVe(), kh.getTenKH(),
-                        gaDi.getTenGa() + "-" + gaDen.getTenGa() + "\n" + dtf.format(lt.getThoiGianKhoiHanh()) +
-                        "\nLoại vé: " + loaiVe.getTenLoaiVe(), new DecimalFormat("#,###").format(cthd.getGiaVe() * -1),
-                        new DecimalFormat("#,###").format(cthd.getGiaGiam()),
-                        new DecimalFormat("#,###").format(cthd.getGiaVe() * -1 - cthd.getGiaGiam()));
+                        gaDi.getTenGa() + "-" + gaDen.getTenGa() + "\nGiờ khởi hành: " + dtf.format(lt.getThoiGianKhoiHanh()) +
+                        "\nLoại vé: " + loaiVe.getTenLoaiVe(), new DecimalFormat("#,###").format(tienVe),
+                        new DecimalFormat("#,###").format(lePhi),
+                        new DecimalFormat("#,###").format(tienTra));
 
-            tongTienVe += ctlt.getGiaCho();
-            tongLePhi += cthd.getGiaGiam();
-            tongTienTra -= cthd.getGiaVe();
+            tongTienVe += tienVe;
+            tongLePhi += lePhi;
+            tongTienTra -= tienTra;
         }
 
         // Add table to document
@@ -441,7 +452,7 @@ public class PrintPDF {
         document.add(new Paragraph("Tổng số vé: " + count + "vé", regularFont));
         document.add(new Paragraph("\nTổng tiền vé: " + new DecimalFormat("#,###").format(tongTienVe) + "VNĐ", regularFont));
         document.add(new Paragraph("\nTổng lệ phí: " + new DecimalFormat("#,###").format(tongLePhi) + "VNĐ", regularFont));
-        document.add(new Paragraph("\nTổng tiền trả: " + new DecimalFormat("#,###").format(tongTienTra) + "VNĐ", regularFont));
+        document.add(new Paragraph("\nTổng tiền trả: " + new DecimalFormat("#,###").format(-1 * tongTienTra) + "VNĐ", regularFont));
 
         // Close the document
         try {

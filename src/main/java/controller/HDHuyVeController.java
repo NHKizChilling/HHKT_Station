@@ -15,10 +15,12 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class HDHuyVeController implements Initializable {
@@ -85,6 +87,7 @@ public class HDHuyVeController implements Initializable {
     private ArrayList<Ve> listVe;
     private HashMap<String, Double> mapLePhi;
     private final PrintPDF printPDF = new PrintPDF();
+    private NumberFormat currencyVN = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -147,7 +150,7 @@ public class HDHuyVeController implements Initializable {
                     try {
                         for (Ve ve : listVe) {
                             ChiTietHoaDon ctHoaDon = new ChiTietHoaDon();
-                            ctHoaDon.setHoaDon(getData.hd);
+                            ctHoaDon.setHoaDon(new HoaDon(hoaDon.getMaHoaDon()));
                             ctHoaDon.setVe(ve);
                             ChiTietHoaDon ctHoaDonCu = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
                             ctHoaDon.setGiaVe(0 - ctHoaDonCu.getGiaVe()); // giá vé = giá vé cũ
@@ -241,18 +244,18 @@ public class HDHuyVeController implements Initializable {
         col_tienVe.setCellValueFactory(p -> {
             Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
             ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
-            return new SimpleStringProperty(ctHoaDon.getGiaVe() - ctHoaDon.getGiaGiam() + "");
+            return new SimpleStringProperty(currencyVN.format(ctHoaDon.getGiaVe() - ctHoaDon.getGiaGiam()));
         });
 
         col_lePhi.setCellValueFactory(p -> {
             Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
-            return new SimpleStringProperty(mapLePhi.get(ve.getMaVe()) + "");
+            return new SimpleStringProperty(currencyVN.format(mapLePhi.get(ve.getMaVe())));
         });
 
         col_tienTra.setCellValueFactory(p -> {
             Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
             ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
-            return new SimpleStringProperty(ctHoaDon.getGiaVe() - ctHoaDon.getGiaGiam() + mapLePhi.get(ve.getMaVe()) + "");
+            return new SimpleStringProperty(currencyVN.format(ctHoaDon.getGiaVe() - ctHoaDon.getGiaGiam() + mapLePhi.get(ve.getMaVe())));
         });
     }
 
@@ -265,19 +268,19 @@ public class HDHuyVeController implements Initializable {
             tongTienTra += ctHoaDon.getGiaVe() - ctHoaDon.getGiaGiam() + mapLePhi.get(ve.getMaVe());
         }
 
-        lbl_tongSoVe.setText("Tổng số vé: " + tongSoVe + " vé");
-        lbl_tongTienVe.setText("Tổng tiền vé: " + tongTienVe + "VNĐ");
-        lbl_tongLePhi.setText("Tổng lệ phí: " + tongLePhi + "VNĐ");
-        lbl_tongTienTra.setText("Tổng tiền trả: " + tongTienTra + "VNĐ");
+        tongTienVe = Math.round(tongTienVe * 1000.0) / 1000.0;
+        tongLePhi = Math.round(tongLePhi * 1000.0) / 1000.0;
+        tongTienTra = Math.round(tongTienTra * 1000.0) / 1000.0;
+
+        lbl_tongSoVe.setText("Tổng số vé: " + tongSoVe);
+        lbl_tongTienVe.setText("Tổng tiền vé: " + currencyVN.format(tongTienVe));
+        lbl_tongLePhi.setText("Tổng lệ phí: " + currencyVN.format(tongLePhi));
+        lbl_tongTienTra.setText("Tổng tiền trả: " + currencyVN.format(tongTienTra));
     }
 
     private boolean checkInput() {
         String cccd = txt_cccd.getText();
         String sdt = txt_sdt.getText();
-
-        System.out.println(cccd);
-        System.out.println(sdt);
-        System.out.println(txt_ten.getText());
 
         if (cccd.isEmpty() || sdt.isEmpty()) {
             return false;

@@ -615,7 +615,9 @@ public class BanVeController implements Initializable {
                 Button btnBack = (Button) acpHoaDon.lookup("#btnBackBanVe");
                 btnBack.setOnMouseClicked(e1 -> {
                     HoaDon hoaDon = hd_dao.getHoaDonVuaTao();
-                    hd_dao.delete(hoaDon);
+                    if (!hoaDon.isTrangThai()) {
+                        hd_dao.delete(hoaDon);
+                    }
                     getData.hd = null;
                     getData.dsctlt = null;
                     getData.dsctltkh = null;

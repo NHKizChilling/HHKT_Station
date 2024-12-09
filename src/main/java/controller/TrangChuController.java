@@ -67,8 +67,6 @@ public class TrangChuController implements Initializable {
     @FXML
     private JFXButton btnTKDoanhThu;
     @FXML
-    private JFXButton btnTKVe;
-    @FXML
     private JFXButton btnTKNV;
     @FXML
     private JFXButton btnFCT;
@@ -158,7 +156,6 @@ public class TrangChuController implements Initializable {
         btnDoiVeGUI.setOnMouseClicked(e -> chooseFeatureButtonLV2(btnDoiVeGUI));
         btnHuyVeGUI.setOnMouseClicked(e -> chooseFeatureButtonLV2(btnHuyVeGUI));
         btnTKDoanhThu.setOnMouseClicked(e -> chooseFeatureButtonLV2(btnTKDoanhThu));
-        btnTKVe.setOnMouseClicked(e -> chooseFeatureButtonLV2(btnTKVe));
         btnTKNV.setOnMouseClicked(e -> chooseFeatureButtonLV2(btnTKNV));
         btnFVe.setOnMouseClicked(e -> {
             onClick();
@@ -265,7 +262,7 @@ public class TrangChuController implements Initializable {
     }
 
     private void resetFBCTK() {
-        List<Button> listBtn = List.of(btnTKDoanhThu, btnTKVe, btnTKNV);
+        List<Button> listBtn = List.of(btnTKDoanhThu, btnTKNV);
         listBtn.forEach(btn -> {
             btn.setStyle(styleLV2);
         });
@@ -558,7 +555,7 @@ public class TrangChuController implements Initializable {
     }
 
     private void chooseFeatureButtonLV2(Button btnChosed) {
-        List<Button> dsF = List.of(btnBanVeGUI, btnDoiVeGUI, btnHuyVeGUI, btnTKDoanhThu, btnTKVe, btnTKNV);
+        List<Button> dsF = List.of(btnBanVeGUI, btnDoiVeGUI, btnHuyVeGUI, btnTKDoanhThu, btnTKNV);
         dsF.forEach(btn -> {
             if (btn.equals(btnChosed)) {
                 btn.setStyle(btn.getStyle() + "-fx-background-color: lightblue;-fx-border-color: white;");

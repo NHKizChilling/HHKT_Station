@@ -124,6 +124,8 @@ public class HuyVeController implements Initializable {
     private LoaiVe_DAO loaiVe_dao;
     private HoaDon hoaDon;
 
+    private NumberFormat currencyVN = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));
+
     private final ArrayList<Ve> selectedVe = new ArrayList<>();
     private final HashMap<String, Double> mapLePhi = new HashMap<>(); // Lưu lệ phí của từng vé
     @Override
@@ -360,21 +362,21 @@ public class HuyVeController implements Initializable {
             // Tính tổng tiền vé và lệ phí
             for (Ve ve : dsVeHuy) { // Duyệt qua danh sách vé cần hủy đã lọc các vé đã đổi ra
                 ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
-                tongTienVe += ctHoaDon.getGiaVe();
-                double lePhi = ctHoaDon.getGiaVe() * phanTram;
+                tongTienVe += Math.round(ctHoaDon.getGiaVe() / 1000) * 1000;
+                double lePhi = Math.round((ctHoaDon.getGiaVe() * phanTram) / 1000) * 1000;
                 tongLePhi += lePhi;
                 mapLePhi.put(ve.getMaVe(), lePhi);
             }
 
             for (Ve ve : dsVeDaDoi) {
                 ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
-                tongTienVe += ctHoaDon.getGiaVe();
-                double lePhi = ctHoaDon.getGiaVe() * 0.3;
+                tongTienVe += Math.round(ctHoaDon.getGiaVe() / 1000) * 1000;
+                double lePhi = Math.round((ctHoaDon.getGiaVe() * 0.3) / 1000.0) * 1000;
                 tongLePhi += lePhi;
                 mapLePhi.put(ve.getMaVe(), lePhi);
             }
 
-            NumberFormat currencyVN = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));
+            dsVeHuy.addAll(dsVeDaDoi);
 
             txt_tongVeTra.setText(String.valueOf(dsVeHuy.size()));
             txt_tongTienVe.setText(currencyVN.format(tongTienVe));
@@ -390,14 +392,6 @@ public class HuyVeController implements Initializable {
             }
             getData.dsve = selectedVe;
             getData.mapLePhi = mapLePhi;
-
-            for (Ve ve: getData.dsve) {
-                System.out.println(ve.getMaVe());
-            }
-
-            for (Map.Entry<String, Double> entry : mapLePhi.entrySet()) {
-                System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
-            }
 
             lbl_thongBao.setText("");
             lbl_thongBao2.setText("Hủy vé thành công");
@@ -450,8 +444,18 @@ public class HuyVeController implements Initializable {
 
         // col thông tin hành khách chứa TenHK, cccd, sdt
         col_thongTinHK.setCellValueFactory(p -> {
-            KhachHang kh = hanhKhach_dao.getKhachHangTheoMaKH(p.getValue().getKhachHang().getMaKH());
-            return new SimpleStringProperty(kh.getTenKH() + " \n" + "CCCD/CMND: \n" + kh.getSoCCCD() + " \n" + "SĐT: " + kh.getSdt());
+            String tenHK = p.getValue().getTenHanhKhach();
+            String cccd = p.getValue().getSoCCCD();
+            String ngaySinh = p.getValue().getNgaySinh() != null ? p.getValue().getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : null;
+            String s;
+            s = Objects.requireNonNullElse(tenHK, "");
+            if (cccd != null) {
+                s += "\nCCCD/CMND: " + cccd;
+            }
+            if (ngaySinh != null) {
+                s += "\nNgày sinh: " + ngaySinh;
+            }
+            return new SimpleStringProperty(s);
         });
 
         col_thongTinVe.setCellValueFactory(p -> {
@@ -474,7 +478,7 @@ public class HuyVeController implements Initializable {
 
         col_giaVe.setCellValueFactory(p -> {
             ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(p.getValue().getMaVe());
-            return new SimpleStringProperty(String.valueOf(ctHoaDon.getGiaVe()));
+            return new SimpleStringProperty(currencyVN.format(ctHoaDon.getGiaVe()));
         });
 
         col_chonVe.setCellValueFactory(cellData -> {

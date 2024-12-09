@@ -161,9 +161,11 @@ public class HDDoiTraVeController implements Initializable {
         ChiTietHoaDon cthd_old = cthd_dao.getCT_HoaDonTheoMaVe(ve_doi.getMaVe());
         hd.tinhTongGiamGia(new ArrayList<>(List.of(cthd)));
         KhuyenMai km = km_dao.getKMTheoMa(hd.getKhuyenMai().getMaKM());
-        double gia = cthd.getGiaVe() - cthd_old.getGiaVe();
+        double gia = Math.round((cthd.getGiaVe() - cthd_old.getGiaVe()) / 1000) * 1000;
         tongTien = (gia > 0 ? gia * (1 - km.getMucKM()) : gia) + 10000;
         double giamGia = gia > 0 ? gia * hd.getKhuyenMai().getMucKM() : 0 + cthd.getGiaGiam();
+        tongTien = Math.round(tongTien / 1000) * 1000;
+        giamGia = Math.round(giamGia / 1000) * 1000;
         if (tongTien <= 0) {
             txtTienKH.setText("0");
             txtTienTra.setText(df.format(-tongTien));
@@ -199,35 +201,23 @@ public class HDDoiTraVeController implements Initializable {
 
         btnGia1.setOnAction(event -> {
             txtTienKH.setText(btnGia1.getText());
-            try {
-                txtTienTra.setText(Double.parseDouble(txtTienKH.getText()) - df.parse(txtThanhTien.getText()).doubleValue() + "");
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
+            double tienTra = parseCurrency(txtTienKH.getText()) - parseCurrency(txtThanhTien.getText());
+            txtTienTra.setText(df.format(tienTra));
         });
         btnGia2.setOnAction(event -> {
             txtTienKH.setText(btnGia2.getText());
-            try {
-                txtTienTra.setText(Double.parseDouble(txtTienKH.getText()) - df.parse(txtThanhTien.getText()).doubleValue() + "");
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
+            double tienTra = parseCurrency(txtTienKH.getText()) - parseCurrency(txtThanhTien.getText());
+            txtTienTra.setText(df.format(tienTra));
         });
         btnGia3.setOnAction(event -> {
             txtTienKH.setText(btnGia3.getText());
-            try {
-                txtTienTra.setText(Double.parseDouble(txtTienKH.getText()) - df.parse(txtThanhTien.getText()).doubleValue() + "");
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
+            double tienTra = parseCurrency(txtTienKH.getText()) - parseCurrency(txtThanhTien.getText());
+            txtTienTra.setText(df.format(tienTra));
         });
         btnGia4.setOnAction(event -> {
             txtTienKH.setText(btnGia4.getText());
-            try {
-                txtTienTra.setText(Double.parseDouble(txtTienKH.getText()) - df.parse(txtThanhTien.getText()).doubleValue() + "");
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
+            double tienTra = parseCurrency(txtTienKH.getText()) - parseCurrency(txtThanhTien.getText());
+            txtTienTra.setText(df.format(tienTra));
         });
 
         btnThanhToan.setOnAction(event -> {
@@ -272,6 +262,10 @@ public class HDDoiTraVeController implements Initializable {
         });
     }
 
+    private double parseCurrency(String text) {
+        return Double.parseDouble(text.replaceAll("[^\\d]", ""));
+    }
+
     private void goiYGia() {
         if (!txtThanhTien.getText().isEmpty() && txtTienKH.getText() != null) {
             // gợi ý giá như sau:
@@ -279,7 +273,7 @@ public class HDDoiTraVeController implements Initializable {
             // btn2: gợi ý giá dựa vào số được nhập trong txtTienKH * 10000
             // btn3: gợi ý giá dựa vào số được nhập trong txtTienKH * 100000
             // btn4: gợi ý giá dựa vào số được nhập trong txtTienKH * 1000000
-            int tienKH = Integer.parseInt(txtTienKH.getText());
+            int tienKH = Integer.parseInt(txtTienKH.getText().replaceAll("[^\\d]", ""));
             NumberFormat df = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
             btnGia1.setText(df.format(Math.round(tongTien / 1000) * 1000));
             btnGia2.setText(df.format(Math.max(tienKH * 10000L, Math.ceil(tongTien / 10000) * 10000)));

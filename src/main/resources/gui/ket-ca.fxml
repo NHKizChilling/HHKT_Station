@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -105,7 +107,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txt_tienChenhLech" layoutX="373.0" layoutY="71.0" prefHeight="25.0" prefWidth="217.0">
+                        <TextField fx:id="txt_tienChenhLech" disable="true" layoutX="373.0" layoutY="71.0" prefHeight="25.0" prefWidth="217.0">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -132,11 +134,22 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Label fx:id="lbl_thongBao" layoutX="20.0" layoutY="171.0" textFill="RED">
+                  <Label fx:id="lbl_thongBao" layoutX="151.0" layoutY="167.0" prefHeight="36.0" textFill="RED">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
+                  <Button fx:id="btn_BackBanVe" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="168.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-radius: 15; -fx-view-order: 0;" styleClass="shadow" stylesheets="@dashboardDesign.css" text="Quay lại">
+                     <font>
+                        <Font name="Times New Roman Bold" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="ARROW_LEFT" />
+                     </graphic>
+                  </Button>
                </children>
             </AnchorPane>
          </bottom>

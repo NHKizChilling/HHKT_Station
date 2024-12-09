@@ -1,10 +1,8 @@
 package controller;
 
 import com.itextpdf.text.DocumentException;
-import connectdb.ConnectDB;
 import dao.CT_HoaDon_DAO;
 import dao.HoaDon_DAO;
-import dao.NhanVien_DAO;
 import dao.Ve_DAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
@@ -83,6 +81,9 @@ public class KetCaController implements Initializable {
     private Button btn_inPhieu;
 
     @FXML
+    private Button btn_BackBanVe;
+
+    @FXML
     private Label lbl_thongBao;
 
     private NhanVien nv;
@@ -114,17 +115,20 @@ public class KetCaController implements Initializable {
         initDAO();
         setInfo();
 
+        btn_BackBanVe.setOnAction(event -> {
+            Stage stage = (Stage) btn_BackBanVe.getScene().getWindow();
+            stage.close();
+        });
+
         btn_dongCa.setOnAction(event -> {
-            if (txt_tienMatThu.getText().isEmpty()) {
-                lbl_thongBao.setText("Vui lòng nhập đủ thông tin");
+            if (checkInput()) {
                 return;
             }
             closeWindow();
         });
 
         btn_inPhieu.setOnAction(event -> {
-            if (txt_tienMatThu.getText().isEmpty()) {
-                lbl_thongBao.setText("Vui lòng nhập đủ thông tin");
+            if (checkInput()) {
                 return;
             }
             if (txt_ghiChu.getText().isEmpty()) {
@@ -132,7 +136,6 @@ public class KetCaController implements Initializable {
             } else {
                 ghiChu = txt_ghiChu.getText();
             }
-            // TODO: in phiếu kết ca
             try {
                 printPDF.inKetCa(nv, gioBatDau, LocalDateTime.now(), tienDauCa, tongTien,
                                 tienBanVe, tienTraVe, tienTraVeDoi, tienThuVeDoi, ghiChu);
@@ -142,19 +145,7 @@ public class KetCaController implements Initializable {
             }
         });
 
-        txt_tienMatThu.setOnAction(event -> {
-            if (txt_tienMatThu.getText().isEmpty()) {
-                lbl_thongBao.setText("Vui lòng nhập đủ thông tin");
-                txt_tienMatThu.requestFocus();
-                return;
-            }
-
-            if (!txt_tienMatThu.getText().matches("\\d*")) {
-                lbl_thongBao.setText("Tiền mặt thu phải là số");
-                txt_tienMatThu.requestFocus();
-                return;
-            }
-
+        txt_tienMatThu.setOnKeyTyped(event -> {
             double tienMatThu = Double.parseDouble(txt_tienMatThu.getText());
             txt_tienChenhLech.setText(df.format(tienMatThu - tongTien));
         });
@@ -272,7 +263,7 @@ public class KetCaController implements Initializable {
         lbl_soVeHuy.setText(String.valueOf(soVeHuyUI));
         lbl_soVeDoi.setText(String.valueOf(soVeDoiUI));
 
-        tongTien = tienBanVe - tienTraVe - tienTraVeDoi + tienThuVeDoi;
+        tongTien = tienBanVe + tienTraVe + tienTraVeDoi + tienThuVeDoi;
         lbl_tienBanVe.setText(df.format(tienBanVe));
         lbl_tienTraVe.setText(df.format(tienTraVe));
         lbl_tienTraVeDoi.setText(df.format(tienTraVeDoi));
@@ -282,7 +273,8 @@ public class KetCaController implements Initializable {
     }
 
     public void renderCuoiCa() {
-        lbl_tienCuoiCa.setText(df.format(tongTien + tienDauCa));
+        tongTien += tienDauCa;
+        lbl_tienCuoiCa.setText(df.format(tongTien));
         txt_tienMatThu.setPromptText(df.format(0));
         txt_tienChenhLech.setPromptText(df.format(tongTien));
     }
@@ -317,5 +309,26 @@ public class KetCaController implements Initializable {
         ct_hoaDon_dao = new CT_HoaDon_DAO();
         ve_dao = new Ve_DAO();
         printPDF = new PrintPDF();
+    }
+
+    private boolean checkInput() {
+        if (txt_tienMatThu.getText().isEmpty()) {
+            lbl_thongBao.setText("Vui lòng nhập đủ thông tin");
+            return false;
+        }
+
+        if (txt_tienMatThu.getText().matches("\\d*")) {
+            lbl_thongBao.setText("Tiền mặt thu phải là số");
+            return false;
+        }
+
+        double tienChenhLech = Double.parseDouble(txt_tienChenhLech.getText().replaceAll("\\D", ""));
+
+        if (tienChenhLech < 0) {
+            lbl_thongBao.setText("Tiền mặt thu không đủ");
+            return false;
+        }
+
+        return true;
     }
 }
