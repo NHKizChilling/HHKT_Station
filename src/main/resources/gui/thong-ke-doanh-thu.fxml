@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1386.0" style="-fx-background-color: #ffffff;" styleClass="parent" stylesheets="@thongKe.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ThongKeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1386.0" style="-fx-background-color: #ffffff;" styleClass="parent" stylesheets="@thongKe.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ThongKeController">
    <center>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1386.0" style="-fx-background-color: #f3f3f3;" BorderPane.alignment="CENTER">
          <children>
@@ -204,7 +204,7 @@
                   </HBox>
                </children>
             </VBox>
-            <AnchorPane layoutX="14.0" layoutY="274.0" AnchorPane.bottomAnchor="6.7999999999999545" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="66.0" AnchorPane.topAnchor="274.0">
+            <AnchorPane layoutX="14.0" layoutY="274.0" prefHeight="469.0" prefWidth="1330.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="274.0">
                <children>
                   <Label layoutX="14.0" layoutY="35.0" text="Tóm tắt năm" textFill="#4c4c4e" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="35.0">
                      <font>
@@ -261,7 +261,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </VBox>
-                  <VBox layoutX="260.0" layoutY="51.2" prefHeight="350.0" prefWidth="1005.0" styleClass="pane1" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="51.0">
+                  <VBox layoutX="260.0" layoutY="51.2" prefHeight="350.0" prefWidth="950.0" styleClass="pane1" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="51.0">
                      <children>
                         <Label fx:id="lbl_taoBaoCao" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" text="Tạo báo cáo" textFill="#2b49b3">
                            <font>

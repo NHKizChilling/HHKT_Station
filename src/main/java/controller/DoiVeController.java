@@ -37,7 +37,6 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-import javax.swing.text.NumberFormatter;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -153,6 +152,8 @@ public class DoiVeController implements Initializable {
     private Ve ve;
     private String chosedId;
     private ChiTietLichTrinh ctlt = null;
+
+    NumberFormat moneyFormat = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -431,7 +432,7 @@ public class DoiVeController implements Initializable {
             }
         });
 
-        lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
+        lblGia.setText("Giá: " + moneyFormat.format(0));
     }
 
     public void renderTableVe(ArrayList<Ve> listVe) {
@@ -508,7 +509,7 @@ public class DoiVeController implements Initializable {
         paneTau.getChildren().clear();
         grTrain.getChildren().clear();
         lblToa.setText("Toa");
-        lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
+        lblGia.setText("Giá: " + moneyFormat.format(0));
         label_thongBao.setText("");
         paneToa.getChildren().clear();
         cb_gaDi.setValue(null);
@@ -659,7 +660,7 @@ public class DoiVeController implements Initializable {
                                 if (seatButton.getStyle().contains("green")) {
                                     seatButton.setStyle(styleGheThuong + (finalCol > 7 ? styleGhe2 : styleGhe1));
                                     ctlt = null;
-                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
+                                    lblGia.setText("Giá: " + moneyFormat.format(0));
                                     btn_doiVe.setDisable(true);
                                 } else if (seatButton.getStyle().contains("red")) {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -676,7 +677,7 @@ public class DoiVeController implements Initializable {
                                     }
                                     seatButton.setStyle(styleGheDaChon + (finalCol > 7 ? styleGhe2 : styleGhe1));
                                     ctlt = ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId());
-                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(ctlt.getGiaCho()));
+                                    lblGia.setText("Giá: " + moneyFormat.format(ctlt.getGiaCho()));
                                     btn_doiVe.setDisable(false);
                                 }
                             });
@@ -742,7 +743,7 @@ public class DoiVeController implements Initializable {
                                 if (seatButton.getStyle().contains("green")) {
                                     seatButton.setStyle(styleGheThuong + (finalCol > 7 ? styleGhe2 : styleGhe1));
                                     ctlt = null;
-                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
+                                    lblGia.setText("Giá: " + moneyFormat.format(0));
                                     btn_doiVe.setDisable(true);
                                 } else if (seatButton.getStyle().contains("red")) {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -759,7 +760,7 @@ public class DoiVeController implements Initializable {
                                     }
                                     seatButton.setStyle(styleGheDaChon + (finalCol > 7 ? styleGhe2 : styleGhe1));
                                     ctlt = ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId());
-                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(ctlt.getGiaCho()));
+                                    lblGia.setText("Giá: " + moneyFormat.format(ctlt.getGiaCho()));
                                     btn_doiVe.setDisable(false);
                                 }
                             });
@@ -812,7 +813,7 @@ public class DoiVeController implements Initializable {
                                 if (seatButton.getStyle().contains("green")) {
                                     seatButton.setStyle(styleGiuong);
                                     ctlt = null;
-                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
+                                    lblGia.setText("Giá: " + moneyFormat.format(0));
                                     btn_doiVe.setDisable(true);
                                 } else if (seatButton.getStyle().contains("red")) {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -829,7 +830,7 @@ public class DoiVeController implements Initializable {
                                     }
                                     seatButton.setStyle(styleGiuongDaChon);
                                     ctlt = ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId());
-                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(ctlt.getGiaCho()));
+                                    lblGia.setText("Giá: " + moneyFormat.format(ctlt.getGiaCho()));
                                     btn_doiVe.setDisable(false);
                                 }
                             });
@@ -885,7 +886,7 @@ public class DoiVeController implements Initializable {
                                 if (seatButton.getStyle().contains("green")) {
                                     seatButton.setStyle(styleGiuong);
                                     ctlt = null;
-                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
+                                    lblGia.setText("Giá: " + moneyFormat.format(0));
                                     btn_doiVe.setDisable(true);
                                 } else if (seatButton.getStyle().contains("red")) {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -902,7 +903,7 @@ public class DoiVeController implements Initializable {
                                     }
                                     seatButton.setStyle(styleGiuongDaChon);
                                     ctlt = ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId());
-                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(ctlt.getGiaCho()));
+                                    lblGia.setText("Giá: " + moneyFormat.format(ctlt.getGiaCho()));
                                     btn_doiVe.setDisable(false);
                                 }
                             });
@@ -953,7 +954,7 @@ public class DoiVeController implements Initializable {
                                 if (seatButton.getStyle().contains("green")) {
                                     seatButton.setStyle(styleGiuong);
                                     ctlt = null;
-                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(0));
+                                    lblGia.setText("Giá: " + moneyFormat.format(0));
                                     btn_doiVe.setDisable(true);
                                 } else if (seatButton.getStyle().contains("red")) {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -970,7 +971,7 @@ public class DoiVeController implements Initializable {
                                     }
                                     seatButton.setStyle(styleGiuongDaChon);
                                     ctlt = ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), seatButton.getId());
-                                    lblGia.setText("Giá: " + NumberFormat.getCurrencyInstance().format(ctlt.getGiaCho()));
+                                    lblGia.setText("Giá: " + moneyFormat.format(ctlt.getGiaCho()));
                                     btn_doiVe.setDisable(false);
                                 }
                             });

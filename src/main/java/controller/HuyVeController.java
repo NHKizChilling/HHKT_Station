@@ -135,6 +135,15 @@ public class HuyVeController implements Initializable {
         cb_search.getItems().addAll("Mã hóa đơn", "Mã vé");
         cb_search.setValue("Mã vé");
 
+        cb_search.setOnAction(e -> {
+            if (cb_search.getValue().equals("Mã hóa đơn")) {
+                txt_search.setPromptText("Nhập mã hóa đơn");
+                btnQuetMaVe.setDisable(true);
+            } else {
+                txt_search.setPromptText("Nhập mã vé");
+            }
+        });
+
         btnQuetMaVe.setOnMouseClicked(e -> {
 
             Webcam webcam = Webcam.getDefault();
@@ -201,6 +210,7 @@ public class HuyVeController implements Initializable {
                 if (ctHoaDon == null) {
                     txt_search.clear();
                     txt_search.setPromptText("Mã vé không tồn tại");
+                    txt_search.requestFocus();
                     return;
                 }
                 hoaDon = hoaDon_dao.getHoaDonTheoMa(ctHoaDon.getHoaDon().getMaHoaDon());
@@ -220,6 +230,7 @@ public class HuyVeController implements Initializable {
             if (listVe.isEmpty()) {
                 txt_search.clear();
                 txt_search.promptTextProperty().setValue("Mã hóa đơn không tồn tại");
+                txt_search.requestFocus();
             } else {
                 renderTable(listVe);
                 lbl_thongBao.setText("");
@@ -232,17 +243,7 @@ public class HuyVeController implements Initializable {
         });
 
         btn_lamMoi.setOnAction(e -> {
-            txt_search.clear();
-            tbl_thongTinVe.getItems().clear();
-            txt_cccd.clear();
-            txt_email.clear();
-            txt_sdt.clear();
-            txt_tenNguoiDat.clear();
-            txt_tongLePhi.clear();
-            txt_tongTienTra.clear();
-            txt_tongTienVe.clear();
-            txt_tongVeTra.clear();
-            lbl_thongBao.setText("");
+            lamMoi();
         });
 
         tbl_thongTinVe.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -545,6 +546,8 @@ public class HuyVeController implements Initializable {
         txt_tongTienVe.clear();
         txt_tongVeTra.clear();
         lbl_thongBao.setText("");
+        selectedVe.clear();
+        mapLePhi.clear();
 
         getData.dsve = null;
         getData.mapLePhi = null;

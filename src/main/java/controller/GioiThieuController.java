@@ -26,10 +26,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 /*
  * @description:
@@ -91,7 +88,7 @@ public class GioiThieuController implements Initializable {
             doanhThu += hd.getTongTien();
         }
         lblSLVe.setText(slVe + "");
-        lblDoanhThu.setText(DecimalFormat.getCurrencyInstance().format(doanhThu/1000 * 1000));
+        lblDoanhThu.setText(DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN")).format(doanhThu/1000 * 1000));
         lblSLChuyenTau.setText(dem + "");
         chartChuyenTau.getData().add(new XYChart.Series<>("Số lượng chỗ ngồi còn trống", data));
     }

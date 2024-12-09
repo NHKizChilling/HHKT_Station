@@ -392,6 +392,10 @@ public class HoaDonController implements Initializable {
             tbCTHD.getSelectionModel().clearSelection();
         });
 
+        txtTienKH.setOnKeyTyped(e -> {
+            goiYGia();
+        });
+
 
         chonGiaGoiY(df);
 
@@ -571,6 +575,10 @@ public class HoaDonController implements Initializable {
                 throw new RuntimeException(e);
             }
         });
+
+        txtTienKH.setOnKeyTyped(e -> {
+            goiYGiaKhiNhap();
+        });
     }
 
     private void goiYGia() {
@@ -594,6 +602,22 @@ public class HoaDonController implements Initializable {
                 btnGia4.setText((t + 20) * 1000 + "");
             }
         }
+    }
+
+    private void goiYGiaKhiNhap() {
+            if (!txtThanhTien.getText().isEmpty() && txtTienKH.getText() != null) {
+                // gợi ý giá như sau:
+                // btn1: gợi ý đúng giá thành tiền
+                // btn2: gợi ý giá dựa vào số được nhập trong txtTienKH * 10000
+                // btn3: gợi ý giá dựa vào số được nhập trong txtTienKH * 100000
+                // btn4: gợi ý giá dựa vào số được nhập trong txtTienKH * 1000000
+                int tienKH = Integer.parseInt(txtTienKH.getText());
+                NumberFormat df = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+                btnGia1.setText(df.format(Math.round(tongTien / 1000) * 1000));
+                btnGia2.setText(df.format(Math.max(tienKH * 10000L, Math.ceil(tongTien / 10000) * 10000)));
+                btnGia3.setText(df.format(Math.max(tienKH * 100000L, Math.ceil(tongTien / 100000) * 100000)));
+                btnGia4.setText(df.format(Math.max(tienKH * 1000000L, Math.ceil(tongTien / 1000000) * 1000000)));
+            }
     }
 
     private void showTTVe(DateTimeFormatter formatter, int i) {

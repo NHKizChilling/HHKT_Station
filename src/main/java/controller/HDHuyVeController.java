@@ -96,6 +96,8 @@ public class HDHuyVeController implements Initializable {
             // đóng cửa số trả vé
             Scene scene = btn_backTraVe.getScene();
             scene.getWindow().hide();
+
+            lamMoi();
         });
 
         btn_xacNhan.setOnAction(actionEvent -> {
@@ -104,16 +106,22 @@ public class HDHuyVeController implements Initializable {
                 String cccd = txt_cccd.getText();
                 String sdt = txt_sdt.getText();
 
-                KhachHang kh = khachHang_dao.getKHTheoCCCD(cccd);
-//                if (kh == null) {
-//                    // thông báo
-//                    Alert alert = new Alert(Alert.AlertType.ERROR);
-//                    alert.setTitle("Người hủy vé phải là người mua vé hoặc là chủ vé");
-//                    return;
-//                }
+                KhachHang khHuyVe = khachHang_dao.getKHTheoCCCD(cccd);
+                if (khHuyVe == null) {
+                    khHuyVe = khachHang_dao.getKhachHangTheoSDT(sdt);
+                }
+
+                if (!kiemTraKH(khHuyVe)) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Lỗi");
+                    alert.setHeaderText("Không thể hủy vé");
+                    alert.setContentText("Khách hàng không trùng khách hàng đã mua vé hoặc trùng thông tin hành khách trên vé");
+                    alert.showAndWait();
+                    return;
+                }
 
                 HoaDon hoaDon = new HoaDon();
-                hoaDon.setKhachHang(kh);
+                hoaDon.setKhachHang(khHuyVe);
                 hoaDon.setNhanVien(getData.nv);
                 hoaDon.setNgayLapHoaDon(LocalDateTime.now());
                 hoaDon.setTrangThai(false);
@@ -132,19 +140,18 @@ public class HDHuyVeController implements Initializable {
                 hoaDon = getData.hd;
                 hoaDon.setTrangThai(true);
                 hoaDon.setTongTien(0 - tongTienTra);
-                hoaDon.setTongGiamGia(0 - tongLePhi);
+                hoaDon.setTongGiamGia(tongLePhi); // tổng giảm giá = tổng lệ phí
                 hoaDon.setKhuyenMai(new KhuyenMai(null));
 
                 if (hoaDon_dao.update(hoaDon)) {
                     try {
-                        printPDF.inHDHuy(hoaDon);
                         for (Ve ve : listVe) {
                             ChiTietHoaDon ctHoaDon = new ChiTietHoaDon();
                             ctHoaDon.setHoaDon(getData.hd);
                             ctHoaDon.setVe(ve);
                             ChiTietHoaDon ctHoaDonCu = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
                             ctHoaDon.setGiaVe(0 - ctHoaDonCu.getGiaVe()); // giá vé = giá vé cũ
-                            ctHoaDon.setGiaGiam(0 - mapLePhi.get(ve.getMaVe())); // giảm giá = lệ phí
+                            ctHoaDon.setGiaGiam(mapLePhi.get(ve.getMaVe())); // giảm giá = lệ phí
                             if (ct_hoaDon_dao.create(ctHoaDon)) {
                                 ve.setTinhTrangVe("DaHuy");
                                 ve_dao.update(ve);
@@ -156,7 +163,8 @@ public class HDHuyVeController implements Initializable {
                                 alert.showAndWait();
                                 return;
                             }
-
+                            printPDF.inHDHuy(hoaDon);
+                            lamMoi();
                         }
                     } catch (IOException | DocumentException e) {
                         throw new RuntimeException(e);
@@ -307,6 +315,26 @@ public class HDHuyVeController implements Initializable {
         }
     }
 
+    private boolean kiemTraKH(KhachHang kh) {
+    if (kh == null) {;
+        return false;
+    }
+
+    ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(listVe.get(0).getMaVe());
+    HoaDon hd = hoaDon_dao.getHoaDonTheoMa(ctHoaDon.getHoaDon().getMaHoaDon());
+    KhachHang tmp = khachHang_dao.getKhachHangTheoMaKH(hd.getKhachHang().getMaKH());
+
+    if (!tmp.getMaKH().equals(kh.getMaKH())) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Không trùng khách hàng");
+        return true;
+    }
+
+    return listVe.stream()
+            .map(ve -> khachHang_dao.getKhachHangTheoMaKH(ve.getKhachHang().getMaKH()))
+            .anyMatch(tmpKH -> tmpKH.getMaKH().equals(kh.getMaKH()));
+}
+
     private void initDAO() {
         ve_dao = new Ve_DAO();
         khachHang_dao = new KhachHang_DAO();
@@ -316,5 +344,11 @@ public class HDHuyVeController implements Initializable {
 
         listVe = getData.dsve;
         mapLePhi = getData.mapLePhi;
+    }
+
+    private void lamMoi() {
+        txt_ten.clear();
+        txt_cccd.clear();
+        txt_sdt.clear();
     }
 }

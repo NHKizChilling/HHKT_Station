@@ -24,12 +24,12 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="305.0" layoutY="58.0" text="Nhân viên:">
+                  <Label layoutX="305.0" layoutY="58.0" text="Nhân viên:" AnchorPane.leftAnchor="600.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lbl_tenNV" layoutX="397.0" layoutY="59.0" text="*">
+                  <Label fx:id="lbl_tenNV" layoutX="397.0" layoutY="59.0" text="*" AnchorPane.leftAnchor="690.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

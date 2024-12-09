@@ -145,8 +145,16 @@ public class KetCaController implements Initializable {
         txt_tienMatThu.setOnAction(event -> {
             if (txt_tienMatThu.getText().isEmpty()) {
                 lbl_thongBao.setText("Vui lòng nhập đủ thông tin");
+                txt_tienMatThu.requestFocus();
                 return;
             }
+
+            if (!txt_tienMatThu.getText().matches("\\d*")) {
+                lbl_thongBao.setText("Tiền mặt thu phải là số");
+                txt_tienMatThu.requestFocus();
+                return;
+            }
+
             double tienMatThu = Double.parseDouble(txt_tienMatThu.getText());
             txt_tienChenhLech.setText(df.format(tienMatThu - tongTien));
         });
@@ -274,7 +282,7 @@ public class KetCaController implements Initializable {
     }
 
     public void renderCuoiCa() {
-        lbl_tienCuoiCa.setText(df.format(tongTien));
+        lbl_tienCuoiCa.setText(df.format(tongTien + tienDauCa));
         txt_tienMatThu.setPromptText(df.format(0));
         txt_tienChenhLech.setPromptText(df.format(tongTien));
     }

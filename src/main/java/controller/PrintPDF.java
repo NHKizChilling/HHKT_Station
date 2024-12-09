@@ -232,7 +232,14 @@ public class PrintPDF {
             ChiTietLichTrinh ctlt = new CT_LichTrinh_DAO().getCTLTTheoCN(ve.getCtlt().getLichTrinh().getMaLichTrinh(), ve.getCtlt().getChoNgoi().getMaChoNgoi());
             ChoNgoi choNgoi = new ChoNgoi_DAO().getChoNgoiTheoMa(ve.getCtlt().getChoNgoi().getMaChoNgoi());
             Toa toa = new Toa_DAO().getToaTheoID(choNgoi.getToa().getMaToa());
-            addTableRow(table, regularFont, ++dem + "", cthd.getVe().getMaVe(), "Vé HK: " + lt.getGaDi().getMaGa() + "-" + lt.getGaDen().getMaGa() + "-" + lt.getChuyenTau().getSoHieutau() + "-" + dtf.format(lt.getThoiGianKhoiHanh()) + "-" + choNgoi.getSttCho() + "-" + toa.getSoSTToa() + "-" + toa.getLoaiToa().getMaLoaiToa(), "Vé", "1", df.format(ctlt.getGiaCho()), df.format(cthd.getGiaVe() - 2000), "10%", df.format((cthd.getGiaVe() - 2000) * 1.1));
+            addTableRow(table, regularFont, ++dem + "", cthd.getVe().getMaVe(),
+                        "Vé HK: " + lt.getGaDi().getMaGa() + "-" + lt.getGaDen().getMaGa() +
+                        "-" + lt.getChuyenTau().getSoHieutau() + "-" + dtf.format(lt.getThoiGianKhoiHanh()) +
+                        "-" + choNgoi.getSttCho() + "-" + toa.getSoSTToa() + "-" + toa.getLoaiToa().getMaLoaiToa(),
+                        "Vé", "1", df.format(ctlt.getGiaCho()), df.format(cthd.getGiaVe() - 2000), "10%",
+                        df.format((cthd.getGiaVe() - 2000) * 1.1));
+
+
             tong += cthd.getGiaVe() - 2000;
         }
         // Add ticket row 2
@@ -385,13 +392,16 @@ public class PrintPDF {
 
         // Staff info
         NhanVien nv = getData.nv;
-        document.add(new Paragraph("\nNhân viên lập hóa đơn: " + nv.getTenNhanVien() + "\n", boldFont));
+        document.add(new Paragraph("\nNhân viên lập hóa đơn: " + nv.getTenNhanVien(), boldFont));
+
+        document.add(new Paragraph(" "));
+
 
         // Create table for ticket details
-        PdfPTable table = new PdfPTable(9);
+        PdfPTable table = new PdfPTable(7);
         table.setWidthPercentage(100);
         //Căn giữa tiêu đề bảng
-        table.setWidths(new int[]{5, 15, 25, 10, 5, 10, 10, 10, 10});
+        table.setWidths(new int[]{5, 15, 25, 25, 10, 10, 10});
 
         // Add headers
         addTableHeader(table, boldFont, "STT", "Mã vé", "Tên hành khách", "Thông tin vé", "Tiền vé(VNĐ)", "Lệ phí trả vé", "Tiền trả");
@@ -414,15 +424,19 @@ public class PrintPDF {
 
             addTableRow(table, regularFont, ++count + "", cthd.getVe().getMaVe(), kh.getTenKH(),
                         gaDi.getTenGa() + "-" + gaDen.getTenGa() + "\n" + dtf.format(lt.getThoiGianKhoiHanh()) +
-                        "\nLoại vé: " + loaiVe.getTenLoaiVe(), new DecimalFormat("#,###").format(cthd.getGiaVe()),
-                        new DecimalFormat("#,###").format(cthd.getGiaGiam()), new DecimalFormat("#,###").format(cthd.getGiaVe() + cthd.getGiaGiam()));
+                        "\nLoại vé: " + loaiVe.getTenLoaiVe(), new DecimalFormat("#,###").format(cthd.getGiaVe() * -1),
+                        new DecimalFormat("#,###").format(cthd.getGiaGiam()),
+                        new DecimalFormat("#,###").format(cthd.getGiaVe() * -1 - cthd.getGiaGiam()));
+
             tongTienVe += ctlt.getGiaCho();
             tongLePhi += cthd.getGiaGiam();
-            tongTienTra += cthd.getGiaVe();
+            tongTienTra -= cthd.getGiaVe();
         }
 
         // Add table to document
         document.add(table);
+
+        // Add total row
 
         document.add(new Paragraph("Tổng số vé: " + count + "vé", regularFont));
         document.add(new Paragraph("\nTổng tiền vé: " + new DecimalFormat("#,###").format(tongTienVe) + "VNĐ", regularFont));
@@ -436,6 +450,11 @@ public class PrintPDF {
         } catch (Exception e) {
             System.out.println("Tạo hóa đơn thất bại!");
         }
+
+        getData.hd = null;
+        getData.dsve = null;
+        getData.mapLePhi = null;
+
     }
 
     private static void addTableHeader(PdfPTable table, Font font, String... headers) {

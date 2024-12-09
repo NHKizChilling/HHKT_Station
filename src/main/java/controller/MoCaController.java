@@ -45,9 +45,29 @@ public class MoCaController implements Initializable {
 
         setThongTin(nv, LocalDateTime.now());
 
+
+        txt_tienDauCa.setOnAction(event -> {
+            if (!txt_tienDauCa.getText().isEmpty()) {
+                btn_moCa.fire();
+            } else {
+                txt_tienDauCa.setPromptText("Vui lòng nhập tiền đầu ca");
+                txt_tienDauCa.requestFocus();
+            }
+        });
+
         btn_moCa.setOnAction(event -> {
+
+            //nếu tiền đầu ca là chữ thì thông báo
+            if (!txt_tienDauCa.getText().matches("\\d*")) {
+                txt_tienDauCa.setPromptText("Tiền đầu ca phải là số");
+                txt_tienDauCa.requestFocus();
+                return;
+            }
+
+
             if (txt_tienDauCa.getText().isEmpty()) {
-                System.out.println("Vui lòng nhập tiền đầu ca");
+                txt_tienDauCa.setPromptText("Vui lòng nhập tiền đầu ca");
+                txt_tienDauCa.requestFocus();
                 return;
             }
             tienDauCa = Double.parseDouble(txt_tienDauCa.getText());
@@ -90,10 +110,18 @@ public class MoCaController implements Initializable {
                 System.exit(0);
             }
         });
+
+        txt_tienDauCa.setOnKeyTyped(event -> {
+            //format tiền đầu ca
+            if (!txt_tienDauCa.getText().matches("\\d*")) {
+                txt_tienDauCa.setText(txt_tienDauCa.getText().replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     public void setThongTin(NhanVien nv, LocalDateTime gioBatDau) {
         txt_tenNV.setText(nv.getTenNhanVien());
         lbl_gioBatDau.setText(gioBatDau.getDayOfMonth() + "/" + gioBatDau.getMonthValue() + "/" + gioBatDau.getYear() + " " + gioBatDau.getHour() + ":" + gioBatDau.getMinute());
+        txt_tienDauCa.requestFocus();
     }
 }

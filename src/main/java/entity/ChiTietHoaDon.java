@@ -31,9 +31,6 @@ public class ChiTietHoaDon {
     }
 
     public void setHoaDon(HoaDon hoaDon) {
-        if (hoaDon == null) {
-            throw new IllegalArgumentException("Hóa đơn không hợp lệ");
-        }
         this.hoaDon = hoaDon;
     }
 

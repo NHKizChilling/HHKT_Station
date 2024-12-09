@@ -5,12 +5,11 @@
  */
 package controller;
 
+import com.itextpdf.text.DocumentException;
 import connectdb.ConnectDB;
 import dao.*;
 import entity.*;
 import gui.TrangChu_GUI;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -24,7 +23,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,10 +31,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /*
  * @description:
@@ -167,27 +162,27 @@ public class QLyHoaDonController implements Initializable {
     @FXML
     private TextField txtTongTien;
 
-    private HoaDon_DAO hoaDon_dao = new HoaDon_DAO();
-    private CT_HoaDon_DAO ct_hoaDon_dao = new CT_HoaDon_DAO();
-    private CT_LichTrinh_DAO ct_lichTrinh_dao = new CT_LichTrinh_DAO();
-    private ChoNgoi_DAO choNgoi_dao = new ChoNgoi_DAO();
-    private LichTrinh_DAO lichTrinh_dao = new LichTrinh_DAO();
-    private KhachHang_DAO khach_Hang_dao = new KhachHang_DAO();
-    private Ve_DAO ve_dao = new Ve_DAO();
-    private LoaiVe_DAO loaiVe_dao = new LoaiVe_DAO();
-    private Toa_DAO toa_dao = new Toa_DAO();
-    private LoaiToa_DAO loaiToa_dao = new LoaiToa_DAO();
+    private final HoaDon_DAO hoaDon_dao = new HoaDon_DAO();
+    private final CT_HoaDon_DAO ct_hoaDon_dao = new CT_HoaDon_DAO();
+    private final CT_LichTrinh_DAO ct_lichTrinh_dao = new CT_LichTrinh_DAO();
+    private final ChoNgoi_DAO choNgoi_dao = new ChoNgoi_DAO();
+    private final LichTrinh_DAO lichTrinh_dao = new LichTrinh_DAO();
+    private final KhachHang_DAO khach_Hang_dao = new KhachHang_DAO();
+    private final Ve_DAO ve_dao = new Ve_DAO();
+    private final LoaiVe_DAO loaiVe_dao = new LoaiVe_DAO();
+    private final Toa_DAO toa_dao = new Toa_DAO();
+    private final LoaiToa_DAO loaiToa_dao = new LoaiToa_DAO();
     private ArrayList<HoaDon> listHD = new ArrayList<>();
     private ArrayList<ChiTietHoaDon> listCTHD = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            ConnectDB.getInstance().connect();
+            ConnectDB.connect();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        NumberFormat nf = DecimalFormat.getCurrencyInstance();
+        NumberFormat nf = DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN"));
         cbLoaiVe.getItems().addAll("Người lớn", "Trẻ em", "Học sinh, sinh viên", "Người cao tuổi");
         //Bảng cthd
         colSTT1.setCellValueFactory(p -> new SimpleIntegerProperty(tbCTHD.getItems().indexOf(p.getValue()) + 1).asObject());
@@ -218,9 +213,7 @@ public class QLyHoaDonController implements Initializable {
 
         colGiaGiam.setCellValueFactory(param -> new SimpleStringProperty(nf.format(param.getValue().getGiaGiam())));
 
-        colTongTienVe.setCellValueFactory(param -> {
-            return new SimpleStringProperty(nf.format(param.getValue().getGiaVe()));
-        });
+        colTongTienVe.setCellValueFactory(param -> new SimpleStringProperty(nf.format(param.getValue().getGiaVe())));
         tbCTHD.setOnMouseClicked(event -> {
             ChiTietHoaDon cthd = tbCTHD.getSelectionModel().getSelectedItem();
             txtMaVe.setText(cthd.getVe().getMaVe());
@@ -233,7 +226,7 @@ public class QLyHoaDonController implements Initializable {
         });
         //Bảng hd
         colSTT.setCellValueFactory(p -> new SimpleIntegerProperty(tbhd.getItems().indexOf(p.getValue()) + 1).asObject());
-        colMaHD.setCellValueFactory(new PropertyValueFactory<HoaDon,String>("maHoaDon"));
+        colMaHD.setCellValueFactory(new PropertyValueFactory<>("maHoaDon"));
         colNgayLapHD.setCellValueFactory(p -> new SimpleStringProperty(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(p.getValue().getNgayLapHoaDon())));
         colKH.setCellValueFactory(p -> new SimpleStringProperty(khach_Hang_dao.getKhachHangTheoMaKH(p.getValue().getKhachHang().getMaKH()).getTenKH()));
         colSLVe.setCellValueFactory(p -> {
@@ -313,18 +306,35 @@ public class QLyHoaDonController implements Initializable {
 
         btnInHD.setOnAction(event -> {
             HoaDon hd = tbhd.getSelectionModel().getSelectedItem();
-            try {
-                new PrintPDF().inHoaDon(hd);
-            } catch (Exception e) {
-                e.printStackTrace();
+            ArrayList<ChiTietHoaDon> dscthd = ct_hoaDon_dao.getCT_HoaDon(hd.getMaHoaDon());
+            PrintPDF printPDF = new PrintPDF();
+
+            if (hd.getTongTien() <= 0) {
+                for (ChiTietHoaDon cthd : dscthd) {
+                    Ve ve = ve_dao.getVeTheoID(cthd.getVe().getMaVe());
+                    if (ve.getTinhTrangVe().equals("DaDoi")) {
+                        try {
+                            printPDF.inHoaDon(hd);
+                            return;
+                        } catch (IOException | DocumentException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+                try {
+                    printPDF.inHDHuy(hd);
+                } catch (IOException | DocumentException e) {
+                    throw new RuntimeException(e);
+                }
             }
+
         });
 
         btnInLaiVe.setOnAction(event -> {
             ChiTietHoaDon cthd = tbCTHD.getSelectionModel().getSelectedItem();
 
             try {
-                new PrintPDF().inVe(new ArrayList<>(Arrays.asList(ve_dao.getVeTheoID(cthd.getVe().getMaVe()))));
+                new PrintPDF().inVe(new ArrayList<>(Collections.singletonList(ve_dao.getVeTheoID(cthd.getVe().getMaVe()))));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -353,7 +363,7 @@ public class QLyHoaDonController implements Initializable {
             }
             getData.dsve = dsve;
             try {
-                AnchorPane acpHoaDon = FXMLLoader.load(TrangChu_GUI.class.getResource("hoa-don.fxml"));
+                AnchorPane acpHoaDon = FXMLLoader.load(Objects.requireNonNull(TrangChu_GUI.class.getResource("hoa-don.fxml")));
                 Stage stgHoaDon = new Stage();
                 stgHoaDon.setTitle("Thanh toán");
                 stgHoaDon.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
@@ -376,9 +386,7 @@ public class QLyHoaDonController implements Initializable {
                 });
 
                 Button btnBack = (Button) acpHoaDon.lookup("#btnBackBanVe");
-                btnBack.setOnMouseClicked(e1 -> {
-                    stgHoaDon.close();
-                });
+                btnBack.setOnMouseClicked(e1 -> stgHoaDon.close());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -429,21 +437,19 @@ public class QLyHoaDonController implements Initializable {
             alert.setContentText("Vui lòng nhập mã hóa đơn");
             alert.show();
             txtTimKiem.requestFocus();
-            return;
         } else {
             if (radioHDTrongNgay.isSelected()) {
                 HoaDon hd = hoaDon_dao.getHoaDonTheoMa(ma);
                 if (hd == null) {
                     listHD = hoaDon_dao.getHoaDonTheoKH(ma);
                     listHD.removeIf(hd1 -> !hd1.getNgayLapHoaDon().toLocalDate().isEqual(LocalDateTime.now().toLocalDate()));
-                    if (listHD.size() <= 0) {
+                    if (listHD.isEmpty()) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Lỗi");
                         alert.setHeaderText(null);
                         alert.setContentText("Không tìm thấy hóa đơn");
                         alert.show();
                         lamMoi();
-                        return;
                     } else {
                         lamMoi();
                         tbhd.getItems().addAll(listHD);
@@ -460,21 +466,19 @@ public class QLyHoaDonController implements Initializable {
                         alert.show();
                         lamMoi();
                         radioAllHD.setSelected(true);
-                        return;
                     }
                 }
             } else {
                 HoaDon hd = hoaDon_dao.getHoaDonTheoMa(ma);
                 if (hd == null) {
                     listHD = hoaDon_dao.getHoaDonTheoKH(ma);
-                    if (listHD.size() <= 0) {
+                    if (listHD.isEmpty()) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Lỗi");
                         alert.setHeaderText(null);
                         alert.setContentText("Không tìm thấy hóa đơn");
                         alert.show();
                         lamMoi();
-                        return;
                     } else {
                         lamMoi();
                         tbhd.getItems().addAll(listHD);

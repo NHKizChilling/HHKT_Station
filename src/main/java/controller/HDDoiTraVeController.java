@@ -112,7 +112,7 @@ public class HDDoiTraVeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // TODO
-        NumberFormat df = DecimalFormat.getCurrencyInstance();
+        NumberFormat df = DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN"));
         NhanVien nhanVien = getData.nv;
         txtMaNV.setText(nhanVien.getMaNhanVien());
         txtTenNV.setText(nhanVien.getTenNhanVien());
@@ -124,6 +124,10 @@ public class HDDoiTraVeController implements Initializable {
         hd.setKhuyenMai(km_dao.getKMGiamCaoNhat());
         Ve ve_doi = getData.dsve.getFirst();
         ChiTietHoaDon cthd = new ChiTietHoaDon(hd, ve_doi);
+
+        txtTienTra.setOnKeyReleased(event -> {
+            goiYGia();
+        });
 
         colSTT.setCellValueFactory(column -> new SimpleIntegerProperty(tbCTHD.getItems().indexOf(column.getValue()) + 1).asObject());
 
@@ -163,8 +167,11 @@ public class HDDoiTraVeController implements Initializable {
         if (tongTien <= 0) {
             txtTienKH.setText("0");
             txtTienTra.setText(df.format(-tongTien));
+            txtTienTra.setDisable(true);
+            txtTienKH.setDisable(true);
         } else {
             txtThanhTien.setText(df.format(tongTien));
+            txtTienTra.setDisable(false);
         }
 
         hd = new HoaDon(hd.getMaHoaDon(), getData.nv, getData.kh, LocalDateTime.now(), km_dao.getKMGiamCaoNhat(), tongTien, giamGia,false);
@@ -255,11 +262,13 @@ public class HDDoiTraVeController implements Initializable {
                 ArrayList<Ve> list = getData.dsve;
                 printPDF.inVe(list);
 
-                // TODO: tạo hóa đơn để lưu vào database
-
             } catch (IOException | DocumentException e) {
                 throw new RuntimeException(e);
             }
+        });
+
+        txtTienKH.setOnKeyTyped(event -> {
+            goiYGia();
         });
     }
 
@@ -273,9 +282,9 @@ public class HDDoiTraVeController implements Initializable {
             int tienKH = Integer.parseInt(txtTienKH.getText());
             NumberFormat df = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
             btnGia1.setText(df.format(Math.round(tongTien / 1000) * 1000));
-            btnGia2.setText(df.format(tienKH * 10000L));
-            btnGia3.setText(df.format(tienKH * 100000L));
-            btnGia4.setText(df.format(tienKH * 1000000L));
+            btnGia2.setText(df.format(Math.max(tienKH * 10000L, Math.ceil(tongTien / 10000) * 10000)));
+            btnGia3.setText(df.format(Math.max(tienKH * 100000L, Math.ceil(tongTien / 100000) * 100000)));
+            btnGia4.setText(df.format(Math.max(tienKH * 1000000L, Math.ceil(tongTien / 1000000) * 1000000)));
         }
     }
 }
