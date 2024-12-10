@@ -10,8 +10,14 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -87,10 +93,12 @@ public class ThongKeNVController implements Initializable {
         });
 
         lbl_taoBaoCaoNV.setOnMouseClicked(event -> {
+            ghiFileExcelNV();
             JOptionPane.showMessageDialog(null, "Tạo báo cáo nhân viên thành công");
         });
 
         lbl_taoBaoCaoChuyenTau.setOnMouseClicked(event -> {
+            ghiFileExcelChuyenTau();
             JOptionPane.showMessageDialog(null, "Tạo báo cáo chuyến tàu thành công");
         });
     }
@@ -197,4 +205,234 @@ public class ThongKeNVController implements Initializable {
         barChart_chuyenTau.getXAxis().setLabel("Điểm đến");
         barChart_chuyenTau.getYAxis().setLabel("Xu hướng mua vé");
     }
+
+    private void ghiFileExcelNV() {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Thống kê nhân viên");
+
+        CellStyle headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.AQUA.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setBorderBottom(BorderStyle.THIN);
+        headerStyle.setBorderTop(BorderStyle.THIN);
+        headerStyle.setBorderRight(BorderStyle.THIN);
+        headerStyle.setBorderLeft(BorderStyle.THIN);
+
+        CellStyle style1 = workbook.createCellStyle();
+        style1.setBorderRight(BorderStyle.THIN);
+        style1.setBorderLeft(BorderStyle.THIN);
+        style1.setBorderBottom(BorderStyle.THIN);
+        style1.setBorderTop(BorderStyle.THIN);
+
+        CellStyle style2 = workbook.createCellStyle();
+        style2.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        style2.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style2.setBorderBottom(BorderStyle.THIN);
+        style2.setBorderTop(BorderStyle.THIN);
+        style2.setBorderRight(BorderStyle.THIN);
+        style2.setBorderLeft(BorderStyle.THIN);
+//
+//        CellStyle style3 = workbook.createCellStyle();
+//        style3.setBorderRight(BorderStyle.THIN);
+//        style3.setBorderLeft(BorderStyle.THIN);
+//        style3.setBorderTop(BorderStyle.THIN);
+//
+//        CellStyle style4 = workbook.createCellStyle();
+//        style4.setBorderRight(BorderStyle.THIN);
+//        style4.setBorderLeft(BorderStyle.THIN);
+//        style4.setBorderBottom(BorderStyle.THIN);
+//
+//        CellStyle style5 = workbook.createCellStyle();
+//        style5.setBorderRight(BorderStyle.THIN);
+//        style5.setBorderLeft(BorderStyle.THIN);
+//        style5.setBorderBottom(BorderStyle.THIN);
+//        style5.setBorderTop(BorderStyle.THIN);
+// Chỉnh độ rộng cột
+        sheet.setColumnWidth(0, 2000);
+        sheet.setColumnWidth(1, 4000);
+        sheet.setColumnWidth(2, 4000);
+        sheet.setColumnWidth(3, 4000);
+        sheet.setColumnWidth(4, 4000);
+        sheet.setColumnWidth(5, 4000);
+        sheet.setColumnWidth(6, 4000);
+        sheet.setColumnWidth(7, 4000);
+
+
+// Tạo header row
+        String[] headers = {"STT", "Mã nhân viên", "Họ tên nhân viên", "Số điện thoại", "Email", "Ngày sinh", "Chức vụ", "Tổng doanh thu"};
+        Row headerRow = sheet.createRow(0);
+        for (int i = 0; i < headers.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(headers[i]);
+            cell.setCellStyle(headerStyle);
+        }
+        ArrayList<NhanVien> listNhanVien = nhanVien_dao.getDSNhanVien();
+        ArrayList<HoaDon> listHoaDon = hoaDon_dao.getAllHoaDon();
+        HashMap<String, Double> mapNV = new HashMap<>();
+        for (HoaDon hoaDon : listHoaDon) {
+            if (hoaDon.getNhanVien() != null) {
+                String tenNhanVien = hoaDon.getNhanVien().getTenNhanVien();
+                double doanhThu = hoaDon.getTongTien();
+                mapNV.put(tenNhanVien, mapNV.getOrDefault(tenNhanVien, 0.0) + doanhThu);
+            }
+            else {
+                System.out.println("Nhan vien null");
+            }
+        }
+        int rowNum = 1;
+        for (NhanVien nv : listNhanVien) {
+            Row row = sheet.createRow(rowNum++);
+            Cell cell = row.createCell(0);
+            cell.setCellValue(rowNum - 1);
+            cell.setCellStyle(style1);
+
+            cell = row.createCell(1);
+            cell.setCellValue(nv.getMaNhanVien());
+            cell.setCellStyle(style1);
+
+            cell = row.createCell(2);
+            cell.setCellValue(nv.getTenNhanVien());
+            cell.setCellStyle(style1);
+
+            cell = row.createCell(3);
+            cell.setCellValue(nv.getSdt());
+            cell.setCellStyle(style1);
+
+            cell = row.createCell(4);
+            cell.setCellValue(nv.getEmail());
+            cell.setCellStyle(style1);
+
+            cell = row.createCell(5);
+            cell.setCellValue(nv.getNgaySinh().toString());
+            cell.setCellStyle(style1);
+
+            cell = row.createCell(6);
+            cell.setCellValue(nv.getChucVu());
+            cell.setCellStyle(style1);
+
+            cell = row.createCell(7);
+            cell.setCellValue(mapNV.getOrDefault(nv.getTenNhanVien(), 0.0));
+            cell.setCellStyle(style1);
+
+        }
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream("ThongKeNhanVien.xlsx");
+            workbook.write(fileOut);
+            fileOut.close();
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void ghiFileExcelChuyenTau() {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Thống kê chuyến tàu");
+
+        CellStyle headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.AQUA.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setBorderBottom(BorderStyle.THIN);
+        headerStyle.setBorderTop(BorderStyle.THIN);
+        headerStyle.setBorderRight(BorderStyle.THIN);
+        headerStyle.setBorderLeft(BorderStyle.THIN);
+
+        CellStyle style1 = workbook.createCellStyle();
+        style1.setBorderRight(BorderStyle.THIN);
+        style1.setBorderLeft(BorderStyle.THIN);
+        style1.setBorderBottom(BorderStyle.THIN);
+        style1.setBorderTop(BorderStyle.THIN);
+
+        CellStyle style2 = workbook.createCellStyle();
+        style2.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        style2.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style2.setBorderBottom(BorderStyle.THIN);
+        style2.setBorderTop(BorderStyle.THIN);
+        style2.setBorderRight(BorderStyle.THIN);
+        style2.setBorderLeft(BorderStyle.THIN);
+//
+//        CellStyle style3 = workbook.createCellStyle();
+//        style3.setBorderRight(BorderStyle.THIN);
+//        style3.setBorderLeft(BorderStyle.THIN);
+//        style3.setBorderTop(BorderStyle.THIN);
+//
+//        CellStyle style4 = workbook.createCellStyle();
+//        style4.setBorderRight(BorderStyle.THIN);
+//        style4.setBorderLeft(BorderStyle.THIN);
+//        style4.setBorderBottom(BorderStyle.THIN);
+//
+//        CellStyle style5 = workbook.createCellStyle();
+//        style5.setBorderRight(BorderStyle.THIN);
+//        style5.setBorderLeft(BorderStyle.THIN);
+//        style5.setBorderBottom(BorderStyle.THIN);
+//        style5.setBorderTop(BorderStyle.THIN);
+// Chỉnh độ rộng cột
+        sheet.setColumnWidth(0, 2000);
+        sheet.setColumnWidth(1, 4000);
+        sheet.setColumnWidth(2, 4000);
+        sheet.setColumnWidth(3, 4000);
+        sheet.setColumnWidth(4, 4000);
+        sheet.setColumnWidth(5, 4000);
+        sheet.setColumnWidth(6, 4000);
+
+// Tạo header row
+        String[] headers = {"STT", "Số hiệu tàu", "Ga đi", "Ga đến", "Ngày khởi hành", "Ngày đến", "Số vé đã bán"};
+        Row headerRow = sheet.createRow(0);
+        for (int i = 0; i < headers.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(headers[i]);
+            cell.setCellStyle(headerStyle);
+        }
+        ArrayList<LichTrinh> listLichTrinh = lichTrinh_dao.getDSLichTrinhTheoTrangThai(true);
+        ArrayList<Ve> dsVe = new ArrayList<>(ve_dao.getVeTheoTinhTrang("DaBan"));
+        dsVe.addAll(ve_dao.getVeTheoTinhTrang("DaDoi"));
+        HashMap<String, Integer> mapChuyenTau = new HashMap<>();
+
+        for (Ve ve : dsVe) {
+            String maLichTrinh = ve.getCtlt().getLichTrinh().getMaLichTrinh();
+            mapChuyenTau.put(maLichTrinh, mapChuyenTau.getOrDefault(maLichTrinh, 0) + 1);
+        }
+        int rowNum = 1;
+        for (LichTrinh lt : listLichTrinh) {
+            Row row = sheet.createRow(rowNum++);
+            Cell cell = row.createCell(0);
+            cell.setCellValue(rowNum - 1);
+            cell.setCellStyle(style1);
+
+            cell = row.createCell(1);
+            cell.setCellValue(lt.getChuyenTau().getSoHieutau());
+            cell.setCellStyle(style1);
+
+            cell = row.createCell(2);
+            cell.setCellValue(ga_dao.getGaTheoMaGa(lt.getGaDi().getMaGa()).getTenGa());
+            cell.setCellStyle(style1);
+
+            cell = row.createCell(3);
+            cell.setCellValue(ga_dao.getGaTheoMaGa(lt.getGaDen().getMaGa()).getTenGa());
+            cell.setCellStyle(style1);
+
+            cell = row.createCell(4);
+            cell.setCellValue(lt.getThoiGianKhoiHanh().toString());
+            cell.setCellStyle(style1);
+
+            cell = row.createCell(5);
+            cell.setCellValue(lt.getThoiGianDuKienDen().toString());
+            cell.setCellStyle(style1);
+
+            cell = row.createCell(6);
+            cell.setCellValue(mapChuyenTau.getOrDefault(lt.getMaLichTrinh(), 0));
+            cell.setCellStyle(style1);
+        }
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream("ThongKeChuyenTau.xlsx");
+            workbook.write(fileOut);
+            fileOut.close();
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

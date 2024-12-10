@@ -43,15 +43,14 @@ public class ChuyenTau_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from ChuyenTau where SoHieutau = ?";
-            PreparedStatement stm = con.prepareStatement(sql);
-            stm.setString(1, soHieuTau);
+            String sql = "Select * from ChuyenTau where SoHieuTau = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, soHieuTau);
 
-            ResultSet rs = stm.executeQuery(sql);
+            ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
                 LoaiTau loaiTau = new LoaiTau(rs.getString(2));
-
                 chuyenTau = new ChuyenTau(soHieuTau, loaiTau);
             }
         } catch (Exception e) {
@@ -59,6 +58,7 @@ public class ChuyenTau_DAO {
         }
         return chuyenTau;
     }
+
 
 
     public boolean create(ChuyenTau chuyenTau) {

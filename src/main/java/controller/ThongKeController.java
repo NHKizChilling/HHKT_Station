@@ -21,11 +21,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellStyle;
+
+import javax.swing.text.Style;
+
 
 /*
  * @description:
@@ -175,6 +187,7 @@ public class ThongKeController implements Initializable {
 
         lbl_taoBaoCao.setOnMouseClicked(e -> {
             // TODO: Tạo báo cáo
+            ghiFileExcel();
         });
     }
 
@@ -309,6 +322,122 @@ public class ThongKeController implements Initializable {
 
     private boolean isNamNhuan(int year) {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+
+    private void ghiFileExcel() {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Thống kê doanh thu");
+
+        CellStyle headerStyle = workbook.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.AQUA.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setBorderBottom(BorderStyle.THIN);
+        headerStyle.setBorderTop(BorderStyle.THIN);
+        headerStyle.setBorderRight(BorderStyle.THIN);
+        headerStyle.setBorderLeft(BorderStyle.THIN);
+
+        CellStyle style1 = workbook.createCellStyle();
+        style1.setBorderRight(BorderStyle.THIN);
+        style1.setBorderLeft(BorderStyle.THIN);
+        style1.setBorderBottom(BorderStyle.THIN);
+        style1.setBorderTop(BorderStyle.THIN);
+
+        CellStyle style2 = workbook.createCellStyle();
+        style2.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        style2.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style2.setBorderBottom(BorderStyle.THIN);
+        style2.setBorderTop(BorderStyle.THIN);
+        style2.setBorderRight(BorderStyle.THIN);
+        style2.setBorderLeft(BorderStyle.THIN);
+//
+//        CellStyle style3 = workbook.createCellStyle();
+//        style3.setBorderRight(BorderStyle.THIN);
+//        style3.setBorderLeft(BorderStyle.THIN);
+//        style3.setBorderTop(BorderStyle.THIN);
+//
+//        CellStyle style4 = workbook.createCellStyle();
+//        style4.setBorderRight(BorderStyle.THIN);
+//        style4.setBorderLeft(BorderStyle.THIN);
+//        style4.setBorderBottom(BorderStyle.THIN);
+//
+//        CellStyle style5 = workbook.createCellStyle();
+//        style5.setBorderRight(BorderStyle.THIN);
+//        style5.setBorderLeft(BorderStyle.THIN);
+//        style5.setBorderBottom(BorderStyle.THIN);
+//        style5.setBorderTop(BorderStyle.THIN);
+// Chỉnh độ rộng cột
+        sheet.setColumnWidth(0, 2000);
+        sheet.setColumnWidth(1, 4000);
+        sheet.setColumnWidth(2, 4000);
+
+// Tạo header row
+        String[] headers = {"STT", "Tháng", "Doanh thu"};
+        Row headerRow = sheet.createRow(0);
+        for (int i = 0; i < headers.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(headers[i]);
+            cell.setCellStyle(headerStyle);
+        }
+
+        Row rowTongCong = sheet.createRow(1);
+        Cell cellTongCong = rowTongCong.createCell(0);
+        cellTongCong.setCellValue("Tổng cộng");
+        cellTongCong.setCellStyle(style2);
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 1));
+
+        ArrayList<HoaDon> listHoaDon = hoaDon_dao.getDSHDTheoNam(cb_sumNam.getValue());
+        double tongDoanhThu = 0;
+        int currentRowIndex = 2;
+
+        for (int i = 0; i < listHoaDon.size(); i++) {
+            HoaDon hoaDon = listHoaDon.get(i);
+
+            boolean isNewMonth = (i == 0 || hoaDon.getNgayLapHoaDon().getMonthValue() != listHoaDon.get(i - 1).getNgayLapHoaDon().getMonthValue());
+
+            if (isNewMonth) {
+                Row row = sheet.createRow(currentRowIndex);
+
+                Cell cellSTT = row.createCell(0);
+                cellSTT.setCellValue(currentRowIndex - 1);
+                cellSTT.setCellStyle(style1);
+
+                Cell cellThang = row.createCell(1);
+                cellThang.setCellValue(hoaDon.getNgayLapHoaDon().getMonthValue());
+                cellThang.setCellStyle(style1);
+
+                tongDoanhThu = 0;
+
+                for (HoaDon hd : listHoaDon) {
+                    if (hd.getNgayLapHoaDon().getMonthValue() == hoaDon.getNgayLapHoaDon().getMonthValue()) {
+                        tongDoanhThu += hd.getTongTien();
+                    }
+                }
+
+                Cell cellDoanhThu = row.createCell(2);
+                cellDoanhThu.setCellValue(tongDoanhThu);
+                cellDoanhThu.setCellStyle(style1);
+
+                currentRowIndex++;
+            }
+        }
+
+        // Tính tổng cộng
+        double sum = 0;
+        for (HoaDon hd : listHoaDon) {
+            sum += hd.getTongTien();
+        }
+
+        Cell cellTongCongValue = rowTongCong.createCell(2);
+        cellTongCongValue.setCellValue(sum);
+        cellTongCongValue.setCellStyle(style2);
+
+        try (FileOutputStream fileOut = new FileOutputStream("ThongKeDoanhThu.xlsx")) {
+            workbook.write(fileOut);
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
