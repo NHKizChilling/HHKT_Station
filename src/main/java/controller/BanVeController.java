@@ -372,7 +372,7 @@ public class BanVeController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Thông báo");
                     alert.setHeaderText(null);
-                    alert.setContentText("Không tìm thấy chuyến tàu phù hợp");
+                    alert.setContentText("Không tìm thấy chuyến tàu phù hợp với tuyến đã chọn");
                     alert.show();
                     cbGaDi.requestFocus();
                 } else {
@@ -466,15 +466,24 @@ public class BanVeController implements Initializable {
         });
 
         btnChonKH.setOnMouseClicked(e -> {
-            btnChonCD.setDisable(false);
-            btnChonKH.setDisable(true);
             String maGaDi = ga_dao.getGaTheoTenGa(cbGaDi.getValue()).getMaGa();
             String maGaDen = ga_dao.getGaTheoTenGa(cbGaDen.getValue()).getMaGa();
             ArrayList<LichTrinh> list = lt_dao.traCuuDSLichTrinh(maGaDen, maGaDi, dpNgayVe.getValue());
             list.removeIf(l -> !l.getThoiGianKhoiHanh().isAfter(LocalDateTime.now()));
-            dslt = FXCollections.observableList(list);
-            tbLT.setItems(dslt);
-            showTauTheoLT(list);
+            if (list.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Thông báo");
+                alert.setHeaderText(null);
+                alert.setContentText("Không tìm thấy chuyến tàu cho tuyến khứ hồi");
+                alert.show();
+                cbGaDi.requestFocus();
+            } else {
+                dslt = FXCollections.observableList(list);
+                tbLT.setItems(dslt);
+                showTauTheoLT(list);
+                btnChonCD.setDisable(false);
+                btnChonKH.setDisable(true);
+            }
         });
 
         btnXoaAllCN.setOnMouseClicked(e -> {
@@ -615,7 +624,7 @@ public class BanVeController implements Initializable {
                 Button btnBack = (Button) acpHoaDon.lookup("#btnBackBanVe");
                 btnBack.setOnMouseClicked(e1 -> {
                     HoaDon hoaDon = hd_dao.getHoaDonVuaTao();
-                    if (!hoaDon.isTrangThai()) {
+                    if (!hoaDon.isTrangThai() && hoaDon.getTongTien() == 0) {
                         hd_dao.delete(hoaDon);
                     }
                     getData.hd = null;

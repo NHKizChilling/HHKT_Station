@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1384.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LichTrinhController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1384.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LichTrinhController">
    <children>
       <AnchorPane layoutX="15.0" layoutY="377.0" prefHeight="295.0" prefWidth="942.0" styleClass="shadow">
          <children>
@@ -33,17 +34,47 @@
             </TableView>
          </children>
       </AnchorPane>
-      <Line endX="840.7999877929688" layoutX="115.0" layoutY="226.0" startX="-100.0" />
-      <Line endX="-87.79998779296875" endY="736.4000244140625" layoutX="1057.0" layoutY="12.0" startX="-87.79998779296875" startY="-6.799996852874756" />
-      <Button fx:id="btn_timKiem" alignment="CENTER_RIGHT" layoutX="827.0" layoutY="138.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Tìm kiếm">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
       <Label layoutX="410.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" styleClass="label-info" stylesheets="@dashboardDesign.css" text="Tra cứu lịch trình">
          <font>
             <Font name="Times New Roman Bold" size="24.0" />
          </font>
       </Label>
+      <Line endX="840.7999877929688" layoutX="115.0" layoutY="226.0" startX="-100.0" />
+      <Line endX="-87.79998779296875" endY="736.4000244140625" layoutX="1057.0" layoutY="12.0" startX="-87.79998779296875" startY="-6.799996852874756" />
+      <JFXComboBox fx:id="cb_GaDi" editable="true" layoutX="107.0" layoutY="70.0" prefHeight="30.0" prefWidth="180.0" visibleRowCount="5">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXComboBox>
+      <JFXComboBox fx:id="cb_GaDen" editable="true" layoutX="410.0" layoutY="70.0" prefHeight="30.0" prefWidth="180.0" visibleRowCount="5">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXComboBox>
+      <DatePicker fx:id="dp_ngayKH" layoutX="731.0" layoutY="70.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></DatePicker>
+      <Button fx:id="btn_lamMoi" alignment="CENTER_RIGHT" layoutX="724.0" layoutY="137.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Làm mới">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="btn_timKiem" alignment="CENTER_RIGHT" layoutX="827.0" layoutY="138.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Tìm kiếm">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <FontAwesomeIcon disable="true" glyphName="SEARCH" layoutX="834.0" layoutY="159.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </FontAwesomeIcon>
+      <FontAwesomeIcon disable="true" glyphName="REFRESH" layoutX="731.0" layoutY="158.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </FontAwesomeIcon>
       <Pane layoutX="970.0" layoutY="23.0" prefHeight="710.0" prefWidth="397.0" style="-fx-background-color: #fff;">
          <children>
             <Label layoutX="161.0" layoutY="3.0" prefHeight="22.0" prefWidth="120.0" styleClass="label-info" stylesheets="@dashboardDesign.css" text="THÔNG TIN">
@@ -51,35 +82,100 @@
                   <Font name="Times New Roman Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="53.0" prefHeight="35.0" prefWidth="107.0" text="Mã lịch trình:">
+            <Label layoutX="15.0" layoutY="53.0" prefHeight="35.0" prefWidth="107.0" text="Mã lịch trình:">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font></Label>
-            <Label layoutX="15.0" layoutY="107.0" prefHeight="35.0" prefWidth="74.0" text="Số hiệu tàu:">
+            <Label layoutX="15.0" layoutY="108.0" prefHeight="35.0" prefWidth="74.0" text="Số hiệu tàu:">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font></Label>
-            <Label layoutX="15.0" layoutY="162.0" prefHeight="35.0" prefWidth="46.0" text="Ga đi:">
+            <Label layoutX="15.0" layoutY="163.0" prefHeight="35.0" prefWidth="46.0" text="Ga đi:">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font></Label>
-            <Label layoutX="14.0" layoutY="270.0" prefHeight="35.0" prefWidth="162.0" text="Thời gian khởi hành:">
+            <Label layoutX="15.0" layoutY="273.0" prefHeight="35.0" prefWidth="273.0" text="Thời gian khởi hành (yyyy-MM-dd hh:mm):">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font></Label>
-            <Label layoutX="14.0" layoutY="452.0" prefHeight="35.0" prefWidth="174.0" text="Trạng thái hoạt động:">
+            <Label layoutX="15.0" layoutY="460.0" prefHeight="35.0" prefWidth="174.0" text="Trạng thái hoạt động:">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font></Label>
-            <TextField fx:id="txt_maLichTrinh" disable="true" layoutX="194.0" layoutY="53.0" prefHeight="35.0" prefWidth="182.0" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;">
+            <Label layoutX="15.0" layoutY="218.0" prefHeight="35.0" prefWidth="61.0" text="Ga đến:">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="15.0" layoutY="365.0" prefHeight="35.0" prefWidth="285.0" text="Thời gian dự kiến đến (yyyy-MM-dd hh:mm):">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_maLichTrinh" disable="true" layoutX="195.0" layoutY="53.0" prefHeight="35.0" prefWidth="182.0" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor></TextField>
+            <JFXComboBox fx:id="cb_soHieuTau" editable="true" layoutX="195.0" layoutY="108.0" prefHeight="30.0" prefWidth="180.0" visibleRowCount="5">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXComboBox>
+            <JFXComboBox fx:id="cb_infoGaDi" editable="true" layoutX="195.0" layoutY="163.0" prefHeight="30.0" prefWidth="180.0" visibleRowCount="5">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXComboBox>
+            <JFXComboBox fx:id="cb_infoGaDen" editable="true" layoutX="195.0" layoutY="218.0" prefHeight="30.0" prefWidth="180.0" visibleRowCount="5">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXComboBox>
+            <DatePicker fx:id="datePicker_tgKhoiHanh" layoutX="94.0" layoutY="308.0" prefHeight="35.0" prefWidth="182.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></DatePicker>
+            <TextField fx:id="infoGioDi" alignment="CENTER" layoutX="288.0" layoutY="313.0" prefHeight="25.0" prefWidth="37.0" promptText="00">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <Label layoutX="329.0" layoutY="316.0" text=":">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="infoPhutDi" alignment="CENTER" layoutX="337.0" layoutY="313.0" prefHeight="25.0" prefWidth="37.0" promptText="00">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <DatePicker fx:id="datePicker_tgDKDen" layoutX="94.0" layoutY="400.0" prefHeight="35.0" prefWidth="182.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </DatePicker>
+            <TextField fx:id="infoGioDen" alignment="CENTER" layoutX="288.0" layoutY="405.0" prefHeight="25.0" prefWidth="37.0" promptText="00">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <Label layoutX="328.0" layoutY="407.0" text=":">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="infoPhutDen" alignment="CENTER" layoutX="337.0" layoutY="405.0" prefHeight="25.0" prefWidth="37.0" promptText="00">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+
+            <ComboBox fx:id="cb_infoTrangThaiHoatDong" layoutX="195.0" layoutY="460.0" prefHeight="35.0" prefWidth="182.0" promptText="Trạng thái" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ComboBox>
             <Button fx:id="btn_clear" alignment="CENTER_RIGHT" layoutX="114.0" layoutY="660.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="85.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Xóa trắng" textFill="#151515">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="btn_update" alignment="CENTER_RIGHT" layoutX="221.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Cập nhật">
+            <Button fx:id="btn_update" alignment="CENTER_RIGHT" disable="true" layoutX="221.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Cập nhật">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
@@ -87,33 +183,6 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <DatePicker fx:id="datePicker_tgKhoiHanh" layoutX="194.0" layoutY="305.0" prefHeight="35.0" prefWidth="182.0" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor></DatePicker>
-
-            <ComboBox fx:id="cb_infoTrangThaiHoatDong" layoutX="194.0" layoutY="452.0" prefHeight="35.0" prefWidth="182.0" promptText="Trạng thái" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></ComboBox>
-            <Label layoutX="14.0" layoutY="218.0" prefHeight="35.0" prefWidth="61.0" text="Ga đến:">
-               <font>
-                  <Font name="Times New Roman Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="14.0" layoutY="358.0" prefHeight="35.0" prefWidth="137.0" text="Thời gian dự kiến đến:">
-               <font>
-                  <Font name="Times New Roman Bold" size="14.0" />
-               </font>
-            </Label>
-            <ComboBox fx:id="cb_infoGaDen" editable="true" layoutX="194.0" layoutY="218.0" prefHeight="35.0" prefWidth="182.0" promptText="Ga Đến" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;" visibleRowCount="5">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor></ComboBox>
-            <ComboBox fx:id="cb_infoGaDi" editable="true" layoutX="194.0" layoutY="162.0" prefHeight="35.0" prefWidth="182.0" promptText="Ga đi" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;" visibleRowCount="5">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor></ComboBox>
             <FontAwesomeIcon disable="true" glyphName="REFRESH" layoutX="123.0" layoutY="681.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -129,40 +198,6 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </FontAwesomeIcon>
-            <ComboBox fx:id="cb_soHieuTau" editable="true" layoutX="194.0" layoutY="107.0" prefHeight="35.0" prefWidth="182.0" promptText="Số hiệu tàu" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;" visibleRowCount="5">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </ComboBox>
-            <DatePicker fx:id="datePicker_tgDKDen" layoutX="194.0" layoutY="394.0" prefHeight="35.0" prefWidth="182.0" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </DatePicker>
-            <Label layoutX="199.0" layoutY="277.0" text="Giờ">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="infoGioDi" layoutX="228.0" layoutY="274.0" prefHeight="25.0" prefWidth="37.0" promptText="00" />
-            <TextField fx:id="infoPhutDi" layoutX="325.0" layoutY="274.0" prefHeight="25.0" prefWidth="37.0" promptText="00" />
-            <Label layoutX="285.0" layoutY="277.0" text="Phút">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="199.0" layoutY="365.0" text="Giờ">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="infoGioDen" layoutX="228.0" layoutY="363.0" prefHeight="25.0" prefWidth="37.0" promptText="00" />
-            <Label layoutX="285.0" layoutY="365.0" text="Phút">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="infoPhutDen" layoutX="325.0" layoutY="363.0" prefHeight="25.0" prefWidth="37.0" promptText="00" />
          </children>
       </Pane>
       <Label layoutX="14.0" layoutY="271.0" style="-fx-view-order: 0; -fx-background-color: #fff;" styleClass="label-info" stylesheets="@dashboardDesign.css" text="DANH SÁCH CHUYẾN TÀU">
@@ -175,43 +210,16 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cb_GaDi" editable="true" layoutX="107.0" layoutY="65.0" prefHeight="35.0" prefWidth="168.0" promptText="Ga Đi" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ComboBox>
       <Label layoutX="336.0" layoutY="73.0" text="Ga đến:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cb_GaDen" editable="true" layoutX="410.0" layoutY="68.0" prefHeight="35.0" prefWidth="162.0" promptText="Ga đến" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;" stylesheets="@dashboardDesign.css">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ComboBox>
       <Label layoutX="647.0" layoutY="74.0" text="Ngày đi:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dp_ngayKH" layoutX="731.0" layoutY="70.0" prefHeight="35.0" prefWidth="168.0" style="-fx-background-color: #fff; -fx-border-color: lightgray; -fx-border-radius: 5;">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></DatePicker>
-      <FontAwesomeIcon disable="true" glyphName="SEARCH" layoutX="834.0" layoutY="159.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </FontAwesomeIcon>
-      <Button fx:id="btn_lamMoi" alignment="CENTER_RIGHT" layoutX="724.0" layoutY="137.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Làm mới">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <FontAwesomeIcon disable="true" glyphName="REFRESH" layoutX="731.0" layoutY="158.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </FontAwesomeIcon>
       <Line endX="840.7999877929688" layoutX="114.0" layoutY="282.0" startX="-100.0" style="-fx-view-order: 1;" />
    </children>
 </AnchorPane>

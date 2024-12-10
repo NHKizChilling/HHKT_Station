@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1385.0" styleClass="parent" stylesheets="@thongKe.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ThongKeNVController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1385.0" styleClass="parent" stylesheets="@thongKe.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ThongKeNVController">
    <top>
       <AnchorPane prefWidth="250.0" style="-fx-background-color: #f3f3f3;" BorderPane.alignment="CENTER">
          <children>
@@ -48,20 +49,32 @@
                            <HBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ComboBox>
                         <ComboBox fx:id="cb_thang" layoutX="412.0" layoutY="10.0" prefHeight="30.0" prefWidth="100.0" promptText="Tháng">
                            <HBox.margin>
                               <Insets left="365.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ComboBox>
                         <ComboBox fx:id="cb_nam" layoutX="562.0" layoutY="10.0" prefHeight="30.0" prefWidth="100.0" promptText="Năm">
                            <HBox.margin>
                               <Insets left="20.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ComboBox>
                         <Button fx:id="btn_search" mnemonicParsing="false">
                            <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" />
+                              <FontAwesomeIcon fill="WHITE" glyphName="SEARCH">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></FontAwesomeIcon>
                            </graphic>
                            <font>
                               <Font size="14.0" />
@@ -69,6 +82,9 @@
                            <HBox.margin>
                               <Insets left="20.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                         <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" />
                      </children>
@@ -122,6 +138,9 @@
                                  <padding>
                                     <Insets right="15.0" />
                                  </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Label>
                               <BarChart fx:id="barChart_top5nv" prefHeight="300.0">
                                  <xAxis>
@@ -180,6 +199,9 @@
                            <VBox.margin>
                               <Insets left="10.0" right="15.0" top="10.0" />
                            </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Label>
                         <BarChart fx:id="barChart_chuyenTau" prefHeight="300.0">
                           <xAxis>

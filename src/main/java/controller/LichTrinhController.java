@@ -1,5 +1,6 @@
 package controller;
 
+import com.jfoenix.controls.JFXComboBox;
 import connectdb.ConnectDB;
 import dao.*;
 import entity.*;
@@ -37,19 +38,19 @@ public class LichTrinhController implements Initializable {
     private Button btn_update;
 
     @FXML
-    private ComboBox<String> cb_GaDen;
+    private JFXComboBox<String> cb_GaDen;
 
     @FXML
-    private ComboBox<String> cb_GaDi;
+    private JFXComboBox<String> cb_GaDi;
 
     @FXML
-    private ComboBox<String> cb_soHieuTau;
+    private JFXComboBox<String> cb_soHieuTau;
 
     @FXML
-    private ComboBox<String> cb_infoGaDen;
+    private JFXComboBox<String> cb_infoGaDen;
 
     @FXML
-    private ComboBox<String> cb_infoGaDi;
+    private JFXComboBox<String> cb_infoGaDi;
 
     @FXML
     private DatePicker datePicker_tgDKDen;
@@ -103,8 +104,6 @@ public class LichTrinhController implements Initializable {
     private CT_LichTrinh_DAO ct_LichTrinh_DAO;
     private Ga_DAO ga_DAO;
     private ChuyenTau_DAO chuyenTau_DAO;
-    private ChoNgoi_DAO choNgoi_DAO;
-    private Toa_DAO toa_DAO;
 
     private ArrayList<LichTrinh> list;
 
@@ -126,9 +125,8 @@ public class LichTrinhController implements Initializable {
             cb_infoGaDen.getItems().add(ga.getTenGa());
             cb_infoGaDi.getItems().add(ga.getTenGa());
         }
-        ArrayList<String> listSoHieuTau = chuyenTau_DAO.getAll().stream().map(chuyenTau -> chuyenTau.getSoHieutau()).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+        ArrayList<String> listSoHieuTau = chuyenTau_DAO.getAll().stream().map(ChuyenTau::getSoHieutau).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
         cb_soHieuTau.getItems().addAll(listSoHieuTau);
-        HashSet<String> set = ga_DAO.getAllGa().stream().map(ga -> ga.getViTri()).collect(HashSet::new, Set::add, Set::addAll);
 
         for (String soHieuTau : listSoHieuTau) {
             cb_soHieuTau.getItems().add(soHieuTau);
@@ -147,7 +145,7 @@ public class LichTrinhController implements Initializable {
         col_tgKhoiHanh.setCellValueFactory(cellData -> new SimpleStringProperty(formatter.format(cellData.getValue().getThoiGianKhoiHanh())));
         col_trangThaiHoatDong.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().isTinhTrang() ? "Hoạt động" : "Không hoạt động"));
 
-        list = lichTrinh_DAO.traCuuDSLichTrinhSauNgayHienTai();
+        list = lichTrinh_DAO.traCuuDSLichTrinhTheoNgay(LocalDate.now());
         tbl_lichTrinh.setItems(FXCollections.observableArrayList(list));
 
         tbl_lichTrinh.setOnMouseClicked(e -> {
@@ -313,8 +311,6 @@ public class LichTrinhController implements Initializable {
         ct_LichTrinh_DAO = new CT_LichTrinh_DAO();
         ga_DAO = new Ga_DAO();
         chuyenTau_DAO = new ChuyenTau_DAO();
-        choNgoi_DAO = new ChoNgoi_DAO();
-        toa_DAO = new Toa_DAO();
     }
 
     protected void timKiem() {
@@ -326,13 +322,32 @@ public class LichTrinhController implements Initializable {
         if (gaDi == null && gaDen == null && ngayKH == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Thông báo");
-            alert.setHeaderText("Vui lòng nhập thông tin tìm kiếm");
+            alert.setHeaderText(null);
+            alert.setContentText("Vui lòng nhập thông tin tìm kiếm");
             alert.show();
             cb_GaDi.requestFocus();
             return;
         }
         if (ngayKH == null) {
-            list = lichTrinh_DAO.traCuuDSLichTrinh(gaDi.getMaGa(), gaDen.getMaGa());
+            if (gaDi != null && gaDen != null) {
+                list = lichTrinh_DAO.traCuuDSLichTrinh(gaDi.getMaGa(), gaDen.getMaGa());
+            } else if (gaDi == null) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Thông báo");
+                alert.setHeaderText(null);
+                alert.setContentText("Vui lòng chọn ga đi");
+                alert.show();
+                cb_GaDi.requestFocus();
+                return;
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Thông báo");
+                alert.setHeaderText(null);
+                alert.setContentText("Vui lòng chọn ga đến");
+                alert.show();
+                cb_GaDen.requestFocus();
+                return;
+            }
         } else {
             if (gaDi != null && gaDen != null) {
                 list = lichTrinh_DAO.traCuuDSLichTrinh(gaDi.getMaGa(), gaDen.getMaGa(), ngayKH);
@@ -343,7 +358,8 @@ public class LichTrinhController implements Initializable {
         if (list.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Thông báo");
-            alert.setHeaderText("Không tìm thấy lịch trình nào");
+            alert.setHeaderText(null);
+            alert.setContentText("Không tìm thấy lịch trình nào");
             alert.show();
             clear();
             cb_GaDi.requestFocus();
@@ -356,18 +372,13 @@ public class LichTrinhController implements Initializable {
     protected void clear() {
         txt_maLichTrinh.clear();
         cb_soHieuTau.setValue(null);
-        cb_soHieuTau.setPromptText("Số hiệu tàu");
         cb_soHieuTau.setDisable(false);
         cb_GaDi.setValue(null);
-        cb_GaDi.setPromptText("Ga đi");
         cb_GaDen.setValue(null);
-        cb_GaDen.setPromptText("Ga đến");
         dp_ngayKH.setValue(null);
         cb_infoGaDi.setValue(null);
-        cb_infoGaDi.setPromptText("Ga đi");
         cb_infoGaDi.setDisable(false);
         cb_infoGaDen.setValue(null);
-        cb_infoGaDen.setPromptText("Ga đến");
         cb_infoGaDen.setDisable(false);
         infoGioDi.clear();
         infoPhutDi.clear();
@@ -376,8 +387,9 @@ public class LichTrinhController implements Initializable {
         infoPhutDen.clear();
         datePicker_tgDKDen.setValue(null);
         cb_infoTrangThaiHoatDong.setValue(null);
-        tbl_lichTrinh.setItems(null);
-        tbl_lichTrinh.setItems(FXCollections.observableArrayList(list));
+        btn_add.setDisable(false);
+        btn_update.setDisable(true);
+        tbl_lichTrinh.setItems(FXCollections.observableArrayList(lichTrinh_DAO.traCuuDSLichTrinhTheoNgay(LocalDate.now())));
         cb_GaDi.requestFocus();
     }
 
@@ -394,12 +406,12 @@ public class LichTrinhController implements Initializable {
 
         String ngayKHStr = ngayKH.format(DateTimeFormatter.ofPattern("ddMMyy"));
         maLichTrinh = "LT" + soHieuTau + ngayKHStr + ga_DAO.getGaTheoTenGa(gaDi).getMaGa() + ga_DAO.getGaTheoTenGa(gaDen).getMaGa();
-        if (soHieuTau == null || gaDi == null || gaDen == null || gioKH == null || phutKH == null || ngayKH == null || trangThai == null) {
+        if (soHieuTau == null || gaDi == null || gaDen == null || gioKH == null || phutKH == null || trangThai == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Thông báo");
-            alert.setHeaderText("Vui lòng nhập đầy đủ 12 thông tin");
+            alert.setHeaderText(null);
+            alert.setContentText("Vui lòng nhập đầy đủ 12 thông tin");
             alert.show();
-            return;
         }
         else {
             try {
@@ -410,7 +422,7 @@ public class LichTrinhController implements Initializable {
                 }
                 txt_maLichTrinh.setText(maLichTrinh);
                 LocalDateTime thoiGianDen = tinhTGDen();
-                LichTrinh lichTrinh = new LichTrinh("temp", chuyenTau_DAO.getChuyenTauTheoID(soHieuTau), ga_DAO.getGaTheoTenGa(gaDi), ga_DAO.getGaTheoTenGa(gaDen), LocalDateTime.of(ngayKH, LocalTime.of(gio, phut)), thoiGianDen, trangThai.equals("Hoạt động") ? true : false);
+                LichTrinh lichTrinh = new LichTrinh("temp", chuyenTau_DAO.getChuyenTauTheoID(soHieuTau), ga_DAO.getGaTheoTenGa(gaDi), ga_DAO.getGaTheoTenGa(gaDen), LocalDateTime.of(ngayKH, LocalTime.of(gio, phut)), thoiGianDen, trangThai.equals("Hoạt động"));
                 if (lichTrinh_DAO.create(lichTrinh)) {
                     ct_LichTrinh_DAO.addChiTietLichTrinh(maLichTrinh);
                     list.add(lichTrinh);
@@ -419,23 +431,27 @@ public class LichTrinhController implements Initializable {
                     tbl_lichTrinh.setItems(updatedList);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Thông báo");
-                    alert.setHeaderText("Thêm lịch trình thành công");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Thêm lịch trình thành công");
                     alert.show();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Thông báo");
-                    alert.setHeaderText("Thêm lịch trình thất bại");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Thêm lịch trình thất bại");
                     alert.show();
                 }
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
-                alert.setHeaderText("Giờ và phút phải là số hợp lệ");
+
+                alert.setContentText("Giờ và phút phải là số hợp lệ");
                 alert.show();
             } catch (IllegalArgumentException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
-                alert.setHeaderText(e.getMessage());
+                alert.setHeaderText(null);
+                alert.setContentText(e.getMessage());
                 alert.show();
             }
         }
@@ -471,7 +487,7 @@ public class LichTrinhController implements Initializable {
 
             LocalDateTime thoiGianDen = tinhTGDen();
 
-            LichTrinh lichTrinhNew = new LichTrinh(maLichTrinh, chuyenTau_DAO.getChuyenTauTheoID(soHieuTau), ga_DAO.getGaTheoTenGa(gaDi), ga_DAO.getGaTheoTenGa(gaDen), LocalDateTime.of(ngayKH, LocalTime.of(gio, phut)), thoiGianDen, trangThai.equals("Hoạt động") ? true : false);
+            LichTrinh lichTrinhNew = new LichTrinh(maLichTrinh, chuyenTau_DAO.getChuyenTauTheoID(soHieuTau), ga_DAO.getGaTheoTenGa(gaDi), ga_DAO.getGaTheoTenGa(gaDen), LocalDateTime.of(ngayKH, LocalTime.of(gio, phut)), thoiGianDen, trangThai.equals("Hoạt động"));
             if (lichTrinh_DAO.updateInfo(lichTrinhNew)) {
                 int index = tbl_lichTrinh.getSelectionModel().getSelectedIndex();
                 list.set(index, lichTrinhNew);
@@ -515,10 +531,6 @@ public class LichTrinhController implements Initializable {
                 LocalTime.of(Integer.parseInt(infoGioDi.getText()), Integer.parseInt(infoPhutDi.getText()))
         ).plusMinutes((long) thoiGianPhut);
 
-        if (thoiGianDen.getHour() >= 24) {
-            thoiGianDen = thoiGianDen.plusDays(1);
-        }
-
         datePicker_tgDKDen.setValue(thoiGianDen.toLocalDate());
         infoGioDen.setText(String.valueOf(thoiGianDen.getHour()));
         infoPhutDen.setText(String.valueOf(thoiGianDen.getMinute()));
@@ -535,11 +547,8 @@ public class LichTrinhController implements Initializable {
         cb_soHieuTau.setDisable(false);
         txt_maLichTrinh.clear();
         cb_soHieuTau.setValue(null);
-        cb_soHieuTau.setPromptText("Số hiệu tàu");
         cb_infoGaDi.setValue(null);
-        cb_infoGaDi.setPromptText("Ga đi");
         cb_infoGaDen.setValue(null);
-        cb_infoGaDen.setPromptText("Ga đến");
         infoGioDi.clear();
         infoPhutDi.clear();
         datePicker_tgKhoiHanh.setValue(null);
@@ -549,6 +558,8 @@ public class LichTrinhController implements Initializable {
         cb_infoTrangThaiHoatDong.setValue(null);
         cb_infoTrangThaiHoatDong.setPromptText("Trạng thái");
         cb_soHieuTau.requestFocus();
+        btn_update.setDisable(true);
+        btn_add.setDisable(false);
         tbl_lichTrinh.getSelectionModel().clearSelection();
     }
 }

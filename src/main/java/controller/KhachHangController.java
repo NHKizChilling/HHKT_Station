@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class KhachHangController implements Initializable {
@@ -42,18 +42,11 @@ public class KhachHangController implements Initializable {
     private TableView<Ve> tbl_thongTinVe;
 
 
-    // Cột thông tin hành khách
     @FXML
     private TableColumn<KhachHang, String> col_cusId;
 
     @FXML
     private TableColumn<KhachHang, String> col_name;
-
-//    @FXML
-//    private TableColumn<KhachHang, String> col_gender;
-//
-//    @FXML
-//    private TableColumn<KhachHang, String> col_dob;
 
     @FXML
     private TableColumn<KhachHang, String> col_cccd;
@@ -64,8 +57,6 @@ public class KhachHangController implements Initializable {
     @FXML
     private TableColumn<KhachHang, String> col_email;
 
-
-    // Cột thông tin vé
     @FXML
     private TableColumn<Ve, String> col_maVe;
 
@@ -87,7 +78,6 @@ public class KhachHangController implements Initializable {
     @FXML
     private TableColumn<Ve, String> col_tenHK;
 
-    // Cột thông tin hành khách
     @FXML
     private TextField txt_maHK;
 
@@ -96,12 +86,6 @@ public class KhachHangController implements Initializable {
 
     @FXML
     private TextField txt_cccd;
-
-//    @FXML
-//    private ComboBox<String> cb_gender;
-//
-//    @FXML
-//    private DatePicker datePicker_dob;
 
     @FXML
     private TextField txt_sdt;
@@ -122,36 +106,31 @@ public class KhachHangController implements Initializable {
     private Button btn_inVe;
 
     private Ve_DAO ve_dao;
-    private LichTrinh_DAO lichTrinh_dao;
     private KhachHang_DAO khach_Hang_dao;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ve_dao = new Ve_DAO();
-        lichTrinh_dao = new LichTrinh_DAO();
         khach_Hang_dao = new KhachHang_DAO();
-
         cb_search.getItems().addAll("Mã hành khách", "Số CCCD", "Số điện thoại");
-        //cb_gender.getItems().addAll("Nam", "Nữ");
-
-        renderTableHanhKhach(khach_Hang_dao.getAllKhachHang());
 
         btn_search.setOnAction(e -> {
             String searchType = cb_search.getValue();
             if (searchType == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
-                alert.setHeaderText("Vui lòng chọn loại tìm kiếm");
+                alert.setHeaderText(null);
+                alert.setContentText("Vui lòng chọn loại tìm kiếm");
                 alert.show();
                 cb_search.requestFocus();
-                cb_search.show();
                 return;
             }
             String searchBar = txt_searchBar.getText();
             if (searchBar.isBlank()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
-                alert.setHeaderText("Vui lòng nhập từ khóa tìm kiếm");
+                alert.setHeaderText(null);
+                alert.setContentText("Vui lòng nhập từ khóa tìm kiếm");
                 alert.show();
                 txt_searchBar.requestFocus();
                 return;
@@ -181,7 +160,8 @@ public class KhachHangController implements Initializable {
             if (dsKhachHangs.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Thông báo");
-                alert.setHeaderText("Không tìm thấy kết quả");
+                alert.setHeaderText(null);
+                alert.setContentText("Không tìm thấy kết quả");
                 alert.show();
                 txt_searchBar.requestFocus();
                 return;
@@ -192,14 +172,10 @@ public class KhachHangController implements Initializable {
         btn_refresh.setOnAction(e -> {
             txt_searchBar.clear();
             txt_searchBar.requestFocus();
-            renderTableHanhKhach(khach_Hang_dao.getAllKhachHang());
-            cb_search.setPromptText("Tìm kiếm theo");
+            tbl_hanhKhach.setItems(null);
+            cb_search.getSelectionModel().clearSelection();
             tbl_thongTinVe.setItems(null);
-            txt_maHK.clear();
-            txt_tenHK.clear();
-            txt_cccd.clear();
-            txt_sdt.clear();
-            txt_email.clear();
+            btn_clear.fire();
         });
 
         tbl_hanhKhach.setOnMouseClicked(e -> {
@@ -207,11 +183,10 @@ public class KhachHangController implements Initializable {
             txt_maHK.setText(hk.getMaKH());
             txt_tenHK.setText(hk.getTenKH());
             txt_cccd.setText(hk.getSoCCCD());
-            //cb_gender.setValue(hk.isGioiTinh() ? "Nữ" : "Nam");
-            //datePicker_dob.setValue(hk.getNgaySinh());
             txt_sdt.setText(hk.getSdt());
             txt_email.setText(hk.getEmail());
-
+            btn_add.setDisable(true);
+            btn_update.setDisable(false);
             ArrayList<Ve> dsVeTheoMaHK = ve_dao.getDSVeTheoMaKH(hk.getMaKH());
             renderTableVe(dsVeTheoMaHK);
         });
@@ -220,28 +195,27 @@ public class KhachHangController implements Initializable {
             txt_maHK.clear();
             txt_tenHK.clear();
             txt_cccd.clear();
-//            cb_gender.setValue(null);
-//            datePicker_dob.setValue(null);
             txt_sdt.clear();
             txt_email.clear();
+            btn_add.setDisable(false);
+            btn_update.setDisable(true);
+            tbl_hanhKhach.getSelectionModel().clearSelection();
         });
 
         btn_add.setOnAction(e -> {
             String tenHK = txt_tenHK.getText();
             String cccd = txt_cccd.getText();
-//            boolean gioiTinh = "Nữ".equals(cb_gender.getValue());
-//            LocalDate dob = datePicker_dob.getValue();
             String sdt = txt_sdt.getText();
             String email = txt_email.getText();
 
             if (checkInput(tenHK, cccd, sdt, email)) {
-                //KhachHang hk = new KhachHang(tenHK, cccd, sdt, dob, gioiTinh, email);
                 KhachHang hk = new KhachHang(tenHK, cccd, sdt, email);
                 if (khach_Hang_dao.create(hk)) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Thành công");
                     alert.setHeaderText("Thêm hành khách thành công");
                     alert.show();
+                    btn_clear.fire();
                     renderTableHanhKhach(khach_Hang_dao.getAllKhachHang());
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -256,8 +230,6 @@ public class KhachHangController implements Initializable {
             String maHK = txt_maHK.getText();
             String tenHK = txt_tenHK.getText();
             String cccd = txt_cccd.getText();
-//            boolean gioiTinh = "Nữ".equals(cb_gender.getValue());
-//            LocalDate dob = datePicker_dob.getValue();
             String sdt = txt_sdt.getText();
             String email = txt_email.getText();
 
@@ -270,13 +242,13 @@ public class KhachHangController implements Initializable {
             }
 
             if (checkInput(tenHK, cccd, sdt, email)) {
-                //KhachHang hk = new KhachHang(maHK, tenHK, cccd, sdt, dob, gioiTinh, email);
                 KhachHang hk = new KhachHang(maHK, tenHK, cccd, sdt, email);
                 if (khach_Hang_dao.update(hk)) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Thành công");
                     alert.setHeaderText("Cập nhật hành khách thành công");
                     alert.show();
+                    btn_clear.fire();
                     renderTableHanhKhach(khach_Hang_dao.getAllKhachHang());
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -289,12 +261,7 @@ public class KhachHangController implements Initializable {
 
         tbl_thongTinVe.setOnMouseClicked(e -> {
             Ve ve = tbl_thongTinVe.getSelectionModel().getSelectedItem();
-            if (!ve.getTinhTrangVe().equals("DaHuy")) {
-                btn_inVe.setDisable(false);
-            } else {
-                btn_inVe.setDisable(true);
-
-            }
+            btn_inVe.setDisable(ve.getTinhTrangVe().equals("DaHuy"));
         });
 
         btn_inVe.setOnAction(e -> {
@@ -314,9 +281,8 @@ public class KhachHangController implements Initializable {
                 alert.show();
                 return;
             }
-            // In vé
             try {
-                new PrintPDF().inVe(new ArrayList<>(Arrays.asList(ve)));
+                new PrintPDF().inVe(new ArrayList<>(List.of(ve)));
             } catch (IOException | DocumentException ex) {
                 throw new RuntimeException(ex);
             }
@@ -326,13 +292,9 @@ public class KhachHangController implements Initializable {
     public void renderTableHanhKhach(ArrayList<KhachHang> list) {
         ObservableList<KhachHang> dskh = FXCollections.observableArrayList(list);
         tbl_hanhKhach.setItems(dskh);
+        tbl_hanhKhach.refresh();
         col_cusId.setCellValueFactory(new PropertyValueFactory<>("maKH"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("tenKH"));
-//        col_gender.setCellValueFactory(cellData -> {
-//            boolean gioiTinh = cellData.getValue().isGioiTinh();
-//            return new SimpleStringProperty(gioiTinh ? "Nữ" : "Nam");
-//        });
-//        col_dob.setCellValueFactory(param -> new SimpleStringProperty(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(param.getValue().getNgaySinh())));
         col_cccd.setCellValueFactory(new PropertyValueFactory<>("soCCCD"));
         col_sdt.setCellValueFactory(new PropertyValueFactory<>("sdt"));
         col_email.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -341,6 +303,7 @@ public class KhachHangController implements Initializable {
     public void renderTableVe(ArrayList<Ve> list) {
         ObservableList<Ve> data = FXCollections.observableArrayList(list);
         tbl_thongTinVe.setItems(data);
+        tbl_thongTinVe.refresh();
         col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));
         col_maKH.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKhachHang().getMaKH()));
         col_thongTinVe.setCellValueFactory(p -> {
@@ -366,7 +329,8 @@ public class KhachHangController implements Initializable {
         if (tenHK.isBlank()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
-            alert.setHeaderText("Tên hành khách không được để trống");
+            alert.setHeaderText(null);
+            alert.setContentText("Tên hành khách không được để trống");
             alert.show();
             txt_tenHK.requestFocus();
             return false;
@@ -374,35 +338,56 @@ public class KhachHangController implements Initializable {
         if (cccd.isBlank()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
-            alert.setHeaderText("Số CCCD không được để trống");
+            alert.setHeaderText(null);
+            alert.setContentText("Số CCCD không được để trống");
+            alert.show();
+            txt_cccd.requestFocus();
+            return false;
+        } else if (cccd.length() != 9 && cccd.length() != 12) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText(null);
+            alert.setContentText("Số CCCD không hợp lệ");
             alert.show();
             txt_cccd.requestFocus();
             return false;
         }
+
         if (sdt.isBlank()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
-            alert.setHeaderText("Số điện thoại không được để trống");
+            alert.setHeaderText(null);
+            alert.setContentText("Số điện thoại không được để trống");
+            alert.show();
+            txt_sdt.requestFocus();
+            return false;
+        } else if (sdt.length() != 10) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText(null);
+            alert.setContentText("Số điện thoại không hợp lệ");
             alert.show();
             txt_sdt.requestFocus();
             return false;
         }
+
         if (email.isBlank()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
-            alert.setHeaderText("Email không được để trống");
+            alert.setHeaderText(null);
+            alert.setContentText("Email không được để trống");
+            alert.show();
+            txt_email.requestFocus();
+            return false;
+        } else if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText(null);
+            alert.setContentText("Email không hợp lệ");
             alert.show();
             txt_email.requestFocus();
             return false;
         }
-//        if (dob == null) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Lỗi");
-//            alert.setHeaderText("Vui lòng chọn ngày sinh");
-//            alert.show();
-//            datePicker_dob.requestFocus();
-//            return false;
-//        }
         return true;
     }
 }

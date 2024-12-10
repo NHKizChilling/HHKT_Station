@@ -29,55 +29,61 @@ public class ChiTietLichTrinh {
         String loaiToa = choNgoi.getToa().getLoaiToa().getMaLoaiToa();
         double khoangCach = lichTrinh.getGaDen().getKhoangCach();
 
-        if (loaiToa.equals("NC")) {
-            if (khoangCach <= 100) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.1;
-            } else if (khoangCach <= 250) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.25;
-            } else if (khoangCach <= 1000) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.5;
-            } else {
-                giaCho = GIA_CO_BAN * khoangCach * 2;
+        switch (loaiToa) {
+            case "NC" -> {
+                if (khoangCach <= 100) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.1;
+                } else if (khoangCach <= 250) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.25;
+                } else if (khoangCach <= 1000) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.5;
+                } else {
+                    giaCho = GIA_CO_BAN * khoangCach * 2;
+                }
             }
-        } else if (loaiToa.equals("NM")) {
-            if (khoangCach <= 100) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.1 * 1.1;
-            } else if (khoangCach <= 250) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.25 * 1.1;
-            } else if (khoangCach <= 1000) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.5 * 1.1;
-            } else {
-                giaCho = GIA_CO_BAN * khoangCach * 2 * 1.1;
+            case "NM" -> {
+                if (khoangCach <= 100) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.1 * 1.1;
+                } else if (khoangCach <= 250) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.25 * 1.1;
+                } else if (khoangCach <= 1000) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.5 * 1.1;
+                } else {
+                    giaCho = GIA_CO_BAN * khoangCach * 2 * 1.1;
+                }
             }
-        } else if (loaiToa.equals("GNK6")) {
-            if (khoangCach <= 100) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.1 * 1.25;
-            } else if (khoangCach <= 250) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.25 * 1.25;
-            } else if (khoangCach <= 1000) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.5 * 1.25;
-            } else {
-                giaCho = GIA_CO_BAN * khoangCach * 2 * 1.25;
+            case "GNK6" -> {
+                if (khoangCach <= 100) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.1 * 1.25;
+                } else if (khoangCach <= 250) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.25 * 1.25;
+                } else if (khoangCach <= 1000) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.5 * 1.25;
+                } else {
+                    giaCho = GIA_CO_BAN * khoangCach * 2 * 1.25;
+                }
             }
-        } else if (loaiToa.equals("GNK4")) {
-            if (khoangCach <= 100) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.1 * 1.5;
-            } else if (khoangCach <= 250) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.25 * 1.5;
-            } else if (khoangCach <= 1000) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.5 * 1.5;
-            } else {
-                giaCho = GIA_CO_BAN * khoangCach * 2 * 1.5;
+            case "GNK4" -> {
+                if (khoangCach <= 100) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.1 * 1.5;
+                } else if (khoangCach <= 250) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.25 * 1.5;
+                } else if (khoangCach <= 1000) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.5 * 1.5;
+                } else {
+                    giaCho = GIA_CO_BAN * khoangCach * 2 * 1.5;
+                }
             }
-        } else if (loaiToa.equals("TVIP")) {
-            if (khoangCach <= 100) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.1 * 2;
-            } else if (khoangCach <= 250) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.25 * 2;
-            } else if (khoangCach <= 1000) {
-                giaCho = GIA_CO_BAN * khoangCach * 1.5 * 2;
-            } else {
-                giaCho = GIA_CO_BAN * khoangCach * 2 * 2;
+            case "TVIP" -> {
+                if (khoangCach <= 100) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.1 * 2;
+                } else if (khoangCach <= 250) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.25 * 2;
+                } else if (khoangCach <= 1000) {
+                    giaCho = GIA_CO_BAN * khoangCach * 1.5 * 2;
+                } else {
+                    giaCho = GIA_CO_BAN * khoangCach * 2 * 2;
+                }
             }
         }
         this.giaCho = giaCho;

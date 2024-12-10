@@ -64,7 +64,7 @@ public class KhuyenMai_DAO {
 
     public KhuyenMai getKMTheoMa(String maKM) {
         KhuyenMai km = null;
-        PreparedStatement stm = null;
+        PreparedStatement stm;
 
         try {
             ConnectDB.getInstance();
@@ -87,7 +87,7 @@ public class KhuyenMai_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select TOP 1 * from KhuyenMai order by MucKM DESC";
+            String sql = "Select TOP 1 * from KhuyenMai where TrangThai = 1 order by MucKM DESC";
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
@@ -104,9 +104,10 @@ public class KhuyenMai_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from KhuyenMai where ? between ngayApDung and ngayHetHan";
+            String sql = "Select * from KhuyenMai where ? >= ngayApDung and ? <= ngayHetHan";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setDate(1, java.sql.Date.valueOf(ngay));
+            stm.setDate(2, java.sql.Date.valueOf(ngay));
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 KhuyenMai km = getInfo(rs);
@@ -124,13 +125,12 @@ public class KhuyenMai_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("insert into KhuyenMai values(?,?,?,?,?,?)");
-            stm.setString(1, km.getMaKM());
-            stm.setString(2, km.getMoTa());
-            stm.setDate(3, java.sql.Date.valueOf(km.getNgayApDung()));
-            stm.setDate(4, java.sql.Date.valueOf(km.getNgayHetHan()));
-            stm.setFloat(5, km.getMucKM());
-            stm.setBoolean(6, km.isTrangThai());
+            stm = con.prepareStatement("insert into KhuyenMai values('temp',?,?,?,?,?)");
+            stm.setString(1, km.getMoTa());
+            stm.setDate(2, java.sql.Date.valueOf(km.getNgayApDung()));
+            stm.setDate(3, java.sql.Date.valueOf(km.getNgayHetHan()));
+            stm.setFloat(4, km.getMucKM());
+            stm.setBoolean(5, km.isTrangThai());
             n = stm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

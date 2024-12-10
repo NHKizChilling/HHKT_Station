@@ -145,7 +145,7 @@ public class HoaDonController implements Initializable {
     private ArrayList<ChiTietLichTrinh> dsctlt;
     private ArrayList<ChiTietLichTrinh> dsctltkh;
     private int i = 0;
-    private NumberFormat df = DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN"));
+    private final NumberFormat df = DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN"));
 
 
     @Override
@@ -394,9 +394,6 @@ public class HoaDonController implements Initializable {
 
         txtTienKH.setOnKeyTyped(e -> goiYGia());
 
-
-        //chonGiaGoiY(df);
-
         cbKM.setOnAction(e -> {
             hd.setKhuyenMai(dsKM.get(cbKM.getSelectionModel().getSelectedIndex()));
             hd.tinhTongTien(dscthd);
@@ -578,9 +575,25 @@ public class HoaDonController implements Initializable {
     if (!txtThanhTien.getText().isEmpty() && txtTienKH.getText() != null) {
         int t = (int) Math.round(tongTien / 1000.0);
         btnGia1.setText(df.format(t * 1000L));
-        btnGia2.setText(df.format((t + (t % 10 < 5 ? 5 : 10)) * 1000L));
-        btnGia3.setText(df.format((t + (t % 10 < 5 ? 10 : 15)) * 1000L));
-        btnGia4.setText(df.format((t + (t % 10 < 5 ? 15 : 20)) * 1000L));
+        double x1 = tongTien / 1000000;
+        x1 = (int) x1;
+        if (tongTien % 1000000 < 100000) {
+            btnGia2.setText(df.format(x1 * 1000000 + 100000));
+            btnGia3.setText(df.format(x1 * 1000000 + 200000));
+            btnGia4.setText(df.format(x1 * 1000000 + 500000));
+        } else if (tongTien % 1000000 < 200000) {
+            btnGia2.setText(df.format(x1 * 1000000 + 200000));
+            btnGia3.setText(df.format(x1 * 1000000 + 500000));
+            btnGia4.setText(df.format((x1 + 1) * 1000000));
+        } else if (tongTien % 1000000 < 500000) {
+            btnGia2.setText(df.format(x1 * 1000000 + 500000));
+            btnGia3.setText(df.format(x1 * 1000000 + 700000));
+            btnGia4.setText(df.format((x1 + 1) * 1000000));
+        } else {
+            btnGia2.setText(df.format((x1 + 1) * 1000000));
+            btnGia3.setText(df.format((x1 + 1) * 1000000 + 500000));
+            btnGia4.setText(df.format((x1 + 2) * 1000000));
+        }
     }
 }
 

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" stylesheets="@thongKe.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MoCaController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" stylesheets="@thongKe.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MoCaController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Mở ca làm việc">
          <font>
@@ -38,16 +39,6 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Button fx:id="btn_dangXuat" layoutX="350.0" layoutY="334.0" mnemonicParsing="false" style="-fx-background-color: #C8E9E9; -fx-background-radius: 10 10 10 10;" text="Đăng xuất" textFill="#2e67f8">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button fx:id="btn_moCa" layoutX="470.0" layoutY="334.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="106.0" style="-fx-background-color: #2E67F8; -fx-background-radius: 10 10 10 10;" text="Mở ca" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
       <TextField fx:id="txt_tenNV" disable="true" layoutX="171.0" layoutY="105.0" prefHeight="32.0" prefWidth="407.0">
          <font>
             <Font size="18.0" />
@@ -73,5 +64,21 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
+      <JFXButton fx:id="btn_moCa" layoutX="477.0" layoutY="334.0" prefHeight="40.0" prefWidth="100.0" ripplerFill="BLUE" style="-fx-background-color: #2e67f8; -fx-background-radius: 10;" text="Mở ca" textFill="#c8e9e9">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btn_dangXuat" buttonType="RAISED" layoutX="356.0" layoutY="334.0" prefHeight="40.0" prefWidth="106.0" ripplerFill="#2e67f8" style="-fx-background-color: #C8E9E9; -fx-background-radius: 10;" text="Đăng xuất" textFill="#2e67f8">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
    </children>
 </AnchorPane>

@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -101,12 +100,12 @@ public class HDDoiTraVeController implements Initializable {
     @FXML
     private Label lblThanhTien;
 
-    private CT_LichTrinh_DAO ctl_dao = new CT_LichTrinh_DAO();
-    private HoaDon_DAO hd_dao = new HoaDon_DAO();
-    private KhuyenMai_DAO km_dao = new KhuyenMai_DAO();
-    private CT_HoaDon_DAO cthd_dao = new CT_HoaDon_DAO();
+    private final CT_LichTrinh_DAO ctl_dao = new CT_LichTrinh_DAO();
+    private final HoaDon_DAO hd_dao = new HoaDon_DAO();
+    private final KhuyenMai_DAO km_dao = new KhuyenMai_DAO();
+    private final CT_HoaDon_DAO cthd_dao = new CT_HoaDon_DAO();
     private double tongTien = 0;
-    private Ve_DAO ve_dao = new Ve_DAO();
+    private final Ve_DAO ve_dao = new Ve_DAO();
     private HoaDon hd;
 
     @Override
@@ -182,20 +181,24 @@ public class HDDoiTraVeController implements Initializable {
             double t = hd.getTongTien()/1000;
             t = Math.round(t);
             btnGia1.setText(t * 1000 + "");
-            if (t % 10 < 5) {
-                btnGia2.setText((t + 5) * 1000 + "");
+            double x1 = hd.getTongTien() / 1000000;
+            x1 = (int) x1;
+            if (tongTien % 1000000 < 100000) {
+                btnGia2.setText(df.format(x1 * 1000000 + 100000));
+                btnGia3.setText(df.format(x1 * 1000000 + 200000));
+                btnGia4.setText(df.format(x1 * 1000000 + 500000));
+            } else if (tongTien % 1000000 < 200000) {
+                btnGia2.setText(df.format(x1 * 1000000 + 200000));
+                btnGia3.setText(df.format(x1 * 1000000 + 500000));
+                btnGia4.setText(df.format((x1 + 1) * 1000000));
+            } else if (tongTien % 1000000 < 500000) {
+                btnGia2.setText(df.format(x1 * 1000000 + 500000));
+                btnGia3.setText(df.format(x1 * 1000000 + 700000));
+                btnGia4.setText(df.format((x1 + 1) * 1000000));
             } else {
-                btnGia2.setText((t + 10) * 1000 + "");
-            }
-            if (t % 10 < 5) {
-                btnGia3.setText((t + 10) * 1000 + "");
-            } else {
-                btnGia3.setText((t + 15) * 1000 + "");
-            }
-            if (t % 10 < 5) {
-                btnGia4.setText((t + 15) * 1000 + "");
-            } else {
-                btnGia4.setText((t + 20) * 1000 + "");
+                btnGia2.setText(df.format((x1 + 1) * 1000000));
+                btnGia3.setText(df.format((x1 + 1) * 1000000 + 500000));
+                btnGia4.setText(df.format((x1 + 2) * 1000000));
             }
         }
 
@@ -230,7 +233,7 @@ public class HDDoiTraVeController implements Initializable {
             } else {
                 hd.setTrangThai(true);
                 getData.hd = hd;
-                if(new HoaDon_DAO().update(hd)) {
+                if(hd_dao.update(hd)) {
                     ctl_dao.updateCTLT(ve_dao.getVeTheoID(ve_doi.getMaVe()).getCtlt(), true);
                     ctl_dao.updateCTLT(ve_doi.getCtlt(), false);
                     ve_dao.update(ve_doi);
@@ -274,7 +277,7 @@ public class HDDoiTraVeController implements Initializable {
             // btn3: gợi ý giá dựa vào số được nhập trong txtTienKH * 100000
             // btn4: gợi ý giá dựa vào số được nhập trong txtTienKH * 1000000
             int tienKH = Integer.parseInt(txtTienKH.getText().replaceAll("[^\\d]", ""));
-            NumberFormat df = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+            NumberFormat df = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));
             btnGia1.setText(df.format(Math.round(tongTien / 1000) * 1000));
             btnGia2.setText(df.format(Math.max(tienKH * 10000L, Math.ceil(tongTien / 10000) * 10000)));
             btnGia3.setText(df.format(Math.max(tienKH * 100000L, Math.ceil(tongTien / 100000) * 100000)));

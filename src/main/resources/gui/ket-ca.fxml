@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="725.0" prefWidth="1002.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.KetCaController">
+<AnchorPane prefHeight="725.0" prefWidth="1002.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.KetCaController">
    <children>
       <BorderPane prefHeight="700.0" prefWidth="1000.0" style="-fx-border-radius: 10 10 10 10;">
          <top>
@@ -124,15 +124,21 @@
                         </TextField>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="btn_dongCa" layoutX="615.0" layoutY="165.0" mnemonicParsing="false" style="-fx-background-radius: 10 10 10 10;" text="Đóng ca" textFill="#4e5eeb" textOverrun="WORD_ELLIPSIS">
+                  <Button fx:id="btn_dongCa" layoutX="615.0" layoutY="165.0" mnemonicParsing="false" style="-fx-background-radius: 10 10 10 10; -fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 10;" text="Đóng ca" textFill="#4e5eeb" textOverrun="WORD_ELLIPSIS">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button fx:id="btn_inPhieu" layoutX="725.0" layoutY="165.0" mnemonicParsing="false" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #2E67F8;" text="Đóng ca và in phiếu bàn giao" textFill="#fcfcfc">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Label fx:id="lbl_thongBao" layoutX="151.0" layoutY="167.0" prefHeight="36.0" textFill="RED">
                      <font>

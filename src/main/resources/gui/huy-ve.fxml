@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1386.0" style="-fx-background-color: #ffffff;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HuyVeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1386.0" style="-fx-background-color: #ffffff;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HuyVeController">
    <left>
-      <AnchorPane prefHeight="806.0" prefWidth="973.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="783.0" prefWidth="928.0" BorderPane.alignment="CENTER">
          <children>
             <Separator layoutX="798.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0" />
             <AnchorPane layoutX="16.0" layoutY="189.0" prefHeight="572.0" prefWidth="800.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="189.0">
@@ -52,22 +52,32 @@
                         </Label>
                         <TextField fx:id="txt_sdt" disable="true" layoutX="525.0" layoutY="60.0" prefHeight="30.0" prefWidth="200.0" styleClass="txt_info" AnchorPane.leftAnchor="525.0" AnchorPane.topAnchor="55.0" />
                         <TextField fx:id="txt_cccd" disable="true" layoutX="158.0" layoutY="118.0" prefHeight="30.0" prefWidth="200.0" styleClass="txt_info" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="105.0" />
-                        <Button fx:id="btn_yeuCau" layoutX="710.0" layoutY="160.0" mnemonicParsing="false" styleClass="btn_yeuCau" text="Xác nhận">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Button>
                         <Label fx:id="lbl_thongBao" layoutX="38.0" layoutY="165.0" prefHeight="25.0" textFill="RED">
                            <font>
                               <Font name="System Bold Italic" size="16.0" />
                            </font>
                         </Label>
+                        <JFXButton fx:id="btn_yeuCau" alignment="CENTER_RIGHT" buttonType="RAISED" layoutX="694.0" layoutY="156.0" style="-fx-background-color: lightgreen; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" text="Xác nhận" textFill="#515151">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <FontAwesomeIcon disable="true" fill="#515151" glyphName="CHECK_CIRCLE">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </FontAwesomeIcon>
+                           </graphic>
+                        </JFXButton>
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </AnchorPane>
-                  <TableView fx:id="tbl_thongTinVe" layoutX="11.0" layoutY="32.0" prefHeight="265.0" prefWidth="915.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="225.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
+                  <TableView fx:id="tbl_thongTinVe" layoutX="52.0" layoutY="31.2" prefHeight="294.0" prefWidth="829.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="shadow" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="225.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="31.0">
                      <columns>
                         <TableColumn fx:id="col_maVe" prefWidth="135.0" styleClass="tbl_col" text="Mã vé" />
                         <TableColumn fx:id="col_thongTinHK" prefWidth="220.0" style="-fx-alignment: center;" styleClass="tbl_col" text="Thông tin hành khách" />
@@ -91,24 +101,14 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <Button fx:id="btn_lamMoi" alignment="CENTER_RIGHT" layoutX="608.0" layoutY="94.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Làm mới">
+                  <Label layoutX="279.0" layoutY="17.0" text="TÌM KIẾM VÉ">
                      <font>
-                        <Font name="Times New Roman Bold" size="16.0" />
+                        <Font name="System Bold" size="35.0" />
                      </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <graphic>
-                        <FontAwesomeIcon disable="true" glyphName="REFRESH">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </FontAwesomeIcon>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="btn_search" alignment="CENTER_RIGHT" layoutX="481.0" layoutY="94.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Tìm kiếm">
+                  </Label>
+                  <JFXButton fx:id="btn_search" alignment="CENTER_RIGHT" buttonType="RAISED" layoutX="516.0" layoutY="93.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" text="Tìm kiếm">
                      <font>
-                        <Font name="Times New Roman Bold" size="16.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -120,10 +120,25 @@
                            </cursor>
                         </FontAwesomeIcon>
                      </graphic>
-                  </Button>
-                  <Button fx:id="btnQuetMaVe" alignment="CENTER_RIGHT" layoutX="608.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Quét mã">
+                  </JFXButton>
+                  <JFXButton fx:id="btn_lamMoi" alignment="CENTER_RIGHT" buttonType="RAISED" layoutX="660.0" layoutY="93.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" text="Làm mới">
                      <font>
-                        <Font name="Times New Roman Bold" size="16.0" />
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <FontAwesomeIcon disable="true" glyphName="REFRESH">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIcon>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnQuetMaVe" alignment="CENTER_RIGHT" buttonType="RAISED" disable="true" layoutX="706.0" layoutY="11.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" text="Quét mã">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -135,12 +150,7 @@
                            </cursor>
                         </FontAwesomeIcon>
                      </graphic>
-                  </Button>
-                  <Label layoutX="279.0" layoutY="17.0" text="TÌM KIẾM VÉ">
-                     <font>
-                        <Font name="System Bold" size="35.0" />
-                     </font>
-                  </Label>
+                  </JFXButton>
                </children>
             </AnchorPane>
          </children>
@@ -178,16 +188,26 @@
                </font>
             </Label>
             <TextField fx:id="txt_tongTienTra" disable="true" layoutX="117.0" layoutY="174.0" prefWidth="250.0" styleClass="txt_info" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="300.0" />
-            <Button fx:id="btn_xacNhan" disable="true" layoutX="188.0" layoutY="687.0" mnemonicParsing="false" prefHeight="35.0" styleClass="btn_xacNhan" text="Hủy vé và in phiếu hủy">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
             <Label fx:id="lbl_thongBao2" layoutX="14.0" layoutY="352.0" prefHeight="25.0" prefWidth="8.0" textFill="RED" AnchorPane.topAnchor="350.0">
                <font>
                   <Font name="System Bold Italic" size="18.0" />
                </font>
             </Label>
+            <JFXButton fx:id="btn_xacNhan" alignment="CENTER_RIGHT" buttonType="RAISED" disable="true" layoutX="294.0" layoutY="711.0" style="-fx-background-color: lightblue; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" text="Hủy vé và in phiếu" textFill="#515151">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <FontAwesomeIcon disable="true" fill="#515151" glyphName="CHECK_CIRCLE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontAwesomeIcon>
+               </graphic>
+            </JFXButton>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

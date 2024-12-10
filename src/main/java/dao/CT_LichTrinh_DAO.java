@@ -216,39 +216,69 @@ public class CT_LichTrinh_DAO {
                 "SELECT cn.MaSoCho, lt.MaLichTrinh, lt.TrangThai, " +
                 "CASE " +
                 "    WHEN t.MaLoaiToa = 'NC' THEN CASE " +
-                "        WHEN gaDen.KhoangCach = 0 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) " +
-                "        WHEN gaDen.KhoangCach <= 100 THEN 500 * gaDen.KhoangCach * 1.1 " +
-                "        WHEN gaDen.KhoangCach <= 250 THEN 500 * gaDen.KhoangCach * 1.25 " +
-                "        WHEN gaDen.KhoangCach <= 1000 THEN 500 * gaDen.KhoangCach * 1.5 " +
-                "        ELSE 500 * gaDen.KhoangCach * 2 " +
+                "        WHEN gaDen.KhoangCach = 0 THEN (\n" +
+                "\t\t\t\t\tCASE \n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 100 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.1\n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 250 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.25\n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 1000 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.5\n" +
+                "\t\t\t\t\t\tELSE 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 2\n" +
+                "\t\t\t\t\tEND)\n" +
+                "                WHEN gaDen.KhoangCach <= 100 THEN 500 * gaDen.KhoangCach * 1.1\n" +
+                "                WHEN gaDen.KhoangCach <= 250 THEN 500 * gaDen.KhoangCach * 1.25\n" +
+                "                WHEN gaDen.KhoangCach <= 1000 THEN 500 * gaDen.KhoangCach * 1.5\n" +
+                "                ELSE 500 * gaDen.KhoangCach * 2" +
                 "    END " +
                 "    WHEN t.MaLoaiToa = 'NM' THEN CASE " +
-                "        WHEN gaDen.KhoangCach = 0 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.1 " +
-                "        WHEN gaDen.KhoangCach <= 100 THEN 500 * gaDen.KhoangCach * 1.1 * 1.1 " +
-                "        WHEN gaDen.KhoangCach <= 250 THEN 500 * gaDen.KhoangCach * 1.25 * 1.1 " +
-                "        WHEN gaDen.KhoangCach <= 1000 THEN 500 * gaDen.KhoangCach * 1.5 * 1.1 " +
-                "        ELSE 500 * gaDen.KhoangCach * 2 * 1.1 " +
+                "        WHEN gaDen.KhoangCach = 0 THEN (\n" +
+                "\t\t\t\t\tCASE \n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 100 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.1 * 1.1\n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 250 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.25 * 1.1\n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 1000 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.5 * 1.1\n" +
+                "\t\t\t\t\t\tELSE 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 2 * 1.1\n" +
+                "\t\t\t\t\tEND)\n" +
+                "                WHEN gaDen.KhoangCach <= 100 THEN 500 * gaDen.KhoangCach * 1.1 * 1.1\n" +
+                "                WHEN gaDen.KhoangCach <= 250 THEN 500 * gaDen.KhoangCach * 1.25 * 1.1\n" +
+                "                WHEN gaDen.KhoangCach <= 1000 THEN 500 * gaDen.KhoangCach * 1.5 * 1.1\n" +
+                "                ELSE 500 * gaDen.KhoangCach * 2 * 1.1" +
                 "    END " +
                 "    WHEN t.MaLoaiToa = 'GNK6' THEN CASE " +
-                "        WHEN gaDen.KhoangCach = 0 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.25 " +
-                "        WHEN gaDen.KhoangCach <= 100 THEN 500 * gaDen.KhoangCach * 1.1 * 1.25 " +
-                "        WHEN gaDen.KhoangCach <= 250 THEN 500 * gaDen.KhoangCach * 1.25 * 1.25 " +
-                "        WHEN gaDen.KhoangCach <= 1000 THEN 500 * gaDen.KhoangCach * 1.5 * 1.25 " +
-                "        ELSE 500 * gaDen.KhoangCach * 2 * 1.25 " +
+                "        WHEN gaDen.KhoangCach = 0 THEN (\n" +
+                "\t\t\t\t\tCASE \n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 100 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.1 * 1.25\n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 250 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.25 * 1.25\n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 1000 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.5 * 1.25\n" +
+                "\t\t\t\t\t\tELSE 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 2 * 1.25\n" +
+                "\t\t\t\t\tEND)\n" +
+                "                WHEN gaDen.KhoangCach <= 100 THEN 500 * gaDen.KhoangCach * 1.1 * 1.25\n" +
+                "                WHEN gaDen.KhoangCach <= 250 THEN 500 * gaDen.KhoangCach * 1.25 * 1.25\n" +
+                "                WHEN gaDen.KhoangCach <= 1000 THEN 500 * gaDen.KhoangCach * 1.5 * 1.25\n" +
+                "                ELSE 500 * gaDen.KhoangCach * 2 * 1.25" +
                 "    END " +
                 "    WHEN t.MaLoaiToa = 'GNK4' THEN CASE " +
-                "        WHEN gaDen.KhoangCach = 0 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.5 " +
-                "        WHEN gaDen.KhoangCach <= 100 THEN 500 * gaDen.KhoangCach * 1.1 * 1.5 " +
-                "        WHEN gaDen.KhoangCach <= 250 THEN 500 * gaDen.KhoangCach * 1.25 * 1.5 " +
-                "        WHEN gaDen.KhoangCach <= 1000 THEN 500 * gaDen.KhoangCach * 1.5 * 1.5 " +
-                "        ELSE 500 * gaDen.KhoangCach * 2 * 1.5 " +
+                "        WHEN gaDen.KhoangCach = 0 THEN (\n" +
+                "\t\t\t\t\tCASE \n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 100 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.1 * 1.5\n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 250 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.25 * 1.5\n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 1000 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.5 * 1.5\n" +
+                "\t\t\t\t\t\tELSE 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 2 * 1.5\n" +
+                "\t\t\t\t\tEND)\n" +
+                "                WHEN gaDen.KhoangCach <= 100 THEN 500 * gaDen.KhoangCach * 1.1 * 1.5\n" +
+                "                WHEN gaDen.KhoangCach <= 250 THEN 500 * gaDen.KhoangCach * 1.25 * 1.5\n" +
+                "                WHEN gaDen.KhoangCach <= 1000 THEN 500 * gaDen.KhoangCach * 1.5 * 1.5\n" +
+                "                ELSE 500 * gaDen.KhoangCach * 2 * 1.5" +
                 "    END " +
                 "    WHEN t.MaLoaiToa = 'TVIP' THEN CASE " +
-                "        WHEN gaDen.KhoangCach = 0 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 2 " +
-                "        WHEN gaDen.KhoangCach <= 100 THEN 500 * gaDen.KhoangCach * 1.1 * 2 " +
-                "        WHEN gaDen.KhoangCach <= 250 THEN 500 * gaDen.KhoangCach * 1.25 * 2 " +
-                "        WHEN gaDen.KhoangCach <= 1000 THEN 500 * gaDen.KhoangCach * 1.5 * 2 " +
-                "        ELSE 500 * gaDen.KhoangCach * 2 * 2 " +
+                "        WHEN gaDen.KhoangCach = 0 THEN (\n" +
+                "\t\t\t\t\tCASE \n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 100 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.1 * 2\n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 250 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.25 * 2\n" +
+                "\t\t\t\t\t\tWHEN (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) <= 1000 THEN 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 1.5 * 2\n" +
+                "\t\t\t\t\t\tELSE 500 * (SELECT KhoangCach FROM Ga WHERE MaGa = lt.MaGaDi) * 2 * 2\n" +
+                "\t\t\t\t\tEND)\n" +
+                "                WHEN gaDen.KhoangCach <= 100 THEN 500 * gaDen.KhoangCach * 1.1 * 2\n" +
+                "                WHEN gaDen.KhoangCach <= 250 THEN 500 * gaDen.KhoangCach * 1.25 * 2\n" +
+                "                WHEN gaDen.KhoangCach <= 1000 THEN 500 * gaDen.KhoangCach * 1.5 * 2\n" +
+                "                ELSE 500 * gaDen.KhoangCach * 2 * 2" +
                 "    END " +
                 "    ELSE 0 " +
                 "END AS GiaCho " +

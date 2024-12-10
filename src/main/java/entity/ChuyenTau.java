@@ -22,14 +22,10 @@ public class ChuyenTau {
         return soHieutau;
     }
 
-    // có dạng AAAAXXXX, trong đó: AAAA là tên viết tắt của chủ so huu hoac ten thuong mai, XXXX là 4 chữ số
     public void setSoHieutau(String soHieutau) {
         if (soHieutau == null || soHieutau.isBlank()) {
             throw new IllegalArgumentException("Số hiệu tàu không được rỗng");
         }
-//        if (!soHieutau.matches("^[A-Z]{4}[0-9]{4}$")) {
-//            throw new IllegalArgumentException("Số hiệu tàu không hợp lệ");
-//        }
         this.soHieutau = soHieutau;
     }
 

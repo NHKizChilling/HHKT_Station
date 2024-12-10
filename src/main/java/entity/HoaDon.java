@@ -125,9 +125,6 @@ public class HoaDon {
         if (ngayLapHoaDon == null) {
             throw new IllegalArgumentException("Ngày lập hóa đơn không hợp lệ");
         }
-//        if (ngayLapHoaDon.isBefore(LocalDateTime.now())) {
-//            throw new IllegalArgumentException("Ngày lập hóa đơn không hợp lệ");
-//        }
         this.ngayLapHoaDon = ngayLapHoaDon;
     }
 

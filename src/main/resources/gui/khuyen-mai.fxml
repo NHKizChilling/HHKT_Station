@@ -45,6 +45,18 @@
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
+      <DatePicker fx:id="dp_searchNgayBatDau" layoutX="237.0" layoutY="162.0" prefHeight="35.0" prefWidth="186.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></DatePicker>
+      <ComboBox fx:id="cb_searchTrangThai" layoutX="671.0" layoutY="162.0" prefHeight="35.0" prefWidth="186.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ComboBox>
+      <Button fx:id="btn_reset" alignment="CENTER_RIGHT" layoutX="367.0" layoutY="233.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Làm mới">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Button fx:id="btn_search" alignment="CENTER_RIGHT" layoutX="497.0" layoutY="233.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="135.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Tra cứu khuyến mãi">
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -81,7 +93,7 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="btn_update" alignment="CENTER_RIGHT" layoutX="167.0" layoutY="660.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Cập nhật">
+            <Button fx:id="btn_update" alignment="CENTER_RIGHT" disable="true" layoutX="167.0" layoutY="660.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Cập nhật">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
@@ -97,11 +109,11 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cb_mucGiam" layoutX="152.0" layoutY="113.0" prefHeight="35.0" prefWidth="161.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;">
+            <ComboBox fx:id="cb_mucGiam" layoutX="152.0" layoutY="113.0" prefHeight="35.0" prefWidth="161.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" visibleRowCount="5">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></ComboBox>
-            <DatePicker fx:id="dp_ngayBatDau" layoutX="152.0" layoutY="173.0" prefHeight="35.0" prefWidth="161.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;">
+            <DatePicker fx:id="dp_ngayBatDau" editable="true" layoutX="152.0" layoutY="173.0" prefHeight="35.0" prefWidth="228.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></DatePicker>
@@ -110,7 +122,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <DatePicker fx:id="dp_ngayKetThuc" layoutX="152.0" layoutY="232.0" prefHeight="35.0" prefWidth="161.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;">
+            <DatePicker fx:id="dp_ngayKetThuc" editable="true" layoutX="152.0" layoutY="232.0" prefHeight="35.0" prefWidth="228.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></DatePicker>
@@ -139,13 +151,8 @@
                </cursor></TextArea>
          </children>
       </Pane>
-      <Button fx:id="btn_reset" alignment="CENTER_RIGHT" layoutX="367.0" layoutY="233.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Làm mới">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
       <FontAwesomeIcon disable="true" glyphName="SEARCH" layoutX="503.0" layoutY="255.0" />
       <FontAwesomeIcon glyphName="REFRESH" layoutX="374.0" layoutY="254.0" />
-      <DatePicker fx:id="dp_searchNgayBatDau" layoutX="237.0" layoutY="162.0" prefHeight="35.0" prefWidth="186.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" />
       <Label layoutX="52.0" layoutY="83.0" text="Mã khuyến mãi:">
          <font>
             <Font size="18.0" />
@@ -161,6 +168,5 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cb_searchTrangThai" layoutX="671.0" layoutY="162.0" prefHeight="35.0" prefWidth="186.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" />
    </children>
 </AnchorPane>

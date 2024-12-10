@@ -38,12 +38,6 @@ public class KhachHang {
 
     // mã hành khách bao gồm: HK+8 chữ số tăng dần
     public void setMaHanhKhach(String maKH) {
-//        if (maKH == null || maKH.isBlank()) {
-//            throw new IllegalArgumentException("Mã khách hàng không hợp lệ");
-//        }
-//        if (!maKH.matches("KH[0-9]{8}$")) {
-//            throw new IllegalArgumentException("Mã khách hàng không hợp lệ");
-//        }
         this.maKH = maKH;
     }
 
@@ -56,9 +50,6 @@ public class KhachHang {
         if (tenKH == null || tenKH.isBlank()) {
             throw new IllegalArgumentException("Tên hành khách không hợp lệ");
         }
-//        if (!tenHanhKhach.matches("^[A-Z][a-z]+(\\s[A-Z][a-z]+)*$")) {
-//            throw new IllegalArgumentException("Tên hành khách không hợp lệ");
-//        }
         this.tenKH = tenKH;
     }
 
@@ -92,7 +83,7 @@ public class KhachHang {
     }
 
     public void setEmail(String email) {
-        if (!email.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)+$")) {
+        if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
             throw new IllegalArgumentException("Email không hợp lệ");
         }
         this.email = email;

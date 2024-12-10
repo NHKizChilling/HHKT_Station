@@ -1,6 +1,5 @@
 package dao;
 
-import com.sun.jdi.ArrayReference;
 import connectdb.ConnectDB;
 import entity.ChiTietLichTrinh;
 import entity.ChoNgoi;

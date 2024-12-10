@@ -4,6 +4,7 @@ import com.github.sarxos.webcam.Webcam;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+import com.jfoenix.controls.JFXButton;
 import dao.*;
 import entity.*;
 import gui.TrangChu_GUI;
@@ -44,16 +45,16 @@ public class HuyVeController implements Initializable {
     private ComboBox<String> cb_search;
 
     @FXML
-    private Button btn_lamMoi;
+    private JFXButton btn_lamMoi;
 
     @FXML
     private TextField txt_search;
 
     @FXML
-    private Button btn_search;
+    private JFXButton btn_search;
 
     @FXML
-    private Button btnQuetMaVe;
+    private JFXButton btnQuetMaVe;
 
     // Table thông tin vé
     @FXML
@@ -91,7 +92,7 @@ public class HuyVeController implements Initializable {
     private TextField txt_cccd;
 
     @FXML
-    private Button btn_yeuCau;
+    private JFXButton btn_yeuCau;
 
     @FXML
     private Label lbl_thongBao;
@@ -110,7 +111,7 @@ public class HuyVeController implements Initializable {
     private TextField txt_tongTienTra;
 
     @FXML
-    private Button btn_xacNhan;
+    private JFXButton btn_xacNhan;
 
     @FXML
     private Label lbl_thongBao2;

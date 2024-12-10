@@ -203,7 +203,7 @@ public class LichTrinh_DAO {
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
         int n = 0;
-        PreparedStatement stm = null;
+        PreparedStatement stm;
         try {
             String sql = "update LichTrinh set TrangThai = ? where ThoiGianKhoiHanh < ?";
             stm = con.prepareStatement(sql);

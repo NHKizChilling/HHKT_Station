@@ -23,7 +23,6 @@ public class LoaiToa {
     }
 
 
-    // mã loại toa bao gồm:  NC, NM, GNK6, GNK4, TVIP.
     public void setMaLoaiToa(String maLoaiToa) {
         if (maLoaiToa == null || maLoaiToa.isBlank()) {
             throw new IllegalArgumentException("Mã loại toa không hợp lệ");

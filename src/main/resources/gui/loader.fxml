@@ -12,7 +12,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="204.0" prefWidth="500.0" style="-fx-background-color: linear-gradient(to right, lightblue, #5098ff);" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoaderController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="204.0" prefWidth="500.0" style="-fx-background-color: linear-gradient(to right, lightblue, #5098ff);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoaderController">
    <children>
       <ProgressBar fx:id="progressBar" layoutX="-5.0" layoutY="190.0" prefHeight="20.0" prefWidth="510.0" progress="0.0" />
       <Label fx:id="lblLoading" alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="168.0" text="Loading..." textFill="WHITE">
@@ -66,7 +66,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="392.0" layoutY="169.0" text="HHKT Station v1.0" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="392.0" layoutY="169.0" text="HHKT Station v2.0" textFill="WHITE">
          <font>
             <Font name="Times New Roman Italic" size="14.0" />
          </font>

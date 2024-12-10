@@ -5,13 +5,11 @@ import entity.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -131,7 +129,7 @@ public class ThongKeNVController implements Initializable {
 
         // Tự động thêm năm vào combobox
         int currentYear = LocalDate.now().getYear();
-        String lastYearStr = cb_nam.getItems().isEmpty() ? "0" : cb_nam.getItems().get(cb_nam.getItems().size() - 1);
+        String lastYearStr = cb_nam.getItems().isEmpty() ? "0" : cb_nam.getItems().getLast();
         int lastYear = Integer.parseInt(lastYearStr);
         for (int i = lastYear + 1; i <= currentYear; i++) {
             cb_nam.getItems().add(String.valueOf(i));

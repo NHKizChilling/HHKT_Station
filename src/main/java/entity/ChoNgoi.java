@@ -30,15 +30,10 @@ public class ChoNgoi {
         return maChoNgoi;
     }
 
-
-    //mã chỗ ngồi là: mã toa + CN + Stt chỗ ngồi
     public void setMaChoNgoi(String maChoNgoi) {
         if (maChoNgoi == null || maChoNgoi.isBlank()) {
             throw new IllegalArgumentException("Mã chỗ ngồi không hợp lệ");
         }
-//        if (!maChoNgoi.matches("^[A-Z]{2}CN[0-9]{2}$")) {
-//            throw new IllegalArgumentException("Mã chỗ ngồi không hợp lệ");
-//        }
         this.maChoNgoi = maChoNgoi;
     }
 

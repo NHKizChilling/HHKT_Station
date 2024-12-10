@@ -12,25 +12,18 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class TrangChu_GUI extends Application {
 
     public static NhanVien nv;
     public static Stage stage;
 
-    public static Stage getStage() {
-        return stage;
-    }
-
-    public static void setStage(Stage stage) {
-        TrangChu_GUI.stage = stage;
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         nv = null;
         stage = new Stage();
-        Parent root = FXMLLoader.load(TrangChu_GUI.class.getResource("dang-nhap.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(TrangChu_GUI.class.getResource("dang-nhap.fxml")));
         Scene scene = new Scene(root);
         stage.setTitle("Trang chủ");
         stage.setScene(scene);
@@ -57,5 +50,9 @@ public class TrangChu_GUI extends Application {
         });
 
 
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

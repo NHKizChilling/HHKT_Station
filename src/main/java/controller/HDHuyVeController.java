@@ -87,7 +87,7 @@ public class HDHuyVeController implements Initializable {
     private ArrayList<Ve> listVe;
     private HashMap<String, Double> mapLePhi;
     private final PrintPDF printPDF = new PrintPDF();
-    private NumberFormat currencyVN = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));
+    private final NumberFormat currencyVN = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -323,7 +323,7 @@ public class HDHuyVeController implements Initializable {
         return false;
     }
 
-    ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(listVe.get(0).getMaVe());
+    ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(listVe.getFirst().getMaVe());
     HoaDon hd = hoaDon_dao.getHoaDonTheoMa(ctHoaDon.getHoaDon().getMaHoaDon());
     KhachHang tmp = khachHang_dao.getKhachHangTheoMaKH(hd.getKhachHang().getMaKH());
 

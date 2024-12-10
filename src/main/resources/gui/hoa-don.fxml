@@ -66,8 +66,9 @@
                         <TextField fx:id="txtTenNV" disable="true" layoutX="781.0" layoutY="84.0" prefHeight="36.0" prefWidth="190.0" style="-fx-background-color: transparent; -fx-border-width: 0 0 2 0; -fx-border-color: #333;" />
                         <AnchorPane fx:id="paneCTVe" layoutX="-1.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="130.0" prefWidth="988.0">
                            <children>
-                              <TextField fx:id="txtTenHK" layoutX="509.0" layoutY="65.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-border-color: #5098ff; -fx-border-width: 0 0 1 0;" />
                               <ComboBox fx:id="cbLoaiVe" layoutX="147.0" layoutY="65.0" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-border-color: #5098ff;" />
+                              <TextField fx:id="txtTenHK" layoutX="509.0" layoutY="65.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-border-color: #5098ff; -fx-border-width: 0 0 1 0;" />
+                              <TextField fx:id="txtSoCCCD" layoutX="146.0" layoutY="100.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-border-color: #5098ff; -fx-border-width: 0 0 1 0;" />
                               <Label layoutX="6.0" layoutY="69.0" text="Loại vé">
                                  <font>
                                     <Font name="Times New Roman Bold" size="15.0" />
@@ -78,7 +79,6 @@
                                     <Font name="Times New Roman Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtSoCCCD" layoutX="146.0" layoutY="100.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-border-color: #5098ff; -fx-border-width: 0 0 1 0;" />
                               <DatePicker fx:id="dpNgaySinh" disable="true" layoutX="509.0" layoutY="102.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-border-color: #5098ff; -fx-border-width: 0 0 1 0;" />
                               <Label layoutX="6.0" layoutY="104.0" text="Số CCCD">
                                  <font>

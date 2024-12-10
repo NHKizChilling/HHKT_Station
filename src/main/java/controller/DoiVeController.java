@@ -68,10 +68,10 @@ public class DoiVeController implements Initializable {
     private TextField txt_search;
 
     @FXML
-    private Button btn_lamMoi;
+    private JFXButton btn_lamMoi;
 
     @FXML
-    private Button btn_search;
+    private JFXButton btn_search;
 
     @FXML
     private TableView<Ve> tbl_thongTinVe;
@@ -108,7 +108,7 @@ public class DoiVeController implements Initializable {
     private DatePicker dp_ngayKhoiHanh;
 
     @FXML
-    private Button btnQuetMaVe;
+    private JFXButton btnQuetMaVe;
 
     @FXML
     private JFXButton btnTraCuuCT;
@@ -132,10 +132,10 @@ public class DoiVeController implements Initializable {
     private Label label_thongBao;
 
     @FXML
-    private Button btn_xacNhan;
+    private JFXButton btn_xacNhan;
 
     @FXML
-    private Button btn_doiVe;
+    private JFXButton btn_doiVe;
 
 
     LichTrinh_DAO lichTrinh_dao;
@@ -324,6 +324,7 @@ public class DoiVeController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Vui lòng chọn ngày khởi hành");
             alert.show();
+            btnTraCuuCT.setDisable(false);
         });
 
         btnTraCuuCT.setOnAction(e -> {

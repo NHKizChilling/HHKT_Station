@@ -112,14 +112,16 @@ public class NhanVienController implements Initializable {
             if (type == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
-                alert.setHeaderText("Chưa chọn loại tìm kiếm");
+                alert.setHeaderText(null);
+                alert.setContentText("Chưa chọn loại tìm kiếm");
                 alert.show();
                 return;
             }
             if (search.isBlank()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
-                alert.setHeaderText("Chưa nhập từ khóa tìm kiếm");
+                alert.setHeaderText(null);
+                alert.setContentText("Chưa nhập từ khóa tìm kiếm");
                 alert.show();
                 return;
             }
@@ -138,16 +140,9 @@ public class NhanVienController implements Initializable {
         btn_reset.setOnAction(e -> {
             renderNhanVienTable(list);
             txt_search.clear();
-            cb_search.setPromptText("Tìm kiếm theo");
-            txt_maNV.clear();
-            txt_tenNV.clear();
-            txt_cccd.clear();
-            cb_gioiTinh.getSelectionModel().clearSelection();
-            datePicker_dob.setValue(null);
-            txt_sdt.clear();
-            txt_email.clear();
-            cb_chucVu.getSelectionModel().clearSelection();
-            cb_tinhTrangCV.getSelectionModel().clearSelection();
+            txt_search.requestFocus();
+            cb_search.getSelectionModel().clearSelection();
+            btn_clear.fire();
         });
 
         // Chức năng hiển thị thông tin nhân viên khi click vào bảng
@@ -163,6 +158,8 @@ public class NhanVienController implements Initializable {
                 txt_email.setText(nv.getEmail());
                 cb_chucVu.setValue(nv.getChucVu());
                 cb_tinhTrangCV.setValue(nv.getTinhTrangCV());
+                btn_add.setDisable(true);
+                btn_update.setDisable(false);
             }
         });
 
@@ -177,6 +174,9 @@ public class NhanVienController implements Initializable {
             txt_email.clear();
             cb_chucVu.getSelectionModel().clearSelection();
             cb_tinhTrangCV.getSelectionModel().clearSelection();
+            btn_add.setDisable(false);
+            btn_update.setDisable(true);
+            tbl_nhanVien.getSelectionModel().clearSelection();
         });
 
         // Chức năng thêm nhân viên
@@ -191,7 +191,7 @@ public class NhanVienController implements Initializable {
             String tinhTrangCV = cb_tinhTrangCV.getValue();
 
             // tạo mã nhân viên
-            String maNVcuoi = list.get(list.size() - 1).getMaNhanVien();
+            String maNVcuoi = list.getLast().getMaNhanVien();
             String maNV = "NV" + (Integer.parseInt(maNVcuoi.substring(2)) + 1);
 
             if (invalidInput(tenNV, cccd, dob, sdt, chucVu)) return;
@@ -199,14 +199,16 @@ public class NhanVienController implements Initializable {
             if (nhanVien_dao.create(nv)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Thành công");
-                alert.setHeaderText("Thêm nhân viên thành công");
+                alert.setHeaderText(null);
+                alert.setContentText("Thêm nhân viên thành công");
                 alert.show();
                 list.add(nv);
                 renderNhanVienTable(list);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
-                alert.setHeaderText("Thêm nhân viên thất bại");
+                alert.setHeaderText(null);
+                alert.setContentText("Thêm nhân viên thất bại");
                 alert.show();
             }
         });
@@ -225,7 +227,8 @@ public class NhanVienController implements Initializable {
             if (maNV.isBlank()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
-                alert.setHeaderText("Chưa chọn nhân viên cần cập nhật");
+                alert.setHeaderText(null);
+                alert.setContentText("Chưa chọn nhân viên cần cập nhật");
                 alert.show();
                 return;
             }
@@ -234,14 +237,16 @@ public class NhanVienController implements Initializable {
             if (nhanVien_dao.updateInfo(nv)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Thành công");
-                alert.setHeaderText("Cập nhật nhân viên thành công");
+                alert.setHeaderText(null);
+                alert.setContentText("Cập nhật nhân viên thành công");
                 alert.show();
                 list.set(list.indexOf(nv), nv);
                 renderNhanVienTable(list);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
-                alert.setHeaderText("Cập nhật nhân viên thất bại");
+                alert.setHeaderText(null);
+                alert.setContentText("Cập nhật nhân viên thất bại");
                 alert.show();
             }
         });
@@ -251,7 +256,8 @@ public class NhanVienController implements Initializable {
         if (tenNV.isBlank()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
-            alert.setHeaderText("Tên nhân viên không được để trống");
+            alert.setHeaderText(null);
+            alert.setContentText("Tên nhân viên không được để trống");
             alert.show();
             txt_tenNV.requestFocus();
             return true;
@@ -259,7 +265,8 @@ public class NhanVienController implements Initializable {
         if (cccd.length() != 9 && cccd.length() != 12) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
-            alert.setHeaderText("Số CCCD không hợp lệ");
+            alert.setHeaderText(null);
+            alert.setContentText("Số CCCD không hợp lệ");
             alert.show();
             txt_cccd.requestFocus();
             return true;
@@ -267,7 +274,8 @@ public class NhanVienController implements Initializable {
         if (cccd.isBlank()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
-            alert.setHeaderText("Số CCCD không được để trống");
+            alert.setHeaderText(null);
+            alert.setContentText("Số CCCD không được để trống");
             alert.show();
             txt_cccd.requestFocus();
             return true;
@@ -275,23 +283,46 @@ public class NhanVienController implements Initializable {
         if (dob == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
-            alert.setHeaderText("Ngày sinh không được để trống");
+            alert.setHeaderText(null);
+            alert.setContentText("Ngày sinh không được để trống");
             alert.show();
             datePicker_dob.requestFocus();
             return true;
+        } else {
+            if (dob.isAfter(LocalDate.now().minusYears(18))) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Lỗi");
+                alert.setHeaderText(null);
+                alert.setContentText("Ngày sinh không hợp lệ");
+                alert.show();
+                datePicker_dob.requestFocus();
+                return true;
+            }
         }
         if (sdt.isBlank()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
-            alert.setHeaderText("Số điện thoại không được để trống");
+            alert.setHeaderText(null);
+            alert.setContentText("Số điện thoại không được để trống");
             alert.show();
             txt_sdt.requestFocus();
             return true;
+        } else {
+            if (!sdt.matches("0\\d{9}")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Lỗi");
+                alert.setHeaderText(null);
+                alert.setContentText("Số điện thoại không hợp lệ");
+                alert.show();
+                txt_sdt.requestFocus();
+                return true;
+            }
         }
         if (chucVu.isBlank()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
-            alert.setHeaderText("Vui lòng chọn chức vụ");
+            alert.setHeaderText(null);
+            alert.setContentText("Vui lòng chọn chức vụ");
             alert.show();
             cb_chucVu.requestFocus();
             return true;

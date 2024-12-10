@@ -14,7 +14,6 @@ import entity.HoaDon;
 import entity.Ve;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -33,10 +32,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellStyle;
-
-import javax.swing.text.Style;
 
 
 /*
@@ -223,7 +219,7 @@ public class ThongKeController implements Initializable {
 
         //Tự động thêm năm vào combobox
         int currentYear = LocalDate.now().getYear();
-        int lastYear = Integer.parseInt(cb_nam.getItems().get(cb_nam.getItems().size() - 1));
+        int lastYear = Integer.parseInt(cb_nam.getItems().getLast());
         for (int i = lastYear + 1; i <= currentYear; i++) {
             cb_nam.getItems().add(String.valueOf(i));
             cb_sumNam.getItems().add(String.valueOf(i));

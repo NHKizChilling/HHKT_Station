@@ -1,5 +1,6 @@
 package controller;
 
+import com.jfoenix.controls.JFXButton;
 import connectdb.ConnectDB;
 import entity.NhanVien;
 import gui.TrangChu_GUI;
@@ -8,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,10 +30,10 @@ public class MoCaController implements Initializable {
     private TextField txt_ghiChu;
 
     @FXML
-    private Button btn_moCa;
+    private JFXButton btn_moCa;
 
     @FXML
-    private Button btn_dangXuat;
+    private JFXButton btn_dangXuat;
 
     private NhanVien nv;
 
@@ -75,21 +75,17 @@ public class MoCaController implements Initializable {
             getData.tienDauCa = tienDauCa;
             getData.gioMoCa = LocalDateTime.now();
             getData.ghiChu = txt_ghiChu.getText();
-
             FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("trang-chu.fxml"));
             Scene scene = null;
             try {
                 scene = new Scene(fxmlLoader.load());
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
+            TrangChu_GUI.stage.close();
             TrangChu_GUI.stage.setScene(scene);
             TrangChu_GUI.stage.show();
             TrangChu_GUI.stage.centerOnScreen();
-
-            // Đóng cửa sổ hiện tại
-            Stage currentStage = (Stage) btn_moCa.getScene().getWindow();
-            currentStage.close();
         });
 
         btn_dangXuat.setOnAction(event -> {

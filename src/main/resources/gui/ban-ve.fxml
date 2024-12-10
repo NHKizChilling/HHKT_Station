@@ -28,16 +28,6 @@
    <children>
       <AnchorPane prefHeight="755.0" prefWidth="200.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-width: 0 3 0 0; -fx-border-radius: 10;">
          <children>
-            <DatePicker fx:id="dpNgayKH" editable="false" layoutX="16.0" layoutY="242.0" prefHeight="26.0" prefWidth="152.0" style="-fx-background-color: #fff; -fx-border-color: lightblue; -fx-border-radius: 5;">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </DatePicker>
-            <DatePicker fx:id="dpNgayVe" disable="true" editable="false" layoutX="15.0" layoutY="323.0" prefHeight="26.0" prefWidth="153.0" style="-fx-background-color: #fff; -fx-border-color: lightblue; -fx-border-radius: 5;">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </DatePicker>
             <Label layoutX="5.0" layoutY="34.0" text="Ga đi:">
                <font>
                   <Font name="Times New Roman Bold" size="15.0" />
@@ -59,28 +49,6 @@
                </font>
             </Label>
             <Group layoutX="17.0" layoutY="197.0" />
-            <JFXRadioButton fx:id="rdBtnKH" layoutX="105.0" layoutY="178.0" text="Khứ hồi">
-               <selectedColor>
-                  <Color red="0.3137255012989044" green="0.5960784554481506" blue="1.0" />
-               </selectedColor>
-               <unSelectedColor>
-                  <Color red="0.6784313917160034" green="0.8470588326454163" blue="0.9019607901573181" />
-               </unSelectedColor>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXRadioButton>
-            <JFXRadioButton fx:id="rdBtnMC" layoutX="8.0" layoutY="178.0" text="Một chiều">
-               <selectedColor>
-                  <Color red="0.3137255012989044" green="0.5960784554481506" blue="1.0" />
-               </selectedColor>
-               <unSelectedColor>
-                  <Color red="0.6784313917160034" green="0.8470588326454163" blue="0.9019607901573181" />
-               </unSelectedColor>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXRadioButton>
             <Label prefHeight="26.0" prefWidth="197.0" styleClass="label-info" stylesheets="@dashboardDesign.css" text="Tra cứu chuyến tàu" textFill="#5098ff">
                <font>
                   <Font name="Times New Roman Bold" size="20.0" />
@@ -106,6 +74,38 @@
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </JFXComboBox>
+            <JFXRadioButton fx:id="rdBtnMC" layoutX="8.0" layoutY="178.0" text="Một chiều">
+               <selectedColor>
+                  <Color red="0.3137255012989044" green="0.5960784554481506" blue="1.0" />
+               </selectedColor>
+               <unSelectedColor>
+                  <Color red="0.6784313917160034" green="0.8470588326454163" blue="0.9019607901573181" />
+               </unSelectedColor>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="rdBtnKH" layoutX="105.0" layoutY="178.0" text="Khứ hồi">
+               <selectedColor>
+                  <Color red="0.3137255012989044" green="0.5960784554481506" blue="1.0" />
+               </selectedColor>
+               <unSelectedColor>
+                  <Color red="0.6784313917160034" green="0.8470588326454163" blue="0.9019607901573181" />
+               </unSelectedColor>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXRadioButton>
+            <DatePicker fx:id="dpNgayKH" editable="false" layoutX="16.0" layoutY="242.0" prefHeight="26.0" prefWidth="152.0" style="-fx-background-color: #fff; -fx-border-color: lightblue; -fx-border-radius: 5;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </DatePicker>
+            <DatePicker fx:id="dpNgayVe" disable="true" editable="false" layoutX="15.0" layoutY="323.0" prefHeight="26.0" prefWidth="153.0" style="-fx-background-color: #fff; -fx-border-color: lightblue; -fx-border-radius: 5;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </DatePicker>
             <JFXButton fx:id="btnLamMoi" alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="CENTER" layoutX="8.0" layoutY="375.0" prefHeight="38.0" prefWidth="90.0" ripplerFill="WHITE" style="-fx-background-color: #5098ff; -fx-border-color: #333; -fx-border-radius: 10; -fx-background-radius: 10;" text="Làm mới" textFill="WHITE">
                <font>
                   <Font name="Times New Roman Bold" size="15.0" />

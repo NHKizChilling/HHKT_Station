@@ -17,7 +17,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
@@ -47,10 +46,10 @@ public class GioiThieuController implements Initializable {
     @FXML
     private Label lblSLVe;
 
-    private LichTrinh_DAO lt_dao = new LichTrinh_DAO();
-    private Ve_DAO ve_dao = new Ve_DAO();
-    private HoaDon_DAO hd_dao = new HoaDon_DAO();
-    private CT_HoaDon_DAO cthd = new CT_HoaDon_DAO();
+    private final LichTrinh_DAO lt_dao = new LichTrinh_DAO();
+    private final Ve_DAO ve_dao = new Ve_DAO();
+    private final HoaDon_DAO hd_dao = new HoaDon_DAO();
+    private final CT_HoaDon_DAO cthd = new CT_HoaDon_DAO();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

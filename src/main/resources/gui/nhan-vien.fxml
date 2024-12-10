@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1384.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NhanVienController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1384.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NhanVienController">
    <children>
       <AnchorPane layoutX="15.0" layoutY="170.0" prefHeight="570.0" prefWidth="942.0" styleClass="shadow">
          <children>
@@ -107,7 +107,7 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="btn_update" alignment="CENTER_RIGHT" layoutX="167.0" layoutY="660.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Cập nhật">
+            <Button fx:id="btn_update" alignment="CENTER_RIGHT" disable="true" layoutX="167.0" layoutY="660.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Cập nhật">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>

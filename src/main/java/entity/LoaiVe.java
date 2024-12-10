@@ -30,9 +30,6 @@ public class LoaiVe {
         if (maLoaiVe == null || maLoaiVe.isBlank()) {
             throw new IllegalArgumentException("Mã loại vé không hợp lệ");
         }
-//        if (!maLoaiVe.matches("^(BT|NCT|TE|TE6|HSSV)$")) {
-//            throw new IllegalArgumentException("Mã loại vé không hợp lệ");
-//        }
         this.maLoaiVe = maLoaiVe;
     }
 
@@ -55,7 +52,6 @@ public class LoaiVe {
         return mucGiamGia;
     }
 
-    // mức giảm bao gồm: 0%, 10%, 15%, 25%
     public void setMucGiamGia(float mucGiamGia) {
         if (mucGiamGia < 0 || mucGiamGia > 1) {
             throw new IllegalArgumentException("Mức giảm giá không hợp lệ");

@@ -158,7 +158,6 @@ public class TrangChuController implements Initializable {
         btnTKDoanhThu.setOnMouseClicked(e -> chooseFeatureButtonLV2(btnTKDoanhThu));
         btnTKNV.setOnMouseClicked(e -> chooseFeatureButtonLV2(btnTKNV));
         btnFVe.setOnMouseClicked(e -> {
-            onClick();
             try {
                 ConnectDB.connect();
             } catch (SQLException ex) {
@@ -184,10 +183,10 @@ public class TrangChuController implements Initializable {
                     icon.setLayoutY(icon.getLayoutY() + acpVe.getHeight());
                 });
             } else {
+                onClick();
                 btnFVe.setStyle(style + "-fx-border-width: 0 0 2 0;");
                 iconDown.setIcon(FontAwesomeIcons.ANGLE_DOWN);
                 acpVe.setVisible(false);
-                //cho layout các button còn lại + 50
                 List<Button> dsF = List.of(btnFQLHD, btnFNV, btnFKH, btnFBCTK, btnFCT, btnFKM,btnUM);
                 List<FontAwesomeIcon> dsIcon = List.of(iconHD, iconNV, iconHK, iconCT, iconKM, iconTK, iconDownTK, iconHelp);
                 dsF.forEach(btn -> {
@@ -222,6 +221,8 @@ public class TrangChuController implements Initializable {
                 btnUM.setLayoutY(btnUM.getLayoutY() + acpTK.getHeight());
                 iconHelp.setLayoutY(iconHelp.getLayoutY() + acpTK.getHeight());
             } else {
+                onClick();
+                btnFBCTK.setStyle(style + "-fx-border-width: 0 0 2 0;");
                 iconDownTK.setIcon(FontAwesomeIcons.ANGLE_DOWN);
                 acpTK.setVisible(false);
                 btnUM.setLayoutY(btnUM.getLayoutY() - acpTK.getHeight());
