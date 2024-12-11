@@ -218,6 +218,7 @@ public class ThongKeController implements Initializable {
         cb_sumNam.getItems().addAll("2020", "2021", "2022", "2023", "2024");
 
         // Lấy ngày hôm nay để set mặc định cho combobox
+        cb_thongKe.setValue("Ngày");
         cb_ngay.setValue(String.valueOf(date.getDayOfMonth()));
         cb_thang.setValue(String.valueOf(date.getMonthValue()));
         cb_nam.setValue(String.valueOf(date.getYear()));
@@ -277,6 +278,7 @@ public class ThongKeController implements Initializable {
     }
 
     private void renderChart(String year) {
+        barChart_doanhThu.getData().clear();
         double tongDoanhThu = 0;
         int tongVeBan = 0;
 
