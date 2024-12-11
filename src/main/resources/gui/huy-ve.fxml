@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1386.0" style="-fx-background-color: #ffffff;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HuyVeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1386.0" style="-fx-background-color: #ffffff;" stylesheets="@dashboardDesign.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HuyVeController">
    <left>
       <AnchorPane prefHeight="783.0" prefWidth="953.0" BorderPane.alignment="CENTER">
          <children>
@@ -136,7 +136,7 @@
                         </FontAwesomeIcon>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnQuetMaVe" alignment="CENTER_RIGHT" buttonType="RAISED" disable="true" layoutX="706.0" layoutY="11.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" text="Quét mã">
+                  <JFXButton fx:id="btnQuetMaVe" alignment="CENTER_RIGHT" buttonType="RAISED" layoutX="706.0" layoutY="11.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-background-radius: 5; -fx-border-radius: 5;" text="Quét mã">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

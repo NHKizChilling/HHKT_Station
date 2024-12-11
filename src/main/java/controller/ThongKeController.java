@@ -277,6 +277,7 @@ public class ThongKeController implements Initializable {
     }
 
     private void renderChart(String year) {
+        barChart_doanhThu.getData().clear();
         double tongDoanhThu = 0;
         int tongVeBan = 0;
 

@@ -143,6 +143,7 @@ public class HuyVeController implements Initializable {
                 txt_search.setPromptText("Nhập mã hóa đơn");
                 btnQuetMaVe.setDisable(true);
             } else {
+                btnQuetMaVe.setDisable(false);
                 txt_search.setPromptText("Nhập mã vé");
             }
         });

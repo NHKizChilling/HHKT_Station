@@ -24,7 +24,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane layoutY="-2.0" prefHeight="755.0" prefWidth="1385.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BanVeController">
+<AnchorPane layoutY="-2.0" prefHeight="755.0" prefWidth="1385.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BanVeController">
    <children>
       <AnchorPane prefHeight="755.0" prefWidth="200.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-width: 0 3 0 0; -fx-border-radius: 10;">
          <children>
@@ -326,7 +326,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <Label layoutX="62.0" layoutY="55.0" text="Tên hành khách" textFill="#483f3f">
+                  <Label layoutX="62.0" layoutY="55.0" text="Tên khách hàng" textFill="#483f3f">
                      <font>
                         <Font name="Times New Roman Bold" size="15.0" />
                      </font>

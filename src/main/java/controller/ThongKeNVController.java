@@ -153,9 +153,15 @@ public class ThongKeNVController implements Initializable {
 
         HashMap<String, Double> mapNV = new HashMap<>();
         for (HoaDon hoaDon : listHoaDon) {
-            String tenNhanVien = hoaDon.getNhanVien().getTenNhanVien();
+            String maNV = hoaDon.getNhanVien().getMaNhanVien();
+            String tenNhanVien = nhanVien_dao.getNhanVien(maNV).getTenNhanVien();
             double doanhThu = hoaDon.getTongTien();
             mapNV.put(tenNhanVien, mapNV.getOrDefault(tenNhanVien, 0.0) + doanhThu);
+        }
+
+        // đọc map
+        for (String key : mapNV.keySet()) {
+            System.out.println(key + " " + mapNV.get(key));
         }
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
