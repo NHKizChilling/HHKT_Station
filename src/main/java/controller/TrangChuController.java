@@ -55,15 +55,23 @@ public class TrangChuController implements Initializable {
     @FXML
     private AnchorPane acpTK;
     @FXML
+    private AnchorPane acpQLTK;
+    @FXML
+    private AnchorPane acpNV;
+    @FXML
+    private AnchorPane acpQL;
+    @FXML
     private JFXButton btnFVe;
     @FXML
     private JFXButton btnFQLHD;
     @FXML
-    private JFXButton btnFNV;
+    private JFXButton btnQLNV;
     @FXML
     private JFXButton btnFKH;
     @FXML
     private JFXButton btnFBCTK;
+    @FXML
+    private JFXButton btnQLBCTK;
     @FXML
     private JFXButton btnTKDoanhThu;
     @FXML
@@ -80,6 +88,28 @@ public class TrangChuController implements Initializable {
     private JFXButton btnDoiVeGUI;
     @FXML
     private JFXButton btnHuyVeGUI;
+
+    @FXML
+    private JFXButton btnQLCT;
+
+    @FXML
+    private JFXButton btnQLHD;
+
+    @FXML
+    private JFXButton btnQLKH;
+
+    @FXML
+    private JFXButton btnQLKM;
+
+    @FXML
+    private JFXButton btnUMQL;
+
+    @FXML
+    private JFXButton btnQLTKDoanhThu;
+
+    @FXML
+    private JFXButton btnQLTKNV;
+
     @FXML
     private Label lblTenNhanVien;
     @FXML
@@ -90,6 +120,8 @@ public class TrangChuController implements Initializable {
     private FontAwesomeIcon iconDown;
     @FXML
     private FontAwesomeIcon iconDownTK;
+    @FXML
+    private FontAwesomeIcon iconDownQLTK;
     @FXML
     private FontAwesomeIcon iconCT;
 
@@ -128,6 +160,15 @@ public class TrangChuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (Objects.equals(getData.nv.getChucVu(), "Nhân viên")) {
+            acpNV.setDisable(false);
+            acpQL.setDisable(true);
+            acpQL.setVisible(false);
+        } else {
+            acpNV.setDisable(true);
+            acpQL.setDisable(false);
+            acpQL.setVisible(true);
+        }
         paneMain.getChildren().clear();
         try {
             ConnectDB.connect();
@@ -174,31 +215,26 @@ public class TrangChuController implements Initializable {
                 chooseFeatureButton(btnFVe);
                 iconDown.setIcon(FontAwesomeIcons.ANGLE_UP);
                 acpVe.setVisible(true);
-                List<Button> dsF = List.of(btnFQLHD, btnFNV, btnFKH, btnFBCTK, btnFCT, btnFKM,btnUM);
-                List<FontAwesomeIcon> dsIcon = List.of(iconHD, iconNV, iconHK, iconCT, iconKM, iconTK, iconDownTK, iconHelp);
+                List<Button> dsF = List.of(btnFQLHD, btnFKH, btnFBCTK, btnFCT, btnFKM,btnUM);
                 dsF.forEach(btn -> {
                     btn.setLayoutY(btn.getLayoutY() + acpVe.getHeight());
                 });
-                dsIcon.forEach(icon -> {
-                    icon.setLayoutY(icon.getLayoutY() + acpVe.getHeight());
-                });
+                iconDownTK.setLayoutY(iconDownTK.getLayoutY() + acpVe.getHeight());
             } else {
                 onClick();
                 btnFVe.setStyle(style + "-fx-border-width: 0 0 2 0;");
                 iconDown.setIcon(FontAwesomeIcons.ANGLE_DOWN);
                 acpVe.setVisible(false);
-                List<Button> dsF = List.of(btnFQLHD, btnFNV, btnFKH, btnFBCTK, btnFCT, btnFKM,btnUM);
-                List<FontAwesomeIcon> dsIcon = List.of(iconHD, iconNV, iconHK, iconCT, iconKM, iconTK, iconDownTK, iconHelp);
+                List<Button> dsF = List.of(btnFQLHD, btnFKH, btnFBCTK, btnFCT, btnFKM,btnUM);
                 dsF.forEach(btn -> {
                     btn.setLayoutY(btn.getLayoutY() - acpVe.getHeight());
                 });
-                dsIcon.forEach(icon -> {
-                    icon.setLayoutY(icon.getLayoutY() - acpVe.getHeight());
-                });
+
+                iconDownTK.setLayoutY(iconDownTK.getLayoutY() - acpVe.getHeight());
             }
         });
-        btnFNV.setOnMouseClicked(e -> {
-            chooseFeatureButton(btnFNV);
+        btnQLNV.setOnMouseClicked(e -> {
+            chooseFeatureButton(btnQLNV);
             resetFVe();
             resetFBCTK();
         });
@@ -229,6 +265,51 @@ public class TrangChuController implements Initializable {
                 iconHelp.setLayoutY(iconHelp.getLayoutY() - acpTK.getHeight());
             }
         });
+        btnQLBCTK.setOnMouseClicked(e -> {
+            if (iconDownQLTK.getText().equals("\uF107")) {
+                chooseFeatureButtonQL(btnQLBCTK);
+                iconDownQLTK.setIcon(FontAwesomeIcons.ANGLE_UP);
+                acpQLTK.setVisible(true);
+                btnUMQL.setLayoutY(btnUMQL.getLayoutY() + acpQLTK.getHeight());
+                iconHelp.setLayoutY(iconHelp.getLayoutY() + acpQLTK.getHeight());
+            } else {
+                onClick();
+                btnQLBCTK.setStyle(style + "-fx-border-width: 0 0 2 0;");
+                iconDownQLTK.setIcon(FontAwesomeIcons.ANGLE_DOWN);
+                acpQLTK.setVisible(false);
+                btnUMQL.setLayoutY(btnUMQL.getLayoutY() - acpQLTK.getHeight());
+                iconHelp.setLayoutY(iconHelp.getLayoutY() - acpQLTK.getHeight());
+            }
+        });
+        btnQLNV.setOnMouseClicked(e -> {
+            chooseFeatureButtonQL(btnQLNV);
+            resetQLBCTK();
+        });
+        btnQLCT.setOnMouseClicked(e -> {
+            chooseFeatureButtonQL(btnQLCT);
+            resetQLBCTK();
+        });
+        btnQLKH.setOnMouseClicked(e -> {
+            chooseFeatureButtonQL(btnQLKH);
+            resetQLBCTK();
+        });
+        btnQLKM.setOnMouseClicked(e -> {
+            chooseFeatureButtonQL(btnQLKM);
+            resetQLBCTK();
+        });
+
+        btnQLHD.setOnMouseClicked(e -> {
+            chooseFeatureButtonQL(btnQLHD);
+            resetQLBCTK();
+        });
+
+        btnQLTKDoanhThu.setOnMouseClicked(e -> {
+            chooseFeatureButtonQLLV2(btnQLTKDoanhThu);
+        });
+        btnQLTKNV.setOnMouseClicked(e -> {
+            chooseFeatureButtonQLLV2(btnQLTKNV);
+        });
+
         btnFCT.setOnMouseClicked(e -> {
             chooseFeatureButton(btnFCT);
             resetFVe();
@@ -251,7 +332,7 @@ public class TrangChuController implements Initializable {
         iconDown.setIcon(FontAwesomeIcons.ANGLE_DOWN);
         if (acpVe.isVisible()) {
             acpVe.setVisible(false);
-            List<Button> dsF = List.of(btnFQLHD, btnFNV, btnFKH, btnFBCTK, btnFCT, btnFKM,btnUM);
+            List<Button> dsF = List.of(btnFQLHD, btnFKH, btnFBCTK, btnFCT, btnFKM,btnUM);
             List<FontAwesomeIcon> dsIcon = List.of(iconHD, iconNV, iconHK, iconCT, iconKM, iconTK, iconDownTK, iconHelp);
             dsF.forEach(btn -> {
                 btn.setLayoutY(btn.getLayoutY() - acpVe.getHeight());
@@ -272,6 +353,19 @@ public class TrangChuController implements Initializable {
             acpTK.setVisible(false);
             btnUM.setLayoutY(btnUM.getLayoutY() - acpTK.getHeight());
             iconHelp.setLayoutY(iconHelp.getLayoutY() - acpTK.getHeight());
+        }
+    }
+
+    private void resetQLBCTK() {
+        List<Button> listBtn = List.of(btnQLTKDoanhThu, btnQLTKNV);
+        listBtn.forEach(btn -> {
+            btn.setStyle(styleLV2);
+        });
+        iconDownQLTK.setIcon(FontAwesomeIcons.ANGLE_DOWN);
+        if (acpQLTK.isVisible()) {
+            acpQLTK.setVisible(false);
+            btnUMQL.setLayoutY(btnUMQL.getLayoutY() - acpQLTK.getHeight());
+            iconHelp.setLayoutY(iconHelp.getLayoutY() - acpQLTK.getHeight());
         }
     }
 
@@ -474,20 +568,6 @@ public class TrangChuController implements Initializable {
     }
 
     @FXML
-    protected void showTKVeGUI() {
-        FXMLLoader loader = new FXMLLoader(TrangChu_GUI.class.getResource("thong-ke-nv.fxml"));
-        double width = paneMain.getWidth();
-        double height = paneMain.getHeight();
-        paneMain.getChildren().clear();
-        try {
-            paneMain.getChildren().add(loader.load());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        paneMain.setPrefSize(width, height);
-    }
-
-    @FXML
     protected void dangXuat() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(null);
@@ -545,7 +625,18 @@ public class TrangChuController implements Initializable {
     }
 
     private void chooseFeatureButton(Button btnChosed) {
-        List<Button> dsF = List.of(btnFVe, btnFQLHD, btnFNV, btnFKH, btnFBCTK, btnFCT, btnFKM);
+        List<Button> dsF = List.of(btnFVe, btnFQLHD, btnFKH, btnFBCTK, btnFCT, btnFKM);
+        dsF.forEach(btn -> {
+            if (btn.equals(btnChosed)) {
+                btn.setStyle(btn.getStyle() + "-fx-background-color: lightgray;-fx-border-color: blue;");
+            } else {
+                btn.setStyle(style);
+            }
+        });
+    }
+
+    private void chooseFeatureButtonQL(Button btnChosed) {
+        List<Button> dsF = List.of(btnQLNV, btnQLHD, btnQLKH, btnQLCT, btnQLBCTK, btnQLKM);
         dsF.forEach(btn -> {
             if (btn.equals(btnChosed)) {
                 btn.setStyle(btn.getStyle() + "-fx-background-color: lightgray;-fx-border-color: blue;");
@@ -557,6 +648,17 @@ public class TrangChuController implements Initializable {
 
     private void chooseFeatureButtonLV2(Button btnChosed) {
         List<Button> dsF = List.of(btnBanVeGUI, btnDoiVeGUI, btnHuyVeGUI, btnTKDoanhThu, btnTKNV);
+        dsF.forEach(btn -> {
+            if (btn.equals(btnChosed)) {
+                btn.setStyle(btn.getStyle() + "-fx-background-color: lightblue;-fx-border-color: white;");
+            } else {
+                btn.setStyle(styleLV2);
+            }
+        });
+    }
+
+    private void chooseFeatureButtonQLLV2(Button btnChosed) {
+        List<Button> dsF = List.of(btnQLTKDoanhThu, btnQLTKNV);
         dsF.forEach(btn -> {
             if (btn.equals(btnChosed)) {
                 btn.setStyle(btn.getStyle() + "-fx-background-color: lightblue;-fx-border-color: white;");

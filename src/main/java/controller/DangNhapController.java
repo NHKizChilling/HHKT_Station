@@ -99,10 +99,12 @@ public class DangNhapController {
 
                         FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("mo-ca.fxml"));
                         FXMLLoader fxmlLoader1 = new FXMLLoader(TrangChu_GUI.class.getResource("loader.fxml"));
+                        FXMLLoader fxmlLoader2 = new FXMLLoader(TrangChu_GUI.class.getResource("trang-chu.fxml"));
                         Stage stg = new Stage();
                         try {
                             Scene scene = new Scene(fxmlLoader.load());
                             Scene scene1 = new Scene(fxmlLoader1.load());
+                            Scene scene2 = new Scene(fxmlLoader2.load());
                             stg.setScene(scene1);
                             stg.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
                             ProgressBar progressBar = (ProgressBar) stg.getScene().lookup("#progressBar");
@@ -129,10 +131,17 @@ public class DangNhapController {
                             timeline.setCycleCount(7);
                             timeline.play();
                             timeline.setOnFinished(e -> {
-                                stg.close();
-                                TrangChu_GUI.stage.setScene(scene);
-                                TrangChu_GUI.stage.show();
-                                TrangChu_GUI.stage.centerOnScreen();
+                                if (getData.nv.getChucVu().equals("Quản lý")) {
+                                    stg.close();
+                                    TrangChu_GUI.stage.setScene(scene2);
+                                    TrangChu_GUI.stage.show();
+                                    TrangChu_GUI.stage.centerOnScreen();
+                                } else {
+                                    stg.close();
+                                    TrangChu_GUI.stage.setScene(scene);
+                                    TrangChu_GUI.stage.show();
+                                    TrangChu_GUI.stage.centerOnScreen();
+                                }
                             });
                         } catch (IOException e) {
                             throw new RuntimeException(e);
