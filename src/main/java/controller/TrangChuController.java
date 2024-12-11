@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -604,6 +605,13 @@ public class TrangChuController implements Initializable {
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
+        if (getData.nv.getChucVu().equals("Nhân viên")) {
+            resetFVe();
+            resetFBCTK();
+        } else {
+            resetQLBCTK();
+        }
+        onClick();
     }
 
     @FXML
@@ -627,6 +635,33 @@ public class TrangChuController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 ketCaStage.close();
+            } else {
+                e1.consume();
+            }
+        });
+    }
+
+    @FXML
+    protected void openChangePassForm() {
+        AnchorPane changePassPane = null;
+        try {
+            changePassPane = FXMLLoader.load(Objects.requireNonNull(TrangChu_GUI.class.getResource("doi-mat-khau.fxml")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Stage changePassStage = new Stage();
+        changePassStage.setTitle("Đổi mật khẩu");
+        changePassStage.setScene(new Scene(changePassPane));
+        changePassStage.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
+        changePassStage.show();
+        changePassStage.setOnCloseRequest(e1 -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Xác nhận");
+            alert.setHeaderText(null);
+            alert.setContentText("Xác nhận thoát?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                changePassStage.close();
             } else {
                 e1.consume();
             }
@@ -681,30 +716,54 @@ public class TrangChuController implements Initializable {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (getData.nv.getChucVu().equals("Nhân viên")) {
                 if (event.getCode() == KeyCode.F1) {
+                    if (!btnFVe.getStyle().contains("lightgray")) {
+                        btnFVe.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
+                    }
+                    btnBanVeGUI.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showBanVeGUI();
                 }
                 if (event.getCode() == KeyCode.F2) {
+                    if (!btnFVe.getStyle().contains("lightgray")) {
+                        btnFVe.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
+                    }
+                    btnDoiVeGUI.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showDoiVeGUI();
                 }
                 if (event.getCode() == KeyCode.F3) {
+                    if (!btnFVe.getStyle().contains("lightgray")) {
+                        btnFVe.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
+                    }
+                    btnHuyVeGUI.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showHuyVeGUI();
                 }
                 if (event.getCode() == KeyCode.F4) {
+                    btnFQLHD.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showHoaDonGUI();
                 }
                 if (event.getCode() == KeyCode.F5) {
+                    btnFKH.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showKHGUI();
                 }
                 if (event.getCode() == KeyCode.F6) {
+                    btnFCT.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showChuyenTauGUI();
                 }
                 if (event.getCode() == KeyCode.F7) {
+                    btnFKM.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showKhuyenMaiGUI();
                 }
                 if (event.getCode() == KeyCode.F8) {
+                    if (!btnFBCTK.getStyle().contains("lightgray")) {
+                        btnFBCTK.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
+                    }
+                    btnTKDoanhThu.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showTKDoanhThuGUI();
                 }
                 if (event.getCode() == KeyCode.F9) {
+                    if (!btnFBCTK.getStyle().contains("lightgray")) {
+                        btnFBCTK.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
+                    }
+                    btnTKNV.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showTKNhanVienGUI();
                 }
                 if (event.getCode() == KeyCode.ESCAPE) {
@@ -715,24 +774,37 @@ public class TrangChuController implements Initializable {
                 }
             } else {
                 if (event.getCode() == KeyCode.F1) {
+                    btnQLNV.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showNhanVienGUI();
                 }
                 if (event.getCode() == KeyCode.F4) {
+                    btnQLHD.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showHoaDonGUI();
                 }
                 if (event.getCode() == KeyCode.F5) {
+                    btnQLKH.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showKHGUI();
                 }
                 if (event.getCode() == KeyCode.F6) {
+                    btnQLCT.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showChuyenTauGUI();
                 }
                 if (event.getCode() == KeyCode.F7) {
+                    btnQLKM.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showKhuyenMaiGUI();
                 }
                 if (event.getCode() == KeyCode.F8) {
+                    if (!btnQLBCTK.getStyle().contains("lightgray")) {
+                        btnQLBCTK.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
+                    }
+                    btnQLTKDoanhThu.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showTKDoanhThuGUI();
                 }
                 if (event.getCode() == KeyCode.F9) {
+                    if (!btnQLBCTK.getStyle().contains("lightgray")) {
+                        btnQLBCTK.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
+                    }
+                    btnQLTKNV.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
                     showTKNhanVienGUI();
                 }
                 if (event.getCode() == KeyCode.ESCAPE) {

@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -100,6 +101,9 @@ public class LichTrinhController implements Initializable {
     @FXML
     private TextField infoPhutDen;
 
+    @FXML
+    private AnchorPane acpFeature;
+
     private LichTrinh_DAO lichTrinh_DAO;
     private CT_LichTrinh_DAO ct_LichTrinh_DAO;
     private Ga_DAO ga_DAO;
@@ -166,13 +170,13 @@ public class LichTrinhController implements Initializable {
                 cb_infoGaDi.setDisable(true);
                 cb_infoGaDen.setDisable(true);
                 cb_soHieuTau.setDisable(true);
+                datePicker_tgDKDen.setDisable(true);
+                infoGioDen.setDisable(true);
+                infoPhutDen.setDisable(true);
                 if (lichTrinh.getThoiGianKhoiHanh().isBefore(LocalDateTime.now())) {
                     infoGioDi.setDisable(true);
                     infoPhutDi.setDisable(true);
                     datePicker_tgKhoiHanh.setDisable(true);
-                    infoGioDen.setDisable(true);
-                    infoPhutDen.setDisable(true);
-                    datePicker_tgDKDen.setDisable(true);
                     cb_infoTrangThaiHoatDong.setDisable(true);
                     btn_update.setDisable(true);
                 } else {
@@ -180,9 +184,6 @@ public class LichTrinhController implements Initializable {
                     infoGioDi.setDisable(false);
                     infoPhutDi.setDisable(false);
                     datePicker_tgKhoiHanh.setDisable(false);
-                    infoGioDen.setDisable(false);
-                    infoPhutDen.setDisable(false);
-                    datePicker_tgDKDen.setDisable(false);
                     cb_infoTrangThaiHoatDong.setDisable(false);
                 }
             }
@@ -207,6 +208,10 @@ public class LichTrinhController implements Initializable {
         btn_clear.setOnAction(e -> {
             refreshInfo();
         });
+
+        if (getData.nv.getChucVu().equals("Nhân viên")) {
+            acpFeature.setDisable(true);
+        }
 
         infoGioDi.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty() && !newValue.matches("\\d*")) {

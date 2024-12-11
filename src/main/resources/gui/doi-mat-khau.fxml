@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="400.0" style="-fx-background-color: #4098ff; -fx-border-color: #333; -fx-border-radius: 10; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DoiMatKhauController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="119.0" layoutY="242.0" prefHeight="41.0" prefWidth="158.0" styleClass="label-info" stylesheets="@dashboardDesign.css" text="Đổi mật khẩu " textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="305.0" text="Mật khẩu cũ:" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="360.0" text="Mật khẩu mới:" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="415.0" text="Xác nhận mật khẩu:" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="50.0" text="Mã nhân viên:" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblMaNV" layoutX="187.0" layoutY="50.0" text="NV001" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnChangePWD" buttonType="RAISED" layoutX="199.0" layoutY="493.0" prefHeight="42.0" prefWidth="151.0" ripplerFill="#1600b9" style="-fx-background-color: #fff; -fx-background-radius: 10;" text="Đổi mật khẩu">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIcon glyphName="EXCHANGE" />
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btnRefresh" buttonType="RAISED" layoutX="57.0" layoutY="493.0" prefHeight="42.0" prefWidth="110.0" ripplerFill="#1600b9" style="-fx-background-color: coral; -fx-background-radius: 10;" text="Nhập lại">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIcon glyphName="REFRESH" />
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXCheckBox fx:id="chkConfirm" checkedColor="LIGHTGRAY" layoutX="187.0" layoutY="450.0" text="Xác nhận đổi mật khẩu?" textFill="WHITE" unCheckedColor="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXCheckBox>
+      <PasswordField fx:id="pwdOld" layoutX="186.0" layoutY="300.0" promptText="Nhập mật khẩu cũ" style="-fx-border-color: #333; -fx-background-color: transparent; -fx-border-width: 0 0 1 0;">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </PasswordField>
+      <PasswordField fx:id="pwdNew" layoutX="186.0" layoutY="355.0" promptText="Nhập mật khẩu mới" style="-fx-border-color: #333; -fx-background-color: transparent; -fx-border-width: 0 0 1 0;">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </PasswordField>
+      <PasswordField fx:id="pwdNewConfirm" layoutX="186.0" layoutY="410.0" promptText="Xác nhận mật khẩu" style="-fx-border-color: #333; -fx-background-color: transparent; -fx-border-width: 0 0 1 0;">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </PasswordField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="75.0" prefHeight="42.0" prefWidth="247.0" styleClass="label-info" stylesheets="@dashboardDesign.css" text="Thông tin cá nhân " textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="13.0" layoutY="85.0" text="Họ tên:" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblHoNV" layoutX="186.0" layoutY="85.0" text="NV001" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="13.0" layoutY="155.0" text="Số điện thoại:" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblSDT" layoutX="186.0" layoutY="155.0" text="NV001" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="13.0" layoutY="190.0" text="Email:" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblEmail" layoutX="186.0" layoutY="190.0" text="NV001" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="13.0" layoutY="120.0" text="Số CCCD:" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblCCCD" layoutX="186.0" layoutY="120.0" text="NV001" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Separator layoutY="225.0" prefWidth="400.0" />
+   </children>
+</AnchorPane>

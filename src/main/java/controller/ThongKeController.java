@@ -253,7 +253,7 @@ public class ThongKeController implements Initializable {
 
 
         // Lặp qua từng hóa đơn để lấy chi tiết hóa đơn
-        for (HoaDon hoaDon : listHoaDon) {
+        for (HoaDon hoaDon : listHoaDon.stream().filter(HoaDon::isTrangThai).toList()) {
             // Lấy chi tiết hóa đơn theo mã hóa đơn
             for (ChiTietHoaDon cthd : ctHoaDon_dao.getCT_HoaDon(hoaDon.getMaHoaDon())) {
                 // Lấy vé theo mã vé

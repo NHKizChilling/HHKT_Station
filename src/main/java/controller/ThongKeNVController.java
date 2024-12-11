@@ -159,11 +159,6 @@ public class ThongKeNVController implements Initializable {
             mapNV.put(tenNhanVien, mapNV.getOrDefault(tenNhanVien, 0.0) + doanhThu);
         }
 
-        // đọc map
-        for (String key : mapNV.keySet()) {
-            System.out.println(key + " " + mapNV.get(key));
-        }
-
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         mapNV.entrySet().stream()
                 .filter(entry -> entry.getKey() != null && entry.getValue() != null)

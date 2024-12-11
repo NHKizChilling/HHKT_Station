@@ -55,26 +55,30 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></DatePicker>
-      <Button fx:id="btn_lamMoi" alignment="CENTER_RIGHT" layoutX="724.0" layoutY="137.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Làm mới">
+      <Button fx:id="btn_lamMoi" alignment="CENTER" layoutX="724.0" layoutY="137.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Làm mới">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <graphic>
+            <FontAwesomeIcon disable="true" glyphName="REFRESH">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIcon>
+         </graphic>
       </Button>
-      <Button fx:id="btn_timKiem" alignment="CENTER_RIGHT" layoutX="827.0" layoutY="138.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Tìm kiếm">
+      <Button fx:id="btn_timKiem" alignment="CENTER" layoutX="827.0" layoutY="138.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Tìm kiếm">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <graphic>
+            <FontAwesomeIcon disable="true" glyphName="SEARCH">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIcon>
+         </graphic>
       </Button>
-      <FontAwesomeIcon disable="true" glyphName="SEARCH" layoutX="834.0" layoutY="159.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </FontAwesomeIcon>
-      <FontAwesomeIcon disable="true" glyphName="REFRESH" layoutX="731.0" layoutY="158.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </FontAwesomeIcon>
       <Pane layoutX="970.0" layoutY="23.0" prefHeight="710.0" prefWidth="397.0" style="-fx-background-color: #fff;">
          <children>
             <Label layoutX="161.0" layoutY="3.0" prefHeight="22.0" prefWidth="120.0" styleClass="label-info" stylesheets="@dashboardDesign.css" text="THÔNG TIN">
@@ -171,33 +175,46 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></ComboBox>
-            <Button fx:id="btn_clear" alignment="CENTER_RIGHT" layoutX="114.0" layoutY="660.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="85.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Xóa trắng" textFill="#151515">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <Button fx:id="btn_update" alignment="CENTER_RIGHT" disable="true" layoutX="221.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Cập nhật">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <Button fx:id="btn_add" alignment="CENTER_RIGHT" layoutX="319.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="61.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Thêm">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <FontAwesomeIcon disable="true" glyphName="REFRESH" layoutX="123.0" layoutY="681.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </FontAwesomeIcon>
-            <FontAwesomeIcon disable="true" glyphName="EDIT" layoutX="228.0" layoutY="682.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </FontAwesomeIcon>
-            <FontAwesomeIcon disable="true" glyphName="PLUS_CIRCLE" layoutX="328.0" layoutY="682.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </FontAwesomeIcon>
+            <AnchorPane fx:id="acpFeature" layoutX="89.0" layoutY="661.0">
+               <children>
+                  <Button fx:id="btn_clear" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="85.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Xóa trắng" textFill="#151515">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <FontAwesomeIcon disable="true" glyphName="REFRESH">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIcon>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btn_update" alignment="CENTER" disable="true" layoutX="110.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="85.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Cập nhật">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <FontAwesomeIcon disable="true" glyphName="EDIT">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIcon>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btn_add" alignment="CENTER" layoutX="221.0" layoutY="1.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-radius: 5;" text="Thêm">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <FontAwesomeIcon disable="true" glyphName="PLUS_CIRCLE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIcon>
+                     </graphic>
+                  </Button>
+               </children>
+            </AnchorPane>
          </children>
       </Pane>
       <Label layoutX="14.0" layoutY="271.0" style="-fx-view-order: 0; -fx-background-color: #fff;" styleClass="label-info" stylesheets="@dashboardDesign.css" text="DANH SÁCH CHUYẾN TÀU">

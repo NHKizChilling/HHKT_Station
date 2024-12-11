@@ -53,14 +53,20 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ComboBox>
-      <Button fx:id="btn_reset" alignment="CENTER_RIGHT" layoutX="367.0" layoutY="233.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Làm mới">
+      <Button fx:id="btn_reset" alignment="CENTER" layoutX="367.0" layoutY="233.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Làm mới">
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Button fx:id="btn_search" alignment="CENTER_RIGHT" layoutX="497.0" layoutY="233.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="135.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Tra cứu khuyến mãi">
+         </cursor>
+         <graphic>
+            <FontAwesomeIcon glyphName="REFRESH" />
+         </graphic></Button>
+      <Button fx:id="btn_search" alignment="CENTER" layoutX="497.0" layoutY="233.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Tra cứu">
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
+         </cursor>
+         <graphic>
+            <FontAwesomeIcon disable="true" glyphName="SEARCH" />
+         </graphic></Button>
       <Label layoutX="384.0" layoutY="23.0" prefHeight="30.0" prefWidth="205.0" stylesheets="@dashboardDesign.css" text="TÌM KIẾM THÔNG TIN">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -89,21 +95,34 @@
                <cursor>
                   <Cursor fx:constant="CLOSED_HAND" />
                </cursor></TextField>
-            <Button fx:id="btn_clear" alignment="CENTER_RIGHT" layoutX="33.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="85.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Xóa trắng" textFill="#151515">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <Button fx:id="btn_update" alignment="CENTER_RIGHT" disable="true" layoutX="167.0" layoutY="660.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Cập nhật">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <Button fx:id="btn_add" alignment="CENTER_RIGHT" layoutX="305.0" layoutY="661.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="64.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Thêm">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <FontAwesomeIcon glyphName="PLUS_CIRCLE" layoutX="314.0" layoutY="682.0" />
-            <FontAwesomeIcon glyphName="EDIT" layoutX="174.0" layoutY="681.0" />
-            <FontAwesomeIcon glyphName="REMOVE" layoutX="40.0" layoutY="682.0" />
+            <AnchorPane fx:id="acpFeature" layoutX="20.0" layoutY="660.0">
+               <children>
+                  <Button fx:id="btn_clear" alignment="CENTER" layoutY="1.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="85.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Xóa trắng" textFill="#151515">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="REMOVE" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btn_update" alignment="CENTER" disable="true" layoutX="134.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="85.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Cập nhật">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="EDIT" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btn_add" alignment="CENTER" layoutX="272.0" layoutY="1.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="85.0" style="-fx-background-color: #fff; -fx-border-radius: 5; -fx-border-color: #333;" text="Thêm">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="PLUS_CIRCLE" />
+                     </graphic>
+                  </Button>
+               </children>
+            </AnchorPane>
             <Label layoutX="23.0" layoutY="113.0" prefHeight="35.0" prefWidth="99.0" text="Mức giảm (%)">
                <font>
                   <Font size="16.0" />
@@ -151,8 +170,6 @@
                </cursor></TextArea>
          </children>
       </Pane>
-      <FontAwesomeIcon disable="true" glyphName="SEARCH" layoutX="503.0" layoutY="255.0" />
-      <FontAwesomeIcon glyphName="REFRESH" layoutX="374.0" layoutY="254.0" />
       <Label layoutX="52.0" layoutY="83.0" text="Mã khuyến mãi:">
          <font>
             <Font size="18.0" />

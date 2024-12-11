@@ -243,6 +243,33 @@ public class HoaDonController implements Initializable {
             goiYGia();
             //chonGiaGoiY(df);
             acpThanhToan.setDisable(false);
+            btnGia1.setOnAction(event -> {
+                txtTienKH.setText(btnGia1.getText());
+                double tienKHTra = parseCurrency(txtTienKH.getText());
+                double thanhTien = parseCurrency(txtThanhTien.getText());
+                txtTienTra.setText(df.format(tienKHTra - thanhTien));
+            });
+
+            btnGia2.setOnAction(event -> {
+                txtTienKH.setText(btnGia2.getText());
+                double tienKHTra = parseCurrency(txtTienKH.getText());
+                double thanhTien = parseCurrency(txtThanhTien.getText());
+                txtTienTra.setText(df.format(tienKHTra - thanhTien));
+            });
+
+            btnGia3.setOnAction(event -> {
+                txtTienKH.setText(btnGia3.getText());
+                double tienKHTra = parseCurrency(txtTienKH.getText());
+                double thanhTien = parseCurrency(txtThanhTien.getText());
+                txtTienTra.setText(df.format(tienKHTra - thanhTien));
+            });
+
+            btnGia4.setOnAction(event -> {
+                txtTienKH.setText(btnGia4.getText());
+                double tienKHTra = parseCurrency(txtTienKH.getText());
+                double thanhTien = parseCurrency(txtThanhTien.getText());
+                txtTienTra.setText(df.format(tienKHTra - thanhTien));
+            });
             btnThanhToan.setOnAction(event -> {
                 if (txtTienKH.getText().isEmpty() || txtTienKH.getText() == null) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -433,7 +460,8 @@ public class HoaDonController implements Initializable {
                 for (ChiTietHoaDon cthd : listcthd_new) {
                     new CT_HoaDon_DAO().create(cthd);
                 }
-
+                btnThanhToan.setDisable(true);
+                btnLuuTamHD.setDisable(true);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Thông báo");
                 alert.setHeaderText("Lưu tạm hóa đơn thành công");
@@ -537,35 +565,33 @@ public class HoaDonController implements Initializable {
             }
         });
 
-        if (getData.dsve != null) {
-            btnGia1.setOnAction(event -> {
-                txtTienKH.setText(btnGia1.getText());
-                double tienKHTra = parseCurrency(txtTienKH.getText());
-                double thanhTien = parseCurrency(txtThanhTien.getText());
-                txtTienTra.setText(df.format(tienKHTra - thanhTien));
-            });
+        btnGia1.setOnAction(event -> {
+            txtTienKH.setText(btnGia1.getText());
+            double tienKHTra = parseCurrency(txtTienKH.getText());
+            double thanhTien = parseCurrency(txtThanhTien.getText());
+            txtTienTra.setText(df.format(tienKHTra - thanhTien));
+        });
 
-            btnGia2.setOnAction(event -> {
-                txtTienKH.setText(btnGia2.getText());
-                double tienKHTra = parseCurrency(txtTienKH.getText());
-                double thanhTien = parseCurrency(txtThanhTien.getText());
-                txtTienTra.setText(df.format(tienKHTra - thanhTien));
-            });
+        btnGia2.setOnAction(event -> {
+            txtTienKH.setText(btnGia2.getText());
+            double tienKHTra = parseCurrency(txtTienKH.getText());
+            double thanhTien = parseCurrency(txtThanhTien.getText());
+            txtTienTra.setText(df.format(tienKHTra - thanhTien));
+        });
 
-            btnGia3.setOnAction(event -> {
-                txtTienKH.setText(btnGia3.getText());
-                double tienKHTra = parseCurrency(txtTienKH.getText());
-                double thanhTien = parseCurrency(txtThanhTien.getText());
-                txtTienTra.setText(df.format(tienKHTra - thanhTien));
-            });
+        btnGia3.setOnAction(event -> {
+            txtTienKH.setText(btnGia3.getText());
+            double tienKHTra = parseCurrency(txtTienKH.getText());
+            double thanhTien = parseCurrency(txtThanhTien.getText());
+            txtTienTra.setText(df.format(tienKHTra - thanhTien));
+        });
 
-            btnGia4.setOnAction(event -> {
-                txtTienKH.setText(btnGia4.getText());
-                double tienKHTra = parseCurrency(txtTienKH.getText());
-                double thanhTien = parseCurrency(txtThanhTien.getText());
-                txtTienTra.setText(df.format(tienKHTra - thanhTien));
-            });
-        }
+        btnGia4.setOnAction(event -> {
+            txtTienKH.setText(btnGia4.getText());
+            double tienKHTra = parseCurrency(txtTienKH.getText());
+            double thanhTien = parseCurrency(txtThanhTien.getText());
+            txtTienTra.setText(df.format(tienKHTra - thanhTien));
+        });
 
         txtTienKH.setOnKeyTyped(e -> goiYGiaKhiNhap());
     }

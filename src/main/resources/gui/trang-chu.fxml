@@ -16,7 +16,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<VBox fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1540.0" snapToPixel="false" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TrangChuController">
+<VBox fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1540.0" snapToPixel="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TrangChuController">
    <children>
       <BorderPane prefHeight="795.0" prefWidth="1540.0">
          <left>
@@ -221,7 +221,7 @@
                         <String fx:value="nav-form" />
                      </styleClass>
                   </AnchorPane>
-                  <AnchorPane fx:id="acpQL" disable="true" prefHeight="755.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to bottom, lightblue, #5098ff); -fx-border-color: #333; -fx-border-width: 1 1 0 0;" stylesheets="@dashboardDesign.css" visible="false">
+                  <AnchorPane fx:id="acpQL" prefHeight="755.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to bottom, lightblue, #5098ff); -fx-border-color: #333; -fx-border-width: 1 1 0 0;" stylesheets="@dashboardDesign.css" visible="false">
                      <children>
                         <ImageView fitHeight="155.0" fitWidth="155.0" layoutX="2.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -338,7 +338,7 @@
                         </JFXButton>
                         <JFXButton fx:id="btnDangXuat" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" layoutY="701.0" minHeight="-Infinity" onAction="#dangXuat" prefHeight="40.0" prefWidth="158.0" ripplerFill="#ff4f4f" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 10;" text="Đăng xuất (ESC)">
                            <font>
-                              <Font name="Times New Roman Bold" size="20.0" />
+                              <Font name="Times New Roman Bold" size="14.0" />
                            </font>
                            <graphic>
                               <FontAwesomeIcon fx:id="icDangXuat1" fontSmoothingType="LCD" glyphName="SIGN_OUT" onMouseClicked="#dangXuat" size="2em" viewOrder="1.0">
@@ -404,12 +404,17 @@
                         <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Label>
-                  <FontAwesomeIcon accessibleRole="HYPERLINK" fontSmoothingType="LCD" glyphName="USER" layoutX="1510.0" layoutY="24.0">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </FontAwesomeIcon>
-                  <Label layoutX="1500.0" layoutY="4.0" onMouseClicked="#openUserManual" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 50 50 50 50; -fx-background-color: white; -fx-view-order: 1;" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1500.0" layoutY="4.0" onMouseClicked="#openChangePassForm" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 50 50 50 50; -fx-background-color: white; -fx-view-order: 1;">
+                     <graphic>
+                        <FontAwesomeIcon accessibleRole="HYPERLINK" fontSmoothingType="LCD" glyphName="USER">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </FontAwesomeIcon>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Label>
                   <Label fx:id="timer" layoutX="14.0" layoutY="11.0" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman Bold" size="15.0" />

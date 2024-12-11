@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.Serializable;
 import java.net.URL;
@@ -82,6 +83,9 @@ public class KhuyenMaiController implements Initializable, Serializable {
 
     @FXML
     private Button btn_add;
+
+    @FXML
+    private AnchorPane acpFeature;
 
     private KhuyenMai_DAO khuyenMai_dao;
 
@@ -240,6 +244,10 @@ public class KhuyenMaiController implements Initializable, Serializable {
                 btn_clear.fire();
             }
         });
+
+        if (getData.nv.getChucVu().equals("Nhân viên")){
+            acpFeature.setDisable(true);
+        }
 
         tbl_khuyenMai.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {

@@ -223,7 +223,7 @@ public class QLyHoaDonController implements Initializable {
             txtGiaVe.setText(nf.format(cthd.getGiaVe()));
             txtGiaGiam.setText(nf.format(cthd.getGiaGiam()));
             txtThanhTienVe.setText(nf.format(cthd.getGiaVe() - cthd.getGiaGiam()));
-            btnInLaiVe.setDisable(false);
+            btnInLaiVe.setDisable(!tbhd.getSelectionModel().getSelectedItem().isTrangThai());
         });
         //Bảng hd
         colSTT.setCellValueFactory(p -> new SimpleIntegerProperty(tbhd.getItems().indexOf(p.getValue()) + 1).asObject());
@@ -391,20 +391,32 @@ public class QLyHoaDonController implements Initializable {
                     alert.setTitle("Xác nhận");
                     alert.setHeaderText(null);
                     alert.setContentText("Xác nhận thoát?");
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.get() == ButtonType.OK) {
+                    alert.showAndWait();
+                    if (alert.getResult().getText().equals("OK")) {
                         stgHoaDon.close();
                         radioAllHD.setSelected(true);
                         lamMoi();
+                        if (getData.hd.isTrangThai()) {
+                            btnInHD.setDisable(false);
+                        }
                     }
                 });
 
                 Button btnBack = (Button) acpHoaDon.lookup("#btnBackBanVe");
-                btnBack.setOnMouseClicked(e1 -> stgHoaDon.close());
+                btnBack.setOnMouseClicked(e1 ->
+                    {
+                        stgHoaDon.close();
+                        if (getData.hd.isTrangThai()) {
+                            radioHDTrongNgay.setSelected(true);
+                            radioHDTrongNgay.fire();
+                            tbhd.getSelectionModel().select(getData.hd);
+                            btnThanhToan.setDisable(true);
+                            btnInHD.setDisable(false);
+                        }
+                    });
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            btnInHD.setDisable(false);
         });
 
         btnLamMoi.setOnAction(event -> {

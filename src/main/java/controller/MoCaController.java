@@ -72,8 +72,12 @@ public class MoCaController implements Initializable {
             }
             tienDauCa = Double.parseDouble(txt_tienDauCa.getText());
 
-            if (tienDauCa < 0) {
-                txt_tienDauCa.setPromptText("Tiền đầu ca phải lớn hơn 0");
+            if (tienDauCa < 1000000) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Lỗi");
+                alert.setContentText("Tiền đầu ca phải có ít nhất 1000000đ");
+                alert.showAndWait();
                 txt_tienDauCa.requestFocus();
                 return;
             }

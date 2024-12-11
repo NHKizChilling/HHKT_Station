@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -99,6 +100,9 @@ public class KhachHangController implements Initializable {
 
     @FXML
     private Button btn_inVe;
+
+    @FXML
+    private AnchorPane acpFeature;
 
     private Ve_DAO ve_dao;
     private KhachHang_DAO khach_Hang_dao;
@@ -253,6 +257,10 @@ public class KhachHangController implements Initializable {
                 }
             }
         });
+
+        if (getData.nv.getChucVu().equals("Nhân viên")) {
+            acpFeature.setDisable(true);
+        }
 
         tbl_thongTinVe.setOnMouseClicked(e -> {
             Ve ve = tbl_thongTinVe.getSelectionModel().getSelectedItem();
