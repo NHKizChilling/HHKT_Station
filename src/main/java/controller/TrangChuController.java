@@ -24,6 +24,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -322,6 +324,13 @@ public class TrangChuController implements Initializable {
         });
         TrangChu_GUI.nv = getData.nv;
         lblTenNhanVien.setText("Chào, " + TrangChu_GUI.nv.getChucVu() + " " + TrangChu_GUI.nv.getTenNhanVien());
+
+        // tạo hot key
+        paneMain.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) {
+                setupKeyEventHandler(newScene);
+            }
+        });
     }
 
     private void resetFVe() {
@@ -664,6 +673,74 @@ public class TrangChuController implements Initializable {
                 btn.setStyle(btn.getStyle() + "-fx-background-color: lightblue;-fx-border-color: white;");
             } else {
                 btn.setStyle(styleLV2);
+            }
+        });
+    }
+
+    private void setupKeyEventHandler(Scene scene) {
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (getData.nv.getChucVu().equals("Nhân viên")) {
+                if (event.getCode() == KeyCode.F1) {
+                    showBanVeGUI();
+                }
+                if (event.getCode() == KeyCode.F2) {
+                    showDoiVeGUI();
+                }
+                if (event.getCode() == KeyCode.F3) {
+                    showHuyVeGUI();
+                }
+                if (event.getCode() == KeyCode.F4) {
+                    showHoaDonGUI();
+                }
+                if (event.getCode() == KeyCode.F5) {
+                    showKHGUI();
+                }
+                if (event.getCode() == KeyCode.F6) {
+                    showChuyenTauGUI();
+                }
+                if (event.getCode() == KeyCode.F7) {
+                    showKhuyenMaiGUI();
+                }
+                if (event.getCode() == KeyCode.F8) {
+                    showTKDoanhThuGUI();
+                }
+                if (event.getCode() == KeyCode.F9) {
+                    showTKNhanVienGUI();
+                }
+                if (event.getCode() == KeyCode.ESCAPE) {
+                    showKetCaPopup();
+                }
+                if (event.getCode() == KeyCode.F10) {
+                    openUserManual();
+                }
+            } else {
+                if (event.getCode() == KeyCode.F1) {
+                    showNhanVienGUI();
+                }
+                if (event.getCode() == KeyCode.F4) {
+                    showHoaDonGUI();
+                }
+                if (event.getCode() == KeyCode.F5) {
+                    showKHGUI();
+                }
+                if (event.getCode() == KeyCode.F6) {
+                    showChuyenTauGUI();
+                }
+                if (event.getCode() == KeyCode.F7) {
+                    showKhuyenMaiGUI();
+                }
+                if (event.getCode() == KeyCode.F8) {
+                    showTKDoanhThuGUI();
+                }
+                if (event.getCode() == KeyCode.F9) {
+                    showTKNhanVienGUI();
+                }
+                if (event.getCode() == KeyCode.ESCAPE) {
+                    dangXuat();
+                }
+                if (event.getCode() == KeyCode.F10) {
+                    openUserManual();
+                }
             }
         });
     }

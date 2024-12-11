@@ -16,7 +16,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<VBox fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1540.0" snapToPixel="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TrangChuController">
+<VBox fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1540.0" snapToPixel="false" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TrangChuController">
    <children>
       <BorderPane prefHeight="795.0" prefWidth="1540.0">
          <left>
@@ -42,17 +42,17 @@
                         </FontAwesomeIcon>
                         <AnchorPane fx:id="acpVe" layoutY="215.0" prefHeight="90.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to right, #4098ff, #5098ff);" visible="false">
                            <children>
-                              <JFXButton fx:id="btnBanVeGUI" alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#showBanVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Bán vé">
+                              <JFXButton fx:id="btnBanVeGUI" alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#showBanVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Bán vé (F1)">
                                  <font>
                                     <Font name="Arial" size="12.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton fx:id="btnDoiVeGUI" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="30.0" onAction="#showDoiVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Đổi vé">
+                              <JFXButton fx:id="btnDoiVeGUI" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="30.0" onAction="#showDoiVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Đổi vé (F2)">
                                  <font>
                                     <Font name="Arial" size="12.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton fx:id="btnHuyVeGUI" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="60.0" onAction="#showHuyVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Hủy vé">
+                              <JFXButton fx:id="btnHuyVeGUI" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="60.0" onAction="#showHuyVeGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Hủy vé (F3)">
                                  <font>
                                     <Font name="Arial" size="12.0" />
                                  </font>
@@ -74,7 +74,7 @@
                               </FontAwesomeIcon>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnFQLHD" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="230.0" onAction="#showHoaDonGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Hóa Đơn" textFill="WHITE">
+                        <JFXButton fx:id="btnFQLHD" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="230.0" onAction="#showHoaDonGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Hóa Đơn (F4)" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman Bold" size="15.0" />
                            </font>
@@ -89,7 +89,7 @@
                               </FontAwesomeIcon>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnFKH" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="280.0" onAction="#showKHGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Khách hàng" textFill="WHITE">
+                        <JFXButton fx:id="btnFKH" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="280.0" onAction="#showKHGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Khách hàng (F5)" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman Bold" size="15.0" />
                            </font>
@@ -104,7 +104,7 @@
                               </FontAwesomeIcon>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnFCT" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="330.0" onAction="#showChuyenTauGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Chuyến tàu" textFill="WHITE">
+                        <JFXButton fx:id="btnFCT" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="330.0" onAction="#showChuyenTauGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Chuyến tàu (F6)" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman Bold" size="15.0" />
                            </font>
@@ -119,7 +119,7 @@
                               </FontAwesomeIcon>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnFKM" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="380.0" onAction="#showKhuyenMaiGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Khuyến mãi" textFill="WHITE">
+                        <JFXButton fx:id="btnFKM" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="380.0" onAction="#showKhuyenMaiGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Khuyến mãi (F7)" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman Bold" size="15.0" />
                            </font>
@@ -149,7 +149,7 @@
                               </FontAwesomeIcon>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnUM" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="480.0" onAction="#openUserManual" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Hỗ trợ" textFill="WHITE">
+                        <JFXButton fx:id="btnUM" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="480.0" onAction="#openUserManual" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Hỗ trợ (F10)" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman Bold" size="15.0" />
                            </font>
@@ -164,9 +164,9 @@
                               </FontAwesomeIcon>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btn_ketCa" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" layoutY="701.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#showKetCaPopup" prefHeight="40.0" prefWidth="158.0" ripplerFill="#ff4f4f" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 10;" text="Kết ca">
+                        <JFXButton fx:id="btn_ketCa" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" layoutY="701.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#showKetCaPopup" prefHeight="40.0" prefWidth="158.0" ripplerFill="#ff4f4f" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 10;" text="Kết ca (ESC)">
                            <font>
-                              <Font name="Times New Roman Bold" size="20.0" />
+                              <Font name="Times New Roman Bold" size="17.0" />
                            </font>
                            <graphic>
                               <FontAwesomeIcon fx:id="icDangXuat" fontSmoothingType="LCD" glyphName="SIGN_OUT" onMouseClicked="#dangXuat" size="2em" viewOrder="1.0">
@@ -194,12 +194,12 @@
                         </JFXButton>
                         <AnchorPane fx:id="acpTK" layoutX="2.0" layoutY="465.0" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: linear-gradient(to right, #4098ff, #5098ff);" visible="false">
                            <children>
-                              <JFXButton fx:id="btnTKDoanhThu" alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#showTKDoanhThuGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Doanh thu">
+                              <JFXButton fx:id="btnTKDoanhThu" alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#showTKDoanhThuGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Doanh thu (F8)">
                                  <font>
                                     <Font name="Arial" size="12.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton fx:id="btnTKNV" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="30.0" onAction="#showTKNhanVienGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Khác">
+                              <JFXButton fx:id="btnTKNV" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="30.0" onAction="#showTKNhanVienGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Khác (F9)">
                                  <font>
                                     <Font name="Arial" size="12.0" />
                                  </font>
@@ -231,7 +231,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <JFXButton fx:id="btnQLNV" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="180.0" onAction="#showNhanVienGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Nhân viên" textFill="WHITE">
+                        <JFXButton fx:id="btnQLNV" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="180.0" onAction="#showNhanVienGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Nhân viên (F1)" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman Bold" size="15.0" />
                            </font>
@@ -246,7 +246,7 @@
                               </FontAwesomeIcon>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnQLHD" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="230.0" onAction="#showHoaDonGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Hóa Đơn" textFill="WHITE">
+                        <JFXButton fx:id="btnQLHD" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="230.0" onAction="#showHoaDonGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Hóa Đơn (F4)" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman Bold" size="15.0" />
                            </font>
@@ -261,7 +261,7 @@
                               </FontAwesomeIcon>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnQLKH" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="280.0" onAction="#showKHGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Khách hàng" textFill="WHITE">
+                        <JFXButton fx:id="btnQLKH" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="280.0" onAction="#showKHGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Khách hàng (F5)" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman Bold" size="15.0" />
                            </font>
@@ -276,7 +276,7 @@
                               </FontAwesomeIcon>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnQLCT" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="330.0" onAction="#showChuyenTauGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Chuyến tàu" textFill="WHITE">
+                        <JFXButton fx:id="btnQLCT" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="330.0" onAction="#showChuyenTauGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Chuyến tàu (F6)" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman Bold" size="15.0" />
                            </font>
@@ -291,7 +291,7 @@
                               </FontAwesomeIcon>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnQLKM" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="380.0" onAction="#showKhuyenMaiGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Khuyến mãi" textFill="WHITE">
+                        <JFXButton fx:id="btnQLKM" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="380.0" onAction="#showKhuyenMaiGUI" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Khuyến mãi (F7)" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman Bold" size="15.0" />
                            </font>
@@ -321,7 +321,7 @@
                               </FontAwesomeIcon>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnUMQL" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="480.0" onAction="#openUserManual" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Hỗ trợ" textFill="WHITE">
+                        <JFXButton fx:id="btnUMQL" alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="2.0" layoutY="480.0" onAction="#openUserManual" prefHeight="35.0" prefWidth="155.0" ripplerFill="#2470d9" style="-fx-border-color: blue; -fx-border-width: 0 0 2 0;" text="Hỗ trợ (F10)" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman Bold" size="15.0" />
                            </font>
@@ -336,7 +336,7 @@
                               </FontAwesomeIcon>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnDangXuat" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" layoutY="701.0" minHeight="-Infinity" onAction="#dangXuat" prefHeight="40.0" prefWidth="158.0" ripplerFill="#ff4f4f" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 10;" text="Đăng xuất">
+                        <JFXButton fx:id="btnDangXuat" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" layoutY="701.0" minHeight="-Infinity" onAction="#dangXuat" prefHeight="40.0" prefWidth="158.0" ripplerFill="#ff4f4f" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 10;" text="Đăng xuất (ESC)">
                            <font>
                               <Font name="Times New Roman Bold" size="20.0" />
                            </font>
@@ -366,12 +366,12 @@
                         </JFXButton>
                         <AnchorPane fx:id="acpQLTK" layoutX="2.0" layoutY="465.0" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: linear-gradient(to right, #4098ff, #5098ff);" visible="false">
                            <children>
-                              <JFXButton fx:id="btnQLTKDoanhThu" alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#showTKDoanhThuGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Doanh thu">
+                              <JFXButton fx:id="btnQLTKDoanhThu" alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#showTKDoanhThuGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Doanh thu (F8)">
                                  <font>
                                     <Font name="Arial" size="12.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton fx:id="btnQLTKNV" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="30.0" onAction="#showTKNhanVienGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Khác">
+                              <JFXButton fx:id="btnQLTKNV" alignment="BASELINE_LEFT" buttonType="RAISED" layoutY="30.0" onAction="#showTKNhanVienGUI" prefHeight="30.0" prefWidth="155.0" ripplerFill="WHITE" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0;" text="Khác (F9)">
                                  <font>
                                     <Font name="Arial" size="12.0" />
                                  </font>

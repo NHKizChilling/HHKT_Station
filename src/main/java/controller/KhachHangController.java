@@ -195,6 +195,7 @@ public class KhachHangController implements Initializable {
             btn_add.setDisable(false);
             btn_update.setDisable(true);
             tbl_hanhKhach.getSelectionModel().clearSelection();
+            tbl_thongTinVe.setItems(null);
         });
 
         btn_add.setOnAction(e -> {
@@ -244,7 +245,6 @@ public class KhachHangController implements Initializable {
                     alert.setHeaderText("Cập nhật hành khách thành công");
                     alert.show();
                     btn_clear.fire();
-                    renderTableHanhKhach(khach_Hang_dao.getAllKhachHang());
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Lỗi");
@@ -284,6 +284,9 @@ public class KhachHangController implements Initializable {
                 throw new RuntimeException(ex);
             }
         });
+
+        // bấm enter để tìm kiếm
+        txt_searchBar.setOnAction(e -> btn_search.fire());
     }
 
     public void renderTableHanhKhach(ArrayList<KhachHang> list) {

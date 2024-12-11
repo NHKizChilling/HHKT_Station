@@ -16,19 +16,29 @@ public class KhachHang_DAO {
 
     public ArrayList<KhachHang> getAllKhachHang() {
         ArrayList<KhachHang> dsKhachHang = new ArrayList<>();
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
         try {
             ConnectDB.getInstance();
-            Connection con = ConnectDB.getConnection();
+            con = ConnectDB.getConnection();
             String sql = "SELECT * FROM KhachHang";
-            Statement st = con.createStatement();
-
-            ResultSet rs = st.executeQuery(sql);
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
             while (rs.next()) {
                 KhachHang khachHang = getInfo(rs);
                 dsKhachHang.add(khachHang);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (st != null) st.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return dsKhachHang;
     }

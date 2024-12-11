@@ -149,6 +149,13 @@ public class KetCaController implements Initializable {
             double tienMatThu = Double.parseDouble(txt_tienMatThu.getText());
             txt_tienChenhLech.setText(df.format(tienMatThu - tongTien));
         });
+
+        // bấm esc để thoát
+        txt_tienMatThu.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ESCAPE")) {
+                closeWindow();
+            }
+        });
     }
 
     public void setInfo() {

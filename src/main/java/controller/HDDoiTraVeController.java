@@ -180,7 +180,7 @@ public class HDDoiTraVeController implements Initializable {
         if (!txtThanhTien.getText().isEmpty() && txtTienKH.getText() != null) {
             double t = hd.getTongTien()/1000;
             t = Math.round(t);
-            btnGia1.setText(t * 1000 + "");
+            btnGia1.setText(df.format(t * 1000));
             double x1 = hd.getTongTien() / 1000000;
             x1 = (int) x1;
             if (tongTien % 1000000 < 100000) {

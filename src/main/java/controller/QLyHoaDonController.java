@@ -20,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -334,6 +335,13 @@ public class QLyHoaDonController implements Initializable {
                 }
             }
 
+        });
+
+        // bấm enter để tìm kiếm
+        txtTimKiem.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                timKiemHD(null);
+            }
         });
 
         btnInLaiVe.setOnAction(event -> {
