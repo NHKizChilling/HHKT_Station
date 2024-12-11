@@ -599,7 +599,7 @@ public class TrangChuController implements Initializable {
     @FXML
     protected void openUserManual() {
         try {
-            File file = new File(Objects.requireNonNull(getClass().getResource("/home.html")).toURI());
+            File file = new File(Objects.requireNonNull(getClass().getResource("/QuanLiVeTau/HTML/GioiThieu.html")).toURI());
             Desktop.getDesktop().open(file);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
