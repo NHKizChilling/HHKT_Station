@@ -593,9 +593,9 @@ public class HoaDonController implements Initializable {
             btnGia2.setText(df.format((x1 + 1) * 1000000));
             btnGia3.setText(df.format((x1 + 1) * 1000000 + 500000));
             btnGia4.setText(df.format((x1 + 2) * 1000000));
+            }
         }
     }
-}
 
     private void goiYGiaKhiNhap() {
             if (!txtThanhTien.getText().isEmpty() && txtTienKH.getText() != null) {

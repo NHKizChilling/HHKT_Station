@@ -237,6 +237,8 @@ public class HDDoiTraVeController implements Initializable {
                     ctl_dao.updateCTLT(ve_dao.getVeTheoID(ve_doi.getMaVe()).getCtlt(), true);
                     ctl_dao.updateCTLT(ve_doi.getCtlt(), false);
                     ve_dao.update(ve_doi);
+                    getData.dsve.clear();
+                    getData.dsve.add(ve_doi);
                     cthd_dao.create(cthd);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Thông báo");

@@ -14,6 +14,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -322,6 +324,15 @@ public class ThongKeNVController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try {
+            File file = new File("ThongKeNhanVien.xlsx");
+            if (file.exists()) {
+                Desktop.getDesktop().open(file);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void ghiFileExcelChuyenTau() {
@@ -428,6 +439,15 @@ public class ThongKeNVController implements Initializable {
             workbook.write(fileOut);
             fileOut.close();
             workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            File file = new File("ThongKeChuyenTau.xlsx");
+            if (file.exists()) {
+                Desktop.getDesktop().open(file);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

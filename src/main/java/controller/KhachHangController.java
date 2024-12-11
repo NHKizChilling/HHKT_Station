@@ -2,10 +2,7 @@ package controller;
 
 import com.itextpdf.text.DocumentException;
 import dao.*;
-import entity.ChoNgoi;
-import entity.KhachHang;
-import entity.LichTrinh;
-import entity.Ve;
+import entity.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,9 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class KhachHangController implements Initializable {
 
@@ -274,6 +269,8 @@ public class KhachHangController implements Initializable {
                 return;
             }
             Ve ve = tbl_thongTinVe.getSelectionModel().getSelectedItem();
+            ChiTietHoaDon cthd = new CT_HoaDon_DAO().getCT_HoaDonTheoMaVe(ve.getMaVe());
+            getData.hd = new HoaDon(cthd.getHoaDon().getMaHoaDon());
             if (ve == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
@@ -317,7 +314,14 @@ public class KhachHangController implements Initializable {
             ChoNgoi cn = new ChoNgoi_DAO().getChoNgoiTheoMa(ve.getCtlt().getChoNgoi().getMaChoNgoi());
             return new SimpleStringProperty(new LoaiToa_DAO().getLoaiToaTheoMa(new Toa_DAO().getToaTheoID(cn.getToa().getMaToa()).getLoaiToa().getMaLoaiToa()).getTenLoaiToa());
         });
-        col_tinhTrangVe.setCellValueFactory(new PropertyValueFactory<>("tinhTrangVe"));
+
+        HashMap<String, String> tinhTrang = new HashMap<>();
+        tinhTrang.put("DaHuy", "Đã hủy");
+        tinhTrang.put("DaBan", "Đã bán");
+        tinhTrang.put("DaDoi", "Đã đổi");
+
+        col_tinhTrangVe.setCellValueFactory(p -> new SimpleStringProperty(tinhTrang.get(p.getValue().getTinhTrangVe())));
+
         col_loaiVe.setCellValueFactory(p -> {
             Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
             return new SimpleStringProperty(new LoaiVe_DAO().getLoaiVeTheoMa(ve.getLoaiVe().getMaLoaiVe()).getTenLoaiVe());

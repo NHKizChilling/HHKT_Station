@@ -20,6 +20,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
+import java.awt.*;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -33,6 +35,8 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.ss.usermodel.CellStyle;
+
+import javax.swing.*;
 
 
 /*
@@ -184,6 +188,8 @@ public class ThongKeController implements Initializable {
         lbl_taoBaoCao.setOnMouseClicked(e -> {
             // TODO: Tạo báo cáo
             ghiFileExcel();
+            JOptionPane.showMessageDialog(null, "Tạo báo cáo doanh thu thành công");
+
         });
     }
 
@@ -430,6 +436,15 @@ public class ThongKeController implements Initializable {
         try (FileOutputStream fileOut = new FileOutputStream("ThongKeDoanhThu.xlsx")) {
             workbook.write(fileOut);
             workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            File file = new File("ThongKeDoanhThu.xlsx");
+            if (file.exists()) {
+                Desktop.getDesktop().open(file);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

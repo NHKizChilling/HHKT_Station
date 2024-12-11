@@ -326,13 +326,19 @@ public class QLyHoaDonController implements Initializable {
                 } catch (IOException | DocumentException e) {
                     throw new RuntimeException(e);
                 }
+            } else {
+                try {
+                    printPDF.inHoaDon(hd);
+                } catch (IOException | DocumentException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
         });
 
         btnInLaiVe.setOnAction(event -> {
             ChiTietHoaDon cthd = tbCTHD.getSelectionModel().getSelectedItem();
-
+            getData.hd = new HoaDon(cthd.getHoaDon().getMaHoaDon());
             try {
                 new PrintPDF().inVe(new ArrayList<>(Collections.singletonList(ve_dao.getVeTheoID(cthd.getVe().getMaVe()))));
             } catch (Exception e) {

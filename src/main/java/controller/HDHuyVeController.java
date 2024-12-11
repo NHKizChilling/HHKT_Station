@@ -225,9 +225,8 @@ public class HDHuyVeController implements Initializable {
         tbl_dsVe.setItems(list);
         col_stt.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(tbl_dsVe.getItems().indexOf(p.getValue()) + 1 + ""));
         col_hoTen.setCellValueFactory(p -> {
-            Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
-            KhachHang kh = khachHang_dao.getKhachHangTheoMaKH(ve.getKhachHang().getMaKH());
-            return new SimpleStringProperty(kh.getTenKH());
+            String ten = p.getValue().getTenHanhKhach();
+            return new SimpleStringProperty(ten);
         });
 
         col_thongTinVe.setCellValueFactory(p -> {
@@ -255,7 +254,7 @@ public class HDHuyVeController implements Initializable {
         col_tienTra.setCellValueFactory(p -> {
             Ve ve = ve_dao.getVeTheoID(p.getValue().getMaVe());
             ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
-            return new SimpleStringProperty(currencyVN.format(ctHoaDon.getGiaVe() - ctHoaDon.getGiaGiam() + mapLePhi.get(ve.getMaVe())));
+            return new SimpleStringProperty(currencyVN.format(ctHoaDon.getGiaVe() - ctHoaDon.getGiaGiam() - mapLePhi.get(ve.getMaVe())));
         });
     }
 
@@ -265,7 +264,7 @@ public class HDHuyVeController implements Initializable {
             ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(ve.getMaVe());
             tongTienVe += ctHoaDon.getGiaVe() - ctHoaDon.getGiaGiam();
             tongLePhi += mapLePhi.get(ve.getMaVe());
-            tongTienTra += ctHoaDon.getGiaVe() - ctHoaDon.getGiaGiam() + mapLePhi.get(ve.getMaVe());
+            tongTienTra += ctHoaDon.getGiaVe() - ctHoaDon.getGiaGiam() - mapLePhi.get(ve.getMaVe());
         }
 
         tongTienVe = Math.round(tongTienVe * 1000.0) / 1000.0;
