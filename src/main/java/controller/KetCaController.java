@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -147,7 +148,12 @@ public class KetCaController implements Initializable {
 
         txt_tienMatThu.setOnKeyTyped(event -> {
             double tienMatThu = Double.parseDouble(txt_tienMatThu.getText());
-            txt_tienChenhLech.setText(df.format(tienMatThu - tongTien));
+            if (tienMatThu < 0) {
+                lbl_thongBao.setText("Tiền mặt thu không được âm");
+            } else {
+                double tienChenhLech = tongTien - tienMatThu;
+                txt_tienChenhLech.setText(df.format(tienChenhLech));
+            }
         });
 
         // bấm esc để thoát
@@ -169,7 +175,7 @@ public class KetCaController implements Initializable {
     }
 
     private void renderDauCa() {
-        lbl_gioMoCa.setText(gioBatDau.toString());
+        lbl_gioMoCa.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(gioBatDau));
         lbl_tenNV.setText(nv.getTenNhanVien());
         lbl_tienDauCa.setText(df.format(tienDauCa));
     }

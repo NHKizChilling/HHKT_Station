@@ -72,6 +72,12 @@ public class MoCaController implements Initializable {
             }
             tienDauCa = Double.parseDouble(txt_tienDauCa.getText());
 
+            if (tienDauCa < 0) {
+                txt_tienDauCa.setPromptText("Tiền đầu ca phải lớn hơn 0");
+                txt_tienDauCa.requestFocus();
+                return;
+            }
+
             getData.tienDauCa = tienDauCa;
             getData.gioMoCa = LocalDateTime.now();
             getData.ghiChu = txt_ghiChu.getText();
