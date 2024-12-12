@@ -53,14 +53,6 @@ public class LoaiVe_DAO {
             n = stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if (stm != null) {
-                try {
-                    stm.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return n > 0;
     }
@@ -81,14 +73,6 @@ public class LoaiVe_DAO {
             n = stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if (stm != null) {
-                try {
-                    stm.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return n > 0;
     }
@@ -107,14 +91,6 @@ public class LoaiVe_DAO {
             n = stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if (stm != null) {
-                try {
-                    stm.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return n > 0;
     }

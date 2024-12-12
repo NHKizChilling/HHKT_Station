@@ -186,7 +186,12 @@ public class NhanVienController implements Initializable {
             boolean gioiTinh = "Nữ".equals(cb_gioiTinh.getValue());
             LocalDate dob = datePicker_dob.getValue();
             String sdt = txt_sdt.getText();
-            String email = txt_email.getText();
+            String email;
+            if (txt_email.getText().isBlank()) {
+                email = null;
+            } else {
+                email = txt_email.getText();
+            }
             String chucVu = cb_chucVu.getValue();
             String tinhTrangCV = cb_tinhTrangCV.getValue();
 
@@ -195,7 +200,9 @@ public class NhanVienController implements Initializable {
             String maNV = "NV" + (Integer.parseInt(maNVcuoi.substring(2)) + 1);
 
             if (invalidInput(tenNV, cccd, dob, sdt, chucVu)) return;
-            NhanVien nv = new NhanVien(maNV, tenNV, cccd, dob, gioiTinh, sdt, email, chucVu, tinhTrangCV);
+            NhanVien nv = new NhanVien(maNV, tenNV, cccd, dob, gioiTinh, sdt, chucVu, email, tinhTrangCV);
+            nv.setChucVu(chucVu);
+            nv.setEmail(email);
             if (nhanVien_dao.create(nv)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Thành công");

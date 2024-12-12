@@ -80,14 +80,6 @@ public class KhachHang_DAO {
             n = stm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return n > 0;
     }
