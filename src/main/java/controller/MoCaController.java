@@ -1,7 +1,9 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import connectdb.ConnectDB;
+import dao.NhanVien_DAO;
 import entity.NhanVien;
 import gui.TrangChu_GUI;
 import javafx.fxml.FXML;
@@ -13,12 +15,13 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class MoCaController implements Initializable {
 
     @FXML
-    private TextField txt_tenNV;
+    private JFXComboBox<String> cbNhanVien;
 
     @FXML
     private Label lbl_gioBatDau;
@@ -35,16 +38,27 @@ public class MoCaController implements Initializable {
     @FXML
     private JFXButton btn_dangXuat;
 
-    private NhanVien nv;
-
     Double tienDauCa;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        nv = getData.nv;
+        NhanVien nv1 = getData.nv;
 
-        setThongTin(nv, LocalDateTime.now());
+        if (nv1 != null) {
+            setThongTin(nv1, LocalDateTime.now());
+        } else {
+            cbNhanVien.setDisable(false);
+        }
 
+        cbNhanVien.getItems().addAll(new NhanVien_DAO().getDSNhanVien().stream().map(nv -> nv.getTenNhanVien() + " - " + nv.getMaNhanVien()).toList());
+
+        new AutoCompleteComboBoxListener<>(cbNhanVien);
+
+        cbNhanVien.setOnAction(event -> {
+            String maNhanVien = cbNhanVien.getValue().split(" - ")[1];
+            NhanVien nv = new NhanVien_DAO().getNhanVien(maNhanVien);
+            setThongTin(nv, LocalDateTime.now());
+        });
 
         txt_tienDauCa.setOnAction(event -> {
             if (!txt_tienDauCa.getText().isEmpty()) {
@@ -56,6 +70,15 @@ public class MoCaController implements Initializable {
         });
 
         btn_moCa.setOnAction(event -> {
+            if (cbNhanVien.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Lỗi");
+                alert.setContentText("Vui lòng chọn nhân viên để giao ca");
+                alert.showAndWait();
+                cbNhanVien.requestFocus();
+                return;
+            }
 
             //nếu tiền đầu ca là chữ thì thông báo
             if (!txt_tienDauCa.getText().matches("\\d*")) {
@@ -85,6 +108,9 @@ public class MoCaController implements Initializable {
             getData.tienDauCa = tienDauCa;
             getData.gioMoCa = LocalDateTime.now();
             getData.ghiChu = txt_ghiChu.getText();
+            if (getData.nv == null) {
+                getData.nv = new NhanVien_DAO().getNhanVien(cbNhanVien.getValue().split(" - ")[1]);
+            }
             FXMLLoader fxmlLoader = new FXMLLoader(TrangChu_GUI.class.getResource("trang-chu.fxml"));
             Scene scene = null;
             try {
@@ -126,8 +152,8 @@ public class MoCaController implements Initializable {
     }
 
     public void setThongTin(NhanVien nv, LocalDateTime gioBatDau) {
-        txt_tenNV.setText(nv.getTenNhanVien());
-        lbl_gioBatDau.setText(gioBatDau.getDayOfMonth() + "/" + gioBatDau.getMonthValue() + "/" + gioBatDau.getYear() + " " + gioBatDau.getHour() + ":" + gioBatDau.getMinute());
+        cbNhanVien.setValue(nv.getTenNhanVien() + " - " + nv.getMaNhanVien());
+        lbl_gioBatDau.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(gioBatDau));
         txt_tienDauCa.requestFocus();
     }
 }

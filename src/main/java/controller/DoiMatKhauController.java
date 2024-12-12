@@ -106,7 +106,7 @@ public class DoiMatKhauController implements Initializable {
                     alert.showAndWait();
                     pwdNew.requestFocus();
                     return;
-                } else if (newPass.matches("^[A_Za_z0_9@_.!?]$")) {
+                } else if (newPass.matches("^[A-Za-z0-9@_.!?]{6,20}$")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Lỗi");
                     alert.setHeaderText(null);

@@ -1,6 +1,7 @@
 package controller;
 
 import com.itextpdf.text.DocumentException;
+import com.jfoenix.controls.JFXComboBox;
 import dao.CT_HoaDon_DAO;
 import dao.HoaDon_DAO;
 import dao.Ve_DAO;
@@ -8,9 +9,11 @@ import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.NhanVien;
 import entity.Ve;
+import gui.TrangChu_GUI;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -122,14 +125,14 @@ public class KetCaController implements Initializable {
         });
 
         btn_dongCa.setOnAction(event -> {
-            if (checkInput()) {
+            if (!checkInput()) {
                 return;
             }
             closeWindow();
         });
 
         btn_inPhieu.setOnAction(event -> {
-            if (checkInput()) {
+            if (!checkInput()) {
                 return;
             }
             if (txt_ghiChu.getText().isEmpty()) {
@@ -177,7 +180,7 @@ public class KetCaController implements Initializable {
     private void renderDauCa() {
         lbl_gioMoCa.setText(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(gioBatDau));
         lbl_tenNV.setText(nv.getTenNhanVien());
-        lbl_tienDauCa.setText(df.format(tienDauCa));
+        lbl_tienDauCa.setText(df.format(Math.round(tienDauCa / 1000) * 1000));
     }
 
     private void renderTrongCa() {
@@ -276,6 +279,11 @@ public class KetCaController implements Initializable {
         lbl_soVeHuy.setText(String.valueOf(soVeHuyUI));
         lbl_soVeDoi.setText(String.valueOf(soVeDoiUI));
 
+        tienBanVe = Math.round(tienBanVe / 1000) * 1000;
+        tienTraVe = Math.round(tienTraVe / 1000) * 1000;
+        tienTraVeDoi = Math.round(tienTraVeDoi / 1000) * 1000;
+        tienThuVeDoi = Math.round(tienThuVeDoi / 1000) * 1000;
+
         tongTien = tienBanVe + tienTraVe + tienTraVeDoi + tienThuVeDoi;
         lbl_tienBanVe.setText(df.format(tienBanVe));
         lbl_tienTraVe.setText(df.format(tienTraVe));
@@ -296,22 +304,20 @@ public class KetCaController implements Initializable {
         // Đóng cửa sổ Kết Ca
         Stage stage = (Stage) btn_dongCa.getScene().getWindow();
         stage.close();
+        getData.nv = null;
 
         // Mở cửa sổ Mở Ca
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/mo-ca.fxml"));
             AnchorPane page = loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Mở Ca");
-            dialogStage.getIcons().add(new Image("file:src/main/resources/img/logo.png"));
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(stage);
             Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-            dialogStage.showAndWait();
+            TrangChu_GUI.stage.close();
+            TrangChu_GUI.stage.setScene(scene);
+            TrangChu_GUI.stage.show();
+            TrangChu_GUI.stage.centerOnScreen();
+            TextField txtTienDauCa = (TextField) scene.lookup("#txt_tienDauCa");
+            txtTienDauCa.setText(String.valueOf((int)tongTien));
 
-            MoCaController controller = loader.getController();
-            controller.setThongTin(nv, LocalDateTime.now());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -330,7 +336,7 @@ public class KetCaController implements Initializable {
             return false;
         }
 
-        if (txt_tienMatThu.getText().matches("\\d*")) {
+        if (!txt_tienMatThu.getText().matches("[0-9]*")) {
             lbl_thongBao.setText("Tiền mặt thu phải là số");
             return false;
         }

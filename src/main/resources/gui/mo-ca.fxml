@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -39,11 +40,6 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_tenNV" disable="true" layoutX="171.0" layoutY="105.0" prefHeight="32.0" prefWidth="407.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
       <Label fx:id="lbl_gioBatDau" layoutX="171.0" layoutY="163.0" text="_">
          <font>
             <Font size="16.0" />
@@ -80,5 +76,6 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
+      <JFXComboBox fx:id="cbNhanVien" disable="true" editable="true" focusColor="WHITE" layoutX="169.0" layoutY="108.0" prefHeight="31.0" prefWidth="407.0" style="-fx-border-color: lightgray; -fx-border-width: 0 0 1 0;" unFocusColor="WHITE" visibleRowCount="5" />
    </children>
 </AnchorPane>
