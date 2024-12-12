@@ -17,6 +17,13 @@ public class ChiTietLichTrinh {
         setLichTrinh(lichTrinh);
     }
 
+    public ChiTietLichTrinh(ChoNgoi choNgoi, LichTrinh lichTrinh, boolean trangThai) {
+        this.choNgoi = choNgoi;
+        this.lichTrinh = lichTrinh;
+        this.trangThai = trangThai;
+        tinhGiaCho();
+    }
+
     public ChiTietLichTrinh(ChoNgoi choNgoi, LichTrinh lichTrinh, boolean trangThai, double giaCho) {
         this.choNgoi = choNgoi;
         this.lichTrinh = lichTrinh;
@@ -121,13 +128,6 @@ public class ChiTietLichTrinh {
 
     public double getGiaCho() {
         return giaCho;
-    }
-
-    public void setGiaCho(double giaCho) {
-        if (giaCho < 0) {
-            throw new IllegalArgumentException("Giá chỗ ngồi nhỏ hơn 0");
-        }
-        this.giaCho = giaCho;
     }
 
     @Override

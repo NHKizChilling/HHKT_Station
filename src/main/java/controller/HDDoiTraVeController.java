@@ -183,7 +183,19 @@ public class HDDoiTraVeController implements Initializable {
             btnGia1.setText(df.format(t * 1000));
             double x1 = hd.getTongTien() / 1000000;
             x1 = (int) x1;
-            if (tongTien % 1000000 < 100000) {
+            if (tongTien % 1000000 < 10000) {
+                btnGia2.setText(df.format(x1 * 1000000 + 10000));
+                btnGia3.setText(df.format(x1 * 1000000 + 20000));
+                btnGia4.setText(df.format(x1 * 1000000 + 50000));
+            } else if (tongTien % 1000000 < 20000) {
+                btnGia2.setText(df.format(x1 * 1000000 + 20000));
+                btnGia3.setText(df.format(x1 * 1000000 + 50000));
+                btnGia4.setText(df.format((x1 + 1) * 100000));
+            } else if (tongTien % 1000000 < 50000) {
+                btnGia2.setText(df.format(x1 * 1000000 + 50000));
+                btnGia3.setText(df.format(x1 * 1000000 + 100000));
+                btnGia4.setText(df.format((x1 + 1) * 100000));
+            } else if (tongTien % 1000000 < 100000) {
                 btnGia2.setText(df.format(x1 * 1000000 + 100000));
                 btnGia3.setText(df.format(x1 * 1000000 + 200000));
                 btnGia4.setText(df.format(x1 * 1000000 + 500000));
