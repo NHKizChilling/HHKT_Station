@@ -308,6 +308,10 @@ public class BanVeController implements Initializable {
             }
         });
 
+        dpNgayKH.setOnAction(e -> {
+            dpNgayVe.setValue(dpNgayKH.getValue());
+        });
+
         btnLamMoi.setOnMouseClicked(e -> {
             lamMoi();
         });
@@ -626,6 +630,8 @@ public class BanVeController implements Initializable {
                     HoaDon hoaDon = hd_dao.getHoaDonVuaTao();
                     if (!hoaDon.isTrangThai() && hoaDon.getTongTien() == 0) {
                         hd_dao.delete(hoaDon);
+                    } else {
+                        lamMoi();
                     }
                     getData.hd = null;
                     getData.dsctlt = null;
@@ -640,8 +646,8 @@ public class BanVeController implements Initializable {
             }
 
         });
-        //Nhập số điện thoại hiển thị ra khách hàng
 
+        //Nhập số điện thoại hiển thị ra khách hàng
         txtSDT.setOnKeyTyped(e -> {
             if (hk_dao.getKhachHangTheoSDT(txtSDT.getText()) != null) {
                 KhachHang kh = hk_dao.getKhachHangTheoSDT(txtSDT.getText());

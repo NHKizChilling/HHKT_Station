@@ -203,17 +203,6 @@
                                     <Insets left="30.0" />
                                  </padding>
                               </Label>
-                              <Label alignment="BOTTOM_RIGHT" contentDisplay="CENTER" layoutX="25.0" layoutY="70.0" text="VNĐ">
-                                 <font>
-                                    <Font size="36.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="300.0" />
-                                 </padding>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Label>
                            </children>
                         </VBox>
                      </children>

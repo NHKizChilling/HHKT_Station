@@ -24,7 +24,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane layoutY="-2.0" prefHeight="755.0" prefWidth="1385.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BanVeController">
+<AnchorPane layoutY="-2.0" prefHeight="755.0" prefWidth="1385.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BanVeController">
    <children>
       <AnchorPane prefHeight="755.0" prefWidth="200.0" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-width: 0 3 0 0; -fx-border-radius: 10;">
          <children>
@@ -310,7 +310,7 @@
                         <Font name="Times New Roman Bold" size="22.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtTenKH" layoutX="198.0" layoutY="49.0" prefHeight="30.0" prefWidth="214.0" promptText="Tên hành khách" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-width: 0 0 1 0; -fx-border-radius: 5;">
+                  <TextField fx:id="txtTenKH" layoutX="198.0" layoutY="49.0" prefHeight="30.0" prefWidth="214.0" promptText="Tên khách hàng" style="-fx-background-color: #fff; -fx-border-color: #333; -fx-border-width: 0 0 1 0; -fx-border-radius: 5;">
                      <font>
                         <Font name="Times New Roman" size="15.0" />
                      </font>

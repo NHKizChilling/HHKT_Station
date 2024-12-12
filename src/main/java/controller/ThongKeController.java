@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -188,8 +189,11 @@ public class ThongKeController implements Initializable {
         lbl_taoBaoCao.setOnMouseClicked(e -> {
             // TODO: Tạo báo cáo
             ghiFileExcel();
-            JOptionPane.showMessageDialog(null, "Tạo báo cáo doanh thu thành công");
-
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Thông báo");
+            alert.setHeaderText(null);
+            alert.setContentText("Tạo báo cáo thành công!");
+            alert.showAndWait();
         });
     }
 

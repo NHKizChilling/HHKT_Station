@@ -223,7 +223,6 @@ public class QLyHoaDonController implements Initializable {
             txtGiaVe.setText(nf.format(cthd.getGiaVe()));
             txtGiaGiam.setText(nf.format(cthd.getGiaGiam()));
             txtThanhTienVe.setText(nf.format(cthd.getGiaVe() - cthd.getGiaGiam()));
-            btnInLaiVe.setDisable(!tbhd.getSelectionModel().getSelectedItem().isTrangThai());
         });
         //Bảng hd
         colSTT.setCellValueFactory(p -> new SimpleIntegerProperty(tbhd.getItems().indexOf(p.getValue()) + 1).asObject());
@@ -345,10 +344,20 @@ public class QLyHoaDonController implements Initializable {
         });
 
         btnInLaiVe.setOnAction(event -> {
+            ArrayList<Ve> dsve = new ArrayList<>();
             ChiTietHoaDon cthd = tbCTHD.getSelectionModel().getSelectedItem();
-            getData.hd = new HoaDon(cthd.getHoaDon().getMaHoaDon());
+            getData.hd = tbhd.getSelectionModel().getSelectedItem();
+            if (cthd == null) {
+                for (ChiTietHoaDon cthd1 : listCTHD) {
+                    Ve ve = ve_dao.getVeTheoID(cthd1.getVe().getMaVe());
+                    dsve.add(ve);
+                }
+            } else {
+                Ve ve = ve_dao.getVeTheoID(cthd.getVe().getMaVe());
+                dsve.add(ve);
+            }
             try {
-                new PrintPDF().inVe(new ArrayList<>(Collections.singletonList(ve_dao.getVeTheoID(cthd.getVe().getMaVe()))));
+                new PrintPDF().inVe(new ArrayList<>(dsve));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -359,6 +368,9 @@ public class QLyHoaDonController implements Initializable {
             listCTHD = ct_hoaDon_dao.getCT_HoaDon(hd.getMaHoaDon());
             tbCTHD.getItems().clear();
             tbCTHD.getItems().addAll(listCTHD);
+            if (hd.isTrangThai()) {
+                btnInLaiVe.setDisable(false);
+            }
         });
 
         btnThanhToan.setOnAction(event -> {
@@ -412,6 +424,7 @@ public class QLyHoaDonController implements Initializable {
                             tbhd.getSelectionModel().select(getData.hd);
                             btnThanhToan.setDisable(true);
                             btnInHD.setDisable(false);
+                            btnChiTiet.fire();
                         }
                     });
             } catch (IOException ex) {

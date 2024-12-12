@@ -213,6 +213,26 @@ public class HoaDonController implements Initializable {
             if (cbLoaiVe.getValue() != null) {
                 if (cbLoaiVe.getValue().equals("Người cao tuổi") || cbLoaiVe.getValue().equals("Trẻ em")) {
                     dpNgaySinh.setDisable(false);
+                    if (cbLoaiVe.getValue().equals("Trẻ em")) {
+                        dpNgaySinh.setDayCellFactory(picker -> new DateCell() {
+                            @Override
+                            public void updateItem(LocalDate date, boolean empty) {
+                                super.updateItem(date, empty);
+                                setDisable(empty || date.isAfter(LocalDate.now().minusYears(6)) || date.isBefore(LocalDate.now().minusYears(14)));
+                            }
+                        });
+                        //focus vào khoảng thời gian cho phép chọn
+                        dpNgaySinh.setValue(LocalDate.now().minusYears(6));
+                    } else {
+                        dpNgaySinh.setDayCellFactory(picker -> new DateCell() {
+                            @Override
+                            public void updateItem(LocalDate date, boolean empty) {
+                                super.updateItem(date, empty);
+                                setDisable(empty || date.isAfter(LocalDate.now().minusYears(60)));
+                            }
+                        });
+                        dpNgaySinh.setValue(LocalDate.now().minusYears(60));
+                    }
                     txtSoCCCD.setDisable(cbLoaiVe.getValue().equals("Trẻ em"));
                     txtSoCCCD.clear();
                 } else {
@@ -220,13 +240,6 @@ public class HoaDonController implements Initializable {
                     dpNgaySinh.setValue(null);
                     txtSoCCCD.setDisable(false);
                 }
-            }
-        });
-        dpNgaySinh.setDayCellFactory(picker -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                setDisable(empty || date.isAfter(LocalDate.now()) || date.isBefore(LocalDate.now().minusYears(14)));
             }
         });
 
@@ -241,7 +254,6 @@ public class HoaDonController implements Initializable {
             tongTien = hd.getTongTien();
             txtThanhTien.setText(df.format(Math.round(tongTien / 1000) * 1000));
             goiYGia();
-            //chonGiaGoiY(df);
             acpThanhToan.setDisable(false);
             btnGia1.setOnAction(event -> {
                 txtTienKH.setText(btnGia1.getText());
@@ -283,21 +295,6 @@ public class HoaDonController implements Initializable {
                     hd.setTrangThai(true);
                     getData.hd = hd;
                     if(new HoaDon_DAO().update(hd)) {
-                        ArrayList<Ve> list = new ArrayList<>();
-                        ArrayList<ChiTietHoaDon> listcthd_new = new ArrayList<>();
-                        for (Ve ve : dsve) {
-                            new CT_LichTrinh_DAO().updateCTLT(ve.getCtlt(), false);
-                            new Ve_DAO().create(ve);
-                            Ve v_new = new Ve_DAO().getLaiVe(ve);
-                            ve.setMaVe(v_new.getMaVe());
-                            list.add(ve);
-                            listcthd_new.add(new ChiTietHoaDon(hd, ve));
-                        }
-                        if (new CT_HoaDon_DAO().getCT_HoaDon(hd.getMaHoaDon()).isEmpty()) {
-                            for (ChiTietHoaDon cthd : listcthd_new) {
-                                new CT_HoaDon_DAO().create(cthd);
-                            }
-                        }
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Thông báo");
                         alert.setHeaderText("Thanh toán thành công");
@@ -305,8 +302,6 @@ public class HoaDonController implements Initializable {
                         btnThanhToan.setDisable(true);
                         btnLuuTamHD.setDisable(true);
                         alert.showAndWait();
-                        getData.dsve = list;
-                        getData.dscthd = listcthd_new;
                     }
                 }
             });
@@ -712,14 +707,28 @@ public class HoaDonController implements Initializable {
             dpNgaySinh.requestFocus();
             return false;
         } else {
-            if (!dpNgaySinh.isDisable() && dpNgaySinh.getValue().isBefore(LocalDate.now().minusYears(14))) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Thông báo");
-                alert.setHeaderText(null);
-                alert.setContentText("Trẻ em phải dưới 14 tuổi");
-                alert.show();
-                dpNgaySinh.requestFocus();
-                return false;
+            if (dpNgaySinh.getValue() != null) {
+                if (cbLoaiVe.getValue().equals("Trẻ em")) {
+                    if (dpNgaySinh.getValue().isAfter(LocalDate.now().minusYears(6)) || dpNgaySinh.getValue().isBefore(LocalDate.now().minusYears(14))) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Lỗi");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Trẻ em từ 6 đến 14 tuổi");
+                        alert.showAndWait();
+                        dpNgaySinh.requestFocus();
+                        return false;
+                    }
+                } else {
+                    if (dpNgaySinh.getValue().isAfter(LocalDate.now().minusYears(60))) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Lỗi");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Người cao tuổi từ 60 tuổi trở lên");
+                        alert.showAndWait();
+                        dpNgaySinh.requestFocus();
+                        return false;
+                    }
+                }
             }
         }
 

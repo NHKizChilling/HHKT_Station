@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -94,12 +95,20 @@ public class ThongKeNVController implements Initializable {
 
         lbl_taoBaoCaoNV.setOnMouseClicked(event -> {
             ghiFileExcelNV();
-            JOptionPane.showMessageDialog(null, "Tạo báo cáo nhân viên thành công");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Thông báo");
+            alert.setHeaderText(null);
+            alert.setContentText("Tạo báo cáo nhân viên thành công");
+            alert.showAndWait();
         });
 
         lbl_taoBaoCaoChuyenTau.setOnMouseClicked(event -> {
             ghiFileExcelChuyenTau();
-            JOptionPane.showMessageDialog(null, "Tạo báo cáo chuyến tàu thành công");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Thông báo");
+            alert.setHeaderText(null);
+            alert.setContentText("Tạo báo cáo chuyến tàu thành công");
+            alert.showAndWait();
         });
     }
 
