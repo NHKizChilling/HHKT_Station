@@ -75,14 +75,6 @@ public class ChuyenTau_DAO {
             n = stm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (stm != null) {
-                try {
-                    stm.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return n > 0;
     }
@@ -101,14 +93,6 @@ public class ChuyenTau_DAO {
             n = stm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (stm != null) {
-                try {
-                    stm.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return n > 0;
     }

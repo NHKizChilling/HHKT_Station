@@ -128,9 +128,10 @@ public class NhanVien {
     }
 
     public void setChucVu(String chucVu) {
-        if (chucVu == null || chucVu.isBlank()) {
-            throw new IllegalArgumentException("Chức vụ không được để trống");
-        }
+//        if (chucVu == null || chucVu.isBlank()) {
+//            System.out.println(chucVu);
+//            throw new IllegalArgumentException("Chức vụ không được để trống");
+//        }
         this.chucVu = chucVu;
     }
 

@@ -42,7 +42,7 @@ public class NhanVien_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("insert into NhanVien values(?,?,?,?,?,?,?,?,?)");
+            stm = con.prepareStatement("INSERT INTO NhanVien (MaNV, HoTenNV, SoCCCD, NgaySinh, GioiTinh, SDT, Email, ChucVu, TinhTrangCV) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             stm.setString(1, nv.getMaNhanVien());
             stm.setString(2, nv.getTenNhanVien());
@@ -143,7 +143,7 @@ public class NhanVien_DAO {
         PreparedStatement stm = null;
         int n = 0;
         try {
-            stm = con.prepareStatement("update NhanVien set HoTenNV = ?, SoCCCD = ?, NgaySinh = ?, GioiTinh = ?, SDT = ?, Email = ?, ChucVu = ?, TinhTrangCV = ? where MaNhanVien = ?");
+            stm = con.prepareStatement("update NhanVien set HoTenNV = ?, SoCCCD = ?, NgaySinh = ?, GioiTinh = ?, SDT = ?, Email = ?, ChucVu = ?, TinhTrangCV = ? where MaNV = ?");
 
             stm.setString(1, nv.getTenNhanVien());
             stm.setString(2, nv.getSoCCCD());
