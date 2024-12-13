@@ -20,7 +20,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" prefHeight="755.0" prefWidth="1386.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DoiVeController">
+<AnchorPane minHeight="-Infinity" prefHeight="755.0" prefWidth="1386.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DoiVeController">
    <children>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="715.0" prefWidth="1386.0">
          <children>
@@ -94,7 +94,7 @@
                            </children>
                         </AnchorPane>
                         <Line endX="1271.0" layoutX="115.0" layoutY="200.0" startX="-115.0" />
-                        <Label fx:id="label_thongBao" layoutX="344.0" layoutY="185.0" textFill="RED">
+                        <Label fx:id="label_thongBao" layoutX="344.0" layoutY="165.0" textFill="RED">
                            <font>
                               <Font size="16.0" />
                            </font>

@@ -484,9 +484,9 @@ public class BanVeController implements Initializable {
             } else {
                 dslt = FXCollections.observableList(list);
                 tbLT.setItems(dslt);
-                showTauTheoLT(list);
                 btnChonCD.setDisable(false);
                 btnChonKH.setDisable(true);
+                showTauTheoLT(list);
             }
         });
 
@@ -765,7 +765,7 @@ public class BanVeController implements Initializable {
         if (!btnChonKH.isDisable()) {
             Collections.reverse(dstoa);
         } else {
-            ImageView imageView1 = new ImageView("file:src/main/resources/img/train1.png");
+            ImageView imageView1 = new ImageView(new Image("/img/train1.png"));
             imageView1.setFitHeight(25);
             imageView1.setFitWidth(50);
             Label lbl = new Label(lt.getChuyenTau().getSoHieutau());
@@ -789,7 +789,7 @@ public class BanVeController implements Initializable {
             paneImg.setMaxHeight(18);
             paneImg.setPrefWidth(50);
             paneImg.setStyle("-fx-background-color: skyblue;-fx-background-radius: 5;");
-            ImageView imageView = new ImageView("file:src/main/resources/img/trainCar.png");
+            ImageView imageView = new ImageView(new Image("/img/trainCar.png"));
             imageView.setId(toa.getMaToa());
             imageView.setFitHeight(25);
             imageView.setFitWidth(50);
@@ -1248,7 +1248,7 @@ public class BanVeController implements Initializable {
             grTrain.getChildren().add(paneImg);
         }
         if (!btnChonKH.isDisable()) {
-            ImageView imageView1 = new ImageView("file:src/main/resources/img/train.png");
+            ImageView imageView1 = new ImageView(new Image("/img/train.png"));
             imageView1.setFitHeight(25);
             imageView1.setFitWidth(50);
             Label lbl = new Label(lt.getChuyenTau().getSoHieutau());

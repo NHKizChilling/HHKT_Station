@@ -600,9 +600,9 @@ public class TrangChuController implements Initializable {
     @FXML
     protected void openUserManual() {
         try {
-            File file = new File(Objects.requireNonNull(getClass().getResource("/QuanLiVeTau/HTML/GioiThieu.html")).toURI());
+            File file = new File("src/main/resources/QuanLiVeTau/HTML/GioiThieu.html");
             Desktop.getDesktop().open(file);
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         if (getData.nv.getChucVu().equals("Nhân viên")) {

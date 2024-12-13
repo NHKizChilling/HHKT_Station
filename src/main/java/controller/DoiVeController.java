@@ -313,7 +313,7 @@ public class DoiVeController implements Initializable {
                 label_thongBao.setText("Vé không thể đổi");
                 return;
             }
-            if (lichTrinh_dao.getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh()).getThoiGianKhoiHanh().isBefore(LocalDateTime.now())) {
+            if (lichTrinh_dao.getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh()).getThoiGianKhoiHanh().minusDays(1).isBefore(LocalDateTime.now())) {
                 label_thongBao.setText("Vé đã quá hạn đổi truớc 24h tàu chạy");
                 return;
             }
