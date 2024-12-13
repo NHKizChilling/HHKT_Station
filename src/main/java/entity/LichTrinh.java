@@ -25,15 +25,12 @@ public class LichTrinh {
         setChuyenTau(chuyenTau);
         setGaDi(gaDi);
         setGaDen(gaDen);
-        if (thoiGianKhoiHanh.isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("Thời gian khởi hành không thể ở trước thời gian hiện tại");
-        }  else {
-            if (thoiGianKhoiHanh.isAfter(thoiGianDuKienDen)) {
-                throw new IllegalArgumentException("Thời gian khởi hành không hợp lệ");
-            } else {
-                this.thoiGianKhoiHanh = thoiGianKhoiHanh;
-            }
+        if (thoiGianKhoiHanh.isAfter(thoiGianDuKienDen)) {
+            throw new IllegalArgumentException("Thời gian khởi hành không hợp lệ");
+        } else {
+            this.thoiGianKhoiHanh = thoiGianKhoiHanh;
         }
+
         if (thoiGianDuKienDen.isBefore(thoiGianKhoiHanh)) {
             throw new IllegalArgumentException("Thời gian dự kiến đến không thể ở trước thời gian khởi hành");
         } else {

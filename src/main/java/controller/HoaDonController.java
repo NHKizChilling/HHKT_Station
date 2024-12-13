@@ -111,8 +111,6 @@ public class HoaDonController implements Initializable {
     @FXML
     private TextField txtTienTra;
     @FXML
-    private JFXButton btnInHD;
-    @FXML
     private JFXButton btnLuuTamHD;
     @FXML
     private JFXButton btnThanhToan;
@@ -298,26 +296,17 @@ public class HoaDonController implements Initializable {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Thông báo");
                         alert.setHeaderText("Thanh toán thành công");
-                        btnInHD.setDisable(false);
                         btnThanhToan.setDisable(true);
                         btnLuuTamHD.setDisable(true);
                         alert.showAndWait();
+                        PrintPDF printPDF = new PrintPDF();
+                        try {
+                            printPDF.inHoaDon(getData.hd);
+                            printPDF.inVe(getData.dsve);
+                        } catch (IOException | DocumentException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
-                }
-            });
-
-            btnInHD.setOnAction(event -> {
-                PrintPDF printPDF = new PrintPDF();
-                try {
-                    printPDF.inHoaDon(getData.hd);
-                    ArrayList<Ve> list = getData.dsve;
-                    printPDF.inVe(list);
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Thông báo");
-                    alert.setHeaderText("In hóa đơn thành công");
-                    alert.show();
-                } catch (IOException | DocumentException e) {
-                    throw new RuntimeException(e);
                 }
             });
             return;
@@ -535,28 +524,19 @@ public class HoaDonController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Thông báo");
                     alert.setHeaderText("Thanh toán thành công");
-                    btnInHD.setDisable(false);
                     btnThanhToan.setDisable(true);
                     btnLuuTamHD.setDisable(true);
                     alert.showAndWait();
                     getData.dsve = list;
                     getData.dscthd = listcthd_new;
+                    PrintPDF printPDF = new PrintPDF();
+                    try {
+                        printPDF.inHoaDon(getData.hd);
+                        printPDF.inVe(getData.dsve);
+                    } catch (IOException | DocumentException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            }
-        });
-
-        btnInHD.setOnAction(event -> {
-            PrintPDF printPDF = new PrintPDF();
-            try {
-                printPDF.inHoaDon(getData.hd);
-                ArrayList<Ve> list = getData.dsve;
-                printPDF.inVe(list);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Thông báo");
-                alert.setHeaderText("In hóa đơn thành công");
-                alert.show();
-            } catch (IOException | DocumentException e) {
-                throw new RuntimeException(e);
             }
         });
 

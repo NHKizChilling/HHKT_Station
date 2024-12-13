@@ -793,6 +793,10 @@ public class BanVeController implements Initializable {
             imageView.setId(toa.getMaToa());
             imageView.setFitHeight(25);
             imageView.setFitWidth(50);
+            LoaiToa loaiToa = ltoa_dao.getLoaiToaTheoMa(toa.getLoaiToa().getMaLoaiToa());
+            //hiển thị tên toa khi rê chuột vào
+            Tooltip tooltip = new Tooltip(loaiToa.getTenLoaiToa());
+            Tooltip.install(imageView, tooltip);
 
             imageView.setOnMouseEntered(e -> {
                 if(!paneImg.getStyle().contains("lightgreen")) {
@@ -807,7 +811,7 @@ public class BanVeController implements Initializable {
             });
 
             imageView.setOnMouseClicked(e -> {
-                lblToa.setText("Toa " + toa.getSoSTToa() + ": " + ltoa_dao.getLoaiToaTheoMa(toa.getLoaiToa().getMaLoaiToa()).getTenLoaiToa());
+                lblToa.setText("Toa " + toa.getSoSTToa() + ": " + loaiToa.getTenLoaiToa());
                 paneImg.setStyle("-fx-background-color: lightgreen;-fx-background-radius: 5;");
                 //đổi màu các imageView còn lại
                 if (chosedId != null) {
@@ -848,6 +852,9 @@ public class BanVeController implements Initializable {
                         for (int col = 0; col < 16; col++) {
                             int seatNumber = seatNumbers[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            //hiển thị giá tiền của ghế khi rê chuột vào
+                            Tooltip tooltipCN = new Tooltip("Giá: " + DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN")).format(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber).getMaChoNgoi()).getGiaCho()));
+                            Tooltip.install(seatButton, tooltipCN);
                             seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
@@ -937,6 +944,8 @@ public class BanVeController implements Initializable {
                         for (int col = 0; col < 16; col++) {
                             int seatNumber = seatNumbers[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            Tooltip tooltipCN = new Tooltip("Giá: " + DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN")).format(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber).getMaChoNgoi()).getGiaCho()));
+                            Tooltip.install(seatButton, tooltipCN);
                             seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
@@ -1023,6 +1032,8 @@ public class BanVeController implements Initializable {
                         for (int col = 0; col < 14; col++) {
                             int seatNumber = seatNumbers2[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            Tooltip tooltipCN = new Tooltip("Giá: " + DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN")).format(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber).getMaChoNgoi()).getGiaCho()));
+                            Tooltip.install(seatButton, tooltipCN);
                             seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
@@ -1103,6 +1114,8 @@ public class BanVeController implements Initializable {
                         for (int col = 0; col < 14; col++) {
                             int seatNumber = seatNumbers[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            Tooltip tooltipCN = new Tooltip("Giá: " + DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN")).format(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber).getMaChoNgoi()).getGiaCho()));
+                            Tooltip.install(seatButton, tooltipCN);
                             seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {
@@ -1180,6 +1193,8 @@ public class BanVeController implements Initializable {
                         for (int col = 0; col < 7; col++) {
                             int seatNumber = seatNumbers2[row][col];
                             Button seatButton = new Button(String.valueOf(seatNumber));
+                            Tooltip tooltipCN = new Tooltip("Giá: " + DecimalFormat.getCurrencyInstance(Locale.of("vi", "VN")).format(ctlt_dao.getCTLTTheoCN(lt.getMaLichTrinh(), cn_dao.getChoNgoiTheoToa(toa.getMaToa(), seatNumber).getMaChoNgoi()).getGiaCho()));
+                            Tooltip.install(seatButton, tooltipCN);
                             seatButton.setCursor(Cursor.HAND);
                             for (ChoNgoi cn : dscn) {
                                 if(cn.getSttCho() == seatNumber) {

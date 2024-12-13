@@ -210,10 +210,17 @@ public class DoiVeController implements Initializable {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                 alert.setHeaderText(null);
                                 alert.setTitle("Tra cứu");
-                                alert.setContentText("Quét thành công!");
+                                alert.setContentText("Tra cứu thành công!");
                                 alert.showAndWait();
                                 primaryStage.close();
                             });
+                            tbl_thongTinVe.getItems().clear();
+                            ArrayList<Ve> listVe = new ArrayList<>();
+                            Ve ve = ve_dao.getVeTheoID(result);
+                            if (ve != null) {
+                                listVe.add(ve);
+                                renderTableVe(listVe);
+                            }
                             timer.shutdown();
                             webcam.close();
                             primaryStage.setOpacity(0);

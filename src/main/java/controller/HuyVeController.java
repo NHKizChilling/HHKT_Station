@@ -125,10 +125,12 @@ public class HuyVeController implements Initializable {
     private LoaiVe_DAO loaiVe_dao;
     private HoaDon hoaDon;
 
-    private NumberFormat currencyVN = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));
+    private final NumberFormat currencyVN = NumberFormat.getCurrencyInstance(Locale.of("vi", "VN"));
 
     private final ArrayList<Ve> selectedVe = new ArrayList<>();
     private final HashMap<String, Double> mapLePhi = new HashMap<>(); // Lưu lệ phí của từng vé
+    private ArrayList<Ve> listVe = new ArrayList<>();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -186,6 +188,23 @@ public class HuyVeController implements Initializable {
                             alert.showAndWait();
                             primaryStage.close();
                         });
+                        tbl_thongTinVe.getItems().clear();
+                        Ve ve = ve_dao.getVeTheoID(result);
+                        if (ve != null) {
+                            listVe.add(ve);
+                            renderTable(listVe);
+                            ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(result);
+                            hoaDon = hoaDon_dao.getHoaDonTheoMa(ctHoaDon.getHoaDon().getMaHoaDon());
+                            KhachHang kh = hanhKhach_dao.getKhachHangTheoMaKH(hoaDon.getKhachHang().getMaKH());
+                            txt_tenNguoiDat.setText(kh.getTenKH());
+                            txt_email.setText(kh.getEmail());
+                            txt_sdt.setText(kh.getSdt());
+                            txt_cccd.setText(kh.getSoCCCD());
+                        } else {
+                            txt_search.clear();
+                            txt_search.setPromptText("Mã vé không tồn tại");
+                            txt_search.requestFocus();
+                        }
                         timer.shutdown();
                         webcam.close();
                         primaryStage.setOpacity(0);
@@ -284,32 +303,6 @@ public class HuyVeController implements Initializable {
         col_giaVe.setCellValueFactory(p -> {
             ChiTietHoaDon ctHoaDon = ct_hoaDon_dao.getCT_HoaDonTheoMaVe(p.getValue().getMaVe());
             return new SimpleStringProperty(String.valueOf(ctHoaDon.getGiaVe()));
-        });
-
-        col_chonVe.setCellValueFactory(cellData -> {
-            CheckBox checkBox = new CheckBox();
-            Ve ve = cellData.getValue();
-            checkBox.setOnAction(e -> {
-                if (checkBox.isSelected()) {
-
-                    if (ve.getTinhTrangVe().equals("DaHuy")) {
-                        checkBox.setSelected(false);
-                        tbl_thongTinVe.getSelectionModel().clearSelection(tbl_thongTinVe.getItems().indexOf(ve));
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setHeaderText(null);
-                        alert.setTitle("Hủy vé");
-                        alert.setContentText("Vé đã được hủy");
-                        alert.showAndWait();
-                    } else {
-                        tbl_thongTinVe.getSelectionModel().select(tbl_thongTinVe.getItems().indexOf(ve));
-                        selectedVe.add(ve);
-                    }
-                } else {
-                    tbl_thongTinVe.getSelectionModel().clearSelection(tbl_thongTinVe.getItems().indexOf(tbl_thongTinVe.getSelectionModel().getSelectedItem()));
-                    selectedVe.remove(ve);
-                }
-            });
-            return new SimpleObjectProperty<>(checkBox);
         });
 
         btn_yeuCau.setOnAction(e -> {
@@ -442,6 +435,7 @@ public class HuyVeController implements Initializable {
     public void renderTable(ArrayList<Ve> listVe) {
         ObservableList<Ve> list = FXCollections.observableArrayList(listVe);
         tbl_thongTinVe.setItems(list);
+        tbl_thongTinVe.refresh();
         col_maVe.setCellValueFactory(new PropertyValueFactory<>("maVe"));
 
         // col thông tin hành khách chứa TenHK, cccd, sdt
