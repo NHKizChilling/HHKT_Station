@@ -210,7 +210,7 @@ public class DoiVeController implements Initializable {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                 alert.setHeaderText(null);
                                 alert.setTitle("Tra cứu");
-                                alert.setContentText("Tra cứu thành công!");
+                                alert.setContentText("Quét thành công!");
                                 alert.showAndWait();
                                 primaryStage.close();
                             });
@@ -311,6 +311,10 @@ public class DoiVeController implements Initializable {
             }
             if (!ve.getTinhTrangVe().equalsIgnoreCase("DaBan")) {
                 label_thongBao.setText("Vé không thể đổi");
+                return;
+            }
+            if (lichTrinh_dao.getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh()).getThoiGianKhoiHanh().isBefore(LocalDateTime.now())) {
+                label_thongBao.setText("Vé đã quá hạn đổi truớc 24h tàu chạy");
                 return;
             }
             LichTrinh lt = lichTrinh_dao.getLichTrinhTheoID(ve.getCtlt().getLichTrinh().getMaLichTrinh());
@@ -540,12 +544,14 @@ public class DoiVeController implements Initializable {
                 Label lblSoHieuTau = (Label) pTau.lookup("#lblSoHieuTau");
                 Label lblTGKH = (Label) pTau.lookup("#lblTGKH");
                 Label lblTGDen = (Label) pTau.lookup("#lblTGDen");
+                Label lblGa = (Label) pTau.lookup("#lblGa");
                 ImageView imgTau = (ImageView) pTau.lookup("#imgTau");
                 imgTau.setId(lt.getMaLichTrinh());
                 lblSoHieuTau.setText(lt.getChuyenTau().getSoHieutau());
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
                 lblTGKH.setText(lt.getThoiGianKhoiHanh().format(formatter));
                 lblTGDen.setText(lt.getThoiGianDuKienDen().format(formatter));
+                lblGa.setText(lt.getGaDi().getMaGa() + " - " + lt.getGaDen().getMaGa());
                 imgTau.setOnMouseClicked(et -> {
                     ColorAdjust colorAdjust = new ColorAdjust();
                     colorAdjust.setContrast(0);

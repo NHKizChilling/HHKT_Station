@@ -146,7 +146,7 @@ public class LichTrinh_DAO {
         try {
             ConnectDB.getInstance();
             Connection con = ConnectDB.getConnection();
-            String sql = "Select * from LichTrinh where MaGaDi = 'SG' and YEAR(ThoiGianKhoiHanh) = ? and MONTH(ThoiGianKhoiHanh) = ? and DAY(ThoiGianKhoiHanh) = ? and TrangThai = 1";
+            String sql = "Select * from LichTrinh where YEAR(ThoiGianKhoiHanh) = ? and MONTH(ThoiGianKhoiHanh) = ? and DAY(ThoiGianKhoiHanh) = ? and TrangThai = 1";
             stm = con.prepareStatement(sql);
             stm.setInt(1, ngayDi.getYear());
             stm.setInt(2, ngayDi.getMonth().getValue());

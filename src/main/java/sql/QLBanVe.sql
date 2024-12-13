@@ -757,21 +757,21 @@ INSERT INTO Toa (MaToa, STTToa, SoHieuTau, MaLoaiToa) VALUES
 ('SPT1T11', 11, 'SPT1', 'GNK6'),
 
 -- Toa cứng
-('SNT1T1', 1, 'SNT2', 'NC'),
-('SNT1T2', 2, 'SNT2', 'NC'),
+('SNT1T1', 1, 'SNT1', 'NC'),
+('SNT1T2', 2, 'SNT1', 'NC'),
 -- Toa mềm
-('SNT1T3', 3, 'SNT2', 'NM'),
-('SNT1T4', 4, 'SNT2', 'NM'),
+('SNT1T3', 3, 'SNT1', 'NM'),
+('SNT1T4', 4, 'SNT1', 'NM'),
 -- Toa VIP
-('SNT1T5', 5, 'SNT2', 'TVIP'),
+('SNT1T5', 5, 'SNT1', 'TVIP'),
 -- Toa giường nằm khoang 4
-('SNT1T6', 6, 'SNT2', 'GNK4'),
-('SNT1T7', 7, 'SNT2', 'GNK4'),
-('SNT1T8', 8, 'SNT2', 'GNK4'),
+('SNT1T6', 6, 'SNT1', 'GNK4'),
+('SNT1T7', 7, 'SNT1', 'GNK4'),
+('SNT1T8', 8, 'SNT1', 'GNK4'),
 -- Toa giường nằm khoang 6
-('SNT1T9', 9, 'SNT2', 'GNK6'),
-('SNT1T10', 10, 'SNT2', 'GNK6'),
-('SNT1T11', 11, 'SNT2', 'GNK6'),
+('SNT1T9', 9, 'SNT1', 'GNK6'),
+('SNT1T10', 10, 'SNT1', 'GNK6'),
+('SNT1T11', 11, 'SNT1', 'GNK6'),
 
 -- Toa cứng
 ('SNT2T1', 1, 'SNT2', 'NC'),
@@ -11968,7 +11968,7 @@ GO
 INSERT INTO LichTrinh VALUES
 ('temp', 'SE22', 'SG', 'DN', '2024-12-20 10:20', '2024-12-21 05:55', 1)
 GO
----LichTrinh PT-DN 22-12-2024---
+---LichTrinh DN-SG 22-12-2024---
 INSERT INTO LichTrinh VALUES
 ('temp', 'SE21', 'DN', 'SG', '2024-12-22 08:00', '2024-12-23 04:20', 1)
 GO
@@ -11976,7 +11976,7 @@ GO
 INSERT INTO LichTrinh VALUES
 ('temp', 'SQN2', 'SG', 'DT', '2024-12-20 10:20', '2024-12-20 23:21', 1)
 GO
----LichTrinh PT-DN 22-12-2024---
+---LichTrinh PT-SG 22-12-2024---
 INSERT INTO LichTrinh VALUES
 ('temp', 'SQN1', 'DT', 'SG', '2024-12-22 14:15', '2024-12-23 04:20', 1)
 GO
@@ -11984,7 +11984,7 @@ GO
 INSERT INTO LichTrinh VALUES
 ('temp', 'SNT2', 'SG', 'NT1', '2024-12-20 21:05', '2024-12-21 5:25', 1)
 GO
----LichTrinh NT1-DN 13-12-2024---
+---LichTrinh NT1-SG 13-12-2024---
 INSERT INTO LichTrinh VALUES
 ('temp', 'SNT1', 'NT1', 'SG', '2024-12-25 20:00', '2024-12-26 5:00', 1)
 GO
@@ -12000,6 +12000,7 @@ GO
 INSERT INTO LichTrinh VALUES
 ('temp', 'SE6', 'SG', 'HN', '2024-12-13 15:00', '2024-12-15 4:35', 1)
 GO
+
 ---LichTrinh SG-HN 14-12-2024---
 INSERT INTO LichTrinh VALUES
 ('temp', 'SE2', 'SG', 'HN', '2024-12-14 20:35', '2024-12-16 6:00', 1)

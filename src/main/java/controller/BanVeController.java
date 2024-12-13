@@ -238,7 +238,7 @@ public class BanVeController implements Initializable {
             return new SimpleObjectProperty<>(icon);
         });
 
-        ArrayList<LichTrinh> temp = lt_dao.traCuuDSLichTrinhTheoNgay(LocalDate.of(2024, 12, 13));
+        ArrayList<LichTrinh> temp = lt_dao.traCuuDSLichTrinhTheoNgay(LocalDate.now());
         showTauTheoLT(temp);
         tbLT.setItems(FXCollections.observableList(temp));
 
@@ -331,7 +331,6 @@ public class BanVeController implements Initializable {
         });
 
         btnTraCuuCT.setOnMouseClicked(e -> {
-            tbLT.setItems(null);
             txtTenKH.setText(null);
             txtSoCCCD.setText(null);
             txtSDT.setText(null);
@@ -380,6 +379,7 @@ public class BanVeController implements Initializable {
                     alert.show();
                     cbGaDi.requestFocus();
                 } else {
+                    tbLT.setItems(null);
                     showTauTheoLT(list);
                     if (rdBtnKH.isSelected()) {
                         paneChonCD.setVisible(true);
@@ -718,12 +718,14 @@ public class BanVeController implements Initializable {
                 Label lblSoHieuTau = (Label) pTau.lookup("#lblSoHieuTau");
                 Label lblTGKH = (Label) pTau.lookup("#lblTGKH");
                 Label lblTGDen = (Label) pTau.lookup("#lblTGDen");
+                Label lblGa = (Label) pTau.lookup("#lblGa");
                 ImageView imgTau = (ImageView) pTau.lookup("#imgTau");
                 imgTau.setId(lt.getMaLichTrinh());
                 lblSoHieuTau.setText(lt.getChuyenTau().getSoHieutau());
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
                 lblTGKH.setText(lt.getThoiGianKhoiHanh().format(formatter));
                 lblTGDen.setText(lt.getThoiGianDuKienDen().format(formatter));
+                lblGa.setText(lt.getGaDi().getMaGa() + " - " + lt.getGaDen().getMaGa());
                 imgTau.setOnMouseClicked(et -> {
                     ColorAdjust colorAdjust = new ColorAdjust();
                     colorAdjust.setContrast(0);
@@ -873,7 +875,7 @@ public class BanVeController implements Initializable {
                             //đổi màu seatbtn nếu đã có trong tbCTCN
                             int finalCol = col;
                             for (ChiTietLichTrinh ctlt : dsctlt) {
-                                if (ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId())) {
+                                if (ctlt.equals(new ChiTietLichTrinh(new ChoNgoi(seatButton.getId()), new LichTrinh(lt.getMaLichTrinh())))) {
                                     seatButton.setStyle(styleGheDaChon  + (finalCol > 7 ? styleGhe2 : styleGhe1));
                                 }
                             }
@@ -962,7 +964,7 @@ public class BanVeController implements Initializable {
 
                             int finalCol = col;
                             for (ChiTietLichTrinh ctlt : dsctlt) {
-                                if (ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId())) {
+                                if (ctlt.equals(new ChiTietLichTrinh(new ChoNgoi(seatButton.getId()), new LichTrinh(lt.getMaLichTrinh())))) {
                                     seatButton.setStyle(styleGheDaChon + (finalCol > 7 ? styleGhe2 : styleGhe1));
                                 }
                             }
@@ -1040,7 +1042,7 @@ public class BanVeController implements Initializable {
                             gridPane.add(seatButton, col + (col / 2) + 1, row + 1);
 
                             for (ChiTietLichTrinh ctlt : dsctlt) {
-                                if (ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId())) {
+                                if (ctlt.equals(new ChiTietLichTrinh(new ChoNgoi(seatButton.getId()), new LichTrinh(lt.getMaLichTrinh())))) {
                                     seatButton.setStyle(styleGiuongDaChon);
                                 }
                             }
@@ -1121,7 +1123,7 @@ public class BanVeController implements Initializable {
                             gridPane.add(seatButton, col + (col / 2) + 1, row + 1);
 
                             for (ChiTietLichTrinh ctlt : dsctlt) {
-                                if (ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId())) {
+                                if (ctlt.equals(new ChiTietLichTrinh(new ChoNgoi(seatButton.getId()), new LichTrinh(lt.getMaLichTrinh())))) {
                                     seatButton.setStyle(styleGiuongDaChon);
                                 }
                             }
@@ -1196,7 +1198,7 @@ public class BanVeController implements Initializable {
                             gridPane.add(seatButton, col + 1, row + 1);
 
                             for (ChiTietLichTrinh ctlt : dsctlt) {
-                                if (ctlt.getChoNgoi().getMaChoNgoi().equals(seatButton.getId())) {
+                                if (ctlt.equals(new ChiTietLichTrinh(new ChoNgoi(seatButton.getId()), new LichTrinh(lt.getMaLichTrinh())))) {
                                     seatButton.setStyle(styleGiuongDaChon);
                                 }
                             }
